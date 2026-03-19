@@ -2,19 +2,22 @@
 
 ## Overview
 
-This guide covers extracting reusable layout structures from webpage screenshots. The goal is to produce layout blueprints that both humans and LLMs can understand and apply to new projects.
+This guide covers extracting reusable layout structures from UI screenshots. The screenshot can be a full webpage **or any section of one** — for example, just a feature list, a pricing block, a testimonials row, a navigation bar, or any other partial UI region. The goal is to produce layout blueprints that both humans and LLMs can understand and apply to new projects.
 
 ## Analysis Process
 
-### Step 1: Identify Major Sections
+### Step 1: Determine Screenshot Scope and Identify Sections
 
-Scan the screenshot top-to-bottom and identify each distinct section:
+First, determine whether the screenshot shows a full page or a partial UI region:
 
-- **Navigation/Header**: Top bar, logo placement, nav links, CTA buttons
-- **Hero/Banner**: Above-the-fold primary content area
-- **Content Sections**: Feature grids, text blocks, media sections
-- **Sidebar**: If present — left or right auxiliary content
-- **Footer**: Bottom area with links, copyright, secondary nav
+- **Full page**: Scan top-to-bottom and identify each distinct section using common page anatomy:
+  - **Navigation/Header**: Top bar, logo placement, nav links, CTA buttons
+  - **Hero/Banner**: Above-the-fold primary content area
+  - **Content Sections**: Feature grids, text blocks, media sections
+  - **Sidebar**: If present — left or right auxiliary content
+  - **Footer**: Bottom area with links, copyright, secondary nav
+
+- **Partial / section screenshot**: Treat the entire image as a single named section. Identify what type of component or section it represents (e.g., `features-list`, `pricing-table`, `testimonials`, `cta-banner`) and analyze its internal layout directly.
 
 Label each section with a semantic name (e.g., `hero`, `features-grid`, `testimonials`, `pricing-table`, `cta-banner`, `footer`).
 
@@ -32,6 +35,7 @@ For each section, determine:
 
 Convert the visual structure into ASCII art. Use these conventions:
 
+**Full-page example:**
 ```
 ┌─────────────────────────────────────────────────┐
 │                   HEADER                        │
@@ -62,6 +66,18 @@ Convert the visual structure into ASCII art. Use these conventions:
 │  [Col1]    [Col2]    [Col3]    [Col4]           │
 │  [Links]   [Links]   [Links]   [Social]        │
 │                [Copyright]                      │
+└─────────────────────────────────────────────────┘
+```
+
+**Partial / section-only example (e.g., a feature list screenshot):**
+```
+┌─────────────────────────────────────────────────┐
+│           FEATURES-LIST (3-column grid)         │
+│  ┌─────────┐  ┌─────────┐  ┌─────────┐         │
+│  │ [Icon]  │  │ [Icon]  │  │ [Icon]  │         │
+│  │ [Title] │  │ [Title] │  │ [Title] │         │
+│  │ [Desc]  │  │ [Desc]  │  │ [Desc]  │         │
+│  └─────────┘  └─────────┘  └─────────┘         │
 └─────────────────────────────────────────────────┘
 ```
 

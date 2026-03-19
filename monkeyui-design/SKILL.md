@@ -24,7 +24,7 @@ A local, single-project design companion for vibe coding developers. Extracts "s
 
 - User provides a **screenshot or design mockup** and wants to extract its design system
 - User has a **vague aesthetic feeling** and wants to explore design directions with inspiration images
-- User provides a **webpage screenshot** and wants to extract its layout structure for reuse
+- User provides a **screenshot of any UI** (full page or any section/component) and wants to extract its layout structure for reuse
 
 ## Three core capabilities
 
@@ -64,12 +64,12 @@ User has feelings/vibes but no concrete design target → Interactive conversati
 
 ### 3. UI Layout Analysis (布局提炼)
 
-User provides a webpage screenshot → Extract and formalize its layout structure.
+User provides a screenshot of any UI — a full webpage or any section of one (e.g., a feature list, a pricing block, a hero area) → Extract and formalize its layout structure.
 
-**Trigger**: User says things like "I like this layout", "analyze this page structure", "extract the layout from this screenshot", or "how is this page structured".
+**Trigger**: User says things like "I like this layout", "analyze this page structure", "extract the layout from this screenshot", "how is this section structured", or provides an image of any UI component or page region.
 
 **Workflow** — see [references/LAYOUT-ANALYSIS.md](references/LAYOUT-ANALYSIS.md):
-1. Ask the user to provide a webpage screenshot
+1. Ask the user to provide a screenshot — it can be the full page or any specific section/component
 2. Analyze the visual hierarchy and spatial structure
 3. Output a multi-layer layout blueprint:
    - **ASCII art** representation for LLM-friendly layout description
