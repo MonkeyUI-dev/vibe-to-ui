@@ -28,7 +28,7 @@ A local, single-project design companion for vibe coding developers. Extracts "s
 
 ## Three core capabilities
 
-### 1. Design System Extraction (目标明确)
+### 1. Design System Extraction
 
 User provides a UI screenshot or design mockup → Extract complete design system tokens.
 
@@ -41,7 +41,7 @@ User provides a UI screenshot or design mockup → Extract complete design syste
 4. Generate framework-specific tokens (CSS variables, Tailwind config, or both) based on the user's tech stack
 5. Ask user to confirm or adjust any extracted values
 
-### 2. Design Exploration (目标不明确)
+### 2. Design Exploration
 
 User has feelings/vibes but no concrete design target → Interactive conversation to discover and define aesthetics.
 
@@ -62,7 +62,7 @@ User has feelings/vibes but no concrete design target → Interactive conversati
 6. Let the user react, compare, and choose (or mix elements from different concepts)
 7. Once the user decides, apply **Capability 1** (Design System Extraction) to formalize the chosen direction into a complete design system
 
-### 3. UI Layout Analysis (布局提炼)
+### 3. UI Layout Analysis
 
 User provides a screenshot of any UI — a full webpage or any section of one (e.g., an asymmetric feature showcase, a pricing block, a hero area) → Extract and formalize its layout structure. This is especially useful for sections with unique spatial structures that are hard to describe verbally.
 
