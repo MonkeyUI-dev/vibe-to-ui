@@ -6,7 +6,7 @@
 
 ## What is this?
 
-**vibe-to-ui** is a collection of [Agent Skills](https://agentskills.io) built for MonkeyUI's local, single-project mode. These skills give AI coding agents (Claude Code, GitHub Copilot, Cursor, etc.) specialized design knowledge so they can help developers who code by feel — but don't speak fluent design.
+**vibe-to-ui** is a collection of [Agent Skills](https://agentskills.io) built for MonkeyUI's local, single-project mode. These skills give AI coding agents (Claude Code, GitHub Copilot, Cursor, etc.) specialized design knowledge so they can help developers who code by feel — but don't speak fluent design. Beyond static visual tokens, vibe-to-ui also extracts and generates **motion systems** — defining how, when, and why UI elements should animate to communicate meaning and product personality.
 
 > **Need multi-project sync, team collaboration, or cloud access?** → [MonkeyUI SaaS](https://demo.monkeyui.com/)
 
@@ -14,7 +14,7 @@
 
 ## Skills
 
-A design companion for vibe coding developers. Turns screenshots, mood images, and gut feelings into structured design systems and layout blueprints — ready to apply to your codebase.
+A design companion for vibe coding developers. Turns screenshots, mood images, and gut feelings into structured design systems, motion languages, and layout blueprints — ready to apply to your codebase.
 
 **Three core capabilities:**
 
@@ -28,6 +28,7 @@ Provide a screenshot of a UI or design mockup. The skill extracts its complete "
 - **Spacing** — base unit and consistent multiplier scale
 - **Border radius** — per-component radius strategy
 - **Shadows** — elevation system
+- **Motion** — tempo, easing, density, triggers, reduced-motion fallback
 
 Outputs tokens in three formats: **CSS custom properties**, **Tailwind CSS config**, and a **JSON token file** — ready to drop into your project.
 
@@ -39,9 +40,9 @@ Not sure what style you want? Just have some rough inspiration — a landscape p
 1. Shares what your project does and who it's for
 2. Drop any inspiration images (landscapes, objects, other apps — anything) **or music recordings** (audio clips, hummed melodies, song snippets)
 3. The skill translates both visual and sonic signals into design qualities — tempo, timbre, and rhythm become energy, warmth, and texture in your UI
-4. Synthesizes 2–3 distinct design concepts and generates **live HTML previews** for each
+4. Synthesizes 2–3 distinct design concepts — each with its own visual style **and motion personality** — and generates **live HTML previews** with hover transitions and entrance animations
 5. You react, mix, and choose
-6. The chosen direction is formalized into a full design system (via Capability 1)
+6. The chosen direction is formalized into a full design system with motion tokens (via Capability 1)
 
 #### 3. UI Layout Analysis
 *For users who can't describe layout in words.*
@@ -102,6 +103,9 @@ Or add this repo as a skills source and install from the marketplace.
 # Explore aesthetics from a song description
 "I want my UI to feel like a slow acoustic guitar piece — warm, unhurried, and natural"
 
+# Define motion from a vibe
+"I want my product to feel innovative and fast — help me define how things should animate"
+
 # Extract from a layout
 "I love how this page is structured, extract the layout so I can reuse it"
 
@@ -119,7 +123,8 @@ Or add this repo as a skills source and install from the marketplace.
 ├── references/
 │   ├── DESIGN-SYSTEM.md              # Design system extraction methodology
 │   ├── DESIGN-EXPLORATION.md         # Interactive exploration conversation guide
-│   └── LAYOUT-ANALYSIS.md           # Layout analysis and ASCII blueprint guide
+│   ├── LAYOUT-ANALYSIS.md            # Layout analysis and ASCII blueprint guide
+│   └── MOTION-SYSTEM.md              # Motion system extraction and generation guide
 └── assets/
     └── design-system-template.md     # Standard output template for design tokens
 ```
