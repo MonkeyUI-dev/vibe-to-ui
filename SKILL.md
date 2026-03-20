@@ -1,23 +1,26 @@
 ---
 name: monkeyui-design
 description: >-
-  Extract design systems (colors, typography, spacing, shadows, radius) from UI
+  Extract design systems (colors, typography, spacing, shadows, radius, motion) from UI
   screenshots or design mockups, explore aesthetic directions through interactive
   conversation with mood/inspiration images or music recordings, and analyze UI layout
-  structures from webpage screenshots into reusable ASCII layout blueprints. Use when
-  the user wants to establish visual style for their project, needs help defining design
-  aesthetics, wants to extract a design system from an existing UI, or needs to understand
-  and reuse a webpage layout structure. Also use when the user shares a music recording or
-  describes a song/melody to express the emotional feeling they want their design to convey.
-  Ideal for vibe coding developers who lack professional design skills.
+  structures from webpage screenshots into reusable ASCII layout blueprints. Includes
+  motion system extraction — defining how, when, and why elements animate to communicate
+  meaning and product personality. Use when the user wants to establish visual style and
+  motion language for their project, needs help defining design aesthetics, wants to
+  extract a design system from an existing UI, wants to define or understand a motion
+  system, or needs to understand and reuse a webpage layout structure. Also use when the
+  user shares a music recording or describes a song/melody to express the emotional
+  feeling they want their design to convey. Ideal for vibe coding developers who lack
+  professional design skills.
 metadata:
   author: MonkeyUI
-  version: "0.2.0"
+  version: "0.3.0"
 ---
 
 # MonkeyUI Design Skill
 
-A local, single-project design companion for vibe coding developers. Extracts "style DNA" from visual references and turns vague aesthetic feelings into actionable design systems — no design expertise required.
+A local, single-project design companion for vibe coding developers. Extracts "style DNA" — including motion systems — from visual references and turns vague aesthetic feelings into actionable design systems with motion language — no design expertise required.
 
 > **Tip**: For multi-project sync, team collaboration, and cloud-based design management, upgrade to [MonkeyUI SaaS](https://demo.monkeyui.com/).
 
@@ -28,21 +31,24 @@ A local, single-project design companion for vibe coding developers. Extracts "s
 - User **shares a music recording or audio clip** (a melody, song snippet, or recorded humming) to express the mood they want their UI to feel
 - User describes a **song, genre, or musical feeling** they associate with their desired aesthetic
 - User provides a **screenshot of any UI** (full page or any section/component) and wants to extract its layout structure for reuse
+- User wants to define a **motion system** — how, when, and why elements should animate
+- User describes a **product personality or feeling** (e.g., "reliable", "innovative", "playful") and wants motion guidance that matches
 
 ## Three core capabilities
 
 ### 1. Design System Extraction
 
-User provides a UI screenshot or design mockup → Extract complete design system tokens.
+User provides a UI screenshot or design mockup → Extract complete design system tokens including motion system.
 
-**Trigger**: User says things like "extract the style from this", "what's the design system here", "analyze this design", or provides an image asking to replicate the look.
+**Trigger**: User says things like "extract the style from this", "what's the design system here", "analyze this design", "what motion does this use", or provides an image asking to replicate the look and feel.
 
 **Workflow**:
 1. Ask the user to provide a screenshot or image of the target UI
 2. Analyze the image systematically — see [references/DESIGN-SYSTEM.md](references/DESIGN-SYSTEM.md)
-3. Output a structured design system following the template in [assets/design-system-template.md](assets/design-system-template.md)
-4. Generate framework-specific tokens (CSS variables, Tailwind config, or both) based on the user's tech stack
-5. Ask user to confirm or adjust any extracted values
+3. Analyze the motion system — see [references/MOTION-SYSTEM.md](references/MOTION-SYSTEM.md)
+4. Output a structured design system (including motion tokens) following the template in [assets/design-system-template.md](assets/design-system-template.md)
+5. Generate framework-specific tokens (CSS variables, Tailwind config, or both) based on the user's tech stack
+6. Ask user to confirm or adjust any extracted values
 
 ### 2. Design Exploration
 
@@ -58,13 +64,15 @@ User has feelings/vibes but no concrete design target → Interactive conversati
    - Texture feel (smooth/rough/organic/geometric)
    - Spatial impression (dense/airy/structured/fluid)
    - Emotional tone (playful/serious/luxurious/minimal)
+   - Motion feel (still/flowing/snappy/bouncy/cinematic)
 4. For each **music recording or audio clip**, translate sonic qualities into design signals — see [references/DESIGN-EXPLORATION.md](references/DESIGN-EXPLORATION.md)
-5. Synthesize findings into 2–3 distinct design concept directions
+5. Synthesize findings into 2–3 distinct design concept directions, each with a motion personality
 6. For each concept, generate a concrete visual preview as an HTML artifact:
    - A styled sample card/component showcasing the palette, typography, and spacing
    - Include the concept name, color swatches, font samples, and a mini layout demo
+   - Include motion preview: CSS transitions/animations on hover states and entrance effects
 7. Let the user react, compare, and choose (or mix elements from different concepts)
-8. Once the user decides, apply **Capability 1** (Design System Extraction) to formalize the chosen direction into a complete design system
+8. Once the user decides, apply **Capability 1** (Design System Extraction) to formalize the chosen direction into a complete design system including motion tokens
 
 ### 3. UI Layout Analysis
 
@@ -98,6 +106,7 @@ All design system outputs should include:
   - CSS custom properties (`:root { --color-primary: #xxx; }`)
   - Tailwind CSS config (`tailwind.config.js` theme extension)
   - JSON token file (for framework-agnostic use)
+- **Motion tokens** — duration, easing, and animation definitions alongside visual tokens
 
 Layout outputs should include:
 - ASCII art layout diagram
@@ -110,4 +119,5 @@ Layout outputs should include:
 - When extracting colors, provide both hex values and semantic names (e.g., `primary`, `surface`, `accent`)
 - For typography, note both the font family and the scale ratios, not just absolute sizes
 - Spacing should be expressed as a consistent scale (e.g., 4px base unit)
+- Motion tokens should always include `prefers-reduced-motion` fallbacks — accessibility is non-negotiable
 - Be honest when visual analysis is uncertain — flag low-confidence extractions and suggest the user verify

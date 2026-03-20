@@ -80,12 +80,31 @@ Identify shadow usage:
 - **Large**: `0 10px 15px rgba(0,0,0,0.1)` — modal/dropdown elevation
 - Note if shadows are warm-tinted, cool-tinted, or neutral
 
-### Step 6: Additional Patterns
+### Step 6: Motion System
+
+Analyze the motion and animation patterns. Even from a static screenshot, many motion cues are inferable from the visual design language (hover states, transition indicators, scroll-linked elements). If analyzing a live site, observe directly.
+
+**Motion roles present**:
+
+| Element | Motion role | Trigger | Notes |
+|---------|------------|---------|-------|
+| [e.g., Hero heading] | [Emphasis/Guidance/Feedback/Explanation/Atmosphere] | [page-load/scroll/hover/click] | [Duration, easing if observable] |
+
+**Overall motion character**:
+- **Tempo**: Slow / Medium / Fast (estimate base duration)
+- **Easing**: Calm / Sharp / Elastic / Linear (observe acceleration feel)
+- **Density**: Minimal / Moderate / Rich (how many elements animate)
+- **Distance**: Small / Medium / Large (how far elements move)
+
+**Reduced-motion consideration**: Note whether the reference respects `prefers-reduced-motion` (if testable).
+
+For detailed motion extraction methodology, see [../references/MOTION-SYSTEM.md](../references/MOTION-SYSTEM.md).
+
+### Step 7: Additional Patterns
 
 If visible, also note:
 - **Icons**: Style (outlined/filled/duotone), size, stroke width
 - **Illustration style**: Flat, isometric, hand-drawn, photo-based
-- **Animation/Motion**: Any visible transitions or hover states
 - **Grid**: Number of columns, gutter width
 - **Breakpoints**: If multiple sizes are shown
 

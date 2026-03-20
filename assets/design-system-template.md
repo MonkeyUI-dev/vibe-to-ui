@@ -92,6 +92,45 @@
 - **Density**: [Dense / Balanced / Airy]
 - **Shape language**: [Sharp / Subtle / Rounded]
 - **Shadow strategy**: [Flat / Subtle depth / Pronounced elevation]
+- **Motion personality**: [Still / Subtle / Polished / Cinematic]
+
+## Motion System
+
+### Motion Character
+
+- **Tempo**: [Slow / Medium / Fast] — base duration: [e.g., 300ms]
+- **Easing**: [Calm / Sharp / Elastic] — base curve: [e.g., `cubic-bezier(0.4, 0, 0.2, 1)`]
+- **Density**: [Minimal / Moderate / Rich]
+- **Distance**: [Small / Medium / Large] — base translate: [e.g., 12px]
+- **Personality**: [e.g., "Reliable & Composed" / "Innovative & Performant" / "Guiding & Supportive"]
+- **Page metaphor**: [e.g., "Product manual" / "Product launch" / "Dashboard"]
+
+### Motion Tokens
+
+| Token | Duration | Easing | Usage |
+|-------|----------|--------|-------|
+| instant | _ms | — | Immediate state changes (color, opacity micro-shifts) |
+| fast | _ms | [easing] | Micro-interactions — button feedback, toggle, focus |
+| normal | _ms | [easing] | Standard transitions — hover states, reveals, cards |
+| slow | _ms | [easing] | Macro transitions — section entrances, modals, page transitions |
+| slower | _ms | [easing] | Cinematic / emphasis — hero entrance, scroll reveals |
+
+### Motion Patterns
+
+| Pattern | Trigger | Animation | Role |
+|---------|---------|-----------|------|
+| Entrance fade-up | in-view | opacity 0→1, translateY _px→0 | Guidance |
+| Hover lift | hover | translateY -_px, shadow increase | Feedback |
+| Click press | click | scale 0.95→1 | Feedback |
+| Stagger children | in-view | delay: index × _ms | Guidance |
+| [Custom pattern] | [trigger] | [description] | [role] |
+
+### Reduced Motion Fallback
+
+- **Strategy**: [Fade only / Static / Simplified / Pausable]
+- All transform-based animations → simple opacity fade or instant display
+- Auto-playing media → pausable with visible controls
+- Parallax and scroll-linked effects → disabled
 
 ---
 
@@ -133,6 +172,33 @@
   --shadow-sm: 0 1px 2px rgba(...);
   --shadow-md: 0 4px 6px rgba(...);
   --shadow-lg: 0 10px 15px rgba(...);
+
+  /* Motion */
+  --duration-instant: _ms;
+  --duration-fast: _ms;
+  --duration-normal: _ms;
+  --duration-slow: _ms;
+  --duration-slower: _ms;
+  --ease-default: cubic-bezier(_, _, _, _);
+  --ease-in: cubic-bezier(_, _, _, _);
+  --ease-out: cubic-bezier(_, _, _, _);
+  --ease-elastic: cubic-bezier(_, _, _, _);
+  --motion-distance-sm: _px;
+  --motion-distance-md: _px;
+  --motion-distance-lg: _px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-instant: 0ms;
+    --duration-fast: 0ms;
+    --duration-normal: 0ms;
+    --duration-slow: 0ms;
+    --duration-slower: 0ms;
+    --motion-distance-sm: 0;
+    --motion-distance-md: 0;
+    --motion-distance-lg: 0;
+  }
 }
 ```
 
@@ -163,6 +229,28 @@ export default {
         sm: '0 1px 2px rgba(...)',
         md: '0 4px 6px rgba(...)',
         lg: '0 10px 15px rgba(...)',
+      },
+      transitionDuration: {
+        instant: '_ms',
+        fast: '_ms',
+        normal: '_ms',
+        slow: '_ms',
+        slower: '_ms',
+      },
+      transitionTimingFunction: {
+        default: 'cubic-bezier(_, _, _, _)',
+        in: 'cubic-bezier(_, _, _, _)',
+        out: 'cubic-bezier(_, _, _, _)',
+        elastic: 'cubic-bezier(_, _, _, _)',
+      },
+      keyframes: {
+        'fade-in-up': {
+          '0%': { opacity: '0', transform: 'translateY(_px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+      },
+      animation: {
+        'fade-in-up': 'fade-in-up var(--duration-normal) var(--ease-default) both',
       },
     },
   },
@@ -206,6 +294,31 @@ export default {
     "md": { "value": "_px" },
     "lg": { "value": "_px" },
     "full": { "value": "9999px" }
+  },
+  "motion": {
+    "duration": {
+      "instant": { "value": "_ms" },
+      "fast": { "value": "_ms" },
+      "normal": { "value": "_ms" },
+      "slow": { "value": "_ms" },
+      "slower": { "value": "_ms" }
+    },
+    "easing": {
+      "default": { "value": "cubic-bezier(_, _, _, _)" },
+      "in": { "value": "cubic-bezier(_, _, _, _)" },
+      "out": { "value": "cubic-bezier(_, _, _, _)" },
+      "elastic": { "value": "cubic-bezier(_, _, _, _)" }
+    },
+    "distance": {
+      "sm": { "value": "_px" },
+      "md": { "value": "_px" },
+      "lg": { "value": "_px" }
+    },
+    "meta": {
+      "tempo": { "value": "[slow/medium/fast]" },
+      "density": { "value": "[minimal/moderate/rich]" },
+      "reducedMotion": { "value": "[fade-only/static/simplified/pausable]" }
+    }
   }
 }
 ```

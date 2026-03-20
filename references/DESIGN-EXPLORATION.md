@@ -42,6 +42,7 @@ For each image or description the user shares, extract aesthetic signals:
 | **Formality** | Casual ← → Formal | Playful, handwritten vs. structured, serif |
 | **Saturation** | Muted ← → Vibrant | Desaturated earth tones vs. neon pops |
 | **Weight** | Light ← → Heavy | Thin fonts, pale colors vs. bold, dark |
+| **Motion feel** | Still ← → Cinematic | No animation, static layouts vs. scroll-linked reveals, parallax, entrance effects |
 
 Feed these signals back to the user: "From this mountain landscape, I'm picking up: cool temperature, airy density, organic shapes, textured surfaces. Does that resonate?"
 
@@ -97,7 +98,10 @@ Typography: [Heading font + Body font pairing]
 Spacing feel: [Tight/Balanced/Generous]
 Radius: [Sharp/Subtle/Rounded/Pill]
 Shadow: [None/Subtle/Pronounced]
-Signature detail: [One distinctive element — e.g., grain texture, gradient accents, outlined icons]
+Motion personality: [Still/Subtle/Polished/Cinematic]
+Motion tempo: [Slow/Medium/Fast]
+Motion easing: [Calm/Sharp/Elastic]
+Signature detail: [One distinctive element — e.g., grain texture, gradient accents, outlined icons, scroll-triggered reveals]
 ```
 
 ### Phase 4: Visual Preview Generation
@@ -110,8 +114,9 @@ For each concept, generate a **concrete HTML artifact** that the user can see an
   <!-- 1. Color palette swatches -->
   <!-- 2. Typography samples (heading, subheading, body, label) -->
   <!-- 3. A sample card component with the concept's tokens applied -->
-  <!-- 4. A sample button set (primary, secondary, ghost) -->
+  <!-- 4. A sample button set (primary, secondary, ghost) with hover transitions -->
   <!-- 5. A mini layout snippet showing spacing and rhythm -->
+  <!-- 6. Motion preview: CSS transitions on hover states, entrance fade-in animations -->
 </div>
 ```
 
@@ -121,6 +126,9 @@ For each concept, generate a **concrete HTML artifact** that the user can see an
 - Make it visually polished — this IS the design pitch
 - Each preview should feel distinctly different from the others
 - Label each preview with its concept name and mood keywords
+- Include CSS `transition` properties on interactive elements (buttons, cards) to demonstrate the concept's motion personality
+- Include a simple entrance animation (e.g., `@keyframes fadeInUp`) to show the concept's tempo and easing
+- Include `@media (prefers-reduced-motion: reduce)` that disables or simplifies animations
 
 ### Phase 5: User Decision
 
