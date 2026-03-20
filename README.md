@@ -71,10 +71,10 @@ Or mix and match — extract style from one site, apply it to a layout from anot
 ### Claude Code
 
 ```bash
-/skills install vibe-to-ui@monkeyui-design
+/skills install vibe-to-ui
 ```
 
-Or add this repo as a skills source and install `monkeyui-design` from the marketplace.
+Or add this repo as a skills source and install from the marketplace.
 
 ### Manual (any Agent Skills-compatible agent)
 
@@ -82,7 +82,7 @@ Or add this repo as a skills source and install `monkeyui-design` from the marke
    ```bash
    git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git
    ```
-2. Point your agent to the `monkeyui-design/` folder as a skill directory.
+2. Point your agent to the repository root as a skill directory.
 3. The skill activates automatically when you ask about design systems, UI style, layout analysis, or design exploration.
 
 ---
@@ -114,7 +114,7 @@ Or add this repo as a skills source and install `monkeyui-design` from the marke
 ## Skill Structure
 
 ```
-monkeyui-design/
+.
 ├── SKILL.md                          # Core instructions (loaded on activation)
 ├── references/
 │   ├── DESIGN-SYSTEM.md              # Design system extraction methodology
