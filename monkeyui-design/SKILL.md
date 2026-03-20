@@ -64,9 +64,9 @@ User has feelings/vibes but no concrete design target → Interactive conversati
 
 ### 3. UI Layout Analysis (布局提炼)
 
-User provides a screenshot of any UI — a full webpage or any section of one (e.g., a feature list, a pricing block, a hero area) → Extract and formalize its layout structure.
+User provides a screenshot of any UI — a full webpage or any section of one (e.g., an asymmetric feature showcase, a pricing block, a hero area) → Extract and formalize its layout structure. This is especially useful for sections with unique spatial structures that are hard to describe verbally.
 
-**Trigger**: User says things like "I like this layout", "analyze this page structure", "extract the layout from this screenshot", "how is this section structured", or provides an image of any UI component or page region.
+**Trigger**: User says things like "I like this layout", "analyze this page structure", "extract the layout from this screenshot", "how is this section structured", or provides an image of any UI component or page region — especially one with a complex or non-obvious layout.
 
 **Workflow** — see [references/LAYOUT-ANALYSIS.md](references/LAYOUT-ANALYSIS.md):
 1. Ask the user to provide a screenshot — it can be the full page or any specific section/component

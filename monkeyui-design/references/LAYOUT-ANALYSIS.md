@@ -69,17 +69,35 @@ Convert the visual structure into ASCII art. Use these conventions:
 └─────────────────────────────────────────────────┘
 ```
 
-**Partial / section-only example (e.g., a feature list screenshot):**
+**Partial / section-only example (e.g., a unique asymmetric feature showcase hard to describe verbally):**
 ```
-┌─────────────────────────────────────────────────┐
-│           FEATURES-LIST (3-column grid)         │
-│  ┌─────────┐  ┌─────────┐  ┌─────────┐         │
-│  │ [Icon]  │  │ [Icon]  │  │ [Icon]  │         │
-│  │ [Title] │  │ [Title] │  │ [Title] │         │
-│  │ [Desc]  │  │ [Desc]  │  │ [Desc]  │         │
-│  └─────────┘  └─────────┘  └─────────┘         │
-└─────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────┐
+│  FEATURE-SHOWCASE                                            │
+│  [Section Heading — left-aligned, large]                     │
+│                                                              │
+│  ┌────────────────────────────────────────────────────────┐  │
+│  │  FEATURE-CARD-WIDE (full-width, ~40/60 text/preview)   │  │
+│  │  ┌───────────────────┐  ┌──────────────────────────┐   │  │
+│  │  │ [Category Label]  │  │  ┌────────────┐           │   │  │
+│  │  │ [Bold Headline]   │  │  │ [UI Panel] │  ┌──────┐ │   │  │
+│  │  │ [CTA Arrow Btn]   │  │  └────────────┘  │[UI   │ │   │  │
+│  │  │                   │  │   (layered /     │Panel]│ │   │  │
+│  │  │                   │  │    overlapping)  └──────┘ │   │  │
+│  │  └───────────────────┘  └──────────────────────────┘   │  │
+│  └────────────────────────────────────────────────────────┘  │
+│                                                              │
+│  ┌─────────────────────────┐  ┌─────────────────────────┐   │
+│  │  FEATURE-CARD (50%)     │  │  FEATURE-CARD (50%)     │   │
+│  │  [Category Label]       │  │  [Category Label]       │   │
+│  │  [Bold Headline]        │  │  [Bold Headline]        │   │
+│  │  [CTA Arrow Btn]        │  │  [CTA Arrow Btn]        │   │
+│  │  ┌─────────────────┐    │  │  ┌─────────────────┐    │   │
+│  │  │  [UI Mockup]    │    │  │  │  [UI Mockup]    │    │   │
+│  │  └─────────────────┘    │  │  └─────────────────┘    │   │
+│  └─────────────────────────┘  └─────────────────────────┘   │
+└──────────────────────────────────────────────────────────────┘
 ```
+> **When is partial screenshot analysis most valuable?** When the section has a *unique or asymmetric* spatial structure that is hard to describe verbally — for example: a hero card that is full-width with layered overlapping UI panels on one side, followed by a different 2-column card row below it. Simple uniform grids (3 equal icon+title+desc cards) are easy to describe; complex, non-obvious spatial compositions are where visual analysis provides the most value.
 
 **ASCII conventions**:
 - `┌─┐│└─┘` for section/component boundaries
