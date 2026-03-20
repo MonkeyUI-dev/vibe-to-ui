@@ -1,5 +1,7 @@
 # vibe-to-ui
 
+[中文](README.zh_CN.md)
+
 > Agent Skills for [MonkeyUI](https://github.com/MonkeyUI-dev/MonkeyUI) — helping vibe coding developers build professional-grade UIs without designer expertise.
 
 ## What is this?
@@ -11,8 +13,6 @@
 ---
 
 ## Skills
-
-### `monkeyui-design`
 
 A design companion for vibe coding developers. Turns screenshots, mood images, and gut feelings into structured design systems and layout blueprints — ready to apply to your codebase.
 
