@@ -3,15 +3,16 @@ name: monkeyui-design
 description: >-
   Extract design systems (colors, typography, spacing, shadows, radius) from UI
   screenshots or design mockups, explore aesthetic directions through interactive
-  conversation with mood/inspiration images, and analyze UI layout structures from
-  webpage screenshots into reusable ASCII layout blueprints. Use when the user wants
-  to establish visual style for their project, needs help defining design aesthetics,
-  wants to extract a design system from an existing UI, or needs to understand and
-  reuse a webpage layout structure. Ideal for vibe coding developers who lack
-  professional design skills.
+  conversation with mood/inspiration images or music recordings, and analyze UI layout
+  structures from webpage screenshots into reusable ASCII layout blueprints. Use when
+  the user wants to establish visual style for their project, needs help defining design
+  aesthetics, wants to extract a design system from an existing UI, or needs to understand
+  and reuse a webpage layout structure. Also use when the user shares a music recording or
+  describes a song/melody to express the emotional feeling they want their design to convey.
+  Ideal for vibe coding developers who lack professional design skills.
 metadata:
   author: MonkeyUI
-  version: "0.1.0"
+  version: "0.2.0"
 ---
 
 # MonkeyUI Design Skill
@@ -23,7 +24,9 @@ A local, single-project design companion for vibe coding developers. Extracts "s
 ## When to use this skill
 
 - User provides a **screenshot or design mockup** and wants to extract its design system
-- User has a **vague aesthetic feeling** and wants to explore design directions with inspiration images
+- User has a **vague aesthetic feeling** and wants to explore design directions with inspiration images or music recordings
+- User **shares a music recording or audio clip** (a melody, song snippet, or recorded humming) to express the mood they want their UI to feel
+- User describes a **song, genre, or musical feeling** they associate with their desired aesthetic
 - User provides a **screenshot of any UI** (full page or any section/component) and wants to extract its layout structure for reuse
 
 ## Three core capabilities
@@ -45,22 +48,23 @@ User provides a UI screenshot or design mockup → Extract complete design syste
 
 User has feelings/vibes but no concrete design target → Interactive conversation to discover and define aesthetics.
 
-**Trigger**: User says things like "I want something that feels like...", "I have some inspiration images", "I'm not sure what style I want", or shares mood/landscape/object photos.
+**Trigger**: User says things like "I want something that feels like...", "I have some inspiration images", "I'm not sure what style I want", shares mood/landscape/object photos, or shares a music recording/audio clip/song that captures the feeling they want.
 
 **Workflow** — see [references/DESIGN-EXPLORATION.md](references/DESIGN-EXPLORATION.md):
 1. Ask the user about their project context (what it does, who it's for)
-2. Invite them to share inspiration images (landscapes, objects, other websites, anything)
-3. For each image or description, identify aesthetic qualities:
+2. Invite them to share inspiration — images (landscapes, objects, other websites, anything) **or music recordings/audio clips**
+3. For each image, description, or music recording, identify aesthetic qualities:
    - Color mood (warm/cool/muted/vibrant)
    - Texture feel (smooth/rough/organic/geometric)
    - Spatial impression (dense/airy/structured/fluid)
    - Emotional tone (playful/serious/luxurious/minimal)
-4. Synthesize findings into 2–3 distinct design concept directions
-5. For each concept, generate a concrete visual preview as an HTML artifact:
+4. For each **music recording or audio clip**, translate sonic qualities into design signals — see [references/DESIGN-EXPLORATION.md](references/DESIGN-EXPLORATION.md)
+5. Synthesize findings into 2–3 distinct design concept directions
+6. For each concept, generate a concrete visual preview as an HTML artifact:
    - A styled sample card/component showcasing the palette, typography, and spacing
    - Include the concept name, color swatches, font samples, and a mini layout demo
-6. Let the user react, compare, and choose (or mix elements from different concepts)
-7. Once the user decides, apply **Capability 1** (Design System Extraction) to formalize the chosen direction into a complete design system
+7. Let the user react, compare, and choose (or mix elements from different concepts)
+8. Once the user decides, apply **Capability 1** (Design System Extraction) to formalize the chosen direction into a complete design system
 
 ### 3. UI Layout Analysis
 

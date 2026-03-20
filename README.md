@@ -34,13 +34,14 @@ Outputs tokens in three formats: **CSS custom properties**, **Tailwind CSS confi
 #### 2. Design Exploration
 *For users who only have a feeling.*
 
-Not sure what style you want? Just have some rough inspiration — a landscape photo, a color you like, a vague mood? The skill guides you through an interactive conversation:
+Not sure what style you want? Just have some rough inspiration — a landscape photo, a color you like, a vague mood, or a piece of music that captures the feeling? The skill guides you through an interactive conversation:
 
 1. Shares what your project does and who it's for
-2. Drop any inspiration images (landscapes, objects, other apps — anything)
-3. The skill synthesizes 2–3 distinct design concepts and generates **live HTML previews** for each
-4. You react, mix, and choose
-5. The chosen direction is formalized into a full design system (via Capability 1)
+2. Drop any inspiration images (landscapes, objects, other apps — anything) **or music recordings** (audio clips, hummed melodies, song snippets)
+3. The skill translates both visual and sonic signals into design qualities — tempo, timbre, and rhythm become energy, warmth, and texture in your UI
+4. Synthesizes 2–3 distinct design concepts and generates **live HTML previews** for each
+5. You react, mix, and choose
+6. The chosen direction is formalized into a full design system (via Capability 1)
 
 #### 3. UI Layout Analysis
 *For users who can't describe layout in words.*
@@ -92,14 +93,20 @@ Or add this repo as a skills source and install `monkeyui-design` from the marke
 # Extract a design system
 "Analyze the design of this screenshot and give me the design tokens"
 
-# Explore aesthetics
+# Explore aesthetics with images
 "I want something that feels calm and modern, a bit like Scandinavian design — help me find a direction"
+
+# Explore aesthetics with music
+"I recorded a melody that captures the feeling I want — can you listen to it and translate that into a design direction?"
+
+# Explore aesthetics from a song description
+"I want my UI to feel like a slow acoustic guitar piece — warm, unhurried, and natural"
 
 # Extract from a layout
 "I love how this page is structured, extract the layout so I can reuse it"
 
 # Full pipeline
-"I have some inspiration images — let's explore a style, then apply it to this layout I found"
+"I have some inspiration images and a music clip — let's explore a style, then apply it to this layout I found"
 ```
 
 ---
