@@ -14,8 +14,6 @@
 
 ## Skills
 
-### `monkeyui-design`
-
 A design companion for vibe coding developers. Turns screenshots, mood images, and gut feelings into structured design systems and layout blueprints — ready to apply to your codebase.
 
 **Three core capabilities:**
