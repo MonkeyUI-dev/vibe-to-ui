@@ -23,11 +23,12 @@ Keep this conversational, not interrogative. 2–3 questions at a time.
 
 ### Phase 2: Inspiration Collection
 
-Invite the user to share visual references. These can be anything:
+Invite the user to share visual references **or music recordings**. These can be anything:
 
 - **Direct references**: Screenshots of websites/apps they like
 - **Indirect references**: Photos of landscapes, architecture, fashion, nature, objects
 - **Abstract references**: Color swatches, mood words, music genres, feelings
+- **Music recordings**: Audio clips, hummed melodies, song snippets, or recorded music that captures the feeling they want
 
 For each image or description the user shares, extract aesthetic signals:
 
@@ -43,6 +44,40 @@ For each image or description the user shares, extract aesthetic signals:
 | **Weight** | Light ← → Heavy | Thin fonts, pale colors vs. bold, dark |
 
 Feed these signals back to the user: "From this mountain landscape, I'm picking up: cool temperature, airy density, organic shapes, textured surfaces. Does that resonate?"
+
+### Reading Music as Design Signals
+
+When the user shares a **music recording or audio clip** (or describes a song/melody), analyze its sonic qualities and map them to the same aesthetic dimensions used for visual references:
+
+| Musical Quality | What to Listen/Look For | Design Signal |
+|----------------|------------------------|---------------|
+| **Tempo** | BPM — slow ballad vs. fast dance track | Calm (slow) ↔ Dynamic (fast) on the **Energy** axis |
+| **Rhythm** | Regular, predictable beat vs. syncopated or free-form | Geometric/Structured ↔ Organic/Fluid on the **Geometry** axis |
+| **Timbre** | Warm, woody instruments (acoustic guitar, cello) vs. bright or metallic (synth, electric) | Warm ↔ Cool on the **Temperature** axis |
+| **Dynamics** | Consistently soft vs. loud, or wide dynamic range | Light/Airy ↔ Bold/Heavy on the **Weight** axis |
+| **Harmony** | Consonant/resolved chords vs. dissonant/tense | Formal/Calm ↔ Edgy/Expressive on the **Formality** axis |
+| **Texture/Layers** | Sparse (solo instrument) vs. dense (full orchestra/band) | Minimal/Open ↔ Rich/Dense on the **Density** axis |
+| **Acoustic vs. Electronic** | Natural instruments vs. synthesized sounds | Textured/Organic ↔ Smooth/Digital on the **Texture** axis |
+| **Register** | High-pitched (flute, falsetto) vs. deep low-end (bass, drums) | Airy/Light ↔ Grounded/Heavy on the **Weight** axis |
+| **Saturation of sound** | Clean and pure vs. distorted, layered, or reverb-heavy | Muted/Clean ↔ Vibrant/Saturated on the **Saturation** axis |
+
+**Translating music into a design signal summary** — example:
+
+```
+Music: A slow, acoustic fingerpicked guitar piece with warm cello overtones, sparse arrangement, soft dynamics.
+
+Design signals extracted:
+- Temperature: Warm (woody acoustic instruments)
+- Energy: Calm (slow tempo, soft dynamics)
+- Geometry: Organic (fingerpicked, not mechanical)
+- Density: Airy (sparse arrangement, few layers)
+- Texture: Textured (acoustic warmth, natural reverb)
+- Weight: Light (soft dynamics, high register melody)
+- Saturation: Muted (no bright neon energy)
+→ Direction: Warm minimalism — earth tones, generous whitespace, rounded organic shapes, soft shadows
+```
+
+Feed these sonic signals back to the user: "From this melody, I'm hearing: warm temperature, calm energy, organic rhythm, airy spacing. Design-wise, that translates to something like warm minimalism with earth tones and soft, open layouts. Does that feel right?"
 
 ### Phase 3: Concept Synthesis
 
