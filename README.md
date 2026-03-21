@@ -2,7 +2,17 @@
 
 [中文](README.zh_CN.md)
 
+> Agent Skills for [MonkeyUI](https://github.com/MonkeyUI-dev/MonkeyUI) — helping vibe coding developers build professional-grade UIs without designer expertise.
+
 ---
+
+## What is vibe-to-ui?
+
+**vibe-to-ui** is a collection of [Agent Skills](https://agentskills.io) built for MonkeyUI's local, single-project mode. These skills give AI coding agents (Claude Code, GitHub Copilot, Cursor, etc.) specialized design knowledge so they can help developers who code by feel — but don't speak fluent design. Beyond static visual tokens, vibe-to-ui also extracts and generates **motion systems** — defining how, when, and why UI elements should animate to communicate meaning and product personality.
+
+---
+
+## Why we built this
 
 **Good design shouldn't require a design degree.**
 
@@ -15,14 +25,6 @@ vibe-to-ui is the translator. Give it a photo, a recording, or a feeling you can
 We believe: when more developers can carry the beauty that has moved them into what they build, the world gets more products that are genuinely, distinctly alive.
 
 > Not uniform polish. Not templated taste. More beauty — in more forms, from more people.
-
----
-
-> Agent Skills for [MonkeyUI](https://github.com/MonkeyUI-dev/MonkeyUI) — helping vibe coding developers build professional-grade UIs without designer expertise.
-
-## What is this?
-
-**vibe-to-ui** is a collection of [Agent Skills](https://agentskills.io) built for MonkeyUI's local, single-project mode. These skills give AI coding agents (Claude Code, GitHub Copilot, Cursor, etc.) specialized design knowledge so they can help developers who code by feel — but don't speak fluent design. Beyond static visual tokens, vibe-to-ui also extracts and generates **motion systems** — defining how, when, and why UI elements should animate to communicate meaning and product personality.
 
 ---
 
