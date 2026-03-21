@@ -93,8 +93,22 @@ npx skills add MonkeyUI-dev/vibe-to-ui
 
 **Manual (git clone):**
 
+For **Claude Code** — installs into `~/.claude/skills/`:
+
 ```bash
+# First time: create the directory if it doesn't exist
+mkdir -p ~/.claude/skills
+
 git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.claude/skills/vibe-to-ui
+```
+
+For **other agents** (Codex, Cursor, Gemini CLI, Kimi Code, etc.) — installs into `~/.agents/skills/`:
+
+```bash
+# First time: create the directory if it doesn't exist
+mkdir -p ~/.agents/skills
+
+git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-to-ui
 ```
 
 ---

@@ -91,8 +91,22 @@ npx skills add MonkeyUI-dev/vibe-to-ui
 
 **手动安装（git clone）：**
 
+适用于 **Claude Code** —— 安装到 `~/.claude/skills/`：
+
 ```bash
+# 首次安装：如果目录不存在，先创建它
+mkdir -p ~/.claude/skills
+
 git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.claude/skills/vibe-to-ui
+```
+
+适用于**其他 Agent**（Codex、Cursor、Gemini CLI、Kimi Code 等）—— 安装到 `~/.agents/skills/`：
+
+```bash
+# 首次安装：如果目录不存在，先创建它
+mkdir -p ~/.agents/skills
+
+git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-to-ui
 ```
 
 ---
