@@ -83,6 +83,14 @@ vibe-to-ui 是这把翻译工具。把一张照片、一段录音、一种说不
 
 ## 安装
 
+**推荐方式 —— 适用于 Claude Code、Codex、Cursor、Gemini CLI、Kimi Code 等任何支持 `npx` 的 Agent：**
+
+```bash
+npx skills add MonkeyUI-dev/vibe-to-ui
+```
+
+**手动安装（git clone）：**
+
 ```bash
 git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.claude/skills/vibe-to-ui
 ```
