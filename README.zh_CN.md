@@ -1,6 +1,16 @@
 # vibe-to-ui
 
+> [MonkeyUI](https://github.com/MonkeyUI-dev/MonkeyUI) 的 Agent Skills 技能包 —— 帮助 vibe coding 开发者无需设计师经验也能打造专业级 UI。
+
 ---
+
+## vibe-to-ui 是什么？
+
+**vibe-to-ui** 是一套专为 MonkeyUI 本地单项目模式构建的 [Agent Skills](https://agentskills.io) 技能集合。这些技能为 AI 编程助手（Claude Code、GitHub Copilot、Cursor 等）注入专业的设计知识，帮助那些凭感觉写代码、但不擅长设计语言的开发者。除了静态视觉 Token，vibe-to-ui 还能提取和生成**动效系统** —— 定义 UI 元素何时、如何以及为何需要动画，以传达含义和产品气质。
+
+---
+
+## 为什么做 vibe-to-ui
 
 **让每一位开发者，都能表达心中的美。**
 
@@ -13,14 +23,6 @@ vibe-to-ui 是这把翻译工具。把一张照片、一段录音、一种说不
 我们相信：当更多开发者能将生活里触动过自己的美带入设计，这个世界会拥有更多形态各异、真正有温度的产品。
 
 > 不是让所有产品都变得精致相似，而是让每个人都能找到只属于自己的美。
-
----
-
-> [MonkeyUI](https://github.com/MonkeyUI-dev/MonkeyUI) 的 Agent Skills 技能包 —— 帮助 vibe coding 开发者无需设计师经验也能打造专业级 UI。
-
-## 这是什么？
-
-**vibe-to-ui** 是一套专为 MonkeyUI 本地单项目模式构建的 [Agent Skills](https://agentskills.io) 技能集合。这些技能为 AI 编程助手（Claude Code、GitHub Copilot、Cursor 等）注入专业的设计知识，帮助那些凭感觉写代码、但不擅长设计语言的开发者。除了静态视觉 Token，vibe-to-ui 还能提取和生成**动效系统** —— 定义 UI 元素何时、如何以及为何需要动画，以传达含义和产品气质。
 
 ---
 
