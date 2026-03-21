@@ -179,17 +179,15 @@ When the user describes a feeling rather than pointing to a reference:
 
 ### From Product Type
 
-When the user describes what their product does:
+When the user describes what their product does, use the product context as **one input signal** among many — not as a lookup table for defaults. A SaaS dashboard for a creative agency will feel very different from one for a bank, even though they're both "SaaS dashboards".
 
-| Product type | Suggested motion defaults |
-|-------------|--------------------------|
-| **SaaS dashboard** | Fast tempo, minimal density, feedback-focused, sharp easing |
-| **Marketing / landing page** | Medium tempo, moderate-rich density, scroll reveals, calm easing |
-| **E-commerce** | Medium tempo, moderate density, hover-focused, calm easing |
-| **Portfolio / creative** | Slow-medium tempo, rich density, parallax + hover, calm easing |
-| **Documentation / content** | Medium tempo, minimal density, feedback-only, calm easing |
-| **AI / ML product** | Medium tempo, moderate density, explanation-focused (show process), calm/sharp easing |
-| **Mobile app (web)** | Fast tempo, minimal density, sharp easing, gesture-linked |
+Consider:
+- **Who** uses it (creative professionals vs. analysts vs. consumers)
+- **What emotional tone** the product aims for (reliable vs. innovative vs. playful)
+- **How information-dense** the typical view is
+- **What actions** users perform most (reading, creating, deciding, exploring)
+
+Let these factors shape the motion personality — don't map product category to a fixed set of motion defaults.
 
 ## Output
 

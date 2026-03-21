@@ -104,6 +104,16 @@ Motion easing: [Calm/Sharp/Elastic]
 Signature detail: [One distinctive element — e.g., grain texture, gradient accents, outlined icons, scroll-triggered reveals]
 ```
 
+### Phase 3b: Mood Board Checkpoint (Optional)
+
+After synthesizing concepts but before generating detailed UI component previews, consider generating a **mood board** for each concept — see [MOOD-BOARD.md](MOOD-BOARD.md). This is especially valuable when:
+
+- The user's references are more atmospheric (photos, music, feelings) than UI-specific
+- The user wants to validate the overall emotional direction before seeing concrete UI components
+- The user needs a shareable artifact to discuss with stakeholders or collaborators
+
+The mood board captures the concept's visual soul — colors, textures, typography mood, spatial feel, and motion hints — in a curated collage format. Once the user reacts ("this one feels right"), proceed to Phase 4 for detailed UI previews of the confirmed direction.
+
 ### Phase 4: Visual Preview Generation
 
 For each concept, generate a **concrete HTML artifact** that the user can see and feel. This is a single-page demo component showcasing:
