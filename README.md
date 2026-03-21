@@ -2,13 +2,27 @@
 
 [中文](README.zh_CN.md)
 
+---
+
+**Good design shouldn't require a design degree.**
+
+There are countless great developers who can architect complex systems and ship fast — but get stuck the moment they need their product to *look right*. Not because they lack taste. Because no tool speaks their language.
+
+Beauty doesn't only live in design files. It lives in the light hitting a street corner, in a stranger's smile, in the melody that brings tears to your eyes. Those moments of quiet wonder are themselves a design language — raw, personal, and yours.
+
+vibe-to-ui is the translator. Give it a photo, a recording, or a feeling you can't quite name — and it will extract the essence of that beauty: its spatial rhythm, color mood, motion character. That context flows to your agent, into your product, and through your product, out into the world.
+
+We believe: when more developers can carry the beauty that has moved them into what they build, the world gets more products that are genuinely, distinctly alive.
+
+> Not uniform polish. Not templated taste. More beauty — in more forms, from more people.
+
+---
+
 > Agent Skills for [MonkeyUI](https://github.com/MonkeyUI-dev/MonkeyUI) — helping vibe coding developers build professional-grade UIs without designer expertise.
 
 ## What is this?
 
 **vibe-to-ui** is a collection of [Agent Skills](https://agentskills.io) built for MonkeyUI's local, single-project mode. These skills give AI coding agents (Claude Code, GitHub Copilot, Cursor, etc.) specialized design knowledge so they can help developers who code by feel — but don't speak fluent design. Beyond static visual tokens, vibe-to-ui also extracts and generates **motion systems** — defining how, when, and why UI elements should animate to communicate meaning and product personality.
-
-> **Need multi-project sync, team collaboration, or cloud access?** → [MonkeyUI SaaS](https://demo.monkeyui.com/)
 
 ---
 
@@ -69,22 +83,9 @@ Or mix and match — extract style from one site, apply it to a layout from anot
 
 ## Installation
 
-### Claude Code
-
 ```bash
-/skills install vibe-to-ui
+git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.claude/skills/vibe-to-ui
 ```
-
-Or add this repo as a skills source and install from the marketplace.
-
-### Manual (any Agent Skills-compatible agent)
-
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git
-   ```
-2. Point your agent to the repository root as a skill directory.
-3. The skill activates automatically when you ask about design systems, UI style, layout analysis, or design exploration.
 
 ---
 
@@ -137,7 +138,7 @@ Following [Agent Skills progressive disclosure](https://agentskills.io/specifica
 
 This skill follows the open [Agent Skills standard](https://agentskills.io) and works with any compatible agent:
 
-Claude Code · GitHub Copilot · Cursor · Amp · Gemini CLI · Junie · TRAE · and more.
+Claude Code · GitHub Copilot · Cursor · Gemini CLI · TRAE · and more.
 
 ---
 

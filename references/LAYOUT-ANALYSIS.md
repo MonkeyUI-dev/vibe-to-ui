@@ -35,174 +35,77 @@ For each section, determine:
 
 Convert the visual structure into ASCII art. Use these conventions:
 
-**Full-page example:**
-```
-┌─────────────────────────────────────────────────┐
-│                   HEADER                        │
-│  [Logo]              [Nav] [Nav] [Nav]  [CTA]   │
-├─────────────────────────────────────────────────┤
-│                                                 │
-│                    HERO                         │
-│         [Heading]                               │
-│         [Subheading]                            │
-│         [CTA Button]  [Secondary Button]        │
-│                                                 │
-├─────────────────────────────────────────────────┤
-│           FEATURES (3-column grid)              │
-│  ┌─────────┐  ┌─────────┐  ┌─────────┐         │
-│  │ [Icon]  │  │ [Icon]  │  │ [Icon]  │         │
-│  │ [Title] │  │ [Title] │  │ [Title] │         │
-│  │ [Desc]  │  │ [Desc]  │  │ [Desc]  │         │
-│  └─────────┘  └─────────┘  └─────────┘         │
-├─────────────────────────────────────────────────┤
-│        CONTENT (asymmetric 60/40 split)         │
-│  ┌──────────────────┐  ┌────────────┐           │
-│  │   [Text Block]   │  │  [Image]   │           │
-│  │   [Paragraph]    │  │            │           │
-│  │   [CTA Link]     │  │            │           │
-│  └──────────────────┘  └────────────┘           │
-├─────────────────────────────────────────────────┤
-│                   FOOTER                        │
-│  [Col1]    [Col2]    [Col3]    [Col4]           │
-│  [Links]   [Links]   [Links]   [Social]        │
-│                [Copyright]                      │
-└─────────────────────────────────────────────────┘
-```
+> **No preset page template**: Do NOT copy a generic "header → hero → features → footer" structure. Every page has a unique composition — analyze and represent what you actually see, not a canonical landing page.
 
-**Partial / section-only example (e.g., a unique asymmetric feature showcase hard to describe verbally):**
-```
-┌──────────────────────────────────────────────────────────────┐
-│  FEATURE-SHOWCASE                                            │
-│  [Section Heading — left-aligned, large]                     │
-│                                                              │
-│  ┌────────────────────────────────────────────────────────┐  │
-│  │  FEATURE-CARD-WIDE (full-width, ~40/60 text/preview)   │  │
-│  │  ┌───────────────────┐  ┌──────────────────────────┐   │  │
-│  │  │ [Category Label]  │  │  ┌────────────┐           │   │  │
-│  │  │ [Bold Headline]   │  │  │ [UI Panel] │  ┌──────┐ │   │  │
-│  │  │ [CTA Arrow Btn]   │  │  └────────────┘  │[UI   │ │   │  │
-│  │  │                   │  │   (layered /     │Panel]│ │   │  │
-│  │  │                   │  │    overlapping)  └──────┘ │   │  │
-│  │  └───────────────────┘  └──────────────────────────┘   │  │
-│  └────────────────────────────────────────────────────────┘  │
-│                                                              │
-│  ┌─────────────────────────┐  ┌─────────────────────────┐   │
-│  │  FEATURE-CARD (50%)     │  │  FEATURE-CARD (50%)     │   │
-│  │  [Category Label]       │  │  [Category Label]       │   │
-│  │  [Bold Headline]        │  │  [Bold Headline]        │   │
-│  │  [CTA Arrow Btn]        │  │  [CTA Arrow Btn]        │   │
-│  │  ┌─────────────────┐    │  │  ┌─────────────────┐    │   │
-│  │  │  [UI Mockup]    │    │  │  │  [UI Mockup]    │    │   │
-│  │  └─────────────────┘    │  │  └─────────────────┘    │   │
-│  └─────────────────────────┘  └─────────────────────────┘   │
-└──────────────────────────────────────────────────────────────┘
-```
-> **When is partial screenshot analysis most valuable?** When the section has a *unique or asymmetric* spatial structure that is hard to describe verbally — for example: a hero card that is full-width with layered overlapping UI panels on one side, followed by a different 2-column card row below it. Simple uniform grids (3 equal icon+title+desc cards) are easy to describe; complex, non-obvious spatial compositions are where visual analysis provides the most value.
-
-**ASCII conventions**:
+**ASCII conventions** (format guide — use these drawing rules, not these specific layouts):
 - `┌─┐│└─┘` for section/component boundaries
 - `[Label]` for UI elements (buttons, text, images, icons)
 - Section names in UPPERCASE
-- Notes in parentheses for layout behavior (e.g., "3-column grid", "asymmetric 60/40")
+- Notes in parentheses for layout behavior (e.g., "asymmetric 60/40")
 - Indent to show nesting
+- Reflect the **actual** spatial structure you see — different screenshots should produce fundamentally different ASCII art
+
+### Step 3b: Spatial Proportion Hints (Loose Percentage Guide)
+
+After the ASCII art, add a **lightweight spatial hint table** — not to copy the layout precisely, but to give the agent a sense of *proportion and weight*: which element is dominant, which row is shorter, whether a card is partial-width or full-width. This prevents the most common spatial misreadings while still leaving room for the agent to interpret freely.
+
+Think of it as sketching a thumbnail, not drafting blueprints. Rough values (±10–15%) are fine and intentional — the goal is directional spatial feel, not pixel replication.
+
+| Element | approx x% | approx y% | approx width% | approx height% | Spatial feel |
+|---------|-----------|-----------|---------------|----------------|---------------|
+| Section heading | ~0% | ~0% | ~60% | ~14% | Left-anchored, not full-width |
+| Card A (row 1, left) | ~0% | ~18% | ~48% | ~46% | Tall, left half |
+| Card B (row 1, right) | ~52% | ~18% | ~48% | ~46% | Same visual weight as Card A |
+| Card C (row 2) | ~0% | ~68% | ~48% | ~30% | Shorter, left-anchored — not full-width |
+
+The most useful things to call out are **relative relationships** — not absolute coordinates:
+- Cards in the same row share the same `y_start` (they're visually aligned)
+- A card that's ~50% wide reads very differently from one that's full-width
+- A row that's clearly shorter than another conveys visual rhythm
+
+**For layered or overlapping elements**, briefly note the stacking intent:
+
+| Element | approx position | Overlap feel |
+|---------|-----------------|--------------|
+| Background panel | fills ~80% of section | recedes visually |
+| UI panel A | sits upper-left of bg | floats above |
+| UI panel B | partially overlaps panel A | tension / depth |
+
+> **Spirit**: These numbers are a sketch, not a spec. An agent reading this should feel the *spatial personality* of the layout — its rhythm, dominance, and balance — and let that inspire a fresh composition, not reproduce it exactly.
+
+---
 
 ### Step 4: Semantic Structure Description
 
-For each section, provide a structured description:
+For each section, provide a structured description. Describe what you actually observe — do not default to generic patterns:
 
 ```markdown
-### Section: hero
-- **Layout**: Single column, centered content
-- **Container**: Max-width 1200px, centered
-- **Vertical spacing**: 80px top/bottom padding
-- **Content order**: Heading → Subheading → Button group (horizontal)
-- **Background**: Full-bleed gradient/image
-- **Z-index layers**: Background image → Overlay → Content
+### Section: [name based on what you see]
+- **Layout**: [observed column/flow structure]
+- **Container**: [width behavior — full-bleed, constrained, narrow?]
+- **Content order**: [actual element sequence]
+- **Background**: [what you see — solid, gradient, image, none?]
+- **Spatial character**: [dense/open, symmetrical/asymmetric, heavy/light?]
 ```
+
+> Describe rhythm and spatial character, not just CSS specs. The reader should grasp the section's personality.
 
 ### Step 5: Responsive Behavior Notes
 
-Infer how the layout likely adapts:
+Briefly infer how the layout's key spatial relationships would naturally adapt at smaller viewports. Focus on which relationships break first and what stacks — don't prescribe specific breakpoints or generic responsive patterns.
 
 ```markdown
 ## Responsive Behavior
-
-### Desktop (≥1024px)
-- Features: 3-column grid
-- Content sections: Side-by-side (60/40 or 50/50)
-- Navigation: Horizontal nav bar
-
-### Tablet (768px–1023px)
-- Features: 2-column grid
-- Content sections: Stack vertically
-- Navigation: Hamburger menu likely
-
-### Mobile (<768px)
-- Features: Single column stack
-- Content sections: Single column, image above text
-- Navigation: Hamburger with slide-out menu
-- Hero: Reduced padding, smaller heading
+- [Describe which side-by-side elements would stack first]
+- [Note which spatial relationships are essential to preserve vs. which can reflow]
+- [Any elements that likely hide/simplify on small screens]
 ```
 
 ### Step 6: Generate Reusable Skeleton
 
-Produce a clean HTML skeleton the user can use as a starting point:
+Produce a clean HTML skeleton and component tree that reflect the **actual analyzed structure** — not a generic page template. Use semantic class names derived from the section names you identified in Step 1.
 
-```html
-<!-- Only structure, no styling — user applies their own design system -->
-<header class="site-header">
-  <div class="container">
-    <a class="logo" href="/">Logo</a>
-    <nav class="main-nav"><!-- nav links --></nav>
-    <a class="header-cta" href="#">CTA</a>
-  </div>
-</header>
-
-<section class="hero">
-  <div class="container">
-    <h1><!-- heading --></h1>
-    <p class="hero-subtitle"><!-- subheading --></p>
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="#">Primary CTA</a>
-      <a class="btn btn-secondary" href="#">Secondary</a>
-    </div>
-  </div>
-</section>
-
-<!-- ... more sections ... -->
-```
-
-Also provide a **component tree** view:
-
-```
-Page
-├── Header
-│   ├── Logo
-│   ├── MainNav (horizontal links)
-│   └── HeaderCTA (button)
-├── Hero
-│   ├── Heading (h1)
-│   ├── Subtitle (p)
-│   └── ActionGroup
-│       ├── PrimaryButton
-│       └── SecondaryButton
-├── FeaturesGrid
-│   └── FeatureCard × 3
-│       ├── Icon
-│       ├── Title (h3)
-│       └── Description (p)
-├── ContentSection
-│   ├── TextBlock (60%)
-│   │   ├── Heading (h2)
-│   │   ├── Paragraph
-│   │   └── CTALink
-│   └── MediaBlock (40%)
-│       └── Image
-└── Footer
-    ├── FooterColumns × 4
-    │   └── LinkList
-    └── Copyright
-```
+> **Critical**: Do NOT use a preset page template. The skeleton must be reverse-engineered from THIS specific screenshot's layout. A pricing page, a dashboard, an editorial blog, and a product showcase should all produce fundamentally different skeletons.
 
 ## Combining with Design System
 

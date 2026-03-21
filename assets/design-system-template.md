@@ -119,11 +119,11 @@
 
 | Pattern | Trigger | Animation | Role |
 |---------|---------|-----------|------|
-| Entrance fade-up | in-view | opacity 0→1, translateY _px→0 | Guidance |
-| Hover lift | hover | translateY -_px, shadow increase | Feedback |
-| Click press | click | scale 0.95→1 | Feedback |
-| Stagger children | in-view | delay: index × _ms | Guidance |
-| [Custom pattern] | [trigger] | [description] | [role] |
+| [from analysis] | [trigger] | [description] | [role] |
+| [from analysis] | [trigger] | [description] | [role] |
+| [from analysis] | [trigger] | [description] | [role] |
+
+> Derive patterns from the actual reference — do not default to generic fade-up / hover-lift / click-press. Every design has its own motion vocabulary.
 
 ### Reduced Motion Fallback
 
@@ -243,15 +243,8 @@ export default {
         out: 'cubic-bezier(_, _, _, _)',
         elastic: 'cubic-bezier(_, _, _, _)',
       },
-      keyframes: {
-        'fade-in-up': {
-          '0%': { opacity: '0', transform: 'translateY(_px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
-        },
-      },
-      animation: {
-        'fade-in-up': 'fade-in-up var(--duration-normal) var(--ease-default) both',
-      },
+      // keyframes: derive from the analyzed motion patterns — do not use generic presets
+      // animation: define based on actual motion vocabulary from the reference
     },
   },
 };

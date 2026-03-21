@@ -1,12 +1,26 @@
 # vibe-to-ui
 
+---
+
+**让每一位开发者，都能表达心中的美。**
+
+这个世界有无数出色的开发者——他们能构建复杂的系统，能解决棘手的问题，却常常在「让它看起来好看」这件事上卡住。不是因为缺乏审美，而是因为没有工具帮他们把那种感受翻译成设计语言。
+
+灵感从不只存在于设计稿里。它可能是街角转弯时的一瞬光影，是陌生人的一个微笑，是某段让你流泪的旋律。那些让你心动的瞬间，本身就是最真实的设计语言。
+
+vibe-to-ui 是这把翻译工具。把一张照片、一段录音、一种说不清道不明的感受交给它——它会提取那份美的内核：空间节奏、色彩气质、动效性格，并将这份语境传递给你的 Agent，融入你正在构建的产品，再通过你的产品，传递给这个世界。
+
+我们相信：当更多开发者能将生活里触动过自己的美带入设计，这个世界会拥有更多形态各异、真正有温度的产品。
+
+> 不是让所有产品都变得精致相似，而是让每个人都能找到只属于自己的美。
+
+---
+
 > [MonkeyUI](https://github.com/MonkeyUI-dev/MonkeyUI) 的 Agent Skills 技能包 —— 帮助 vibe coding 开发者无需设计师经验也能打造专业级 UI。
 
 ## 这是什么？
 
 **vibe-to-ui** 是一套专为 MonkeyUI 本地单项目模式构建的 [Agent Skills](https://agentskills.io) 技能集合。这些技能为 AI 编程助手（Claude Code、GitHub Copilot、Cursor 等）注入专业的设计知识，帮助那些凭感觉写代码、但不擅长设计语言的开发者。除了静态视觉 Token，vibe-to-ui 还能提取和生成**动效系统** —— 定义 UI 元素何时、如何以及为何需要动画，以传达含义和产品气质。
-
-> **需要多项目同步、团队协作或云端访问？** → [MonkeyUI SaaS](https://demo.monkeyui.com/)
 
 ---
 
@@ -67,22 +81,9 @@
 
 ## 安装
 
-### Claude Code
-
 ```bash
-/skills install vibe-to-ui
+git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.claude/skills/vibe-to-ui
 ```
-
-或将此仓库添加为技能来源，然后从市场安装。
-
-### 手动安装（适用于任何兼容 Agent Skills 的助手）
-
-1. 克隆此仓库：
-   ```bash
-   git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git
-   ```
-2. 将仓库根目录指定为助手的技能目录。
-3. 当你询问设计系统、UI 风格、布局分析或设计探索相关问题时，技能将自动激活。
 
 ---
 
@@ -135,7 +136,7 @@
 
 该技能遵循开放的 [Agent Skills 标准](https://agentskills.io)，兼容任何支持该标准的助手：
 
-Claude Code · GitHub Copilot · Cursor · Amp · Gemini CLI · Junie · TRAE · 以及更多。
+Claude Code · GitHub Copilot · Cursor · Gemini CLI · TRAE · 以及更多。
 
 ---
 
