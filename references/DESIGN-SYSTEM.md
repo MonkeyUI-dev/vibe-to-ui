@@ -159,12 +159,13 @@ Generate a complete design system document following the template at [../assets/
 
 The output must include:
 1. **Human-readable Markdown** — structured design system with all extracted tokens, confidence levels, and an aesthetic summary
-2. **Code tokens** in the user's preferred format:
+2. **Standalone preview page** — a self-contained HTML artifact showcasing the extracted design system applied to sample components (color swatches, typography specimens, button sets, card components, motion demos). This preview does NOT modify the user's project — it is a separate page for the user to evaluate the extracted design.
+3. **Code tokens** in the user's preferred format (generated only after the user confirms the preview):
    - CSS custom properties (`:root { --color-primary: #xxx; }`) with `prefers-reduced-motion` fallback
    - Tailwind CSS config (`tailwind.config.js` theme extension)
    - JSON token file (framework-agnostic)
 
-Ask the user which format(s) they need before generating code tokens.
+Ask the user which format(s) they need before generating code tokens. Once the user confirms they are satisfied with the preview, transition to **Apply Design to Project** (Capability 5) — see [APPLY-DESIGN.md](APPLY-DESIGN.md) — to integrate the tokens into the actual project.
 
 ---
 

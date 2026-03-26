@@ -8,7 +8,7 @@
 
 ## What is vibe-to-ui?
 
-**vibe-to-ui** is a collection of [Agent Skills](https://agentskills.io) built for MonkeyUI's local, single-project mode. These skills give AI coding agents (Claude Code, GitHub Copilot, Cursor, etc.) specialized design knowledge so they can help developers who code by feel — but don't speak fluent design. Beyond static visual tokens, vibe-to-ui also extracts and generates **motion systems** — defining how, when, and why UI elements should animate to communicate meaning and product personality.
+**vibe-to-ui** is a collection of [Agent Skills](https://agentskills.io) built for MonkeyUI's local, single-project mode. These skills give AI coding agents (Claude Code, GitHub Copilot, Cursor, etc.) specialized design knowledge so they can help developers who code by feel — but don't speak fluent design. Beyond static visual tokens, vibe-to-ui also extracts and generates **motion systems** — defining how, when, and why UI elements should animate to communicate meaning and product personality. The agent works collaboratively — all design exploration happens through standalone previews and concept pages, and only touches your project when you confirm a direction and ask to apply it.
 
 ---
 
@@ -30,14 +30,14 @@ We believe: when more developers can carry the beauty that has moved them into w
 
 ## Skills
 
-A design companion for vibe coding developers. Turns screenshots, mood images, and gut feelings into structured design systems, motion languages, and layout blueprints — ready to apply to your codebase.
+A design companion for vibe coding developers. Turns screenshots, mood images, and gut feelings into structured design systems, motion languages, and layout blueprints — all through standalone previews for collaborative exploration. Only applies designs to your project when you're ready.
 
-**Three core capabilities:**
+**Four core capabilities:**
 
 #### 1. Design System Extraction
-*For users who know what they want.*
+*For users who have a complete design to restore.*
 
-Provide a screenshot of a UI or design mockup. The skill extracts its complete "style DNA":
+Provide a screenshot of a UI or design mockup. The skill extracts its complete "style DNA" and generates a **standalone preview page** for you to evaluate — it does not modify your project until you confirm:
 
 - **Colors** — with semantic roles (primary, surface, text, border, etc.)
 - **Typography** — font families, size scale, weights, line heights
@@ -46,7 +46,7 @@ Provide a screenshot of a UI or design mockup. The skill extracts its complete "
 - **Shadows** — elevation system
 - **Motion** — tempo, easing, density, triggers, reduced-motion fallback
 
-Outputs tokens in three formats: **CSS custom properties**, **Tailwind CSS config**, and a **JSON token file** — ready to drop into your project.
+Outputs tokens in three formats: **CSS custom properties**, **Tailwind CSS config**, and a **JSON token file** — applied to your project only after you confirm the preview.
 
 #### 2. Design Exploration
 *For users who only have a feeling.*
@@ -56,9 +56,10 @@ Not sure what style you want? Just have some rough inspiration — a landscape p
 1. Shares what your project does and who it's for
 2. Drop any inspiration images (landscapes, objects, other apps — anything) **or music recordings** (audio clips, hummed melodies, song snippets)
 3. The skill translates both visual and sonic signals into design qualities — tempo, timbre, and rhythm become energy, warmth, and texture in your UI
-4. Synthesizes 2–3 distinct design concepts — each with its own visual style **and motion personality** — and generates **live HTML previews** with hover transitions and entrance animations
-5. You react, mix, and choose
-6. The chosen direction is formalized into a full design system with motion tokens (via Capability 1)
+4. Synthesizes **3 distinct design concepts** — each with its own visual style **and motion personality** — and generates **standalone concept preview pages** with hover transitions and entrance animations, plus **mood boards** for each direction
+5. You react, compare, and choose — or mix elements from different concepts
+6. The chosen direction is formalized into a full design system with motion tokens and a preview page
+7. Once confirmed, the design is applied to your project (via Capability 5)
 
 #### 3. UI Layout Analysis
 *For users who can't describe layout in words.*
@@ -71,15 +72,26 @@ Provide a webpage screenshot. The skill extracts its layout structure into forma
 - **HTML skeleton** — clean markup structure ready to style
 - **Component tree** — hierarchical breakdown of all UI parts
 
+#### 4. Apply Design to Project
+*For users who have confirmed a direction and are ready to apply.*
+
+After exploring and choosing a design direction — whether from concept previews, mood boards, or design system extraction — this capability applies the finalized design system to your actual project:
+
+- Confirms the scope of what to apply and where
+- Audits your project's existing framework, CSS approach, and file conventions
+- Generates token files in your preferred format (CSS, Tailwind, JSON)
+- Integrates tokens into your project, respecting existing conventions
+- Presents a summary of changes for your review
+
 #### Composing capabilities
 
-These capabilities chain naturally:
+These capabilities chain naturally, following an **explore → choose → apply** pattern:
 
 ```
-Explore vibes → Choose direction → Extract design system → Analyze layout → Generate styled skeleton
+Explore vibes → Choose from 3 concepts + mood boards → Extract design system → Preview → Apply to project
 ```
 
-Or mix and match — extract style from one site, apply it to a layout from another.
+Or mix and match — extract style from one site, apply it to a layout from another. The agent only touches your project when you say "apply."
 
 ---
 
@@ -116,10 +128,10 @@ git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-t
 ## Usage Examples
 
 ```
-# Extract a design system
+# Extract a design system (generates preview first, doesn't modify your project)
 "Analyze the design of this screenshot and give me the design tokens"
 
-# Explore aesthetics with images
+# Explore aesthetics with images (generates 3 concepts + mood boards)
 "I want something that feels calm and modern, a bit like Scandinavian design — help me find a direction"
 
 # Explore aesthetics with music
@@ -133,6 +145,9 @@ git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-t
 
 # Extract from a layout
 "I love how this page is structured, extract the layout so I can reuse it"
+
+# Apply a confirmed design to your project
+"I like Concept B — apply this design to my project"
 
 # Full pipeline
 "I have some inspiration images and a music clip — let's explore a style, then apply it to this layout I found"
@@ -149,7 +164,11 @@ git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-t
 │   ├── DESIGN-SYSTEM.md              # Design system extraction methodology
 │   ├── DESIGN-EXPLORATION.md         # Interactive exploration conversation guide
 │   ├── LAYOUT-ANALYSIS.md            # Layout analysis and ASCII blueprint guide
-│   └── MOTION-SYSTEM.md              # Motion system extraction and generation guide
+│   ├── MOTION-SYSTEM.md              # Motion system extraction and generation guide
+│   ├── AESTHETIC-ANALYSIS.md         # Aesthetic soul capture methodology
+│   ├── ICON-USAGE.md                 # Icon component guidelines
+│   ├── MOOD-BOARD.md                 # Mood board generation guide
+│   └── APPLY-DESIGN.md              # Apply confirmed design to project guide
 └── assets/
     └── design-system-template.md     # Standard output template for design tokens
 ```

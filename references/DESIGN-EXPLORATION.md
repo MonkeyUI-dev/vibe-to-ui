@@ -82,7 +82,7 @@ Feed these sonic signals back to the user: "From this melody, I'm hearing: warm 
 
 ### Phase 3: Concept Synthesis
 
-Based on collected signals, synthesize 2–3 distinct design concepts. Each concept should:
+Based on collected signals, synthesize **3 distinct design concepts**. Each concept should:
 
 1. Have a **concept name** (evocative, memorable — e.g., "Nordic Dawn", "Urban Pulse", "Zen Garden")
 2. Lean into the aesthetic signals somewhat differently
@@ -104,9 +104,11 @@ Motion easing: [Calm/Sharp/Elastic]
 Signature detail: [One distinctive element — e.g., grain texture, gradient accents, outlined icons, scroll-triggered reveals]
 ```
 
-### Phase 3b: Mood Board Checkpoint (Optional)
+### Phase 3b: Mood Board Checkpoint
 
-After synthesizing concepts but before generating detailed UI component previews, consider generating a **mood board** for each concept — see [MOOD-BOARD.md](MOOD-BOARD.md). This is especially valuable when:
+After synthesizing concepts and before generating detailed UI component previews, generate a **mood board** for each concept — see [MOOD-BOARD.md](MOOD-BOARD.md). Each mood board is a standalone HTML artifact that the user can open, compare, and react to.
+
+This checkpoint is especially valuable when:
 
 - The user's references are more atmospheric (photos, music, feelings) than UI-specific
 - The user wants to validate the overall emotional direction before seeing concrete UI components
@@ -116,7 +118,9 @@ The mood board captures the concept's visual soul — colors, textures, typograp
 
 ### Phase 4: Visual Preview Generation
 
-For each concept, generate a **concrete HTML artifact** that the user can see and feel. This is a single-page demo component showcasing:
+For each concept, generate a **standalone concept preview page** as a self-contained HTML artifact that the user can open in a browser to see and feel the design direction. These previews do NOT modify the user's project — they are separate exploration artifacts.
+
+Each concept preview page showcases:
 
 ```html
 <!-- Structure of a concept preview artifact -->
@@ -139,10 +143,11 @@ For each concept, generate a **concrete HTML artifact** that the user can see an
 - Include CSS `transition` properties on interactive elements (buttons, cards) to demonstrate the concept's motion personality
 - Include a simple entrance animation (e.g., `@keyframes fadeInUp`) to show the concept's tempo and easing
 - Include `@media (prefers-reduced-motion: reduce)` that disables or simplifies animations
+- **Previews are standalone artifacts** — they do NOT modify or write to the user's project files
 
 ### Phase 5: User Decision
 
-Present the concepts and let the user:
+Present the 3 concept previews and mood boards and let the user:
 
 - **Choose one** → Proceed to formalize it as a design system (Capability 1)
 - **Mix elements** → "I like the colors from Concept A but the typography from Concept B" → Create a merged concept and preview it
@@ -155,6 +160,15 @@ Once the user confirms a direction, transition to **Design System Extraction** (
 - Treat the chosen concept preview as the "reference image"
 - Extract and formalize all tokens following [DESIGN-SYSTEM.md](DESIGN-SYSTEM.md)
 - Output the complete design system using the template at [../assets/design-system-template.md](../assets/design-system-template.md)
+- Generate a **standalone design system preview page** showcasing the formalized tokens applied to sample components
+
+### Phase 7: Apply to Project
+
+Once the user confirms the formalized design system and preview:
+- Transition to **Apply Design to Project** (Capability 5) — see [APPLY-DESIGN.md](APPLY-DESIGN.md)
+- Confirm the scope of application with the user
+- Integrate the design tokens into the user's actual project
+- This is the ONLY phase where the agent modifies project files
 
 ## Interaction Principles
 
