@@ -175,7 +175,7 @@ When the user describes a feeling rather than pointing to a reference:
    - Texture (sparse/dense) → Motion density (minimal/rich)
    - Energy (calm/intense) → Easing character (calm/sharp/elastic)
 
-3. **Present 2–3 motion concepts** alongside visual concepts, each with different motion personalities
+3. **Present 3 motion concepts** alongside visual concepts, each with different motion personalities
 
 ### From Product Type
 

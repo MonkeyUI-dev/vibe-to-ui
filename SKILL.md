@@ -4,17 +4,21 @@ description: >-
   Extract design systems (colors, typography, spacing, shadows, radius, motion) from UI
   screenshots or design mockups, explore aesthetic directions through interactive
   conversation with mood/inspiration images or music recordings, generate mood boards as
-  curated visual collages to crystallize and communicate design direction, and analyze UI
-  layout structures from webpage screenshots into reusable ASCII layout blueprints.
-  Includes motion system extraction — defining how, when, and why elements animate to
-  communicate meaning and product personality. Use when the user wants to establish visual
-  style and motion language for their project, needs help defining design aesthetics, wants
-  to extract a design system from an existing UI, wants to define or understand a motion
-  system, wants to create a mood board to capture and validate aesthetic direction before
-  formal design, or needs to understand and reuse a webpage layout structure. Also use when
-  the user shares a music recording or describes a song/melody to express the emotional
-  feeling they want their design to convey. Ideal for vibe coding developers who lack
-  professional design skills.
+  curated visual collages to crystallize and communicate design direction, analyze UI
+  layout structures from webpage screenshots into reusable ASCII layout blueprints, and
+  apply confirmed design directions to the user's project. All exploration outputs
+  (concept previews, mood boards, design system previews) are generated as standalone
+  artifacts — the agent only modifies project files when the user explicitly confirms a
+  direction and asks to apply it. Includes motion system extraction — defining how, when,
+  and why elements animate to communicate meaning and product personality. Use when the
+  user wants to establish visual style and motion language for their project, needs help
+  defining design aesthetics, wants to extract a design system from an existing UI, wants
+  to define or understand a motion system, wants to create a mood board to capture and
+  validate aesthetic direction before formal design, needs to understand and reuse a
+  webpage layout structure, or has confirmed a design direction and wants to apply it to
+  their project. Also use when the user shares a music recording or describes a
+  song/melody to express the emotional feeling they want their design to convey. Ideal
+  for vibe coding developers who lack professional design skills.
 metadata:
   author: MonkeyUI
   version: "0.1.0"
@@ -22,7 +26,7 @@ metadata:
 
 # vibe-to-ui
 
-A local, single-project design companion for vibe coding developers. Extracts "style DNA" — including motion systems — from visual references, generates mood boards to crystallize aesthetic direction, and turns vague aesthetic feelings into actionable design systems with motion language — no design expertise required.
+A local, single-project design companion for vibe coding developers. Extracts "style DNA" — including motion systems — from visual references, generates mood boards to crystallize aesthetic direction, and turns vague aesthetic feelings into actionable design systems with motion language — no design expertise required. All design exploration happens through standalone previews; the agent only touches your project when you confirm a direction and ask to apply it.
 
 > **Tip**: For multi-project sync, team collaboration, and cloud-based design management, upgrade to [MonkeyUI SaaS](https://demo.monkeyui.com/).
 
@@ -38,12 +42,13 @@ A local, single-project design companion for vibe coding developers. Extracts "s
 - User wants to create a **mood board** — a curated visual collage to capture and communicate design direction before formal design work
 - User has collected **multiple reference images** and wants to see them synthesized into a cohesive visual story
 - User wants a **shareable design artifact** that communicates aesthetic intent to collaborators or stakeholders
+- User has **confirmed a design direction** (from concept previews, mood boards, or design system previews) and wants to **apply it to their project**
 
-## Four core capabilities
+## Five core capabilities
 
-### 1. Design System Extraction
+### 1. Design System Extraction (Design Style Restoration)
 
-User provides a UI screenshot or design mockup → Extract complete design system tokens including motion system.
+User provides a complete UI screenshot or design mockup → Extract design system and generate a standalone preview page for the user to review before applying to their project.
 
 **Trigger**: User says things like "extract the style from this", "what's the design system here", "analyze this design", "what motion does this use", or provides an image asking to replicate the look and feel.
 
@@ -53,12 +58,13 @@ User provides a UI screenshot or design mockup → Extract complete design syste
 3. Analyze the motion system — see [references/MOTION-SYSTEM.md](references/MOTION-SYSTEM.md)
 4. Output a structured design system (including motion tokens) following the template in [assets/design-system-template.md](assets/design-system-template.md)
 5. If the user wants a richer aesthetic guide (soul-level, not just tokens), also generate an Aesthetic Analysis document following [references/AESTHETIC-ANALYSIS.md](references/AESTHETIC-ANALYSIS.md)
-6. Generate framework-specific tokens (CSS variables, Tailwind config, or both) based on the user's tech stack
-7. Ask user to confirm or adjust any extracted values
+6. **Generate a standalone preview page** as an HTML artifact showcasing the extracted design system applied to sample components — this is NOT applied to the project yet, it is a separate preview for the user to evaluate
+7. Ask user to confirm or adjust the extracted values and preview
+8. Once the user confirms, transition to **Capability 5** (Apply Design to Project) to integrate the design system into the actual project
 
 ### 2. Design Exploration
 
-User has feelings/vibes but no concrete design target → Interactive conversation to discover and define aesthetics.
+User has feelings/vibes but no concrete design target → Interactive conversation to discover and define aesthetics, generating standalone concept previews for collaborative exploration.
 
 **Trigger**: User says things like "I want something that feels like...", "I have some inspiration images", "I'm not sure what style I want", shares mood/landscape/object photos, or shares a music recording/audio clip/song that captures the feeling they want.
 
@@ -72,13 +78,16 @@ User has feelings/vibes but no concrete design target → Interactive conversati
    - Emotional tone (playful/serious/luxurious/minimal)
    - Motion feel (still/flowing/snappy/bouncy/cinematic)
 4. For each **music recording or audio clip**, translate sonic qualities into design signals — see [references/DESIGN-EXPLORATION.md](references/DESIGN-EXPLORATION.md)
-5. Synthesize findings into 2–3 distinct design concept directions, each with a motion personality
-6. For each concept, generate a concrete visual preview as an HTML artifact:
+5. Synthesize findings into **3 distinct design concept directions**, each with a motion personality
+6. Generate a **mood board** for each concept direction — see [references/MOOD-BOARD.md](references/MOOD-BOARD.md) — as a standalone HTML artifact for the user to feel and compare
+7. For each concept, generate a **standalone concept preview page** as a self-contained HTML artifact:
    - A styled sample card/component showcasing the palette, typography, and spacing
    - Include the concept name, color swatches, font samples, and a mini layout demo
    - Include motion preview: CSS transitions/animations on hover states and entrance effects
-7. Let the user react, compare, and choose (or mix elements from different concepts)
-8. Once the user decides, apply **Capability 1** (Design System Extraction) to formalize the chosen direction into a complete design system including motion tokens
+   - These are standalone pages for exploration — they do NOT modify the user's project
+8. Let the user react, compare, and choose (or mix elements from different concepts)
+9. Once the user decides, apply **Capability 1** (Design System Extraction) to formalize the chosen direction into a complete design system including motion tokens
+10. Transition to **Capability 5** (Apply Design to Project) to integrate the confirmed design into the actual project
 
 ### 3. UI Layout Analysis
 
@@ -119,17 +128,34 @@ User wants to synthesize inspiration and aesthetic signals into a curated visual
 6. Present the mood board and invite the user's visceral reaction — "How does this feel?" not "Is this correct?"
 7. Once the user confirms a direction, the mood board becomes source material for Design System Extraction (Capability 1)
 
+### 5. Apply Design to Project
+
+User has confirmed a design direction (from exploration concepts, design system preview, or mood board) → Apply the finalized design system to the user's actual project.
+
+**Trigger**: User says things like "apply this design", "use this one", "let's go with this direction", "integrate this into my project", "apply Concept B to my project", or confirms they are satisfied with a preview and want it in their codebase.
+
+**Workflow** — see [references/APPLY-DESIGN.md](references/APPLY-DESIGN.md):
+1. Confirm the scope with the user — which parts of the design to apply and where in the project
+2. Audit the user's project to understand existing framework, CSS approach, file conventions, and any existing design tokens
+3. Generate the appropriate token files (CSS custom properties, Tailwind config, JSON tokens) based on the user's tech stack
+4. Integrate the tokens into the project — create new files or merge with existing ones, respecting project conventions
+5. Present a clear summary of what was created or modified
+6. Invite the user to review and iterate — the collaborative spirit continues after applying
+
+**Important**: This capability is the ONLY point at which the agent modifies the user's project files. All prior exploration (concept previews, mood boards, design system previews) produces standalone artifacts that do not touch the project.
+
 ## Combining capabilities
 
-These capabilities compose naturally:
+These capabilities compose naturally. The workflow follows an **explore → choose → apply** pattern: the agent generates standalone previews for collaborative exploration, the user confirms a direction, and only then is the design applied to the project.
 
-- **Exploration → Extraction**: Explore vibes first, then extract a formal design system from the chosen direction
-- **Exploration → Mood Board → Extraction**: Explore vibes, crystallize them into a mood board for validation, then extract the formal design system — mood board serves as the design checkpoint between feeling and tokens
-- **Mood Board → Extraction**: Generate a mood board from collected references, then formalize the confirmed direction into a complete design system
+- **Exploration → Choose → Apply**: Explore vibes, generate 3 concept previews + mood boards, user chooses → formalize into design system → apply to project
+- **Exploration → Mood Board → Choose → Apply**: Explore vibes, crystallize into mood boards for validation, user confirms direction → extract design system → apply to project
+- **Design Restoration → Preview → Apply**: Extract design system from a complete design draft, generate a standalone preview page → user confirms → apply to project
+- **Mood Board → Extraction → Apply**: Generate mood board from references, formalize confirmed direction into design system → apply to project
 - **Exploration → Mood Board**: Generate a mood board during Design Exploration (after concept synthesis, before visual preview) as a mid-process checkpoint to let the user feel the direction
-- **Layout + Design System**: Analyze a layout from one site, apply a design system from another
+- **Layout + Design System → Apply**: Analyze a layout from one site, apply a design system from another → user confirms the combination → apply to project
 - **Layout + Mood Board**: Extract a layout from one reference, apply the mood board's visual direction to it
-- **Full pipeline**: Explore feelings → Choose direction → Extract design system → Analyze a reference layout → Generate styled skeleton code
+- **Full pipeline**: Explore feelings → Choose direction (from 3 concepts + mood boards) → Extract design system → Analyze a reference layout → Preview → Apply styled skeleton to project
 
 ## Output format guidelines
 
@@ -153,6 +179,7 @@ Layout outputs should include:
 
 ## Important notes
 
+- **Explore first, apply later**: Never modify the user's project files during design exploration. Generate all concept previews, mood boards, and design system previews as standalone artifacts. Only apply to the project when the user explicitly confirms a direction (via Capability 5).
 - Always ask which CSS framework/tech stack the user is using before generating code tokens
 - When extracting colors, provide both hex values and semantic names (e.g., `primary`, `surface`, `accent`)
 - For typography, note both the font family and the scale ratios, not just absolute sizes
