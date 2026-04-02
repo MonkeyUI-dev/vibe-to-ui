@@ -136,11 +136,12 @@ User has confirmed a design direction (from exploration concepts, design system 
 
 **Workflow** — see [references/APPLY-DESIGN.md](references/APPLY-DESIGN.md):
 1. Confirm the scope with the user — which parts of the design to apply and where in the project
-2. Audit the user's project to understand existing framework, CSS approach, file conventions, and any existing design tokens
-3. Generate the appropriate token files (CSS custom properties, Tailwind config, JSON tokens) based on the user's tech stack
-4. Integrate the tokens into the project — create new files or merge with existing ones, respecting project conventions
-5. Present a clear summary of what was created or modified
-6. Invite the user to review and iterate — the collaborative spirit continues after applying
+2. Check for a root `DESIGN.md` file (Stitch format): create it if missing, or update it if present, and ensure required sections are updated to match the confirmed direction
+3. Audit the user's project to understand existing framework, CSS approach, file conventions, and any existing design tokens
+4. Generate the appropriate token files (CSS custom properties, Tailwind config, JSON tokens) based on the user's tech stack
+5. Integrate the tokens into the project — create new files or merge with existing ones, respecting project conventions
+6. Present a clear summary of what was created or modified (including whether `DESIGN.md` was created or updated)
+7. Invite the user to review and iterate — the collaborative spirit continues after applying
 
 **Important**: This capability is the ONLY point at which the agent modifies the user's project files. All prior exploration (concept previews, mood boards, design system previews) produces standalone artifacts that do not touch the project.
 

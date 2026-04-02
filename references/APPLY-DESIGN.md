@@ -55,7 +55,27 @@ Questions to ask:
 
 Keep it conversational — 1–2 questions at a time.
 
-### Step 2: Audit the Project
+### Step 2: Check or Create `DESIGN.md`
+
+Before touching implementation files, ensure the project has a root-level `DESIGN.md` (Stitch format).
+
+- If `DESIGN.md` does not exist, create it.
+- If `DESIGN.md` already exists, update it in place.
+
+When creating or updating, ensure the required sections are present and aligned with the confirmed direction:
+
+1. **Colors**
+2. **Typography**
+3. **Spacing**
+4. **Components**
+5. **Elevation**
+6. **Guidelines**
+
+Also include **Layout Principles** when the confirmed direction contains clear layout rules.
+
+The `DESIGN.md` content must reflect the final confirmed design direction before applying tokens/code changes.
+
+### Step 3: Audit the Project
 
 Examine the user's project to understand what exists:
 
@@ -66,7 +86,7 @@ Examine the user's project to understand what exists:
 
 Respect existing project conventions. Adapt the output to fit, not the other way around.
 
-### Step 3: Generate Token Files
+### Step 4: Generate Token Files
 
 Based on the confirmed design system and the user's tech stack, generate the appropriate token files:
 
@@ -125,7 +145,7 @@ Extend or create `tailwind.config.js` / `tailwind.config.ts` with the extracted 
 
 Generate a structured `design-tokens.json` for framework-agnostic consumption.
 
-### Step 4: Integrate into the Project
+### Step 5: Integrate into the Project
 
 Apply the generated tokens to the user's project:
 
@@ -134,7 +154,7 @@ Apply the generated tokens to the user's project:
 3. **Add font imports** if new fonts are required (Google Fonts `<link>` or `@import`)
 4. **Preserve existing styles** — merge with, don't overwrite, existing tokens unless the user explicitly asks to replace
 
-### Step 5: Summary and Verification
+### Step 6: Summary and Verification
 
 After applying, present a clear summary:
 
@@ -142,6 +162,7 @@ After applying, present a clear summary:
 Applied design summary:
 - Created: [list of new files]
 - Updated: [list of modified files]
+- DESIGN.md: [created or updated]
 - Tokens applied: [colors, typography, spacing, radius, shadows, motion]
 - Font imports: [fonts added, if any]
 
@@ -156,12 +177,14 @@ Invite the user to review the changes — the collaborative spirit continues eve
 
 2. **Confirm before applying**: Always confirm scope and location before writing to project files.
 
-3. **Respect project conventions**: Adapt to the project's existing file structure, naming patterns, and tooling. Don't impose a new structure.
+3. **Always maintain `DESIGN.md`**: When applying a confirmed direction, create or update root `DESIGN.md` first so the project has an explicit design source of truth.
 
-4. **Merge, don't overwrite**: If the project already has design tokens or styles, merge the new tokens with existing ones unless the user explicitly asks to replace.
+4. **Respect project conventions**: Adapt to the project's existing file structure, naming patterns, and tooling. Don't impose a new structure.
 
-5. **Show what changed**: After applying, clearly list what files were created or modified. The user should never be surprised by changes.
+5. **Merge, don't overwrite**: If the project already has design tokens or styles, merge the new tokens with existing ones unless the user explicitly asks to replace.
 
-6. **Keep it reversible**: Where possible, make changes that are easy to undo — separate token files are preferable to scattered inline modifications.
+6. **Show what changed**: After applying, clearly list what files were created or modified. The user should never be surprised by changes.
 
-7. **Iterate after applying**: The user may want to adjust after seeing the design in their actual project context. Be ready to refine.
+7. **Keep it reversible**: Where possible, make changes that are easy to undo — separate token files are preferable to scattered inline modifications.
+
+8. **Iterate after applying**: The user may want to adjust after seeing the design in their actual project context. Be ready to refine.
