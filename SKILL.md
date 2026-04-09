@@ -5,20 +5,26 @@ description: >-
   screenshots or design mockups, explore aesthetic directions through interactive
   conversation with mood/inspiration images or music recordings, generate mood boards as
   curated visual collages to crystallize and communicate design direction, analyze UI
-  layout structures from webpage screenshots into reusable ASCII layout blueprints, and
-  apply confirmed design directions to the user's project. All exploration outputs
-  (concept previews, mood boards, design system previews) are generated as standalone
-  artifacts — the agent only modifies project files when the user explicitly confirms a
-  direction and asks to apply it. Includes motion system extraction — defining how, when,
-  and why elements animate to communicate meaning and product personality. Use when the
-  user wants to establish visual style and motion language for their project, needs help
-  defining design aesthetics, wants to extract a design system from an existing UI, wants
-  to define or understand a motion system, wants to create a mood board to capture and
-  validate aesthetic direction before formal design, needs to understand and reuse a
-  webpage layout structure, or has confirmed a design direction and wants to apply it to
-  their project. Also use when the user shares a music recording or describes a
-  song/melody to express the emotional feeling they want their design to convey. Ideal
-  for vibe coding developers who lack professional design skills.
+  layout structures from webpage screenshots into reusable ASCII layout blueprints,
+  apply confirmed design directions to the user's project, and codify design constraints
+  into a DESIGN.md file that any AI coding agent can read to enforce design consistency
+  during iterative development. All exploration outputs (concept previews, mood boards,
+  design system previews) are generated as standalone artifacts — the agent only modifies
+  project files when the user explicitly confirms a direction and asks to apply it.
+  Includes motion system extraction — defining how, when, and why elements animate to
+  communicate meaning and product personality. Includes Design Guard — extracting
+  established design decisions, component behavior contracts, and anti-patterns from
+  iterating projects into a universal DESIGN.md that keeps coding agents aligned with
+  product identity. Use when the user wants to establish visual style and motion language
+  for their project, needs help defining design aesthetics, wants to extract a design
+  system from an existing UI, wants to define or understand a motion system, wants to
+  create a mood board to capture and validate aesthetic direction before formal design,
+  needs to understand and reuse a webpage layout structure, has confirmed a design
+  direction and wants to apply it to their project, wants to lock down design constraints
+  for consistent AI-generated UI, or needs to update design constraints after project
+  iteration. Also use when the user shares a music recording or describes a song/melody
+  to express the emotional feeling they want their design to convey. Ideal for vibe
+  coding developers who lack professional design skills.
 metadata:
   author: MonkeyUI
   version: "0.1.0"
@@ -43,8 +49,12 @@ A local, single-project design companion for vibe coding developers. Extracts "s
 - User has collected **multiple reference images** and wants to see them synthesized into a cohesive visual story
 - User wants a **shareable design artifact** that communicates aesthetic intent to collaborators or stakeholders
 - User has **confirmed a design direction** (from concept previews, mood boards, or design system previews) and wants to **apply it to their project**
+- User's project has been through initial design setup and wants to **lock down design constraints** so coding agents stay consistent
+- User says things like "guard my design", "create a DESIGN.md", "lock down my design", "keep the AI consistent", "extract design constraints"
+- User notices **design inconsistency** creeping in across pages or components during iterative development
+- User wants to **update design constraints** after adding new features or components ("update my DESIGN.md", "sync design guard")
 
-## Five core capabilities
+## Six core capabilities
 
 ### 1. Design System Extraction (Design Style Restoration)
 
@@ -144,6 +154,36 @@ User has confirmed a design direction (from exploration concepts, design system 
 
 **Important**: This capability is the ONLY point at which the agent modifies the user's project files. All prior exploration (concept previews, mood boards, design system previews) produces standalone artifacts that do not touch the project.
 
+### 6. Design Guard
+
+User's project has gone through initial design and iteration → Extract established design decisions and codify them into a `DESIGN.md` file that any AI coding agent reads to generate consistent UI.
+
+**Trigger**: User says things like "guard my design", "lock down my design", "create a DESIGN.md", "keep the AI consistent with my design", "extract design constraints", or notices inconsistency creeping in during iterative development. Also triggered naturally after **Capability 5** (Apply Design to Project) as a recommended next step.
+
+**Workflow** — see [references/DESIGN-GUARD.md](references/DESIGN-GUARD.md) for full methodology and [references/DESIGN-GUARD-INTEGRATION.md](references/DESIGN-GUARD-INTEGRATION.md) for agent integration:
+
+#### 6a: Extract & Codify
+
+1. **Audit the project** — scan token files (CSS vars, Tailwind config, JSON tokens), component patterns, motion usage, existing design documents
+2. **Interview the user** — ask about brand personality, intentional design choices, interaction pattern rationale, terminology rules (1–2 questions at a time, conversational)
+3. **Generate DESIGN.md** — produce a comprehensive design constraint file following the template in [assets/design-guard-template.md](assets/design-guard-template.md):
+   - Standard DESIGN.md sections (Visual Theme, Color Palette, Typography, Component Stylings, Layout, Depth, Do's/Don'ts, Responsive) compatible with the [DESIGN.md standard](https://stitch.withgoogle.com/docs/design-md/overview/)
+   - Extended sections for iterating products: Component Behavior Contracts, Motion Constraints, Copy & Voice, Guard Metadata, Evolve Triggers, Decision Log
+4. **Place at project root** — `DESIGN.md` goes in the root directory where all coding agents can discover it
+5. **Check for existing agent files** — if the project has `AGENTS.md`, `CLAUDE.md`, `.instructions.md`, `.cursor/rules/`, or `.windsurfrules`, offer to add a one-line pointer to `DESIGN.md` (never create these files from scratch)
+6. **Summary** — present what was created and what the guard covers
+
+#### 6b: Evolve & Update
+
+1. **Read existing DESIGN.md** — load current guard and its metadata
+2. **Re-scan the project** — identify new components, new pages, modified tokens, new interaction patterns since last update
+3. **Diff against existing constraints** — categorize findings as consistent (✅), evolution (🆕 new pattern to add), or drift (⚠️ deviation from constraints)
+4. **Present findings to user** — show what's new, what's changed, what might be drifting
+5. **Update DESIGN.md** — merge confirmed changes, update metadata, log decisions
+6. **Summary** — list what changed in the guard
+
+**Design Guard philosophy**: Constraints are a gravity field, not a wall. They pull agents toward consistency but never block legitimate creative work. Evolve triggers embedded in the guard suggest updates — they don't prevent coding.
+
 ## Combining capabilities
 
 These capabilities compose naturally. The workflow follows an **explore → choose → apply** pattern: the agent generates standalone previews for collaborative exploration, the user confirms a direction, and only then is the design applied to the project.
@@ -156,6 +196,9 @@ These capabilities compose naturally. The workflow follows an **explore → choo
 - **Layout + Design System → Apply**: Analyze a layout from one site, apply a design system from another → user confirms the combination → apply to project
 - **Layout + Mood Board**: Extract a layout from one reference, apply the mood board's visual direction to it
 - **Full pipeline**: Explore feelings → Choose direction (from 3 concepts + mood boards) → Extract design system → Analyze a reference layout → Preview → Apply styled skeleton to project
+- **Apply → Guard**: After applying a design system to the project, immediately extract constraints into DESIGN.md to lock in the direction for all future agent sessions
+- **Guard → Evolve**: After significant project iteration, re-scan and update the DESIGN.md to capture new patterns and detect drift
+- **Full lifecycle**: Explore → Choose → Apply → Guard → Iterate → Evolve → (repeat Evolve as needed)
 
 ## Output format guidelines
 
@@ -173,6 +216,12 @@ Layout outputs should include:
 - Semantic HTML structure
 - Component hierarchy description
 
+Design Guard outputs should include:
+- A single `DESIGN.md` file at the project root following the [DESIGN.md standard](https://stitch.withgoogle.com/docs/design-md/overview/) with guard extensions
+- Standard sections (Visual Theme, Colors, Typography, Components, Layout, Depth, Do's/Don'ts, Responsive) for universal agent compatibility
+- Extended sections (Behavior Contracts, Motion Constraints, Copy & Voice, Metadata, Evolve Triggers, Decision Log) for iterating products
+- Guard Metadata block with structured data (version, known_components, known_pages, token_files) for programmatic evolve detection
+
 ## Icon usage guidelines
 
 **Never use raw emoji characters as visual elements in generated UI code.** Always use the project's icon component library. When no library icon fits or harmonizes with the page's aesthetic, create a custom SVG icon component that inherits the design system's tokens and matches the aesthetic soul — see [references/ICON-USAGE.md](references/ICON-USAGE.md) for detailed guidance.
@@ -180,6 +229,9 @@ Layout outputs should include:
 ## Important notes
 
 - **Explore first, apply later**: Never modify the user's project files during design exploration. Generate all concept previews, mood boards, and design system previews as standalone artifacts. Only apply to the project when the user explicitly confirms a direction (via Capability 5).
+- **Guard is a gravity field, not a wall**: Design Guard constraints pull agents toward consistency but never block legitimate creative work. Evolve triggers embedded in the guard suggest updates — they don't prevent coding. Write constraints as context and rationale, not terse rules.
+- **DESIGN.md is agent-neutral**: The guard outputs a single DESIGN.md at the project root using the [DESIGN.md standard](https://stitch.withgoogle.com/docs/design-md/overview/). This format is natively understood by Google Stitch and universally discoverable by all major coding agents (Copilot, Claude Code, Cursor, Codex, Windsurf, etc.). Never create agent-specific instruction files from scratch — only add minimal pointers to existing ones.
+- **Guard evolves with the project**: After initial guard creation, recommend the user update it periodically. The guard contains embedded evolve triggers that help coding agents notice when an update may be needed.
 - Always ask which CSS framework/tech stack the user is using before generating code tokens
 - When extracting colors, provide both hex values and semantic names (e.g., `primary`, `surface`, `accent`)
 - For typography, note both the font family and the scale ratios, not just absolute sizes
