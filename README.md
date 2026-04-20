@@ -32,7 +32,7 @@ We believe: when more developers can carry the beauty that has moved them into w
 
 A design companion for vibe coding developers. Turns screenshots, mood images, and gut feelings into structured design systems, motion languages, and layout blueprints — all through standalone previews for collaborative exploration. Only applies designs to your project when you're ready.
 
-**Four core capabilities:**
+**Five core capabilities:**
 
 #### 1. Design System Extraction
 *For users who have a complete design to restore.*
@@ -83,15 +83,30 @@ After exploring and choosing a design direction — whether from concept preview
 - Integrates tokens into your project, respecting existing conventions
 - Presents a summary of changes for your review
 
+#### 5. Context Accumulation (Passive — New in 0.2.0)
+*Design gets better over time because the context compounds.*
+
+vibe-to-ui reads and writes a shared `DESIGN.md` file in your project root — accumulating product knowledge (target users, use cases, product personality, design decisions) across sessions. This happens **automatically** during any design conversation:
+
+- **Reads** product context before making design decisions — so designs serve actual product goals
+- **Writes** context learned through conversation — so you never have to manually document design rationale
+- **Collaborates** with other skills (PM, user research, etc.) — they write product context to `DESIGN.md`, vibe-to-ui reads it
+
+No manual invocation needed. The agent silently builds a persistent design memory for your project.
+
 #### Composing capabilities
 
-These capabilities chain naturally, following an **explore → choose → apply** pattern:
+These capabilities chain naturally, following an **explore → choose → apply** pattern, with context accumulation running passively throughout:
 
 ```
-Explore vibes → Choose from 3 concepts + mood boards → Extract design system → Preview → Apply to project
+[PM skill writes product context to DESIGN.md]
+     ↓
+Explore vibes (informed by product context) → Choose from 3 concepts + mood boards → Extract design system → Preview → Apply to project
+     ↓
+[DESIGN.md accumulates design decisions and user insights]
 ```
 
-Or mix and match — extract style from one site, apply it to a layout from another. The agent only touches your project when you say "apply."
+Or mix and match — extract style from one site, apply it to a layout from another. The agent only touches your project when you say "apply" (except for DESIGN.md, which is updated passively).
 
 ---
 

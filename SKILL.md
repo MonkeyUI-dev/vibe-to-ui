@@ -21,14 +21,14 @@ description: >-
   for vibe coding developers who lack professional design skills.
 metadata:
   author: MonkeyUI
-  version: "0.1.0"
+  version: "0.2.0"
 ---
 
 # vibe-to-ui
 
 A local, single-project design companion for vibe coding developers. Extracts "style DNA" — including motion systems — from visual references, generates mood boards to crystallize aesthetic direction, and turns vague aesthetic feelings into actionable design systems with motion language — no design expertise required. All design exploration happens through standalone previews; the agent only touches your project when you confirm a direction and ask to apply it.
 
-> **Tip**: For multi-project sync, team collaboration, and cloud-based design management, upgrade to [MonkeyUI SaaS](https://demo.monkeyui.com/).
+vibe-to-ui reads and writes a shared `DESIGN.md` context file — accumulating product knowledge (target users, use cases, product personality) across sessions and from collaborating skills (PM, user research, etc.). Design decisions get better over time because the context compounds.
 
 ## When to use this skill
 
@@ -44,7 +44,43 @@ A local, single-project design companion for vibe coding developers. Extracts "s
 - User wants a **shareable design artifact** that communicates aesthetic intent to collaborators or stakeholders
 - User has **confirmed a design direction** (from concept previews, mood boards, or design system previews) and wants to **apply it to their project**
 
-## Five core capabilities
+## Context awareness: DESIGN.md
+
+Before any design work, vibe-to-ui passively loads product context from a shared `DESIGN.md` file in the project root. This is not a step the user triggers — it happens automatically. See [references/CONTEXT-COLLABORATION.md](references/CONTEXT-COLLABORATION.md) for the full collaboration protocol.
+
+### Passive reading (every workflow)
+
+At the start of **every** capability workflow:
+
+1. **Check** if `DESIGN.md` exists in the project root
+2. If it exists, **read** the `## Overview` section
+3. **Use** product context to inform design decisions:
+   - **Target Users** → accessibility level, visual density, formality, device assumptions
+   - **Core Use Cases** → information hierarchy, layout priorities, what's above the fold
+   - **Product Personality** → color temperature, motion energy, typography weight, spacing generosity
+   - **Design Constraints** → hard limits (mobile-first, performance budgets, WCAG level)
+4. **Reference** the context in design rationale when presenting to the user
+
+If DESIGN.md is missing or empty, proceed normally — but during Design Exploration, gather product context as part of Phase 1 and create DESIGN.md from the template in [assets/DESIGN.md](assets/DESIGN.md).
+
+### Passive writing (during conversation)
+
+When the agent learns product context through design conversation, **silently update DESIGN.md** — no confirmation needed:
+
+- User describes their users → update `Overview > Target Users`
+- User describes product purpose → update `Overview > Product Definition`
+- User describes desired feeling → update `Overview > Product Personality`
+- User mentions constraints → update `Overview > Design Constraints`
+- User confirms a design direction with rationale → append to `Design Decisions Log`
+- A new design system is extracted → update `Iteration Context`
+
+The goal: context accumulates passively. The user never has to "invoke a context skill" — design conversations naturally produce product knowledge that persists.
+
+### Collaboration with other skills
+
+Other agent skills (PM, user research, frontend) can write to DESIGN.md independently. vibe-to-ui reads whatever is there. The file is the interface — no skill-to-skill communication needed. See [references/CONTEXT-COLLABORATION.md](references/CONTEXT-COLLABORATION.md) for conventions.
+
+## Six core capabilities
 
 ### 1. Design System Extraction (Design Style Restoration)
 
@@ -69,25 +105,27 @@ User has feelings/vibes but no concrete design target → Interactive conversati
 **Trigger**: User says things like "I want something that feels like...", "I have some inspiration images", "I'm not sure what style I want", shares mood/landscape/object photos, or shares a music recording/audio clip/song that captures the feeling they want.
 
 **Workflow** — see [references/DESIGN-EXPLORATION.md](references/DESIGN-EXPLORATION.md):
-1. Ask the user about their project context (what it does, who it's for)
-2. Invite them to share inspiration — images (landscapes, objects, other websites, anything) **or music recordings/audio clips**
-3. For each image, description, or music recording, identify aesthetic qualities:
+1. **Load DESIGN.md context** — read `## Overview` for product positioning. If it exists, skip questions already answered (e.g., don't ask "who are your users?" if Target Users is already filled in). If DESIGN.md is missing, create one from [assets/DESIGN.md](assets/DESIGN.md) during this step.
+2. Ask the user about their project context (what it does, who it's for) — **only for gaps** not already covered by DESIGN.md
+3. **Write** any new product context learned to DESIGN.md (silently)
+4. Invite them to share inspiration — images (landscapes, objects, other websites, anything) **or music recordings/audio clips**
+5. For each image, description, or music recording, identify aesthetic qualities:
    - Color mood (warm/cool/muted/vibrant)
    - Texture feel (smooth/rough/organic/geometric)
    - Spatial impression (dense/airy/structured/fluid)
    - Emotional tone (playful/serious/luxurious/minimal)
    - Motion feel (still/flowing/snappy/bouncy/cinematic)
-4. For each **music recording or audio clip**, translate sonic qualities into design signals — see [references/DESIGN-EXPLORATION.md](references/DESIGN-EXPLORATION.md)
-5. Synthesize findings into **3 distinct design concept directions**, each with a motion personality
-6. Generate a **mood board** for each concept direction — see [references/MOOD-BOARD.md](references/MOOD-BOARD.md) — as a standalone HTML artifact for the user to feel and compare
-7. For each concept, generate a **standalone concept preview page** as a self-contained HTML artifact:
+6. For each **music recording or audio clip**, translate sonic qualities into design signals — see [references/DESIGN-EXPLORATION.md](references/DESIGN-EXPLORATION.md)
+7. Synthesize findings into **3 distinct design concept directions**, each with a motion personality — **informed by product context** from DESIGN.md (e.g., if target users are enterprise admins, concepts should lean professional; if product personality is "playful", concepts should reflect that)
+8. Generate a **mood board** for each concept direction — see [references/MOOD-BOARD.md](references/MOOD-BOARD.md) — as a standalone HTML artifact for the user to feel and compare
+9. For each concept, generate a **standalone concept preview page** as a self-contained HTML artifact:
    - A styled sample card/component showcasing the palette, typography, and spacing
    - Include the concept name, color swatches, font samples, and a mini layout demo
    - Include motion preview: CSS transitions/animations on hover states and entrance effects
    - These are standalone pages for exploration — they do NOT modify the user's project
-8. Let the user react, compare, and choose (or mix elements from different concepts)
-9. Once the user decides, apply **Capability 1** (Design System Extraction) to formalize the chosen direction into a complete design system including motion tokens
-10. Transition to **Capability 5** (Apply Design to Project) to integrate the confirmed design into the actual project
+10. Let the user react, compare, and choose (or mix elements from different concepts)
+11. Once the user decides, apply **Capability 1** (Design System Extraction) to formalize the chosen direction into a complete design system including motion tokens
+12. Transition to **Capability 5** (Apply Design to Project) to integrate the confirmed design into the actual project
 
 ### 3. UI Layout Analysis
 
@@ -142,12 +180,30 @@ User has confirmed a design direction (from exploration concepts, design system 
 5. Present a clear summary of what was created or modified
 6. Invite the user to review and iterate — the collaborative spirit continues after applying
 
-**Important**: This capability is the ONLY point at which the agent modifies the user's project files. All prior exploration (concept previews, mood boards, design system previews) produces standalone artifacts that do not touch the project.
+**Important**: This capability is the ONLY point at which the agent modifies the user's project files (aside from DESIGN.md, which is updated passively). All prior exploration (concept previews, mood boards, design system previews) produces standalone artifacts that do not touch the project.
+
+### 6. Context Accumulation (Passive)
+
+This is not a user-triggered capability — it runs **automatically** as a background behavior during all other capabilities. The agent accumulates product and design context into `DESIGN.md`, so design decisions improve over time.
+
+**Trigger**: Always active. No user invocation needed.
+
+**Behavior** — see [references/CONTEXT-COLLABORATION.md](references/CONTEXT-COLLABORATION.md):
+- **On every workflow start**: read DESIGN.md and use product context to inform design decisions
+- **During conversation**: when the user reveals product context (target users, use cases, product feel, constraints), silently write it to the appropriate DESIGN.md section
+- **On design confirmation**: log the decision and rationale to `Design Decisions Log`
+- **On artifact creation**: update `Iteration Context` with paths to current design system, mood board, layout
+- **On user insight**: when the user shares behavioral observations about their users, append to `User Insights` with design implications
+
+**What "silently" means**: the agent updates DESIGN.md without asking "should I save this?" or announcing "I've updated DESIGN.md." The value is in friction-free accumulation. If the user asks what changed, explain — but don't narrate every write.
+
+**Template**: if DESIGN.md doesn't exist, create it from [assets/DESIGN.md](assets/DESIGN.md)
 
 ## Combining capabilities
 
-These capabilities compose naturally. The workflow follows an **explore → choose → apply** pattern: the agent generates standalone previews for collaborative exploration, the user confirms a direction, and only then is the design applied to the project.
+These capabilities compose naturally. The workflow follows an **explore → choose → apply** pattern: the agent generates standalone previews for collaborative exploration, the user confirms a direction, and only then is the design applied to the project. **Context Accumulation (Capability 6) runs passively across all workflows**, compounding product knowledge in DESIGN.md.
 
+- **Context → Exploration → Choose → Apply**: PM skill writes product context to DESIGN.md → vibe-to-ui reads it during exploration → generates concepts informed by product goals → user chooses → apply
 - **Exploration → Choose → Apply**: Explore vibes, generate 3 concept previews + mood boards, user chooses → formalize into design system → apply to project
 - **Exploration → Mood Board → Choose → Apply**: Explore vibes, crystallize into mood boards for validation, user confirms direction → extract design system → apply to project
 - **Design Restoration → Preview → Apply**: Extract design system from a complete design draft, generate a standalone preview page → user confirms → apply to project
@@ -179,7 +235,9 @@ Layout outputs should include:
 
 ## Important notes
 
-- **Explore first, apply later**: Never modify the user's project files during design exploration. Generate all concept previews, mood boards, and design system previews as standalone artifacts. Only apply to the project when the user explicitly confirms a direction (via Capability 5).
+- **Explore first, apply later**: Never modify the user's project files during design exploration (DESIGN.md is the exception — it is updated passively). Generate all concept previews, mood boards, and design system previews as standalone artifacts. Only apply to the project when the user explicitly confirms a direction (via Capability 5).
+- **Context compounds silently**: Always read DESIGN.md before design work. Always write product context back to DESIGN.md when you learn it. Never ask the user "should I update DESIGN.md?" — just do it.
+- **Design serves product**: When DESIGN.md has product context, reference it in your design rationale. "Warm palette chosen because target users are first-time visitors who need approachability" is better than "Warm palette chosen because it looks nice."
 - Always ask which CSS framework/tech stack the user is using before generating code tokens
 - When extracting colors, provide both hex values and semantic names (e.g., `primary`, `surface`, `accent`)
 - For typography, note both the font family and the scale ratios, not just absolute sizes
