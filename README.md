@@ -34,6 +34,8 @@ A design companion for vibe coding developers. Turns screenshots, mood images, a
 
 **Five core capabilities:**
 
+> **Design context**: When you start building any UI project, vibe-to-ui automatically establishes or loads design context from `DESIGN.md` — so every design decision is informed by product goals from the start.
+
 #### 1. Design System Extraction
 *For users who have a complete design to restore.*
 

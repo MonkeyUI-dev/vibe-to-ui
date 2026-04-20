@@ -17,8 +17,10 @@ description: >-
   validate aesthetic direction before formal design, needs to understand and reuse a
   webpage layout structure, or has confirmed a design direction and wants to apply it to
   their project. Also use when the user shares a music recording or describes a
-  song/melody to express the emotional feeling they want their design to convey. Ideal
-  for vibe coding developers who lack professional design skills.
+  song/melody to express the emotional feeling they want their design to convey. Also
+  activates when the user starts building any UI — creating a landing page, dashboard,
+  app, or website — to establish design context in DESIGN.md before visual work begins.
+  Ideal for vibe coding developers who lack professional design skills.
 metadata:
   author: MonkeyUI
   version: "0.2.0"
@@ -43,6 +45,7 @@ vibe-to-ui reads and writes a shared `DESIGN.md` context file — accumulating p
 - User has collected **multiple reference images** and wants to see them synthesized into a cohesive visual story
 - User wants a **shareable design artifact** that communicates aesthetic intent to collaborators or stakeholders
 - User has **confirmed a design direction** (from concept previews, mood boards, or design system previews) and wants to **apply it to their project**
+- User is **starting to build a UI project** (landing page, dashboard, app, website) — vibe-to-ui should activate to establish or load design context from `DESIGN.md` before any visual work begins
 
 ## Context awareness: DESIGN.md
 
