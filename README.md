@@ -85,16 +85,20 @@ After exploring and choosing a design direction — whether from concept preview
 - Integrates tokens into your project, respecting existing conventions
 - Presents a summary of changes for your review
 
-#### 5. Context Accumulation (Passive — New in 0.2.0)
+#### 5. Context Accumulation
 *Design gets better over time because the context compounds.*
 
-vibe-to-ui reads and writes a shared `DESIGN.md` file in your project root — accumulating product knowledge (target users, use cases, product personality, design decisions) across sessions. This happens **automatically** during any design conversation:
+vibe-to-ui reads and writes a shared `DESIGN.md` file in your project root — accumulating product knowledge (target users, use cases, product personality, design decisions) across sessions. This works in two modes:
 
+**Passive** (automatic) — happens during any design conversation without you asking:
 - **Reads** product context before making design decisions — so designs serve actual product goals
 - **Writes** context learned through conversation — so you never have to manually document design rationale
 - **Collaborates** with other skills (PM, user research, etc.) — they write product context to `DESIGN.md`, vibe-to-ui reads it
 
-No manual invocation needed. The agent silently builds a persistent design memory for your project.
+**Active** (on demand) — just say "update DESIGN.md" or "capture this into DESIGN.md":
+- Reviews the current conversation for product context
+- Creates or updates `DESIGN.md` with everything it found
+- Shows you a summary of what was captured so you can verify
 
 #### Composing capabilities
 

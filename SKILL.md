@@ -20,7 +20,9 @@ description: >-
   song/melody to express the emotional feeling they want their design to convey. Also
   activates when the user starts building any UI — creating a landing page, dashboard,
   app, or website — to establish design context in DESIGN.md before visual work begins.
-  Ideal for vibe coding developers who lack professional design skills.
+  Also use when the user explicitly asks to create, update, or save design context to
+  DESIGN.md — capturing product knowledge from the current conversation into a persistent
+  design file. Ideal for vibe coding developers who lack professional design skills.
 metadata:
   author: MonkeyUI
   version: "0.2.0"
@@ -46,6 +48,7 @@ vibe-to-ui reads and writes a shared `DESIGN.md` context file — accumulating p
 - User wants a **shareable design artifact** that communicates aesthetic intent to collaborators or stakeholders
 - User has **confirmed a design direction** (from concept previews, mood boards, or design system previews) and wants to **apply it to their project**
 - User is **starting to build a UI project** (landing page, dashboard, app, website) — vibe-to-ui should activate to establish or load design context from `DESIGN.md` before any visual work begins
+- User asks to **create or update DESIGN.md** — explicitly requesting that product knowledge and design context from the current conversation be captured into the project's design file
 
 ## Context awareness: DESIGN.md
 
@@ -185,13 +188,17 @@ User has confirmed a design direction (from exploration concepts, design system 
 
 **Important**: This capability is the ONLY point at which the agent modifies the user's project files (aside from DESIGN.md, which is updated passively). All prior exploration (concept previews, mood boards, design system previews) produces standalone artifacts that do not touch the project.
 
-### 6. Context Accumulation (Passive)
+### 6. Context Accumulation
 
-This is not a user-triggered capability — it runs **automatically** as a background behavior during all other capabilities. The agent accumulates product and design context into `DESIGN.md`, so design decisions improve over time.
+The agent accumulates product and design context into `DESIGN.md`, so design decisions improve over time. This works in two modes: **passive** (automatic during all workflows) and **active** (user-triggered on demand).
 
-**Trigger**: Always active. No user invocation needed.
+**Passive trigger**: Always active. No user invocation needed.
 
-**Behavior** — see [references/CONTEXT-COLLABORATION.md](references/CONTEXT-COLLABORATION.md):
+**Active trigger**: User says things like "update DESIGN.md", "save the design context", "capture what we discussed into DESIGN.md", "create a DESIGN.md for this project", or "summarize the design direction so far".
+
+#### Passive mode
+
+See [references/CONTEXT-COLLABORATION.md](references/CONTEXT-COLLABORATION.md):
 - **On every workflow start**: read DESIGN.md and use product context to inform design decisions
 - **During conversation**: when the user reveals product context (target users, use cases, product feel, constraints), silently write it to the appropriate DESIGN.md section
 - **On design confirmation**: log the decision and rationale to `Design Decisions Log`
@@ -199,6 +206,17 @@ This is not a user-triggered capability — it runs **automatically** as a backg
 - **On user insight**: when the user shares behavioral observations about their users, append to `User Insights` with design implications
 
 **What "silently" means**: the agent updates DESIGN.md without asking "should I save this?" or announcing "I've updated DESIGN.md." The value is in friction-free accumulation. If the user asks what changed, explain — but don't narrate every write.
+
+#### Active mode
+
+When the user explicitly asks to create or update DESIGN.md:
+
+1. **Review** the current conversation for product context (target users, use cases, product personality, constraints, design decisions made)
+2. If DESIGN.md doesn't exist, **create** it from [assets/DESIGN.md](assets/DESIGN.md)
+3. **Write** all discovered context to the appropriate sections
+4. **Present a brief summary** of what was captured — unlike passive mode, active mode confirms what it wrote so the user can verify and correct
+
+This gives users explicit control: "We've been discussing the product for a while — capture all of this into DESIGN.md."
 
 **Template**: if DESIGN.md doesn't exist, create it from [assets/DESIGN.md](assets/DESIGN.md)
 
