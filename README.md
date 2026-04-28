@@ -2,13 +2,13 @@
 
 [中文](README.zh_CN.md)
 
-> Agent Skills for [MonkeyUI](https://github.com/MonkeyUI-dev/MonkeyUI) — helping vibe coding developers build professional-grade UIs without designer expertise.
+> A context-aware Agent Skill that turns product knowledge, references, and vibes into UI design systems.
 
 ---
 
 ## What is vibe-to-ui?
 
-**vibe-to-ui** is a collection of [Agent Skills](https://agentskills.io) built for MonkeyUI's local, single-project mode. These skills give AI coding agents (Claude Code, GitHub Copilot, Cursor, etc.) specialized design knowledge so they can help developers who code by feel — but don't speak fluent design. Beyond static visual tokens, vibe-to-ui also extracts and generates **motion systems** — defining how, when, and why UI elements should animate to communicate meaning and product personality. The agent works collaboratively — all design exploration happens through standalone previews and concept pages, and only touches your project when you confirm a direction and ask to apply it.
+**vibe-to-ui** is a local, single-project Agent Skill that helps AI coding agents turn product context, references, and feelings into professional UI direction. It continuously compounds design context in `DESIGN.md`, then uses that context to extract design systems, explore visual and motion directions from screenshots, images, or music, and generate standalone previews for review. Your project files are only changed when you confirm a direction and ask to apply it.
 
 ---
 

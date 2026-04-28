@@ -1,12 +1,12 @@
 # vibe-to-ui
 
-> [MonkeyUI](https://github.com/MonkeyUI-dev/MonkeyUI) 的 Agent Skills 技能包 —— 帮助 vibe coding 开发者无需设计师经验也能打造专业级 UI。
+> 一个具备上下文感知能力的 Agent Skill，将产品知识、参考素材和灵感感受转化为 UI 设计系统。
 
 ---
 
 ## vibe-to-ui 是什么？
 
-**vibe-to-ui** 是一套专为 MonkeyUI 本地单项目模式构建的 [Agent Skills](https://agentskills.io) 技能集合。这些技能为 AI 编程助手（Claude Code、GitHub Copilot、Cursor 等）注入专业的设计知识，帮助那些凭感觉写代码、但不擅长设计语言的开发者。除了静态视觉 Token，vibe-to-ui 还能提取和生成**动效系统** —— 定义 UI 元素何时、如何以及为何需要动画，以传达含义和产品气质。Agent 采用协作模式工作 —— 所有设计探索都通过独立的预览页面和概念稿进行，只有当你确认方向并要求应用时，才会修改你的项目。
+**vibe-to-ui** 是一个面向本地单项目工作流的 Agent Skill，帮助 AI 编程助手把产品上下文、参考素材和说不清的感觉转化为专业 UI 方向。它会在 `DESIGN.md` 中持续沉淀设计上下文，并基于这些上下文从截图、图片或音乐中提取设计系统、探索视觉与动效方向、生成独立预览供你确认。只有当你确认方向并要求应用时，它才会修改你的项目文件。
 
 ---
 
