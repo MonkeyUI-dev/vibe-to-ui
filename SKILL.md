@@ -1,36 +1,12 @@
 ---
 name: vibe-to-ui
 description: >-
-  Continuously accumulate and compound product and design context in a shared DESIGN.md
-  file — capturing target users, use cases, product personality, design constraints, and
-  decision rationale across sessions and collaborating skills (PM, user research, etc.).
-  Context is read before every design action and written back silently during
-  conversation, so design decisions improve over time without manual effort. This
-  persistent context layer is the core value: it turns scattered conversations into
-  compounding product knowledge that informs all downstream design work. On top of this
-  context foundation, provide personalized UI design generation — extract design systems
-  (colors, typography, spacing, shadows, radius, motion) from UI screenshots or design
-  mockups, explore aesthetic directions through interactive conversation with
-  mood/inspiration images or music recordings, generate mood boards as curated visual
-  collages to crystallize and communicate design direction, analyze UI layout structures
-  from webpage screenshots into reusable ASCII layout blueprints, and apply confirmed
-  design directions to the user's project. All exploration outputs (concept previews, mood
-  boards, design system previews) are generated as standalone artifacts — the agent only
-  modifies project files when the user explicitly confirms a direction and asks to apply
-  it. Includes motion system extraction — defining how, when, and why elements animate to
-  communicate meaning and product personality. Use when the user starts building any UI —
-  creating a landing page, dashboard, app, or website — to establish design context in
-  DESIGN.md before visual work begins. Also use when the user explicitly asks to create,
-  update, or save design context to DESIGN.md — capturing product knowledge from the
-  current conversation into a persistent design file. Use when the user wants to establish
-  visual style and motion language for their project, needs help defining design
-  aesthetics, wants to extract a design system from an existing UI, wants to define or
-  understand a motion system, wants to create a mood board to capture and validate
-  aesthetic direction before formal design, needs to understand and reuse a webpage layout
-  structure, or has confirmed a design direction and wants to apply it to their project.
-  Also use when the user shares a music recording or describes a song/melody to express
-  the emotional feeling they want their design to convey. Ideal for vibe coding developers
-  who lack professional design skills.
+  Maintains persistent product and design context in DESIGN.md, capturing users, use
+  cases, personality, constraints, and rationale across sessions. Use before UI work to
+  read or update that context, then generate personalized design systems from screenshots
+  or mockups, explore aesthetics with images or music, create mood boards, extract layout
+  blueprints, define motion systems, and apply confirmed directions to the project only
+  after explicit approval.
 metadata:
   author: MonkeyUI
   version: "0.2.0"
