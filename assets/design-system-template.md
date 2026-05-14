@@ -1,69 +1,95 @@
 # Design System: [Project Name]
 
-> Extracted by MonkeyUI Design Skill | Date: [YYYY-MM-DD]
+> Extracted by `vibe-to-ui` | Date: [YYYY-MM-DD]
+
+## Page Type Summary
+
+- **Primary page type**: [landing / dashboard / workbench / docs / form / consumer app / other]
+- **Secondary modifier**: [optional]
+- **Density**: [low / medium / high]
+- **Confidence**: [high / medium / low]
+- **Evidence**: [signals that drove the classification]
+- **Design consequences**: [what this means for spacing, hierarchy, imagery, component style, and motion]
+
+## Reference Fidelity
+
+- **Mode**: [Reference Fidelity Mode / Vibe Translation Mode]
+- **Must stay similar**: [what should remain faithful to the reference]
+- **May be adjusted**: [what can change without breaking fidelity]
 
 ## Color Palette
 
 ### Core Colors
 
-| Role | Hex | Preview | Confidence |
-|------|-----|---------|------------|
-| Primary | `#______` | 🟦 | High/Medium/Low |
-| Secondary | `#______` | 🟪 | High/Medium/Low |
-| Accent | `#______` | 🟡 | High/Medium/Low |
+| Role | Hex | Swatch | Confidence | Notes |
+|------|-----|--------|------------|-------|
+| Primary | `#______` | `[swatch]` | High/Medium/Low | [usage] |
+| Secondary | `#______` | `[swatch]` | High/Medium/Low | [usage] |
+| Accent | `#______` | `[swatch]` | High/Medium/Low | [usage] |
 
 ### Neutral Colors
 
-| Role | Hex | Preview | Confidence |
-|------|-----|---------|------------|
-| Background | `#______` | ⬜ | High/Medium/Low |
-| Surface | `#______` | ⬜ | High/Medium/Low |
-| Text Primary | `#______` | ⬛ | High/Medium/Low |
-| Text Secondary | `#______` | 🔲 | High/Medium/Low |
-| Border | `#______` | 🔲 | High/Medium/Low |
+| Role | Hex | Swatch | Confidence | Notes |
+|------|-----|--------|------------|-------|
+| Background | `#______` | `[swatch]` | High/Medium/Low | [usage] |
+| Surface | `#______` | `[swatch]` | High/Medium/Low | [usage] |
+| Surface Alt | `#______` | `[swatch]` | High/Medium/Low | [optional] |
+| Text Primary | `#______` | `[swatch]` | High/Medium/Low | [usage] |
+| Text Secondary | `#______` | `[swatch]` | High/Medium/Low | [usage] |
+| Text Inverse | `#______` | `[swatch]` | High/Medium/Low | [optional] |
+| Border | `#______` | `[swatch]` | High/Medium/Low | [usage] |
 
 ### Semantic Colors
 
-| Role | Hex | Confidence |
-|------|-----|------------|
-| Success | `#______` | High/Medium/Low |
-| Warning | `#______` | High/Medium/Low |
-| Error | `#______` | High/Medium/Low |
-| Info | `#______` | High/Medium/Low |
+| Role | Hex | Confidence | Notes |
+|------|-----|------------|-------|
+| Success | `#______` | High/Medium/Low | [optional] |
+| Warning | `#______` | High/Medium/Low | [optional] |
+| Error / Danger | `#______` | High/Medium/Low | [optional] |
+| Info | `#______` | High/Medium/Low | [optional] |
+
+### Color Logic
+
+- **Temperature**: [warm / cool / neutral]
+- **Saturation strategy**: [muted / balanced / vivid / selective pops]
+- **Material note**: [flat / tinted / translucent / blurred / layered]
 
 ## Typography
 
 ### Font Families
+
 - **Heading**: [Font Name] (fallback: [fallback])
 - **Body**: [Font Name] (fallback: [fallback])
-- **Mono** (if applicable): [Font Name]
+- **Mono**: [Font Name] (if applicable)
 
 ### Type Scale
 
-| Level | Size | Weight | Line Height | Letter Spacing |
-|-------|------|--------|-------------|----------------|
-| Display / H1 | __px | _00 | _._ | _px |
-| H2 | __px | _00 | _._ | _px |
-| H3 | __px | _00 | _._ | _px |
-| H4 | __px | _00 | _._ | _px |
-| Body Large | __px | _00 | _._ | normal |
-| Body | __px | _00 | _._ | normal |
-| Body Small | __px | _00 | _._ | normal |
-| Label | __px | _00 | _._ | _px |
+| Level | Size | Weight | Line Height | Letter Spacing | Confidence |
+|-------|------|--------|-------------|----------------|------------|
+| Display / H1 | __px | _00 | _._ | _px | High/Medium/Low |
+| H2 | __px | _00 | _._ | _px | High/Medium/Low |
+| H3 | __px | _00 | _._ | _px | High/Medium/Low |
+| H4 | __px | _00 | _._ | _px | High/Medium/Low |
+| Body Large | __px | _00 | _._ | normal | High/Medium/Low |
+| Body | __px | _00 | _._ | normal | High/Medium/Low |
+| Body Small | __px | _00 | _._ | normal | High/Medium/Low |
+| Label | __px | _00 | _._ | _px | High/Medium/Low |
 
-**Scale ratio**: [e.g., 1.25 Major Third]
-**Base size**: [e.g., 16px]
+- **Scale ratio**: [for example `1.25` Major Third]
+- **Base size**: [for example `16px`]
+- **Readability posture**: [dramatic / balanced / compact / editorial / operational]
 
 ## Spacing
 
-**Base unit**: [e.g., 4px]
+- **Base unit**: [for example `4px`]
+- **Density posture**: [compact / balanced / airy]
 
 | Token | Value | Usage |
 |-------|-------|-------|
 | xs | _px | Tight gaps, icon padding |
-| sm | _px | Form field gaps, inline spacing |
-| md | _px | Card padding, component gaps |
-| lg | _px | Section gaps |
+| sm | _px | Form gaps, inline spacing |
+| md | _px | Component padding, card spacing |
+| lg | _px | Module gaps |
 | xl | _px | Section padding |
 | 2xl | _px | Page-level spacing |
 
@@ -71,13 +97,18 @@
 
 | Token | Value | Usage |
 |-------|-------|-------|
-| none | 0px | — |
-| sm | _px | Subtle rounding |
-| md | _px | Cards, inputs |
-| lg | _px | Modals, large cards |
+| none | 0px | Sharp edges |
+| sm | _px | Minor rounding |
+| md | _px | Inputs, cards, controls |
+| lg | _px | Drawers, modals, large panels |
 | full | 9999px | Pills, avatars |
 
-## Shadows
+- **Radius strategy**: [uniform / mixed by component role / expressive contrast]
+
+## Shadows and Elevation
+
+- **Shadow depth**: [0-5]
+- **Depth strategy**: [shadow-led / border-led / blur-led / tonal layering]
 
 | Token | Value | Usage |
 |-------|-------|-------|
@@ -85,56 +116,75 @@
 | md | `0 4px 6px rgba(...)` | Cards |
 | lg | `0 10px 15px rgba(...)` | Dropdowns, modals |
 
+## Component Vocabulary
+
+- **Navigation**: [character and structure]
+- **Buttons**: [hierarchy and interaction feel]
+- **Inputs / Forms**: [field treatment]
+- **Cards / Panels**: [surface construction]
+- **Status / Data Display**: [chips, tables, charts, metrics, lists]
+- **Icons / Imagery**: [style, stroke, visual role]
+
 ## Aesthetic Summary
 
-- **Overall mood**: [e.g., "Clean and professional with warm accents"]
-- **Color temperature**: [Warm / Cool / Neutral]
-- **Density**: [Dense / Balanced / Airy]
-- **Shape language**: [Sharp / Subtle / Rounded]
-- **Shadow strategy**: [Flat / Subtle depth / Pronounced elevation]
-- **Motion personality**: [Still / Subtle / Polished / Cinematic]
+- **Overall mood**: [for example "clean and calm with precise operational focus"]
+- **Shape language**: [sharp / subtle / rounded / mixed]
+- **Hierarchy style**: [editorial / persuasive / dashboard / operational / guided]
+- **Motion personality**: [still / subtle / polished / cinematic / tactical]
 
 ## Motion System
 
 ### Motion Character
 
-- **Tempo**: [Slow / Medium / Fast] — base duration: [e.g., 300ms]
-- **Easing**: [Calm / Sharp / Elastic] — base curve: [e.g., `cubic-bezier(0.4, 0, 0.2, 1)`]
-- **Density**: [Minimal / Moderate / Rich]
-- **Distance**: [Small / Medium / Large] — base translate: [e.g., 12px]
-- **Personality**: [e.g., "Reliable & Composed" / "Innovative & Performant" / "Guiding & Supportive"]
-- **Page metaphor**: [e.g., "Product manual" / "Product launch" / "Dashboard"]
+- **Tempo**: [slow / medium / fast] — base duration: [for example `240ms`]
+- **Easing**: [calm / sharp / elastic] — base curve: [for example `cubic-bezier(0.4, 0, 0.2, 1)`]
+- **Density**: [minimal / moderate / rich]
+- **Distance**: [small / medium / large] — base translate: [for example `12px`]
+- **Personality**: [reliable and composed / innovative and performant / guiding and supportive / premium and luxurious / playful and energetic]
+- **Reduced motion**: [fade only / static / simplified / pausable]
 
 ### Motion Tokens
 
 | Token | Duration | Easing | Usage |
 |-------|----------|--------|-------|
-| instant | _ms | — | Immediate state changes (color, opacity micro-shifts) |
-| fast | _ms | [easing] | Micro-interactions — button feedback, toggle, focus |
-| normal | _ms | [easing] | Standard transitions — hover states, reveals, cards |
-| slow | _ms | [easing] | Macro transitions — section entrances, modals, page transitions |
-| slower | _ms | [easing] | Cinematic / emphasis — hero entrance, scroll reveals |
+| instant | _ms | — | Immediate state changes |
+| fast | _ms | [easing] | Micro-interactions, focus, press |
+| normal | _ms | [easing] | Hover, reveal, panel transitions |
+| slow | _ms | [easing] | Modals, section entrances |
+| slower | _ms | [easing] | Showcase emphasis, larger reveals |
 
 ### Motion Patterns
 
 | Pattern | Trigger | Animation | Role |
 |---------|---------|-----------|------|
-| [from analysis] | [trigger] | [description] | [role] |
-| [from analysis] | [trigger] | [description] | [role] |
-| [from analysis] | [trigger] | [description] | [role] |
-
-> Derive patterns from the actual reference — do not default to generic fade-up / hover-lift / click-press. Every design has its own motion vocabulary.
+| [pattern from analysis] | [trigger] | [description] | [feedback / guidance / explanation / atmosphere] |
+| [pattern from analysis] | [trigger] | [description] | [feedback / guidance / explanation / atmosphere] |
+| [pattern from analysis] | [trigger] | [description] | [feedback / guidance / explanation / atmosphere] |
 
 ### Reduced Motion Fallback
 
-- **Strategy**: [Fade only / Static / Simplified / Pausable]
-- All transform-based animations → simple opacity fade or instant display
-- Auto-playing media → pausable with visible controls
-- Parallax and scroll-linked effects → disabled
+- Replace transform-heavy motion with opacity-only transitions or instant state changes
+- Disable parallax and scroll-linked decorative effects
+- Keep meaning-bearing motion only in simplified form
+
+## Preview Artifact
+
+- **Artifact type**: standalone HTML preview page
+- **Purpose**: validate the extracted design system before project application
+- **Representative modules**: [modules chosen to match the classified page type]
+- **Do not apply to project yet**: this preview is a review surface only
+
+## Implementation Readiness
+
+- **Tech stack requested from user**: [yes / no]
+- **Preferred token format**: [CSS vars / Tailwind / JSON / multiple]
+- **Open questions**: [anything the user should confirm]
 
 ---
 
 ## Code Tokens
+
+Generate this section only after the user confirms the preview and specifies the needed format.
 
 ### CSS Custom Properties
 
@@ -144,15 +194,24 @@
   --color-primary: #______;
   --color-secondary: #______;
   --color-accent: #______;
-  --color-bg: #______;
+  --color-background: #______;
   --color-surface: #______;
-  --color-text: #______;
+  --color-surface-alt: #______;
+  --color-text-primary: #______;
   --color-text-secondary: #______;
+  --color-text-inverse: #______;
   --color-border: #______;
+  --color-success: #______;
+  --color-warning: #______;
+  --color-danger: #______;
+  --color-info: #______;
 
   /* Typography */
   --font-heading: '[Font]', [fallback];
   --font-body: '[Font]', [fallback];
+  --font-mono: '[Font]', [fallback];
+  --text-base: __px;
+  --type-ratio: _.__;
 
   /* Spacing */
   --space-xs: _px;
@@ -213,12 +272,19 @@ export default {
         primary: '#______',
         secondary: '#______',
         accent: '#______',
+        background: '#______',
         surface: '#______',
+        surfaceAlt: '#______',
         border: '#______',
+        success: '#______',
+        warning: '#______',
+        danger: '#______',
+        info: '#______',
       },
       fontFamily: {
         heading: ['[Font]', '[fallback]'],
         body: ['[Font]', '[fallback]'],
+        mono: ['[Font]', '[fallback]'],
       },
       borderRadius: {
         sm: '_px',
@@ -243,8 +309,7 @@ export default {
         out: 'cubic-bezier(_, _, _, _)',
         elastic: 'cubic-bezier(_, _, _, _)',
       },
-      // keyframes: derive from the analyzed motion patterns — do not use generic presets
-      // animation: define based on actual motion vocabulary from the reference
+      // Add keyframes and animation names only if they come from the extracted motion vocabulary.
     },
   },
 };
@@ -254,20 +319,32 @@ export default {
 
 ```json
 {
+  "meta": {
+    "pageType": "[type]",
+    "density": "[low|medium|high]",
+    "mode": "[reference-fidelity|vibe-translation]"
+  },
   "color": {
     "primary": { "value": "#______" },
     "secondary": { "value": "#______" },
     "accent": { "value": "#______" },
     "background": { "value": "#______" },
     "surface": { "value": "#______" },
-    "text": { "value": "#______" },
+    "surfaceAlt": { "value": "#______" },
+    "textPrimary": { "value": "#______" },
     "textSecondary": { "value": "#______" },
-    "border": { "value": "#______" }
+    "textInverse": { "value": "#______" },
+    "border": { "value": "#______" },
+    "success": { "value": "#______" },
+    "warning": { "value": "#______" },
+    "danger": { "value": "#______" },
+    "info": { "value": "#______" }
   },
   "typography": {
     "fontFamily": {
       "heading": { "value": "[Font], [fallback]" },
-      "body": { "value": "[Font], [fallback]" }
+      "body": { "value": "[Font], [fallback]" },
+      "mono": { "value": "[Font], [fallback]" }
     },
     "scale": {
       "base": { "value": "__px" },
@@ -280,13 +357,20 @@ export default {
     "sm": { "value": "_px" },
     "md": { "value": "_px" },
     "lg": { "value": "_px" },
-    "xl": { "value": "_px" }
+    "xl": { "value": "_px" },
+    "2xl": { "value": "_px" }
   },
   "radius": {
     "sm": { "value": "_px" },
     "md": { "value": "_px" },
     "lg": { "value": "_px" },
     "full": { "value": "9999px" }
+  },
+  "elevation": {
+    "shadowDepth": { "value": "_" },
+    "sm": { "value": "0 1px 2px rgba(...)" },
+    "md": { "value": "0 4px 6px rgba(...)" },
+    "lg": { "value": "0 10px 15px rgba(...)" }
   },
   "motion": {
     "duration": {
@@ -308,9 +392,9 @@ export default {
       "lg": { "value": "_px" }
     },
     "meta": {
-      "tempo": { "value": "[slow/medium/fast]" },
-      "density": { "value": "[minimal/moderate/rich]" },
-      "reducedMotion": { "value": "[fade-only/static/simplified/pausable]" }
+      "tempo": { "value": "[slow|medium|fast]" },
+      "density": { "value": "[minimal|moderate|rich]" },
+      "reducedMotion": { "value": "[fade-only|static|simplified|pausable]" }
     }
   }
 }

@@ -30,9 +30,9 @@ We believe: when more developers can carry the beauty that has moved them into w
 
 ## Skills
 
-A design companion for vibe coding developers. Turns screenshots, mood images, and gut feelings into structured design systems, motion languages, and layout blueprints — all through standalone previews for collaborative exploration. Only applies designs to your project when you're ready.
+A design companion for vibe coding developers. Turns screenshots, mood images, and gut feelings into structured design systems, motion languages, and layout blueprints — and, by default, uses the user's product background to derive **3 visual directions** before formalizing tokens, so the result is visible and exploratory instead of prematurely locked. Only applies designs to your project when you're ready.
 
-**Four core capabilities:**
+**Five core capabilities:**
 
 #### 1. Design System Extraction
 *For users who have a complete design to restore.*
@@ -48,18 +48,22 @@ Provide a screenshot of a UI or design mockup. The skill extracts its complete "
 
 Outputs tokens in three formats: **CSS custom properties**, **Tailwind CSS config**, and a **JSON token file** — applied to your project only after you confirm the preview.
 
+Use this path when you want **restoration or close replication**. If you instead want the reference to be **extended into 3 possible directions for your own product**, the skill should route to Design Exploration first.
+
 #### 2. Design Exploration
 *For users who only have a feeling.*
 
-Not sure what style you want? Just have some rough inspiration — a landscape photo, a color you like, a vague mood, or a piece of music that captures the feeling? The skill guides you through an interactive conversation:
+Not sure what style you want? Or do you already have a reference image, but want it translated into **3 visual directions based on your product background** instead of copied literally? The skill guides you through an interactive conversation:
 
 1. Shares what your project does and who it's for
 2. Drop any inspiration images (landscapes, objects, other apps — anything) **or music recordings** (audio clips, hummed melodies, song snippets)
 3. The skill translates both visual and sonic signals into design qualities — tempo, timbre, and rhythm become energy, warmth, and texture in your UI
-4. Synthesizes **3 distinct design concepts** — each with its own visual style **and motion personality** — and generates **standalone concept preview pages** with hover transitions and entrance animations, plus **mood boards** for each direction
-5. You react, compare, and choose — or mix elements from different concepts
-6. The chosen direction is formalized into a full design system with motion tokens and a preview page
-7. Once confirmed, the design is applied to your project (via Capability 5)
+4. Explores **typography as its own axis** across the 3 directions — heading/body pairing, readability posture, hierarchy feel, and fallback stack
+5. Synthesizes **3 distinct design concepts** — each with its own visual style **and motion personality** — and, when a concrete reference exists, keeps them recognizably descended from that reference's structure and page archetype
+6. Generates **standalone concept preview pages** with hover transitions and entrance animations, plus **mood boards** for each direction
+7. You react, compare, and choose — or mix elements from different concepts, including typography across directions
+8. The chosen direction is formalized into a full design system with motion tokens and a preview page
+9. Once confirmed, the design is applied to your project (via Capability 5)
 
 #### 3. UI Layout Analysis
 *For users who can't describe layout in words.*
@@ -71,8 +75,19 @@ Provide a webpage screenshot. The skill extracts its layout structure into forma
 - **Responsive behavior notes** — how the layout adapts across breakpoints
 - **HTML skeleton** — clean markup structure ready to style
 - **Component tree** — hierarchical breakdown of all UI parts
+- **Standalone HTML wireframe preview** — a visual structural draft generated automatically so you can verify the composition at a glance
 
-#### 4. Apply Design to Project
+#### 4. Mood Board Generation
+*For users who want a visual direction board before locking tokens.*
+
+When references are atmospheric, mixed, or still a bit fuzzy, the skill can generate a **standalone HTML mood board** that turns the direction into something visceral and shareable:
+
+- Curates references into one coherent visual story instead of a random collage
+- Shows color story, typography mood, texture/material cues, and motion hints together
+- Keeps the board aligned with the actual page archetype so it does not drift into the wrong kind of product surface
+- Lets you compare multiple directions side by side before formalizing a design system
+
+#### 5. Apply Design to Project
 *For users who have confirmed a direction and are ready to apply.*
 
 After exploring and choosing a design direction — whether from concept previews, mood boards, or design system extraction — this capability applies the finalized design system to your actual project:
@@ -88,7 +103,7 @@ After exploring and choosing a design direction — whether from concept preview
 These capabilities chain naturally, following an **explore → choose → apply** pattern:
 
 ```
-Explore vibes → Choose from 3 concepts + mood boards → Extract design system → Preview → Apply to project
+Use product background + reference → Get 3 contextual visual directions → Choose from concept previews + mood boards → Extract design system → Preview → Apply to project
 ```
 
 Or mix and match — extract style from one site, apply it to a layout from another. The agent only touches your project when you say "apply."

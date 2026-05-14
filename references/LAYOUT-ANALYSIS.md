@@ -4,6 +4,8 @@
 
 This guide covers extracting reusable layout structures from UI screenshots. The screenshot can be a full webpage **or any section of one** — for example, just a feature list, a pricing block, a testimonials row, a navigation bar, or any other partial UI region. The goal is to produce layout blueprints that both humans and LLMs can understand and apply to new projects.
 
+Layout analysis should not end as text-only analysis when the user is clearly trying to understand or reuse a visual structure. By default, also generate a **standalone HTML wireframe or low-fidelity structural preview** that lets the user see the extracted composition immediately.
+
 ## Analysis Process
 
 ### Step 1: Determine Screenshot Scope and Identify Sections
@@ -106,6 +108,18 @@ Briefly infer how the layout's key spatial relationships would naturally adapt a
 Produce a clean HTML skeleton and component tree that reflect the **actual analyzed structure** — not a generic page template. Use semantic class names derived from the section names you identified in Step 1.
 
 > **Critical**: Do NOT use a preset page template. The skeleton must be reverse-engineered from THIS specific screenshot's layout. A pricing page, a dashboard, an editorial blog, and a product showcase should all produce fundamentally different skeletons.
+
+### Step 7: Generate a Visual Wireframe Artifact
+
+Create a **self-contained HTML wireframe preview** from the extracted structure. This artifact should:
+
+- visualize the hierarchy and block rhythm from the screenshot
+- stay low-fidelity unless the user also asked for style extraction
+- use simple surfaces, labels, and spacing to make the structure legible at a glance
+- reflect the actual asymmetry, density, and sectional composition of the analyzed reference
+- remain standalone and not modify the user's project
+
+The purpose is to let the user verify, "yes, this is the structure I meant," before styling or project integration.
 
 ## Combining with Design System
 

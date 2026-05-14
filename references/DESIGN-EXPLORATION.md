@@ -2,7 +2,10 @@
 
 ## Overview
 
-This guide covers the interactive process of helping users who have vague aesthetic feelings — not a concrete design target — discover and define their visual direction.
+This guide covers the interactive process of helping users discover and define their visual direction. That includes both:
+
+- users who only have vague aesthetic feelings
+- users who already have a concrete reference image, but need the agent to extend it into **3 context-appropriate visual directions** instead of copying it literally
 
 ## Conversation Flow
 
@@ -29,6 +32,8 @@ Invite the user to share visual references **or music recordings**. These can be
 - **Indirect references**: Photos of landscapes, architecture, fashion, nature, objects
 - **Abstract references**: Color swatches, mood words, music genres, feelings
 - **Music recordings**: Audio clips, hummed melodies, song snippets, or recorded music that captures the feeling they want
+
+If the user already shared a **concrete UI screenshot**, do not jump straight to token extraction unless they explicitly asked for exact restoration. First read it as a source of structural and stylistic signals that can branch into multiple candidate directions.
 
 For each image or description the user shares, extract aesthetic signals:
 
@@ -82,11 +87,29 @@ Feed these sonic signals back to the user: "From this melody, I'm hearing: warm 
 
 ### Phase 3: Concept Synthesis
 
-Based on collected signals, synthesize **3 distinct design concepts**. Each concept should:
+Based on collected signals, synthesize **3 distinct design concepts**. This is the default outcome of exploration, including reference-led exploration from a concrete screenshot. Each concept should:
 
 1. Have a **concept name** (evocative, memorable — e.g., "Nordic Dawn", "Urban Pulse", "Zen Garden")
 2. Lean into the aesthetic signals somewhat differently
 3. Be visually distinguishable from the other concepts
+4. If a concrete UI reference was provided, remain recognizably descended from that reference's layout logic, hierarchy, and page archetype
+
+### Phase 3a: Typography Exploration
+
+Before locking each concept, explicitly explore typography as its own design axis rather than treating it as a byproduct of the color palette.
+
+For each of the 3 directions, define:
+
+- **Heading font**
+- **Body font**
+- **Typography attitude**: editorial / neutral / operational / warm / premium / playful
+- **Hierarchy feel**: dramatic / balanced / compact / dense-data / reading-led
+- **Weight strategy**: where the visual emphasis lives
+- **Readability posture**: how the type should behave for the target page archetype
+- **Fallback stack**: include multilingual or CJK-safe fallbacks when relevant
+- **Fit rationale**: why this pairing fits the user's product background and audience
+
+Typography exploration should produce meaningful variation between directions. Do not let all 3 concepts share the same font logic with only palette changes.
 
 For each concept, define:
 
@@ -95,6 +118,8 @@ Concept: [Name]
 Mood: [2-3 word summary]
 Color palette: [5-6 hex colors with roles]
 Typography: [Heading font + Body font pairing]
+Typography rationale: [Why this pairing fits the product, audience, and page type]
+Fallbacks: [Latin stack + CJK/multilingual fallback if relevant]
 Spacing feel: [Tight/Balanced/Generous]
 Radius: [Sharp/Subtle/Rounded/Pill]
 Shadow: [None/Subtle/Pronounced]
@@ -103,6 +128,16 @@ Motion tempo: [Slow/Medium/Fast]
 Motion easing: [Calm/Sharp/Elastic]
 Signature detail: [One distinctive element — e.g., grain texture, gradient accents, outlined icons, scroll-triggered reveals]
 ```
+
+When the exploration starts from a concrete UI reference plus product background, vary along dimensions such as:
+
+- brand temperature
+- material treatment
+- density tuning
+- typography attitude
+- motion personality
+
+Do not vary the page archetype so much that the concepts stop fitting the user's actual product surface.
 
 ### Phase 3b: Mood Board Checkpoint
 
@@ -127,6 +162,7 @@ Each concept preview page showcases:
 <div class="concept-preview">
   <!-- 1. Color palette swatches -->
   <!-- 2. Typography samples (heading, subheading, body, label) -->
+  <!-- 2b. Typography rationale and fallback stack -->
   <!-- 3. A sample card component with the concept's tokens applied -->
   <!-- 4. A sample button set (primary, secondary, ghost) with hover transitions -->
   <!-- 5. A mini layout snippet showing spacing and rhythm -->
@@ -140,6 +176,9 @@ Each concept preview page showcases:
 - Make it visually polished — this IS the design pitch
 - Each preview should feel distinctly different from the others
 - Label each preview with its concept name and mood keywords
+- Show the typography system in use, not just the font names
+- For dense or operational surfaces, include at least one compact data/text sample to prove readability
+- For multilingual products, show the chosen fallback strategy directly in the preview
 - Include CSS `transition` properties on interactive elements (buttons, cards) to demonstrate the concept's motion personality
 - Include a simple entrance animation (e.g., `@keyframes fadeInUp`) to show the concept's tempo and easing
 - Include `@media (prefers-reduced-motion: reduce)` that disables or simplifies animations
@@ -174,6 +213,8 @@ Once the user confirms the formalized design system and preview:
 
 - **No jargon**: Say "how round should corners be?" not "what border-radius token scale do you prefer?"
 - **Show, don't describe**: Always generate visible previews rather than just listing hex codes
+- **Visual output is mandatory by default**: If the workflow reaches concept synthesis, generate the mood boards and standalone concept preview pages in the same turn unless the user explicitly says they only want text analysis
+- **Explore typography explicitly**: Every concept needs a real type direction with rationale, readability posture, and fallback strategy
 - **Embrace vagueness**: "Something that feels calm" is a valid starting point
 - **Anchor to the user's words**: If they say "cozy", use that word back — "Here's a cozy direction with warm earth tones and soft rounded shapes"
 - **Be opinionated**: Offer bold, distinctive directions. Safe/generic concepts are not helpful.
