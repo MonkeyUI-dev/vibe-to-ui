@@ -6,7 +6,7 @@
 
 ## vibe-to-ui 是什么？
 
-**vibe-to-ui** 是一套专为 MonkeyUI 本地单项目模式构建的 [Agent Skills](https://agentskills.io) 技能集合。这些技能为 AI 编程助手（Claude Code、GitHub Copilot、Cursor 等）注入专业的设计知识，帮助那些凭感觉写代码、但不擅长设计语言的开发者。除了静态视觉 Token，vibe-to-ui 还能提取和生成**动效系统** —— 定义 UI 元素何时、如何以及为何需要动画，以传达含义和产品气质。Agent 采用协作模式工作 —— 所有设计探索都通过独立的预览页面和概念稿进行，只有当你确认方向并要求应用时，才会修改你的项目。
+**vibe-to-ui** 是一套专为 MonkeyUI 本地单项目模式构建的 [Agent Skills](https://agentskills.io) 技能集合。这些技能为 AI 编程助手（Claude Code、GitHub Copilot、Cursor 等）注入专业的设计知识，帮助那些凭感觉写代码、但不擅长设计语言的开发者。除了静态视觉 Token，vibe-to-ui 还能提取和生成**动效系统** —— 定义 UI 元素何时、如何以及为何需要动画，以传达含义和产品气质。通过**视觉素材生成**，还可根据产品背景与已确认的设计方向生成 Hero 插画、功能配图与空状态插图（由 Agent 的图像工具或 MCP 调用）。Agent 采用协作模式工作 —— 所有设计探索都通过独立的预览页面和概念稿进行，只有当你确认方向并要求应用时，才会修改你的项目。
 
 ---
 
@@ -30,7 +30,7 @@ vibe-to-ui 是这把翻译工具。把一张照片、一段录音、一种说不
 
 面向 vibe coding 开发者的设计助手。将截图、情绪图片和直觉感受转化为结构化的设计系统、动效语言与布局蓝图 —— 所有探索都通过独立的预览页面协作完成，只有当你准备好时才会将设计应用到项目。
 
-**四大核心能力：**
+**六大核心能力：**
 
 #### 1. 设计系统提取
 *适用于：拥有完整设计稿需要还原风格的用户。*
@@ -172,9 +172,47 @@ git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-t
 # 将确认的设计应用到项目
 "我喜欢概念 B —— 把这个设计应用到我的项目"
 
+# 为概念生成配图（探索阶段，不修改项目）
+"为概念 B 生成与产品一致的 Hero 和功能配图"
+
+# 同时应用 Token 与图片
+"把概念 B 的设计和素材一起应用到我的 Next.js 项目"
+
 # 完整流程
 "我有一些灵感图片和一段音乐片段 —— 先探索风格，再将其应用到我找到的这个布局上"
 ```
+
+
+
+---
+
+## 视觉素材：工具与环境变量
+
+vibe-to-ui **仅包含指令文档**，不内置 API Key，也不直接调用图像 API。由 Agent 使用宿主工具或 MCP。
+
+### Cursor（默认）
+
+技能触发能力 6 时使用内置图像生成；探索阶段保存在情绪看板旁；Apply 时复制到 `public/design-assets/`。
+
+### 可选 MCP / API
+
+在 shell 或 Agent 配置中设置环境变量（勿提交到仓库）：
+
+| 变量 | 说明 |
+|------|------|
+| `VIBE_IMAGE_PROVIDER` | `host`（默认）、`openai`、`flux`、`ideogram`、`recraft` |
+| `OPENAI_API_KEY` | OpenAI 图像模型 |
+| `BFL_API_KEY` | Flux API |
+| `IDEOGRAM_API_KEY` | Ideogram |
+| `RECRAFT_API_KEY` | Recraft |
+
+### 成本与分辨率
+
+- **探索**：预览尺寸（长边约 960px）以控制成本
+- **Apply**：用户确认后按最终尺寸重新生成（如 Hero 1920px）
+- **重试**：每张图最多 2 次，失败后回退 CSS 占位
+
+团队云资产库与同步见 [MonkeyUI SaaS](https://demo.monkeyui.com/)（可选，P2）。
 
 ---
 
@@ -191,9 +229,13 @@ git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-t
 │   ├── AESTHETIC-ANALYSIS.md         # 美学灵魂捕获方法论
 │   ├── ICON-USAGE.md                 # 图标组件指南
 │   ├── MOOD-BOARD.md                 # 情绪看板生成指南
+│   ├── VISUAL-ASSET-GENERATION.md    # 配图生成与 manifest
 │   └── APPLY-DESIGN.md              # 将确认的设计应用到项目指南
 └── assets/
-    └── design-system-template.md     # 设计 Token 标准输出模板
+    ├── design-system-template.md
+    └── examples/
+        ├── visual-asset-e2e.md
+        └── design-assets.manifest.example.json     # 设计 Token 标准输出模板
 ```
 
 遵循 [Agent Skills 渐进式披露](https://agentskills.io/specification) 原则：启动时仅加载 `SKILL.md` 元数据（约 100 个 Token），参考文件按需加载，保持上下文精简。
