@@ -32,7 +32,7 @@ We believe: when more developers can carry the beauty that has moved them into w
 
 A design companion for vibe coding developers. Turns screenshots, mood images, and gut feelings into structured design systems, motion languages, and layout blueprints — and, by default, uses the user's product background to derive **3 visual directions** before formalizing tokens, so the result is visible and exploratory instead of prematurely locked. Only applies designs to your project when you're ready.
 
-**Five core capabilities:**
+**Six core capabilities:**
 
 #### 1. Design System Extraction
 *For users who have a complete design to restore.*
@@ -183,13 +183,9 @@ git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-t
 │   ├── AESTHETIC-ANALYSIS.md         # Aesthetic soul capture methodology
 │   ├── ICON-USAGE.md                 # Icon component guidelines
 │   ├── MOOD-BOARD.md                 # Mood board generation guide
-│   ├── VISUAL-ASSET-GENERATION.md    # Hero/illustration generation + manifest
 │   └── APPLY-DESIGN.md              # Apply confirmed design to project guide
 └── assets/
-    ├── design-system-template.md     # Standard output template for design tokens
-    └── examples/
-        ├── visual-asset-e2e.md       # Concept → mood board → apply walkthrough
-        └── design-assets.manifest.example.json
+    └── design-system-template.md     # Standard output template for design tokens
 ```
 
 Following [Agent Skills progressive disclosure](https://agentskills.io/specification): only `SKILL.md` metadata loads at startup (~100 tokens). Reference files load on demand, keeping context lean.
