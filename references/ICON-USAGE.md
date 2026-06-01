@@ -94,6 +94,26 @@ const CustomIcon = ({ size = 24, color = 'currentColor', strokeWidth = 2, classN
 );
 ```
 
+## UI icons vs illustrated assets (Capability 6)
+
+| Need | Use | Guide |
+|------|-----|-------|
+| Navigation, buttons, inputs, tables (24×24) | Project icon library or **custom SVG** | This document |
+| Hero, feature blocks, empty states, OG images | **Raster illustration** via image generation | [VISUAL-ASSET-GENERATION.md](VISUAL-ASSET-GENERATION.md) |
+| Marketing "feature icons" (64–128px illustrative) | P1: generated SVG/PNG set with style reference | Visual asset guide + manifest |
+
+**Default (P0):** never replace UI chrome icons with AI raster images. Icons stay vector, token-colored, and grid-aligned.
+
+### When to generate illustrated icons (P1)
+
+Generate a small illustrated icon set (4–8) only when:
+
+- The user explicitly asks for custom **feature** or **marketing** icons, not app chrome
+- Aesthetic guide calls for illustrative metaphor icons that no library provides
+- The same `concept_id` and hero style reference are used for consistency
+
+Output as SVG when possible (Recraft SVG or traced vector); register each file in `design-assets.manifest.json` with `role: icon_illustrated`.
+
 ## Decision flowchart
 
 ```

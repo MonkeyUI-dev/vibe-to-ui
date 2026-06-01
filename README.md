@@ -183,9 +183,13 @@ git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-t
 │   ├── AESTHETIC-ANALYSIS.md         # Aesthetic soul capture methodology
 │   ├── ICON-USAGE.md                 # Icon component guidelines
 │   ├── MOOD-BOARD.md                 # Mood board generation guide
+│   ├── VISUAL-ASSET-GENERATION.md    # Hero/illustration generation + manifest
 │   └── APPLY-DESIGN.md              # Apply confirmed design to project guide
 └── assets/
-    └── design-system-template.md     # Standard output template for design tokens
+    ├── design-system-template.md     # Standard output template for design tokens
+    └── examples/
+        ├── visual-asset-e2e.md       # Concept → mood board → apply walkthrough
+        └── design-assets.manifest.example.json
 ```
 
 Following [Agent Skills progressive disclosure](https://agentskills.io/specification): only `SKILL.md` metadata loads at startup (~100 tokens). Reference files load on demand, keeping context lean.

@@ -125,6 +125,28 @@ Extend or create `tailwind.config.js` / `tailwind.config.ts` with the extracted 
 
 Generate a structured `design-tokens.json` for framework-agnostic consumption.
 
+### Step 3.5: Deploy Visual Assets (when confirmed)
+
+Follow [VISUAL-ASSET-GENERATION.md](VISUAL-ASSET-GENERATION.md) when the user wants imagery in the project.
+
+1. **Choose destination** — default `public/design-assets/` (Next.js, Vite, Astro) or `static/design-assets/` (SvelteKit) or `src/assets/design-assets/` when the project has no `public/` folder. Match existing conventions from Step 2.
+
+2. **Finalize files**:
+   - Regenerate at **final resolution** if exploration used previews only
+   - Copy WebP/PNG/SVG files into the destination folder
+   - Copy or merge `design-assets.manifest.json` to project root or beside assets (document the chosen location)
+
+3. **Wire components**:
+   - Update hero, feature, and empty-state components with correct public paths (`/design-assets/...`)
+   - Set `alt` from manifest entries; decorative images use `alt=""`
+   - Do not inline multi-megabyte base64 in source files
+
+4. **Extend design system doc** — add the Visual Assets table from [design-system-template.md](../assets/design-system-template.md) with live paths
+
+5. **Verify** — every manifest `path` resolves to an existing file; no broken relative links from exploration artifact folders
+
+If generation tools are unavailable at apply time, apply tokens only and tell the user which manifest entries still need images.
+
 ### Step 4: Integrate into the Project
 
 Apply the generated tokens to the user's project:

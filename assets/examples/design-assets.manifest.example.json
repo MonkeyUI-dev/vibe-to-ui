@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "concept_id": "coastal-clarity",
+  "style_seed": "coastal-clarity-v1",
+  "license_default": "ai-generated",
+  "generated_at": "2026-06-01",
+  "product": {
+    "name": "Tidepool",
+    "domain": "Collaborative scheduling for remote teams"
+  },
+  "page": {
+    "type": "landing",
+    "density": "low"
+  },
+  "assets": [
+    {
+      "id": "hero-coastal-clarity-v1",
+      "role": "hero",
+      "path": "design-assets/hero-coastal-clarity-v1.webp",
+      "aspect_ratio": "16:9",
+      "width_px": 1920,
+      "height_px": 1080,
+      "alt": "Soft coastal morning light over a calm workspace — metaphor for Tidepool scheduling",
+      "prompt_hash": "sha256:example-hero-prompt",
+      "parent_id": null,
+      "style_reference_id": null,
+      "preview": false,
+      "provider": "host",
+      "composition": "wide hero, subject right third, negative space left for headline"
+    },
+    {
+      "id": "feature-coastal-clarity-v1",
+      "role": "feature",
+      "path": "design-assets/feature-coastal-clarity-v1.webp",
+      "aspect_ratio": "3:2",
+      "width_px": 1200,
+      "height_px": 800,
+      "alt": "Team coordination illustrated with connected paths and soft natural forms",
+      "prompt_hash": "sha256:example-feature-prompt",
+      "parent_id": null,
+      "style_reference_id": "hero-coastal-clarity-v1",
+      "preview": false,
+      "provider": "host"
+    },
+    {
+      "id": "og-coastal-clarity-v1",
+      "role": "og",
+      "path": "design-assets/og-coastal-clarity-v1.webp",
+      "aspect_ratio": "1200:630",
+      "width_px": 1200,
+      "height_px": 630,
+      "alt": "Tidepool — calm scheduling for remote teams",
+      "prompt_hash": "sha256:example-og-prompt",
+      "parent_id": null,
+      "style_reference_id": "hero-coastal-clarity-v1",
+      "preview": false,
+      "provider": "host"
+    }
+  ]
+}

@@ -229,13 +229,15 @@ Generate a **self-contained HTML page** that the user can open in a browser. Thi
 6. **One motion hint**: Include at most one subtle CSS animation that captures the motion personality (a slow gradient shift, a gentle opacity pulse, a floating element). This should feel ambient, not distracting.
 7. **The board IS the pitch**: It should be polished enough to share with stakeholders. Visual quality matters.
 
-### Handling User-Provided Images
+### Handling User-Provided and Generated Images
 
-When the user has shared reference images during the conversation:
+When building a mood board:
 
+- **Generated assets (preferred when tools exist)**: Generate hero + supporting images for the active `concept_id` before finalizing HTML. Use preview resolution during exploration; see [VISUAL-ASSET-GENERATION.md](VISUAL-ASSET-GENERATION.md) for page-type asset packs and prompt rules.
 - **If images are accessible via URL**: Embed them directly in the mood board using `<img>` tags
 - **If images are local files in the project**: Reference them with relative paths
-- **If images were shared inline in chat** (not as files): Use CSS-generated visual placeholders with descriptive text labels that capture what the image conveyed (e.g., a gradient block labeled "soft morning light over ocean — warm golds into cool blues")
+- **If images were shared inline in chat** (not as files) and cannot be saved: Use CSS-generated visual placeholders with descriptive text labels that capture what the image conveyed (e.g., a gradient block labeled "soft morning light over ocean — warm golds into cool blues")
+- **On Apply**: Final-resolution assets copy into `public/design-assets/` per [APPLY-DESIGN.md](APPLY-DESIGN.md) Step 3.5 — do not leave exploration-only preview paths in the user's production pages without updating paths
 
 ### Mood Board Variants for Comparison
 

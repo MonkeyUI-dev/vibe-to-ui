@@ -70,7 +70,19 @@ vibe-to-ui 是这把翻译工具。把一张照片、一段录音、一种说不
 - **HTML 骨架** —— 干净的标记结构，可直接添加样式
 - **组件树** —— 所有 UI 部件的层级拆解
 
-#### 4. 应用设计到项目
+#### 4. 情绪看板生成
+*适用于：在锁定 Token 之前需要可分享视觉方向的用户。*
+
+将灵感与审美信号整理为**独立 HTML 情绪看板**：
+
+- 将参考 curated 成连贯视觉叙事，而非素材堆砌
+- 展示色彩、字体气质、材质与动效暗示
+- 与页面原型保持一致，避免偏离产品形态
+- 支持多方向并排对比
+
+生成工具可用时，优先嵌入**真实生成配图**；否则回退 CSS 占位（见 [MOOD-BOARD.md](references/MOOD-BOARD.md)）。
+
+#### 5. 应用设计到项目
 *适用于：已确认设计方向并准备应用的用户。*
 
 在探索并选择了设计方向之后 —— 无论来自概念预览、情绪看板还是设计系统提取 —— 该能力将最终确认的设计系统应用到你的实际项目：
@@ -79,7 +91,20 @@ vibe-to-ui 是这把翻译工具。把一张照片、一段录音、一种说不
 - 审查项目的现有框架、CSS 方案和文件规范
 - 以你偏好的格式（CSS、Tailwind、JSON）生成 Token 文件
 - 将 Token 集成到项目中，尊重现有的项目规范
+- 可选：**Step 3.5** 将 `public/design-assets/` 与 manifest 写入项目
 - 展示变更摘要供你审阅
+
+#### 6. 视觉素材生成
+*适用于：需要与产品、设计方向一致的配图，而不仅是 Token 的用户。*
+
+在探索或确认方向后，技能会组装 **StyleContext**（产品、页面类型、Token、美学指南），通过 Agent 的**图像生成工具**或 MCP 生成：
+
+- **Hero、功能配图、空状态、OG 图**（P0；短视频为后续阶段）
+- 同一概念下**视觉族一致**（先生成 Hero，再以其为风格参考）
+- **`design-assets.manifest.json`** —— 路径、角色、alt、迭代 lineage
+- 探索阶段嵌入情绪看板；Apply 时复制到 `public/design-assets/`
+
+导航级 UI 图标仍使用图标库或自定义 SVG。详见 [VISUAL-ASSET-GENERATION.md](references/VISUAL-ASSET-GENERATION.md) 与 [visual-asset-e2e.md](assets/examples/visual-asset-e2e.md)。
 
 #### 能力组合
 

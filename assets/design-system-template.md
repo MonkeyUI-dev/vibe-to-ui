@@ -123,7 +123,27 @@
 - **Inputs / Forms**: [field treatment]
 - **Cards / Panels**: [surface construction]
 - **Status / Data Display**: [chips, tables, charts, metrics, lists]
-- **Icons / Imagery**: [style, stroke, visual role]
+- **Icons / Imagery**: [style, stroke, visual role; UI icons vs illustration roles]
+
+## Visual Assets
+
+> Populated when Capability 6 (Visual Asset Generation) runs. See [references/VISUAL-ASSET-GENERATION.md](../references/VISUAL-ASSET-GENERATION.md).
+
+- **Manifest path**: [for example `design-assets.manifest.json` or `public/design-assets/manifest.json`]
+- **Storage directory**: [for example `public/design-assets/`]
+- **Concept ID**: [stable id for this direction]
+- **Style seed**: [shared seed / reference chain id]
+- **Imagery strategy**: [photography vs soft illustration vs abstract texture; hero vs restrained B-end]
+
+| ID | Role | Path | Aspect | Alt | Parent ID | License |
+|----|------|------|--------|-----|-----------|---------|
+| [hero-example-v1] | hero | [/design-assets/hero-example-v1.webp] | [16:9] | [accessible description] | [—] | [ai-generated] |
+| [feature-example-v1] | feature | [/design-assets/feature-example-v1.webp] | [3:2] | [accessible description] | [—] | [ai-generated] |
+
+### Regeneration notes
+
+- [Which assets are preview-only vs final resolution]
+- [User adjustment history: e.g., hero v2 warmer, parent_id hero-v1]
 
 ## Aesthetic Summary
 
