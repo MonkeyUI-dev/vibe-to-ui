@@ -15,7 +15,7 @@ Use these defaults unless the user explicitly expands scope:
 | Decision | P0 choice | Deferred |
 |----------|-----------|----------|
 | Asset types | Hero, feature, empty state, OG/social preview | Short-form video loops (P2) |
-| Storage | Local project `public/design-assets/` (or framework equivalent) | MonkeyUI SaaS cloud library (P2) |
+| Storage | Local project `public/design-assets/` (or framework equivalent) | External CDN (user-managed, out of skill scope) |
 | Resolution | Preview during exploration; full resolution on Apply | — |
 | UI icons (24×24 nav/button) | Icon library + custom SVG per [ICON-USAGE.md](ICON-USAGE.md) | Illustrated icon sets (P1) |
 | Provider | Host image tool / single configured API via env vars | Multi-provider adapter table in-repo |

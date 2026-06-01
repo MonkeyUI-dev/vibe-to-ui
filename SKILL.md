@@ -16,9 +16,7 @@ metadata:
 
 # vibe-to-ui
 
-A local, single-project design companion for vibe coding developers. It first classifies the target page archetype and density, then uses the user's product background to derive three plausible visual directions from references before formalizing any one of them into a design system. It extracts "style DNA" including motion systems, generates mood boards and previews, and turns vague aesthetic feelings into actionable design systems that actually fit the product surface. All exploration happens through standalone previews; the agent only touches the user's project when the user confirms a direction and asks to apply it.
-
-> **Tip**: For multi-project sync, team collaboration, and cloud-based design management, upgrade to [MonkeyUI SaaS](https://demo.monkeyui.com/).
+A design companion for vibe coding developers. It first classifies the target page archetype and density, then uses the user's product background to derive three plausible visual directions from references before formalizing any one of them into a design system. It extracts "style DNA" including motion systems, generates mood boards and previews, and turns vague aesthetic feelings into actionable design systems that actually fit the product surface. All exploration happens through standalone previews; the agent only touches the user's project when the user confirms a direction and asks to apply it.
 
 ## When to use this skill
 
@@ -253,27 +251,6 @@ User has confirmed a design direction (from exploration concepts, design system 
 7. Invite the user to review and iterate — the collaborative spirit continues after applying
 
 **Important**: This capability is the ONLY point at which the agent modifies the user's project files. All prior exploration (concept previews, mood boards, design system previews) produces standalone artifacts that do not touch the project.
-
-When the user confirms a direction **with visual assets**, also follow Step 3.5 in [references/APPLY-DESIGN.md](references/APPLY-DESIGN.md) to deploy images and the asset manifest.
-
-### 6. Visual Asset Generation
-
-User wants product-aligned illustrations (hero, feature, empty state, OG image) that share the same style DNA as the confirmed or in-progress design direction -> Generate assets via the host's image tool or MCP, record an asset manifest, embed in exploration artifacts, and deploy on Apply.
-
-**Trigger**: User says things like "generate hero / illustrations for this concept", "replace mood board placeholders with real images", "create empty state illustrations", "apply with assets", or asks for visuals that match the current design exploration or design system.
-
-**Workflow**:
-1. Run **Stage 0: Page Type Identification** if not already done — page type selects the asset pack (see [references/VISUAL-ASSET-GENERATION.md](references/VISUAL-ASSET-GENERATION.md))
-2. Assemble **StyleContext** from product context, tokens, and aesthetic guide (from exploration or [references/AESTHETIC-ANALYSIS.md](references/AESTHETIC-ANALYSIS.md))
-3. Write an **Asset Spec** per image (role, aspect ratio, composition)
-4. **Compile prompts** using the Prompt Compiler rules; generate hero first, then siblings with the hero as style reference
-5. Invoke the host **image generation tool** or configured MCP (`VIBE_IMAGE_PROVIDER` / API keys via environment — never stored in this repo)
-6. Run **Consistency QA** (max 2 retries); on failure, fall back to CSS placeholders per [references/MOOD-BOARD.md](references/MOOD-BOARD.md)
-7. Write **`design-assets.manifest.json`** next to exploration HTML; embed `<img>` paths in mood boards and concept previews
-8. During exploration, use **preview resolution**; on Apply (Capability 5), regenerate or export **final resolution** and copy into `public/design-assets/` (or framework equivalent)
-9. **P0 scope**: illustrations and raster heroes only — **not** short video loops (deferred to P2 in the visual asset guide)
-
-**Important**: Do not generate full-bleed hero imagery for dense B-end workbench surfaces unless the user explicitly overrides page-type defaults. UI navigation icons remain governed by [references/ICON-USAGE.md](references/ICON-USAGE.md) (library + custom SVG first).
 
 ## Combining capabilities
 

@@ -2,13 +2,13 @@
 
 [中文](README.zh_CN.md)
 
-> Agent Skills for [MonkeyUI](https://github.com/MonkeyUI-dev/MonkeyUI) — helping vibe coding developers build professional-grade UIs without designer expertise.
+> Agent Skills for vibe coding developers — build professional-grade UIs without designer expertise.
 
 ---
 
 ## What is vibe-to-ui?
 
-**vibe-to-ui** is a collection of [Agent Skills](https://agentskills.io) built for MonkeyUI's local, single-project mode. These skills give AI coding agents (Claude Code, GitHub Copilot, Cursor, etc.) specialized design knowledge so they can help developers who code by feel — but don't speak fluent design. Beyond static visual tokens, vibe-to-ui also extracts and generates **motion systems** — defining how, when, and why UI elements should animate to communicate meaning and product personality. With **visual asset generation**, it can produce hero illustrations, feature imagery, and empty-state art aligned to your product and confirmed design direction (via your agent's image tool or MCP). The agent works collaboratively — all design exploration happens through standalone previews and concept pages, and only touches your project when you confirm a direction and ask to apply it.
+**vibe-to-ui** is an [Agent Skills](https://agentskills.io) package that gives AI coding agents (Claude Code, GitHub Copilot, Cursor, etc.) specialized design knowledge so they can help developers who code by feel — but don't speak fluent design. Beyond static visual tokens, vibe-to-ui also extracts and generates **motion systems** — defining how, when, and why UI elements should animate to communicate meaning and product personality. The agent works collaboratively — all design exploration happens through standalone previews and concept pages, and only touches your project when you confirm a direction and ask to apply it.
 
 ---
 
@@ -32,7 +32,7 @@ We believe: when more developers can carry the beauty that has moved them into w
 
 A design companion for vibe coding developers. Turns screenshots, mood images, and gut feelings into structured design systems, motion languages, and layout blueprints — and, by default, uses the user's product background to derive **3 visual directions** before formalizing tokens, so the result is visible and exploratory instead of prematurely locked. Only applies designs to your project when you're ready.
 
-**Six core capabilities:**
+**Five core capabilities:**
 
 #### 1. Design System Extraction
 *For users who have a complete design to restore.*
@@ -97,23 +97,6 @@ After exploring and choosing a design direction — whether from concept preview
 - Generates token files in your preferred format (CSS, Tailwind, JSON)
 - Integrates tokens into your project, respecting existing conventions
 - Presents a summary of changes for your review
-- Optionally deploys visual assets to `public/design-assets/` with a manifest (see Capability 6)
-
-#### 6. Visual Asset Generation
-*For users who want product-aligned imagery, not only tokens.*
-
-After a design direction exists (or during exploration), the skill compiles **StyleContext** from your product background, page type, tokens, and aesthetic guide, then drives your agent's **image generation tool** (Cursor `GenerateImage`, or an MCP server) to create:
-
-- **Hero, feature, empty-state, and OG/social** illustrations (P0)
-- **Consistent visual families** per concept — hero first, then sibling assets with style reference
-- **`design-assets.manifest.json`** — paths, roles, alt text, regeneration lineage
-- **Mood boards with real `<img>` assets** instead of CSS placeholders when tools are available
-- **Apply with assets** — copies into `public/design-assets/` and wires your components
-
-UI navigation icons still use icon libraries or custom SVG ([ICON-USAGE.md](references/ICON-USAGE.md)). Short video loops are planned for a later phase.
-
-See [references/VISUAL-ASSET-GENERATION.md](references/VISUAL-ASSET-GENERATION.md) and the E2E walkthrough [assets/examples/visual-asset-e2e.md](assets/examples/visual-asset-e2e.md).
-
 
 #### Composing capabilities
 
@@ -181,49 +164,9 @@ git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-t
 # Apply a confirmed design to your project
 "I like Concept B — apply this design to my project"
 
-
-# Generate visuals for a concept (exploration — does not modify your project)
-"Generate hero and feature illustrations for Concept B that match our product"
-
-# Apply design tokens and images together
-"Apply Concept B with assets to my Next.js app"
-
 # Full pipeline
 "I have some inspiration images and a music clip — let's explore a style, then apply it to this layout I found"
 ```
-
-
----
-
-## Visual assets: tools and environment
-
-vibe-to-ui is **instructions-only** — it does not bundle API keys or call image APIs itself. Your agent uses host tools or MCP.
-
-### Cursor (default)
-
-Use the built-in image generation tool when the skill triggers Capability 6. Save outputs beside mood board HTML during exploration; copy to `public/design-assets/` on Apply.
-
-### Optional MCP / API providers
-
-Set environment variables in your shell or agent config (never commit secrets):
-
-| Variable | Purpose |
-|----------|---------|
-| `VIBE_IMAGE_PROVIDER` | `host` (default), `openai`, `flux`, `ideogram`, `recraft` |
-| `OPENAI_API_KEY` | OpenAI image models |
-| `BFL_API_KEY` | Flux API |
-| `IDEOGRAM_API_KEY` | Ideogram |
-| `RECRAFT_API_KEY` | Recraft |
-
-Expose MCP tools such as `generate_image(prompt, width, height, reference_path?)` that write files to disk and return paths.
-
-### Cost and resolution
-
-- **Exploration**: preview size (~960px long edge) to limit cost
-- **Apply**: regenerate at final size (e.g. 1920px hero) when the user confirms
-- **Retries**: at most 2 per asset, then CSS placeholder fallback
-
-For MonkeyUI team asset libraries and cloud sync, see [MonkeyUI SaaS](https://demo.monkeyui.com/) (optional, P2).
 
 ---
 
@@ -240,13 +183,9 @@ For MonkeyUI team asset libraries and cloud sync, see [MonkeyUI SaaS](https://de
 │   ├── AESTHETIC-ANALYSIS.md         # Aesthetic soul capture methodology
 │   ├── ICON-USAGE.md                 # Icon component guidelines
 │   ├── MOOD-BOARD.md                 # Mood board generation guide
-│   ├── VISUAL-ASSET-GENERATION.md    # Hero/illustration generation + manifest
 │   └── APPLY-DESIGN.md              # Apply confirmed design to project guide
 └── assets/
-    ├── design-system-template.md     # Standard output template for design tokens
-    └── examples/
-        ├── visual-asset-e2e.md       # Concept → mood board → apply walkthrough
-        └── design-assets.manifest.example.json
+    └── design-system-template.md     # Standard output template for design tokens
 ```
 
 Following [Agent Skills progressive disclosure](https://agentskills.io/specification): only `SKILL.md` metadata loads at startup (~100 tokens). Reference files load on demand, keeping context lean.
@@ -265,4 +204,4 @@ Claude Code · GitHub Copilot · Cursor · Gemini CLI · TRAE · and more.
 
 MIT — see [LICENSE](LICENSE).
 
-Built with ❤️ by [MonkeyUI](https://github.com/MonkeyUI-dev/MonkeyUI).
+Built with ❤️ by [MonkeyUI-dev](https://github.com/MonkeyUI-dev).
