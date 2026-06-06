@@ -49,12 +49,14 @@ Always run **Stage 0: Page Type Identification** before generating assets. Page 
 | Primary page type | Default asset pack | Max preview assets per concept |
 |-------------------|-------------------|-------------------------------|
 | Landing / brand / showcase | Hero 16:9, Feature 3:2 × up to 3, OG 1200×630 | 4 |
-| Consumer app | Empty state 1:1, onboarding 4:3 | 2 |
+| Consumer app | Empty state 1:1, onboarding 4:3, optional badge/achievement or share object | 3 |
 | B-end dashboard / workbench / table-detail | Empty state 1:1 only; no hero | 1 |
 | Docs / editorial | Optional concept illustration 16:9 | 1 |
 | E-commerce / catalog | Product-adjacent feature 4:5, hero optional | 3 |
 
 If the user asks for assets that conflict with page type (for example a full-bleed hero on a dense workbench), explain the tradeoff and offer a **restrained alternative** (small empty-state illustration) unless they explicitly override.
+
+For Consumer app surfaces, default to in-product assets instead of landing assets: empty states, onboarding panels, achievement/badge moments, referral/share objects, and gentle mascot props when they fit the product. Generate full-bleed hero imagery only for a marketing landing screen or when the user explicitly asks for it.
 
 ### Illustrated icon set add-on
 
@@ -231,6 +233,16 @@ asset_placement:
 | `social_object` | social post, launch banner, campaign card | 40–70% of composition | Strong silhouette and hook; reserve clear area for headline overlay |
 | `mascot_prop` | brand moment, onboarding, empty state | 160–512px depending on surface | Express personality without obscuring the task |
 
+### Consumer app placement rules
+
+For Consumer app surfaces, also follow [CONSUMER-APP-DESIGN.md](CONSUMER-APP-DESIGN.md):
+
+- Keep generated assets out of bottom tabs, toolbars, form controls, and small navigation icons.
+- Prefer simple, emotionally clear assets that support the user's next action.
+- Validate the asset at real mobile scale; an illustration that only works large is not ready for an app screen.
+- Empty-state and onboarding assets should leave room for concise copy and a single primary action.
+- Badge, achievement, and share assets may be more expressive, but must not obscure progress, price, privacy, or destructive actions.
+
 ### Accent effect rules
 
 An asset creates a "finishing touch" only when it improves the surrounding UI:
@@ -277,6 +289,12 @@ Build one string (or structured prompt + negative prompt) per Asset Spec.
 Append when `page.density` is `high` or type is B-end:
 
 `flat illustration, high clarity, minimal detail, no cinematic lighting, suitable for empty state in enterprise software`
+
+### Consumer app constraint suffix
+
+Append when `page.type` is Consumer app:
+
+`mobile app ready, clear at small size, friendly but not childish, no full-bleed marketing hero unless requested, supports onboarding or empty-state UI, leaves space for copy and one primary action`
 
 ### Negative prompt (always append)
 
@@ -410,6 +428,7 @@ After each generation, run a lightweight check (agent self-review or VLM if avai
 4. **Placement fit** — The asset supports its copy/CTA/layout slot without overlap or hierarchy conflict.
 5. **Technical** — No obvious garbled text, watermark, or off-brand neon?
 6. **Role fit** — Illustrated/raster icons are not used for 16–24px navigation, forms, tables, or toolbar controls unless user explicitly overrode the default.
+7. **Consumer app fit** — For app surfaces, does the asset remain clear at mobile size, support the state or flow, and avoid competing with navigation, inputs, pricing, privacy, or primary actions?
 
 **Retry at most 2 times** per asset. If still failing, fall back to CSS placeholders per [MOOD-BOARD.md](MOOD-BOARD.md) and continue the design workflow.
 
@@ -572,7 +591,7 @@ Never block design system formalization because image generation failed.
 
 ## E2E Walkthrough (reference)
 
-See [assets/examples/visual-asset-e2e.md](../assets/examples/visual-asset-e2e.md) and [assets/examples/design-assets.manifest.example.json](../assets/examples/design-assets.manifest.example.json) for a full Concept → Mood Board → Apply trace using a host image generation tool.
+See [assets/examples/visual-asset-e2e.md](../assets/examples/visual-asset-e2e.md) for a landing Concept → Mood Board → Apply trace, [assets/examples/consumer-app-e2e.md](../assets/examples/consumer-app-e2e.md) for a Consumer app UIUX walkthrough, and [assets/examples/design-assets.manifest.example.json](../assets/examples/design-assets.manifest.example.json) for manifest shape.
 
 ---
 

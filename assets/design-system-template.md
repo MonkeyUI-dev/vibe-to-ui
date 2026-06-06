@@ -125,6 +125,47 @@
 - **Status / Data Display**: [chips, tables, charts, metrics, lists]
 - **Icons / Imagery**: [style, stroke, visual role; UI icons vs illustration roles]
 
+## Consumer App System
+
+> Populate when the primary page type is `consumer app`. See [references/CONSUMER-APP-DESIGN.md](../references/CONSUMER-APP-DESIGN.md).
+
+- **Platform assumption**: [mobile_app / responsive_web_app / tablet_app / unknown]
+- **Lifecycle stage**: [acquisition / onboarding / activation / daily_use / retention / monetization]
+- **Primary loop**: [browse / create / track / learn / transact / socialize / manage]
+- **Navigation model**: [bottom_tabs / top_tabs / stack_navigation / feed_first / hub_and_detail / unknown]
+- **Gesture model**: [tap_first / swipe_cards / pull_to_refresh / drag_reorder / camera_capture / mixed]
+- **State risk**: [low / medium / high]
+- **Thumb-zone notes**: [primary action reachability, destructive action placement, safe-area constraints]
+- **Monetization / permission notes**: [if relevant; transparent hierarchy and contextual permission asks]
+
+### Core Screen Coverage
+
+| Screen | Included | Design role | Notes |
+|--------|----------|-------------|-------|
+| Home / feed | [yes / no] | [re-entry / discovery / daily loop] | [card/feed rhythm, continuation point] |
+| Detail | [yes / no] | [decision / confidence] | [title hierarchy, primary action] |
+| Create / input | [yes / no] | [task completion] | [field grouping, validation, keyboard behavior] |
+| Onboarding | [yes / no] | [activation] | [value explanation, permission timing] |
+| Empty state | [yes / no] | [recovery / motivation] | [one next action] |
+| Profile / settings | [yes / no] | [identity / control] | [privacy, account, notifications] |
+
+### State Matrix
+
+| Component / screen | Loading | Empty | Error | Offline | Success |
+|--------------------|---------|-------|-------|---------|---------|
+| Home / feed | [behavior] | [behavior] | [behavior] | [behavior] | [behavior] |
+| Detail | [behavior] | [behavior] | [behavior] | [behavior] | [behavior] |
+| Create / input | [behavior] | [behavior] | [behavior] | [behavior] | [behavior] |
+
+### Consumer Interaction Rules
+
+| Pattern | Trigger | Timing | Role |
+|---------|---------|--------|------|
+| Tap feedback | [tap] | [80-140ms] | [tactile confidence] |
+| Tab switch | [navigation] | [120-220ms] | [orientation] |
+| Bottom sheet | [open / close] | [220-320ms] | [focused decision] |
+| Card expansion | [tap] | [180-260ms] | [causality / detail reveal] |
+
 ## Icon System
 
 > Populated for every design system. See [references/ICON-USAGE.md](../references/ICON-USAGE.md).

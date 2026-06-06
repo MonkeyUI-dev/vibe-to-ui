@@ -165,6 +165,17 @@ Apply the generated tokens to the user's project:
 4. **Preserve existing styles** — merge with, don't overwrite, existing tokens unless the user explicitly asks to replace
 5. **Preserve icon consistency** — do not introduce a new icon library when an adequate locked library or custom SVG pattern already exists
 
+### Step 4.5: Consumer App Application Checks
+
+When the primary page type is Consumer app, also follow [CONSUMER-APP-DESIGN.md](CONSUMER-APP-DESIGN.md) before summarizing:
+
+- Verify the mobile viewport first, including safe-area spacing and thumb-zone placement.
+- Confirm navigation model, selected states, badges, and app chrome icons remain vector and token-colored.
+- Check the core screen, detail/create flow, and at least one non-happy state from the state matrix.
+- Validate tap target sizing, pressed/disabled/loading states, input/keyboard behavior, and reduced-motion behavior.
+- Deploy generated assets only to approved expressive slots such as onboarding, empty states, achievements, badges, or share cards.
+- If the app is responsive web, also verify the wider layout behavior after the mobile pass.
+
 ### Step 5: Summary and Verification
 
 After applying, present a clear summary:

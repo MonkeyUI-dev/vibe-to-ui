@@ -73,6 +73,24 @@
 - **Interaction model**: <!-- scrolling / scanning / filtering / editing / onboarding / purchasing -->
 - **Design consequences**: <!-- how page type affects hierarchy, imagery, motion, and density -->
 
+### Consumer App Context
+
+<!-- Populated when the primary page type is consumer app. See references/CONSUMER-APP-DESIGN.md. -->
+
+```yaml
+consumer_app:
+  platform: null                       # mobile_app | responsive_web_app | tablet_app | unknown
+  lifecycle_stage: null                # acquisition | onboarding | activation | daily_use | retention | monetization
+  primary_loop: null                   # browse | create | track | learn | transact | socialize | manage
+  navigation_model: null               # bottom_tabs | top_tabs | stack_navigation | feed_first | hub_and_detail | unknown
+  gesture_model: null                  # tap_first | swipe_cards | pull_to_refresh | drag_reorder | camera_capture | mixed
+  state_risk: null                     # low | medium | high
+  core_screens: []                     # home | feed | detail | create | onboarding | empty_state | profile | settings | paywall
+  state_matrix: []                     # loading | empty | error | offline | success | permission
+  thumb_zone_notes: null
+  monetization_notes: null
+```
+
 ---
 
 ## User Insights

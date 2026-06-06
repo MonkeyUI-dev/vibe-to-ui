@@ -24,6 +24,18 @@ Questions to ask:
 
 Keep this conversational, not interrogative. 2–3 questions at a time.
 
+If the project is a Consumer app or C-end app, also identify the app experience context:
+
+```yaml
+consumer_app:
+  platform: mobile_app | responsive_web_app | tablet_app | unknown
+  lifecycle_stage: acquisition | onboarding | activation | daily_use | retention | monetization
+  primary_loop: browse | create | track | learn | transact | socialize | manage
+  navigation_model: bottom_tabs | top_tabs | stack_navigation | feed_first | hub_and_detail | unknown
+```
+
+Use [CONSUMER-APP-DESIGN.md](CONSUMER-APP-DESIGN.md) for the required screen, state, and interaction coverage.
+
 ### Phase 2: Inspiration Collection
 
 Invite the user to share visual references **or music recordings**. These can be anything:
@@ -127,6 +139,7 @@ Motion personality: [Still/Subtle/Polished/Cinematic]
 Motion tempo: [Slow/Medium/Fast]
 Motion easing: [Calm/Sharp/Elastic]
 Signature detail: [One distinctive element — e.g., grain texture, gradient accents, outlined icons, scroll-triggered reveals]
+Consumer app posture: [if applicable: navigation model, primary loop, state strategy, tactile interaction feel]
 ```
 
 When the exploration starts from a concrete UI reference plus product background, vary along dimensions such as:
@@ -178,6 +191,7 @@ Each concept preview page showcases:
 - Label each preview with its concept name and mood keywords
 - Show the typography system in use, not just the font names
 - For dense or operational surfaces, include at least one compact data/text sample to prove readability
+- For Consumer app surfaces, include a realistic mobile/app viewport with navigation, a main screen, a detail/create flow, a non-happy state, and tap/sheet/tab motion. Do not present only a decorative hero or static card.
 - For multilingual products, show the chosen fallback strategy directly in the preview
 - Include CSS `transition` properties on interactive elements (buttons, cards) to demonstrate the concept's motion personality
 - Include a simple entrance animation (e.g., `@keyframes fadeInUp`) to show the concept's tempo and easing

@@ -30,7 +30,7 @@ We believe: when more developers can carry the beauty that has moved them into w
 
 ## Skills
 
-A design companion for vibe coding developers. Turns screenshots, mood images, and gut feelings into structured design systems, motion languages, and layout blueprints — and, by default, uses the user's product background to derive **3 visual directions** before formalizing tokens, so the result is visible and exploratory instead of prematurely locked. Only applies designs to your project when you're ready.
+A design companion for vibe coding developers. Turns screenshots, mood images, and gut feelings into structured design systems, motion languages, Consumer app UIUX systems, and layout blueprints — and, by default, uses the user's product background to derive **3 visual directions** before formalizing tokens, so the result is visible and exploratory instead of prematurely locked. Only applies designs to your project when you're ready.
 
 **Six core capabilities:**
 
@@ -45,6 +45,7 @@ Provide a screenshot of a UI or design mockup. The skill extracts its complete "
 - **Border radius** — per-component radius strategy
 - **Shadows** — elevation system
 - **Motion** — tempo, easing, density, triggers, reduced-motion fallback
+- **Consumer app UIUX** — navigation model, primary loop, state matrix, tactile feedback, and mobile-first preview requirements when the page type is a C-end app surface
 
 Outputs tokens in three formats: **CSS custom properties**, **Tailwind CSS config**, and a **JSON token file** — applied to your project only after you confirm the preview.
 
@@ -60,7 +61,7 @@ Not sure what style you want? Or do you already have a reference image, but want
 3. The skill translates both visual and sonic signals into design qualities — tempo, timbre, and rhythm become energy, warmth, and texture in your UI
 4. Explores **typography as its own axis** across the 3 directions — heading/body pairing, readability posture, hierarchy feel, and fallback stack
 5. Synthesizes **3 distinct design concepts** — each with its own visual style **and motion personality** — and, when a concrete reference exists, keeps them recognizably descended from that reference's structure and page archetype
-6. Generates **standalone concept preview pages** with hover transitions and entrance animations, plus **mood boards** for each direction
+6. Generates **standalone concept preview pages** with page-type appropriate transitions and entrance animations, plus **mood boards** for each direction. For Consumer app surfaces, previews include navigation, a core screen, a detail/create flow, a non-happy state, and tactile app motion.
 7. You react, compare, and choose — or mix elements from different concepts, including typography across directions
 8. The chosen direction is formalized into a full design system with motion tokens and a preview page
 9. Once confirmed, the design is applied to your project (via Capability 5)
@@ -115,6 +116,18 @@ After a design direction exists (or during exploration), the skill compiles **St
 UI navigation icons still use a single locked icon library or custom SVG ([ICON-USAGE.md](references/ICON-USAGE.md)). Expressive feature icons, 3D object icons, and social visuals can use generated SVG/PNG/WebP families when they support memorability and sharing. This phase focuses on image-based assets only.
 
 See [references/VISUAL-ASSET-GENERATION.md](references/VISUAL-ASSET-GENERATION.md) and the E2E walkthrough [assets/examples/visual-asset-e2e.md](assets/examples/visual-asset-e2e.md).
+
+#### Consumer App UIUX scenario
+
+When the target is a Consumer app / C-end app, vibe-to-ui treats it as a first-class development scene, not just a page type label:
+
+- Classifies platform, lifecycle stage, primary loop, navigation model, gesture model, and state risk
+- Requires previews to show navigation, home/feed or main task, detail/create flow, non-happy state, and touch-oriented motion
+- Adds a state matrix for loading, empty, error, offline, and success behavior
+- Keeps generated assets in product-safe slots such as onboarding, empty states, badges, achievements, and share cards
+- Preserves vector UI chrome icons while allowing expressive illustrated assets where they improve memory and motivation
+
+See [references/CONSUMER-APP-DESIGN.md](references/CONSUMER-APP-DESIGN.md) and the E2E walkthrough [assets/examples/consumer-app-e2e.md](assets/examples/consumer-app-e2e.md).
 
 
 #### Composing capabilities
@@ -190,6 +203,9 @@ git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-t
 # Generate an expressive illustrated icon family
 "Create 3D feature icons for Concept B, but keep app navigation icons in Lucide"
 
+# Explore a Consumer app experience
+"Design 3 visual/UIUX directions for my habit-tracking consumer app, including onboarding, tabs, empty state, and tactile motion"
+
 # Apply design tokens and images together
 "Apply Concept B with assets to my Next.js app"
 
@@ -246,6 +262,7 @@ Expose MCP tools such as `generate_image(prompt, width, height, reference_path?)
 │   ├── CONTEXT-COLLABORATION.md      # DESIGN.md collaboration protocol
 │   ├── ICON-USAGE.md                 # Icon component guidelines
 │   ├── MOOD-BOARD.md                 # Mood board generation guide
+│   ├── CONSUMER-APP-DESIGN.md        # Consumer app / C-end UIUX scenario guide
 │   ├── VISUAL-ASSET-GENERATION.md    # Hero/illustration generation + manifest
 │   └── APPLY-DESIGN.md              # Apply confirmed design to project guide
 └── assets/
@@ -253,6 +270,7 @@ Expose MCP tools such as `generate_image(prompt, width, height, reference_path?)
     ├── design-system-template.md     # Standard output template for design tokens
     └── examples/
         ├── visual-asset-e2e.md       # Concept → mood board → apply walkthrough
+        ├── consumer-app-e2e.md       # Consumer app UIUX → preview → apply walkthrough
         └── design-assets.manifest.example.json
 ```
 

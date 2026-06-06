@@ -28,7 +28,7 @@ vibe-to-ui 是这把翻译工具。把一张照片、一段录音、一种说不
 
 ## 技能
 
-面向 vibe coding 开发者的设计助手。将截图、情绪图片和直觉感受转化为结构化的设计系统、动效语言与布局蓝图 —— 所有探索都通过独立的预览页面协作完成，只有当你准备好时才会将设计应用到项目。
+面向 vibe coding 开发者的设计助手。将截图、情绪图片和直觉感受转化为结构化的设计系统、动效语言、C 端 App UIUX 系统与布局蓝图 —— 所有探索都通过独立的预览页面协作完成，只有当你准备好时才会将设计应用到项目。
 
 **六大核心能力：**
 
@@ -43,6 +43,7 @@ vibe-to-ui 是这把翻译工具。把一张照片、一段录音、一种说不
 - **圆角** —— 各组件的圆角策略
 - **阴影** —— 层级投影系统
 - **动效** —— 节奏、缓动曲线、动效密度、触发方式、减少动画适配
+- **C 端 App UIUX** —— 当页面类型是 Consumer app 时，补充导航模型、主循环、状态矩阵、触感反馈与移动端优先预览要求
 
 输出三种格式的设计 Token：**CSS 自定义属性**、**Tailwind CSS 配置**和 **JSON Token 文件** —— 仅在你确认预览后才应用到项目。
 
@@ -54,7 +55,7 @@ vibe-to-ui 是这把翻译工具。把一张照片、一段录音、一种说不
 1. 说明你的项目用途和目标用户
 2. 上传任意灵感图片（风景、物体、其他应用 —— 任何东西皆可）**或音乐录音**（音频片段、哼唱旋律、歌曲片段）
 3. 技能将视觉信号与音频信号一同转化为设计特质 —— 节奏、音色和韵律会映射为 UI 中的活力感、温度感和质感
-4. 综合生成 **3 个不同的设计概念** —— 每个都有独立的视觉风格**和动效个性** —— 并为每个概念生成**独立概念预览页面**（带悬停过渡和入场动画）以及**情绪看板**
+4. 综合生成 **3 个不同的设计概念** —— 每个都有独立的视觉风格**和动效个性** —— 并为每个概念生成**独立概念预览页面**（使用符合页面类型的过渡和入场动画）以及**情绪看板**；如果是 C 端 App，会包含导航、核心屏、详情/创建流程、非 happy path 状态与触感动效
 5. 你进行反馈、比较与选择 —— 或混合不同概念的元素
 6. 确定方向后，将其正式整理为包含动效 Token 的完整设计系统及预览页面
 7. 确认后，将设计应用到你的项目（通过能力 5 实现）
@@ -107,6 +108,18 @@ vibe-to-ui 是这把翻译工具。把一张照片、一段录音、一种说不
 - 探索阶段嵌入情绪看板；Apply 时复制到 `public/design-assets/`
 
 导航级 UI 图标仍使用单一锁定图标库或自定义 SVG；功能卖点图标、3D 物件图标、社媒传播图可使用生成式 SVG/PNG/WebP 视觉族。详见 [ICON-USAGE.md](references/ICON-USAGE.md)、[VISUAL-ASSET-GENERATION.md](references/VISUAL-ASSET-GENERATION.md) 与 [visual-asset-e2e.md](assets/examples/visual-asset-e2e.md)。
+
+#### C 端 App UIUX 场景
+
+当目标是 Consumer app / C 端 App 时，vibe-to-ui 会将其作为一等开发场景处理，而不只是页面类型标签：
+
+- 识别平台、生命周期阶段、主循环、导航模型、手势模型与状态风险
+- 预览必须覆盖导航、首页/feed 或核心任务屏、详情/创建流程、非 happy path 状态与触感动效
+- 输出 loading、empty、error、offline、success 的状态矩阵
+- 生成素材默认放在 onboarding、空状态、徽章/成就、分享卡等产品内安全位置
+- UI chrome 图标保持矢量和可主题化；表达性插画素材只用于能提升记忆点和动机的位置
+
+详见 [CONSUMER-APP-DESIGN.md](references/CONSUMER-APP-DESIGN.md) 与完整 E2E 示例 [consumer-app-e2e.md](assets/examples/consumer-app-e2e.md)。
 
 #### 能力组合
 
@@ -180,6 +193,9 @@ git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-t
 # 生成表达性图标族
 "为概念 B 生成 3D 功能图标，但 App 导航图标继续使用 Lucide"
 
+# 探索 C 端 App 体验
+"为我的习惯追踪 App 设计 3 个视觉/UIUX 方向，包含 onboarding、底部导航、空状态和触感动效"
+
 # 同时应用 Token 与图片
 "把概念 B 的设计和素材一起应用到我的 Next.js 项目"
 
@@ -235,6 +251,7 @@ vibe-to-ui **仅包含指令文档**，不内置 API Key，也不直接调用图
 │   ├── CONTEXT-COLLABORATION.md      # DESIGN.md 协作协议
 │   ├── ICON-USAGE.md                 # 图标组件指南
 │   ├── MOOD-BOARD.md                 # 情绪看板生成指南
+│   ├── CONSUMER-APP-DESIGN.md        # Consumer app / C 端 UIUX 场景指南
 │   ├── VISUAL-ASSET-GENERATION.md    # 配图生成与 manifest
 │   └── APPLY-DESIGN.md              # 将确认的设计应用到项目指南
 └── assets/
@@ -242,6 +259,7 @@ vibe-to-ui **仅包含指令文档**，不内置 API Key，也不直接调用图
     ├── design-system-template.md     # 设计 Token 标准输出模板
     └── examples/
         ├── visual-asset-e2e.md
+        ├── consumer-app-e2e.md
         └── design-assets.manifest.example.json
 ```
 

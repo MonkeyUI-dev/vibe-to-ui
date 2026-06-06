@@ -126,6 +126,8 @@ const CustomIcon = ({ size = 24, color = 'currentColor', strokeWidth = 2, classN
 
 **Default:** never replace UI chrome icons with AI raster images. Icons stay vector, token-colored, and grid-aligned unless the user explicitly overrides the strategy.
 
+For Consumer app surfaces, bottom tabs, top tabs, toolbar actions, input adornments, and sheet controls are always UI chrome. Use the locked icon library or custom SVG for these roles, with clear selected, pressed, disabled, and notification/badge states. Generated illustrated icons may support onboarding, empty states, achievements, badges, referrals, and share cards, but should not become the navigation system. See [CONSUMER-APP-DESIGN.md](CONSUMER-APP-DESIGN.md).
+
 ### User override policy
 
 Users may request:

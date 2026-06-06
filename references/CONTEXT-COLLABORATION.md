@@ -30,6 +30,8 @@ Product positioning that constrains design.
 
 Page type and density classification from vibe-to-ui. This controls layout, motion, imagery posture, and which assets are appropriate.
 
+For Consumer app surfaces, this section also stores platform, lifecycle stage, primary loop, navigation model, gesture model, state risk, core screens, and state matrix from [CONSUMER-APP-DESIGN.md](CONSUMER-APP-DESIGN.md).
+
 ### `## Visual Direction`
 
 The active aesthetic direction: concept id, style seed, mood, typography posture, motion personality, and imagery strategy.
@@ -102,7 +104,7 @@ At the start of every design workflow (extraction, exploration, layout analysis,
    - Target Users -> accessibility requirements, visual density, formality level
    - Core Use Cases -> information hierarchy, layout priorities
    - Product Personality -> color warmth, motion energy, typography weight
-   - Page Context -> asset pack, imagery posture, and density
+   - Page Context -> asset pack, imagery posture, density, and Consumer app UIUX constraints when present
    - Icon System -> locked library, custom SVG fallback, generated icon permissions
    - Visual Assets -> style references, manifest paths, selected combinations, placement rules, validator status, confirmed/rejected generations
 4. Reference the context in design rationale when it matters.
@@ -115,6 +117,7 @@ vibe-to-ui should update DESIGN.md when it learns product or design context thro
 - User describes product purpose -> update Product Definition and Core Use Cases
 - User describes desired feeling -> update Product Personality and Visual Direction
 - Page type is identified -> update Page Context
+- Consumer app platform, lifecycle stage, primary loop, navigation, gesture, or state risk is identified -> update Page Context > Consumer App Context
 - Existing icon library is detected -> update Icon System
 - User requests custom SVG or raster/image icons -> record `user_override`
 - A generated illustrated icon family is chosen -> update Illustrated Icon System
