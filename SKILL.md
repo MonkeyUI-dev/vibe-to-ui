@@ -291,18 +291,19 @@ User wants product-aligned illustrations (hero, feature, empty state, OG image) 
    - small UI chrome icons use the locked project icon library or custom SVG per [references/ICON-USAGE.md](references/ICON-USAGE.md)
    - marketing/social/feature icons may use generated SVG/PNG/WebP illustrated families when they improve expression or the user asks for them
    - user overrides (`library_only`, `custom_svg_only`, `generated_icons`, `raster_icons`) are allowed and recorded
-4. Write a **Visual Family Spec v1** with line language, perspective, material, lighting, background complexity, composition system, subject policy, safe zones, and placement intent
-5. Write an **Asset Placement Spec** per image so each asset has a real UI job: slot, purpose, size rule, copy/CTA relationship, safe zone, and responsive behavior
-6. Write an **Asset Spec** per image (role, aspect ratio, composition, preset, style reference)
-7. **Compile prompts** using the Prompt Compiler rules; generate hero or strongest family anchor first, then siblings with that anchor as style reference
-8. Invoke the host **image generation tool** or configured MCP (`VIBE_IMAGE_PROVIDER` / API keys via environment — never stored in this repo)
-9. Run **Consistency QA** and placement fit checks (max 2 retries); on failure, fall back to CSS placeholders per [references/MOOD-BOARD.md](references/MOOD-BOARD.md)
-10. Write **`design-assets.manifest.json`** next to exploration HTML; embed `<img>` paths in mood boards, contact sheets, placement previews, and concept previews
-11. Run the **Manifest Validator**: file existence, dimensions/aspect ratio, file size, alt/decorative status, preview/final state, role/page fit, style lineage, placement fields, and icon-role constraints
-12. Generate a **review surface** before Apply: contact sheet for variants, mood board wall for cross-role combinations, and placement preview for copy/CTA/layout fit
-13. During exploration, use **preview resolution**; on Apply (Capability 5), regenerate or export **final resolution** and copy only confirmed/validated assets into `public/design-assets/` (or framework equivalent)
-14. Update the design system output and `DESIGN.md` with `icon_system`, `illustrated_icon_system`, visual family rules, review surface path, selected combination, placement notes, validation status, manifest paths, and regeneration notes
-15. **P0 scope**: illustrations, raster heroes, expressive illustrated icon families for marketing/social surfaces, and in-product consumer app assets (empty state, onboarding, badges) when page type is Consumer app
+4. For each visual asset, declare the target display size and background mode before prompting; generated illustrated icons/objects default to transparent backgrounds when composited into UI, and image generation is not used below 64px unless the user explicitly overrides
+5. Write a **Visual Family Spec v1** with line language, perspective, material, lighting, background mode/complexity, composition system, subject policy, safe zones, and placement intent
+6. Write an **Asset Placement Spec** per image so each asset has a real UI job: slot, purpose, size rule, copy/CTA relationship, safe zone, and responsive behavior
+7. Write an **Asset Spec** per image (role, aspect ratio, target display size, background mode, composition, preset, style reference)
+8. **Compile prompts** using the Prompt Compiler rules; generate hero or strongest family anchor first, then siblings with that anchor as style reference
+9. Invoke the host **image generation tool** or configured MCP (`VIBE_IMAGE_PROVIDER` / API keys via environment — never stored in this repo)
+10. Run **Consistency QA** and placement fit checks (max 2 retries); on failure, fall back to CSS placeholders per [references/MOOD-BOARD.md](references/MOOD-BOARD.md)
+11. Write **`design-assets.manifest.json`** next to exploration HTML; embed `<img>` paths in mood boards, contact sheets, placement previews, and concept previews
+12. Run the **Manifest Validator**: file existence, dimensions/aspect ratio, target display size, background mode, file size, alt/decorative status, preview/final state, role/page fit, style lineage, placement fields, and icon-role constraints
+13. Generate a **review surface** before Apply: contact sheet for variants, mood board wall for cross-role combinations, and placement preview for copy/CTA/layout fit
+14. During exploration, use **preview resolution**; on Apply (Capability 5), regenerate or export **final resolution** and copy only confirmed/validated assets into `public/design-assets/` (or framework equivalent)
+15. Update the design system output and `DESIGN.md` with `icon_system`, `illustrated_icon_system`, visual family rules, review surface path, selected combination, placement notes, validation status, manifest paths, and regeneration notes
+16. **P0 scope**: illustrations, raster heroes, expressive illustrated icon families for marketing/social surfaces, and in-product consumer app assets (empty state, onboarding, badges) when page type is Consumer app
 
 **Important**: Do not generate full-bleed hero imagery for dense B-end workbench surfaces unless the user explicitly overrides page-type defaults. UI navigation icons remain governed by [references/ICON-USAGE.md](references/ICON-USAGE.md) (library + custom SVG first).
 
@@ -346,7 +347,7 @@ Layout outputs should include:
 
 ## Icon usage guidelines
 
-**Never use raw emoji characters as visual elements in generated UI code.** Always lock new small UI chrome icons to one project icon library when one exists. When no library icon fits or harmonizes with the page's aesthetic, create a custom SVG icon component that inherits the design system's tokens and matches the aesthetic soul. Use generated raster or illustrated icons only for marketing, feature, empty-state, onboarding, social, or brand surfaces unless the user explicitly overrides the default. Record the icon strategy in `DESIGN.md` when available — see [references/ICON-USAGE.md](references/ICON-USAGE.md) for detailed guidance.
+**Never use raw emoji characters as visual elements in generated UI code.** Always lock new small UI chrome icons to one project icon library when one exists. When no library icon fits or harmonizes with the page's aesthetic, create a custom SVG icon component that inherits the design system's tokens, matches the aesthetic soul, and passes the custom SVG QA checklist in [references/ICON-USAGE.md](references/ICON-USAGE.md). Do not turn a small icon into a miniature UI screenshot, diagram, dashboard, or multi-object scene; if an icon does not improve scanning or comprehension, let typography, labels, spacing, and hierarchy carry the meaning. Use generated raster or illustrated icons only for marketing, feature, empty-state, onboarding, social, or brand surfaces unless the user explicitly overrides the default. Record the icon strategy in `DESIGN.md` when available.
 
 ## Important notes
 

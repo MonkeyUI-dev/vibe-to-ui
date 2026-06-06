@@ -70,6 +70,15 @@ For landing, brand, showcase, e-commerce, consumer app, and social-sharing work,
 
 These assets can be raster (`webp`/`png`) or vector (`svg`) depending on the desired expressiveness. Use SVG for crisp, token-colored, reusable shapes; use raster when material, lighting, 3D form, or social-media impact matters more than theme inheritance.
 
+Before generating any illustrated icon or object, declare the **target display size** and **background mode**. If the asset will display below 64px in the UI, do not use image generation by default; follow [ICON-USAGE.md](ICON-USAGE.md) and create a locked-library icon or custom SVG instead. Generated illustrated icons are for larger feature/marketing placements, not small UI chrome.
+
+Background defaults:
+
+- **Transparent source by default** for `icon_illustrated`, `social_object`, and `mascot_prop` when the asset will be composited onto an existing UI surface.
+- **No baked white background** unless the white rectangle is the intentional visual container and matches the placement surface.
+- **Card background only when deliberate**: if the concept needs a card or tile, specify it as `background_mode: card` and ensure the card color, radius, border, and shadow match the design system.
+- **If the host tool cannot produce alpha**, generate on a flat high-contrast removable background, then remove/crop the background before Apply, or keep it only as a preview artifact.
+
 ---
 
 ## StyleContext Package
@@ -110,6 +119,8 @@ asset:
   role: hero                         # hero | feature | empty_state | og | texture | icon_illustrated | social_object | mascot_prop
   aspect_ratio: "16:9"
   target_width_px: 1920              # preview: 960; apply: 1920
+  target_display_px: null            # rendered UI size; required for icon_illustrated/social_object/mascot_prop
+  background_mode: scene             # transparent | scene | card | texture | removable_flat
   max_file_kb: 400
   must_avoid: [text_in_image, watermark, logo, photorealistic_faces, emoji_style]
 
@@ -141,7 +152,8 @@ visual_family:
   material: matte_plastic + glossy_accent
   lighting: soft_studio_key_light
   shadow: soft_elliptical_cast_shadow
-  background: dark_card_with_subtle_texture
+  background: transparent            # transparent by default for isolated icons/objects; otherwise describe scene/card/texture
+  background_mode: transparent       # transparent | scene | card | texture | removable_flat
   background_complexity: low         # none | low | medium | high
   accent_behavior: vivid_green_as_signature_pop
   detail_density: medium
@@ -233,6 +245,8 @@ asset_placement:
 | `social_object` | social post, launch banner, campaign card | 40–70% of composition | Strong silhouette and hook; reserve clear area for headline overlay |
 | `mascot_prop` | brand moment, onboarding, empty state | 160–512px depending on surface | Express personality without obscuring the task |
 
+For `icon_illustrated`, `social_object`, and `mascot_prop`, source files should usually be generated larger than display size and exported with transparency when composited into the UI. Example: a 96px feature icon may use a 512×512 transparent PNG/WebP source, then render at 96px in the layout.
+
 ### Consumer app placement rules
 
 For Consumer app surfaces, also follow [CONSUMER-APP-DESIGN.md](CONSUMER-APP-DESIGN.md):
@@ -280,9 +294,23 @@ Build one string (or structured prompt + negative prompt) per Asset Spec.
 | `empty_state` | Centered friendly subject, generous padding, calm and simple |
 | `og` | Strong focal center, readable at thumbnail scale, 1200×630 safe zone |
 | `texture` | Seamless-friendly abstract pattern, low contrast |
-| `icon_illustrated` | Isolated metaphor object, consistent camera angle, simple card or transparent background |
-| `social_object` | Bold object composition, strong silhouette, expressive material and shadow, readable in feed |
-| `mascot_prop` | Character-adjacent object language, repeatable proportions, no small UI-control usage |
+| `icon_illustrated` | Isolated metaphor object, consistent camera angle, transparent background by default; card background only when deliberate |
+| `social_object` | Bold object composition, strong silhouette, transparent background when composited, expressive material and shadow, readable in feed |
+| `mascot_prop` | Character-adjacent object language, repeatable proportions, transparent background when composited, no small UI-control usage |
+
+### Background prompt rules
+
+Append one background instruction based on `asset.background_mode`:
+
+| Background mode | Prompt instruction |
+|-----------------|--------------------|
+| `transparent` | `transparent background, isolated subject, no white box, no colored canvas, alpha-friendly edges` |
+| `card` | `subject placed on a designed card surface that matches the UI tokens; no default white canvas` |
+| `scene` | `full scene background appropriate to the role and page type` |
+| `texture` | `tileable or low-contrast texture background, no focal object unless requested` |
+| `removable_flat` | `flat high-contrast removable background, no shadows touching the image edge` |
+
+If using SVG, do not include a background rectangle unless `background_mode: card` or `texture` explicitly requires one.
 
 ### B-end constraint suffix
 
@@ -428,7 +456,9 @@ After each generation, run a lightweight check (agent self-review or VLM if avai
 4. **Placement fit** — The asset supports its copy/CTA/layout slot without overlap or hierarchy conflict.
 5. **Technical** — No obvious garbled text, watermark, or off-brand neon?
 6. **Role fit** — Illustrated/raster icons are not used for 16–24px navigation, forms, tables, or toolbar controls unless user explicitly overrode the default.
-7. **Consumer app fit** — For app surfaces, does the asset remain clear at mobile size, support the state or flow, and avoid competing with navigation, inputs, pricing, privacy, or primary actions?
+7. **Display-size fit** — If the target display size is below 64px, was image generation avoided or explicitly approved?
+8. **Background fit** — For composited icons/objects, is the source transparent or intentionally card/scene-based? No accidental white canvas.
+9. **Consumer app fit** — For app surfaces, does the asset remain clear at mobile size, support the state or flow, and avoid competing with navigation, inputs, pricing, privacy, or primary actions?
 
 **Retry at most 2 times** per asset. If still failing, fall back to CSS placeholders per [MOOD-BOARD.md](MOOD-BOARD.md) and continue the design workflow.
 
@@ -443,6 +473,8 @@ Run a deterministic manifest validation pass before presenting a review surface 
 | Role allowed | `role` is one of `hero`, `feature`, `empty_state`, `og`, `texture`, `icon_illustrated`, `social_object`, `mascot_prop` |
 | Page fit | Role is allowed by the Page Type -> Asset Pack unless user override is recorded |
 | Dimensions | `width_px` and `height_px` are present and match `aspect_ratio` within tolerance |
+| Target display size | `target_display_px` is present for `icon_illustrated`, `social_object`, and `mascot_prop`; values below 64px require user override or fallback to ICON-USAGE.md |
+| Background mode | `background_mode` is present; composited `icon_illustrated`, `social_object`, and `mascot_prop` assets use `transparent` unless `card`/`scene` is intentional |
 | File size | `file_size_kb` is present for final assets and under `max_file_kb` when specified |
 | Preview/final | `preview: true` assets are not wired into production Apply without regeneration or explicit approval |
 | Alt text | Informative assets have non-empty `alt`; decorative assets use `alt: ""` and `decorative: true` |
@@ -450,6 +482,7 @@ Run a deterministic manifest validation pass before presenting a review surface 
 | Style lineage | Sibling assets have `style_reference_id` or share the same `visual_family_preset` |
 | Placement | Assets used in UI have a `placement` object with `slot`, `purpose`, `size_rule`, and `responsive_behavior` |
 | Icon role | Raster/illustrated icons are not assigned to `navigation`, `form_controls`, `table_actions`, or `toolbar_controls` unless override is recorded |
+| Accidental canvas | No unintended white/black/color rectangle is baked into an asset that should inherit the page surface |
 
 Record validator output in the manifest or adjacent review notes:
 
@@ -484,6 +517,7 @@ Record every generated file. During exploration, write `design-assets.manifest.j
     "material": "matte plastic with glossy accent",
     "lighting": "soft studio key light",
     "shadow": "soft elliptical cast shadow",
+    "background_mode": "transparent",
     "background_complexity": "low"
   },
   "assets": [
@@ -494,6 +528,8 @@ Record every generated file. During exploration, write `design-assets.manifest.j
       "aspect_ratio": "16:9",
       "width_px": 1920,
       "height_px": 1080,
+      "target_display_px": null,
+      "background_mode": "scene",
       "file_size_kb": 384,
       "alt": "Calm coastal workspace metaphor for Tidepool scheduling",
       "decorative": false,

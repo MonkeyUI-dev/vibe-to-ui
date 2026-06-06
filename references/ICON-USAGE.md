@@ -45,6 +45,12 @@ When the icon library lacks a suitable match — or the available icons feel gen
 
 ### Design principles for custom icons
 
+Before designing a custom SVG, determine the icon's role in the interface:
+
+- **Navigation / toolbar / action / status**: use a recognizable UI icon from the locked library first.
+- **Informational UI support**: use an icon only when it improves scanning or comprehension; otherwise let typography, labels, spacing, and hierarchy carry the meaning.
+- **Feature marketing / empty state / onboarding / social**: use an illustrated icon or image asset only when the surface can support larger, more expressive artwork.
+
 #### 1. Inherit the design system
 
 Stroke width, corner radius, and sizing should echo the design system's tokens:
@@ -85,7 +91,32 @@ The icon should feel like it belongs to the same icon family as the rest of the 
 - **Metaphor style**: If library icons use literal representations (e.g., a literal envelope for "mail"), don't suddenly introduce abstract symbols — and vice versa
 - **Grid alignment**: Design on the same grid as the library (usually 24×24)
 
-#### 5. Provide as a reusable component
+#### 5. Keep the metaphor minimal
+
+For 16–24px UI icons, design the smallest possible metaphor that remains recognizable. Avoid turning the icon into a miniature screenshot, diagram, dashboard, wireframe, chart, or multi-object scene.
+
+Use this detail budget:
+
+- **Default UI icon**: 1 primary shape + 0–2 supporting details.
+- **Modifier icon**: 1 base metaphor + 1 small modifier, placed consistently.
+- **Dense operational UI**: prefer a familiar library icon or text label over a custom symbol with uncertain meaning.
+- **Marketing feature icon**: may use more detail, but only at 64px+ and as part of an illustrated family.
+
+Reject the icon if it needs explanation, if its internal details blur at 20px, or if the user must decode it before reading the adjacent label.
+
+#### 6. Use optical consistency, not mechanical equality
+
+Keep icons on a shared grid, but adjust individual forms for visual balance. A circle, square, vertical rectangle, and horizontal rectangle may need different apparent dimensions to feel equally weighted. Do not force every path to occupy the same bounding box if the result looks heavier, lighter, or off-center.
+
+Check:
+
+- **Size**: UI icons use the project's established size, usually 16, 20, or 24px.
+- **Stroke**: one stroke weight per family, usually 1.5–2px for line icons.
+- **Perspective**: front-facing by default; avoid tilted, dimensional, or pseudo-3D UI glyphs.
+- **Terminals / joins**: match the locked library or the surrounding shape language.
+- **Color**: system icons are monochrome by default and inherit `currentColor`.
+
+#### 7. Provide as a reusable component
 
 Wrap custom icons as components that follow the same API conventions as the project's icon library:
 
@@ -115,6 +146,30 @@ const CustomIcon = ({ size = 24, color = 'currentColor', strokeWidth = 2, classN
 );
 ```
 
+### Custom SVG QA checklist
+
+Run this checklist before keeping a generated custom SVG:
+
+- **Role fit**: Is this a UI icon or an illustrated asset, and does the chosen treatment match that role?
+- **Instant recognition**: Does the icon communicate one concept without reading the label?
+- **Small-size legibility**: Does it stay clear at 16px, 20px, and 24px on standard and high-DPI screens?
+- **Detail budget**: Does it avoid miniature screens, nested boxes, tiny text-like strokes, and multi-object scenes?
+- **Family match**: Does it match the locked library's grid, stroke weight, caps, joins, optical weight, and perspective?
+- **State behavior**: Can hover, active, disabled, selected, and dark-mode states be expressed with the same color tokens as text?
+- **Accessibility fallback**: If meaning is not obvious, is there a visible label, `aria-label`, or tooltip?
+
+If any of the first four checks fail, replace the custom SVG with the locked library icon, a text marker, or a larger illustrated asset in the correct surface.
+
+### Source-backed principles
+
+These rules are distilled from current major design-system guidance:
+
+- [Material Design icons](https://m1.material.io/style/icons.html) emphasizes simple, intuitive, actionable, consistent icons; 20–24dp grids; consistent stroke weight; pixel alignment; and avoiding overly literal or delicate icons.
+- [Apple Human Interface Guidelines: Icons](https://developer.apple.com/design/human-interface-guidelines/icons) recommends recognizable, highly simplified interface icons with consistent size, level of detail, weight, and perspective.
+- [Apple Human Interface Guidelines: SF Symbols](https://developer.apple.com/design/human-interface-guidelines/sf-symbols) advises custom symbols to stay simple, recognizable, inclusive, directly related to the represented action/content, and consistent with system symbols in detail, optical weight, alignment, position, and perspective.
+- [IBM Carbon Icons](https://carbondesignsystem.com/elements/icons/usage/) treats UI icons as monochrome symbols, ties color contrast to text contrast, and requires consistent sizing and text alignment.
+- [Microsoft Fluent iconography](https://fluent2.microsoft.design/iconography) frames system icons as semantic UI elements that should be recognizable, functional, easily understood, minimal, harmonious, and careful with modifiers and color.
+
 ## UI icons vs illustrated assets (Capability 6)
 
 | Need | Use | Guide |
@@ -138,6 +193,8 @@ Users may request:
 - **raster/image icons**: use PNG/WebP for expressive surfaces such as landing pages, launch graphics, and social previews
 
 When the requested strategy reduces usability, explain the tradeoff briefly and continue if the user confirms or the request is clearly intentional. For example, raster icons are expressive but weaker for small UI controls because they lose crispness, theme adaptability, state coloring, and accessibility at 16–24px.
+
+For generated image icons, always declare target display size first. If the icon will render below 64px, switch to this document's UI icon rules. If it will render at 64px or larger, follow [VISUAL-ASSET-GENERATION.md](VISUAL-ASSET-GENERATION.md) and request a transparent source background by default when the asset will sit on an existing UI surface.
 
 ### When to generate illustrated icons
 

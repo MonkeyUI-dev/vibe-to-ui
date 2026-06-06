@@ -190,6 +190,9 @@
 - **Allowed use**: [missing metaphors, aesthetic mismatch, product-specific icons]
 - **Forbidden use**: [replacing an adequate locked-library icon without reason]
 - **Token behavior**: [must inherit `currentColor` or semantic CSS variables]
+- **Role-fit policy**: [use icons only when they improve scanning or comprehension; otherwise let typography, labels, spacing, and hierarchy carry the meaning]
+- **Detail budget**: [1 primary shape + 0-2 supporting details for 16-24px UI icons; no miniature screenshots, diagrams, dashboards, or multi-object scenes]
+- **QA status**: [passed / warning / failed against ICON-USAGE.md custom SVG QA checklist]
 
 ### Illustrated Icon Strategy
 
@@ -210,16 +213,16 @@
 - **Style seed**: [shared seed / reference chain id]
 - **Imagery strategy**: [photography vs soft illustration vs abstract texture; hero vs restrained B-end]
 - **Visual family preset**: [3d-object-pop / playful-sticker / warm-organic / custom]
-- **Visual family rules**: [line language, perspective, material, lighting, shadow, background complexity, detail density]
+- **Visual family rules**: [line language, perspective, material, lighting, shadow, background mode/complexity, detail density]
 - **Subject policy**: [allowed subjects and forbidden subjects]
 - **Composition system**: [focal position, crop behavior, whitespace position, safe zones]
 - **Manifest validation**: [passed / warning / failed; date; issue summary]
 
-| ID | Role | Path | Aspect | Size | Alt | Parent ID | Style Ref | License |
-|----|------|------|--------|------|-----|-----------|-----------|---------|
-| [hero-example-v1] | hero | [/design-assets/hero-example-v1.webp] | [16:9] | [1920×1080, 384KB] | [accessible description] | [—] | [—] | [ai-generated] |
-| [feature-example-v1] | feature | [/design-assets/feature-example-v1.webp] | [3:2] | [1200×800, 220KB] | [accessible description] | [—] | [hero-example-v1] | [ai-generated] |
-| [icon-example-v1] | icon_illustrated | [/design-assets/icon-example-v1.webp] | [1:1] | [512×512, 90KB] | [accessible description] | [—] | [hero-example-v1] | [ai-generated] |
+| ID | Role | Path | Aspect | Source Size | Target Display | Background | Alt | Parent ID | Style Ref | License |
+|----|------|------|--------|-------------|----------------|------------|-----|-----------|-----------|---------|
+| [hero-example-v1] | hero | [/design-assets/hero-example-v1.webp] | [16:9] | [1920×1080, 384KB] | [42vw desktop] | [scene] | [accessible description] | [—] | [—] | [ai-generated] |
+| [feature-example-v1] | feature | [/design-assets/feature-example-v1.webp] | [3:2] | [1200×800, 220KB] | [card media] | [scene/card] | [accessible description] | [—] | [hero-example-v1] | [ai-generated] |
+| [icon-example-v1] | icon_illustrated | [/design-assets/icon-example-v1.webp] | [1:1] | [512×512, 90KB] | [96px] | [transparent] | [accessible description] | [—] | [hero-example-v1] | [ai-generated] |
 
 ### Asset Placement Strategy
 
