@@ -99,12 +99,14 @@ vibe-to-ui 是这把翻译工具。把一张照片、一段录音、一种说不
 
 在探索或确认方向后，技能会组装 **StyleContext**（产品、页面类型、Token、美学指南），通过 Agent 的**图像生成工具**或 MCP 生成：
 
-- **Hero、功能配图、空状态、OG 图**（P0；短视频为后续阶段）
+- **Hero、功能配图、空状态、OG 图**
 - 同一概念下**视觉族一致**（先生成 Hero，再以其为风格参考）
+- **按角色区分图标策略** —— UI 小图标锁定单一图标库，自定义 SVG 作为 fallback，营销/社媒图标可生成插画族
+- **Review + Placement 流程** —— contact sheet、mood board wall、placement preview、安全区与 manifest 校验后再 Apply
 - **`design-assets.manifest.json`** —— 路径、角色、alt、迭代 lineage
 - 探索阶段嵌入情绪看板；Apply 时复制到 `public/design-assets/`
 
-导航级 UI 图标仍使用图标库或自定义 SVG。详见 [VISUAL-ASSET-GENERATION.md](references/VISUAL-ASSET-GENERATION.md) 与 [visual-asset-e2e.md](assets/examples/visual-asset-e2e.md)。
+导航级 UI 图标仍使用单一锁定图标库或自定义 SVG；功能卖点图标、3D 物件图标、社媒传播图可使用生成式 SVG/PNG/WebP 视觉族。详见 [ICON-USAGE.md](references/ICON-USAGE.md)、[VISUAL-ASSET-GENERATION.md](references/VISUAL-ASSET-GENERATION.md) 与 [visual-asset-e2e.md](assets/examples/visual-asset-e2e.md)。
 
 #### 能力组合
 
@@ -175,6 +177,9 @@ git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-t
 # 为概念生成配图（探索阶段，不修改项目）
 "为概念 B 生成与产品一致的 Hero 和功能配图"
 
+# 生成表达性图标族
+"为概念 B 生成 3D 功能图标，但 App 导航图标继续使用 Lucide"
+
 # 同时应用 Token 与图片
 "把概念 B 的设计和素材一起应用到我的 Next.js 项目"
 
@@ -190,9 +195,11 @@ git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-t
 
 vibe-to-ui **仅包含指令文档**，不内置 API Key，也不直接调用图像 API。由 Agent 使用宿主工具或 MCP。
 
-### Cursor（默认）
+当项目中存在 `DESIGN.md` 时，技能会被动记录视觉决策：锁定的 UI 图标库、自定义 SVG fallback、插画图标 preset、视觉族规则、manifest 路径、已确认素材与迭代记录。
 
-技能触发能力 6 时使用内置图像生成；探索阶段保存在情绪看板旁；Apply 时复制到 `public/design-assets/`。
+### 宿主图像工具（默认）
+
+技能触发能力 6 时使用 Agent 宿主提供的内置图像生成工具；探索阶段保存在情绪看板旁；Apply 时复制到 `public/design-assets/`。
 
 ### 可选 MCP / API
 
@@ -225,15 +232,17 @@ vibe-to-ui **仅包含指令文档**，不内置 API Key，也不直接调用图
 │   ├── LAYOUT-ANALYSIS.md            # 布局分析与 ASCII 蓝图指南
 │   ├── MOTION-SYSTEM.md              # 动效系统提取与生成指南
 │   ├── AESTHETIC-ANALYSIS.md         # 美学灵魂捕获方法论
+│   ├── CONTEXT-COLLABORATION.md      # DESIGN.md 协作协议
 │   ├── ICON-USAGE.md                 # 图标组件指南
 │   ├── MOOD-BOARD.md                 # 情绪看板生成指南
 │   ├── VISUAL-ASSET-GENERATION.md    # 配图生成与 manifest
 │   └── APPLY-DESIGN.md              # 将确认的设计应用到项目指南
 └── assets/
-    ├── design-system-template.md
+    ├── DESIGN.md                     # 持久化产品/设计上下文模板
+    ├── design-system-template.md     # 设计 Token 标准输出模板
     └── examples/
         ├── visual-asset-e2e.md
-        └── design-assets.manifest.example.json     # 设计 Token 标准输出模板
+        └── design-assets.manifest.example.json
 ```
 
 遵循 [Agent Skills 渐进式披露](https://agentskills.io/specification) 原则：启动时仅加载 `SKILL.md` 元数据（约 100 个 Token），参考文件按需加载，保持上下文精简。

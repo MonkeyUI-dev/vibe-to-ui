@@ -4,7 +4,7 @@
 
 This guide defines **Capability 6: Visual Asset Generation** for vibe-to-ui. It turns confirmed design direction, product context, and aesthetic DNA into **raster illustrations** (hero, feature, empty state, OG image) that stay visually consistent across a concept — then deploys them into the user's project during Apply.
 
-Integration is **host-agent + MCP/tool based**. This skill repository does not store API keys or call image APIs directly. The agent compiles prompts from StyleContext, invokes the host's image generation tool (for example Cursor `GenerateImage`, or a custom MCP server), and records outputs in an **Asset Manifest**.
+Integration is **host-agent + MCP/tool based**. This skill repository does not store API keys or call image APIs directly. The agent compiles prompts from StyleContext, invokes the host's image generation tool (for example a built-in host tool or a custom MCP server), and records outputs in an **Asset Manifest**.
 
 ---
 
@@ -12,13 +12,13 @@ Integration is **host-agent + MCP/tool based**. This skill repository does not s
 
 Use these defaults unless the user explicitly expands scope:
 
-| Decision | P0 choice | Deferred |
-|----------|-----------|----------|
-| Asset types | Hero, feature, empty state, OG/social preview | Short-form video loops (P2) |
-| Storage | Local project `public/design-assets/` (or framework equivalent) | External CDN (user-managed, out of skill scope) |
-| Resolution | Preview during exploration; full resolution on Apply | — |
-| UI icons (24×24 nav/button) | Icon library + custom SVG per [ICON-USAGE.md](ICON-USAGE.md) | Illustrated icon sets (P1) |
-| Provider | Host image tool / single configured API via env vars | Multi-provider adapter table in-repo |
+| Decision | Current phase choice |
+|----------|----------------------|
+| Asset types | Hero, feature, empty state, OG/social preview, illustrated feature/social icon sets when requested |
+| Storage | Local project `public/design-assets/` (or framework equivalent) |
+| Resolution | Preview during exploration; full resolution on Apply |
+| UI icons (24×24 nav/button) | Locked icon library + custom SVG per [ICON-USAGE.md](ICON-USAGE.md) |
+| Provider | Host image tool / single configured API via env vars |
 
 **Explore first, apply later** still applies: generated files for mood boards and concept previews live next to standalone HTML artifacts until the user confirms and asks to apply.
 
@@ -32,12 +32,13 @@ Use these defaults unless the user explicitly expands scope:
 - "Replace mood board placeholders with real images"
 - "Apply design **with assets**" / "copy generated images into the project"
 - "Make the visuals warmer / more minimal" (regeneration from manifest)
+- "Generate custom feature icons / 3D icons / social visuals for this landing page"
+- "Do not use an icon library; make SVG icons" or "make image-based icons" (user override)
 
 **Do not use** for:
 
-- B-end dense workbench **hero videos** or cinematic full-bleed backgrounds (page type forbids by default)
+- Full-bleed hero imagery on dense B-end workbench surfaces (page type forbids by default)
 - Pixel-perfect logo or trademark reproduction
-- Long marketing videos with narration (out of scope)
 
 Always run **Stage 0: Page Type Identification** before generating assets. Page type controls **which assets exist**, not just their style.
 
@@ -54,6 +55,18 @@ Always run **Stage 0: Page Type Identification** before generating assets. Page 
 | E-commerce / catalog | Product-adjacent feature 4:5, hero optional | 3 |
 
 If the user asks for assets that conflict with page type (for example a full-bleed hero on a dense workbench), explain the tradeoff and offer a **restrained alternative** (small empty-state illustration) unless they explicitly override.
+
+### Illustrated icon set add-on
+
+For landing, brand, showcase, e-commerce, consumer app, and social-sharing work, the agent may add a small illustrated icon set when it improves memorability or the user asks for stronger brand expression.
+
+| Role | Default size | Best for | Avoid |
+|------|--------------|----------|-------|
+| `icon_illustrated` | 128–512px | Feature cards, launch pages, pricing/benefit sections | Navigation, toolbar buttons, form controls |
+| `social_object` | 512–1200px | Social posts, OG images, campaign visuals | Dense product UI |
+| `mascot_prop` | 256–1024px | Brand systems with a mascot/IP metaphor | Generic dashboards |
+
+These assets can be raster (`webp`/`png`) or vector (`svg`) depending on the desired expressiveness. Use SVG for crisp, token-colored, reusable shapes; use raster when material, lighting, 3D form, or social-media impact matters more than theme inheritance.
 
 ---
 
@@ -89,9 +102,10 @@ aesthetic:
   material_lighting: "soft diffused daylight, matte surfaces, subtle grain"
   iconography_rules: "line icons, rounded caps, 1.5px stroke"
   imagery_strategy: "editorial photography or soft illustration, no text in image"
+  illustrated_icon_preset: "3d-object-pop"   # optional; see ICON-USAGE.md
 
 asset:
-  role: hero                         # hero | feature | empty_state | og | texture
+  role: hero                         # hero | feature | empty_state | og | texture | icon_illustrated | social_object | mascot_prop
   aspect_ratio: "16:9"
   target_width_px: 1920              # preview: 960; apply: 1920
   max_file_kb: 400
@@ -111,6 +125,58 @@ Sources:
 
 ---
 
+## Visual Family Spec
+
+Before generating more than one asset, define a short family spec. This is the guardrail that keeps hero art, feature art, illustrated icons, and social visuals from feeling like unrelated one-off generations.
+
+```yaml
+visual_family:
+  version: 1
+  preset: 3d-object-pop              # from ICON-USAGE.md presets, or custom
+  line_language: none                # none | thin_line | rounded_line | chunky_outline | geometric_line
+  perspective: three_quarter_front   # flat | isometric | three_quarter_front | orthographic
+  object_language: chunky_product_props
+  material: matte_plastic + glossy_accent
+  lighting: soft_studio_key_light
+  shadow: soft_elliptical_cast_shadow
+  background: dark_card_with_subtle_texture
+  background_complexity: low         # none | low | medium | high
+  accent_behavior: vivid_green_as_signature_pop
+  detail_density: medium
+  edge_language: rounded_chunky
+  composition_system:
+    focal_position: right_third      # centered | left_third | right_third | top_center | bottom_center
+    camera_distance: medium          # macro | close | medium | wide
+    crop_behavior: safe_crop         # full_object | safe_crop | edge_bleed | pattern_tile
+    whitespace_position: left        # none | left | right | top | bottom | around_subject
+    safe_zones: [left_40_for_copy, bottom_16_for_cta_clearance]
+  subject_policy:
+    allowed: [abstract_product_metaphors, product_props, simple_environmental_objects]
+    avoid: [photorealistic_faces, literal_ui_screenshots, third_party_logos]
+  placement_intent:
+    primary_slots: [landing_hero, feature_card, social_preview]
+    avoid_slots: [navigation, table_actions, dense_form_controls]
+  forbidden: [tiny_ui_controls, text_in_image, brand_logos, busy_backgrounds]
+```
+
+For expressive references such as 3D object cards with strong accent color, choose `3d-object-pop` and keep the generated assets on marketing/social surfaces. Continue using [ICON-USAGE.md](ICON-USAGE.md) for small UI icons.
+
+### Visual Family Spec field rules
+
+Every generated asset in the same `concept_id` should inherit these fields unless a role explicitly overrides them:
+
+| Field | Purpose |
+|-------|---------|
+| `line_language` | Keeps SVG/illustrated marks optically related to generated imagery |
+| `perspective` | Prevents mixed flat/isometric/3D assets in one family |
+| `material`, `lighting`, `shadow` | Locks the perceived rendering model |
+| `background_complexity` | Controls whether assets support copy or become visual clutter |
+| `composition_system` | Defines crop, focal point, camera distance, and whitespace |
+| `subject_policy` | Makes allowed/forbidden objects explicit before prompting |
+| `placement_intent` | Connects generation to real UI slots instead of standalone art |
+
+---
+
 ## Asset Spec (per image)
 
 Before calling a generation tool, write an Asset Spec row:
@@ -123,7 +189,59 @@ Before calling a generation tool, write an Asset Spec row:
 | `aspect_ratio` | `16:9` |
 | `composition` | wide scene, subject right third, negative space left for headline |
 | `subject` | abstract product metaphor (no literal UI screenshot) |
+| `visual_family_preset` | `3d-object-pop` |
+| `placement_slot` | `landing_hero` |
+| `copy_safe_zone` | `left_40_percent` |
 | `preview` | true during exploration |
+
+---
+
+## Asset Placement Spec
+
+Before an image is applied to a UI, define where it earns its keep. This prevents decorative assets from competing with copy, CTAs, forms, or data.
+
+```yaml
+asset_placement:
+  asset_id: hero-coastal-clarity-v1
+  surface: landing_page
+  slot: hero_visual                 # hero_visual | feature_card | empty_state | og_image | social_post | onboarding_panel
+  purpose: emotional_anchor         # emotional_anchor | explain_feature | reassure_empty_state | share_hook | brand_memory
+  layout_relationship: copy_left_visual_right
+  size_rule: 42vw_desktop_80vw_mobile
+  crop_rule: preserve_subject_and_left_copy_safe_zone
+  copy_anchor: h1_and_supporting_copy
+  cta_relationship: visual_points_toward_primary_cta
+  whitespace_contract: left_40_percent_clear
+  responsive_behavior:
+    desktop: visual_right_third
+    tablet: visual_above_copy
+    mobile: crop_to_center_subject_below_h1
+  avoid_overlap_with: [h1, primary_cta, nav, form_fields]
+```
+
+### Role placement defaults
+
+| Role | Default placement | Size guidance | Copy/CTA relationship |
+|------|-------------------|---------------|-----------------------|
+| `hero` | first viewport hero visual | 35–50% desktop width; full-width or 70–90% mobile | Preserve negative space; subject should frame or point toward the headline/CTA, not cover it |
+| `feature` | beside a feature explanation or inside a feature card | 24–40% module width or fixed aspect card | Clarify one feature metaphor; do not introduce a second story |
+| `empty_state` | centered in empty panel | 120–240px for app UI; larger only on consumer onboarding | Reassure and guide next action; leave CTA visually dominant |
+| `og` | social card background/focal object | 1200×630 safe zone | Keep focal object readable at thumbnail size; real text belongs in HTML/design layer when possible |
+| `icon_illustrated` | feature card, benefit row, launch graphic | 64–160px in UI; 256–512px for social/source asset | Support the label; never replace small nav/action icons |
+| `social_object` | social post, launch banner, campaign card | 40–70% of composition | Strong silhouette and hook; reserve clear area for headline overlay |
+| `mascot_prop` | brand moment, onboarding, empty state | 160–512px depending on surface | Express personality without obscuring the task |
+
+### Accent effect rules
+
+An asset creates a "finishing touch" only when it improves the surrounding UI:
+
+1. **Hierarchy** — it makes the most important message easier to notice.
+2. **Meaning** — it explains or emotionally reinforces the adjacent copy.
+3. **Action** — it guides attention toward the CTA or next step.
+4. **Memory** — it gives the page a recognizable visual hook for sharing.
+5. **Restraint** — it does not add visual noise, compete with data, or reduce readability.
+
+If an asset fails two or more of these checks, regenerate it for a different placement or remove it.
 
 ---
 
@@ -150,6 +268,9 @@ Build one string (or structured prompt + negative prompt) per Asset Spec.
 | `empty_state` | Centered friendly subject, generous padding, calm and simple |
 | `og` | Strong focal center, readable at thumbnail scale, 1200×630 safe zone |
 | `texture` | Seamless-friendly abstract pattern, low contrast |
+| `icon_illustrated` | Isolated metaphor object, consistent camera angle, simple card or transparent background |
+| `social_object` | Bold object composition, strong silhouette, expressive material and shadow, readable in feed |
+| `mascot_prop` | Character-adjacent object language, repeatable proportions, no small UI-control usage |
 
 ### B-end constraint suffix
 
@@ -164,9 +285,12 @@ Append when `page.density` is `high` or type is B-end:
 ### Multi-asset consistency
 
 1. Generate **hero first** for a `concept_id`.
-2. Set `style_reference_path` to that file for subsequent assets in the same concept.
-3. Pass the reference image to the host tool when supported (img2img / reference image parameter).
-4. Reuse the same `style_seed` in the manifest for all siblings.
+2. Define the Visual Family Spec from the hero, design tokens, and chosen icon preset.
+3. Define an Asset Placement Spec for each generated role before applying it to a layout.
+4. Set `style_reference_path` to the hero or strongest family anchor for subsequent assets in the same concept.
+5. Pass the reference image to the host tool when supported (img2img / reference image parameter).
+6. Reuse the same `style_seed` in the manifest for all siblings.
+7. For illustrated icon sets, generate a contact sheet or review wall first when the host tool supports multi-image output.
 
 ### Example compiled prompt (hero)
 
@@ -187,10 +311,10 @@ AVOID: text, watermark, logo, faces, neon, emoji.
 
 The skill does not ship a runtime. The agent must use whatever the host provides.
 
-### Cursor
+### Host-provided image tools
 
-- Tool: `GenerateImage` with `description` = compiled prompt; save output to the path the tool returns or to the exploration artifact folder.
-- For iteration: include prior image path in the description as "match style of previous hero".
+- Use the host image generation tool with the compiled prompt; save output to the path the tool returns or to the exploration artifact folder.
+- For iteration, pass the prior image path or reference image when the host tool supports it.
 
 ### MCP / API (recommended for teams)
 
@@ -204,7 +328,7 @@ Configure via environment variables (never commit secrets):
 | `IDEOGRAM_API_KEY` | Ideogram |
 | `RECRAFT_API_KEY` | Recraft (brand color + illustration) |
 
-Expose MCP tools such as `generate_image(prompt, width, height, reference_path?)` and optionally `generate_video` (P2 only).
+Expose MCP tools such as `generate_image(prompt, width, height, reference_path?)`.
 
 ### Provider notes (2026)
 
@@ -228,16 +352,97 @@ Regenerate at full size when applying; do not upscale previews with CSS alone.
 
 ---
 
+## Review Surface
+
+Do not ask the user to judge isolated files when a set or placement decision matters. Generate a review surface before Apply.
+
+### Contact sheet
+
+Use for choosing within one role, such as 6 feature icons or 4 hero variants.
+
+Required labels:
+
+- asset id
+- role
+- visual family preset
+- intended placement slot
+- preview/final status
+- short best-for note
+
+### Mood board wall
+
+Use when comparing concepts or cross-role combinations. Show assets together with the actual color, type, surface, and motion cues.
+
+Required rows:
+
+| Row | Purpose |
+|-----|---------|
+| Concept summary | Name, mood, page type, density |
+| Hero options | A1/A2/A3 with copy-safe-zone overlay |
+| Feature/empty-state options | B1/B2/B3 in their intended modules |
+| Illustrated icon set | Contact sheet with shared family rules |
+| Combination picks | Example pairings such as `A2 hero + B1 empty state + C3 icon set` |
+| Placement preview | Mini UI composition showing copy, CTA, and asset size relationship |
+
+Ask for selection in terms of combinations, not only individual files. For example: "A2 hero + B1 empty state + C3 icon set".
+
+### Placement preview
+
+For hero, feature, empty-state, and social visuals, include at least one miniature layout preview showing:
+
+- real or representative copy
+- primary CTA location
+- asset size and crop
+- responsive mobile stacking note
+- safe-zone overlay when relevant
+
+If the asset only looks good in isolation and fails inside the placement preview, it is not ready to Apply.
+
+---
+
 ## Consistency QA
 
 After each generation, run a lightweight check (agent self-review or VLM if available):
 
 1. **Page fit** — Does the asset match page type posture? (no cinematic hero for B-end)
 2. **Style fit** — Same temperature and material language as StyleContext?
-3. **Technical** — No obvious garbled text, watermark, or off-brand neon?
-4. **Manifest** — File exists, path matches, `asset_id` unique
+3. **Family fit** — Same line language, perspective, material, lighting, shadow, accent behavior, detail density, and background complexity as the Visual Family Spec?
+4. **Placement fit** — The asset supports its copy/CTA/layout slot without overlap or hierarchy conflict.
+5. **Technical** — No obvious garbled text, watermark, or off-brand neon?
+6. **Role fit** — Illustrated/raster icons are not used for 16–24px navigation, forms, tables, or toolbar controls unless user explicitly overrode the default.
 
 **Retry at most 2 times** per asset. If still failing, fall back to CSS placeholders per [MOOD-BOARD.md](MOOD-BOARD.md) and continue the design workflow.
+
+### Manifest Validator
+
+Run a deterministic manifest validation pass before presenting a review surface and again before Apply. This validation is separate from subjective visual QA.
+
+| Check | Requirement |
+|-------|-------------|
+| File existence | Every `assets[].path` resolves relative to the manifest or project public root |
+| Unique ids | Every `assets[].id` is unique |
+| Role allowed | `role` is one of `hero`, `feature`, `empty_state`, `og`, `texture`, `icon_illustrated`, `social_object`, `mascot_prop` |
+| Page fit | Role is allowed by the Page Type -> Asset Pack unless user override is recorded |
+| Dimensions | `width_px` and `height_px` are present and match `aspect_ratio` within tolerance |
+| File size | `file_size_kb` is present for final assets and under `max_file_kb` when specified |
+| Preview/final | `preview: true` assets are not wired into production Apply without regeneration or explicit approval |
+| Alt text | Informative assets have non-empty `alt`; decorative assets use `alt: ""` and `decorative: true` |
+| Path mode | Exploration paths are relative to artifact folders; applied public assets use public-safe paths |
+| Style lineage | Sibling assets have `style_reference_id` or share the same `visual_family_preset` |
+| Placement | Assets used in UI have a `placement` object with `slot`, `purpose`, `size_rule`, and `responsive_behavior` |
+| Icon role | Raster/illustrated icons are not assigned to `navigation`, `form_controls`, `table_actions`, or `toolbar_controls` unless override is recorded |
+
+Record validator output in the manifest or adjacent review notes:
+
+```json
+{
+  "validation": {
+    "status": "passed",
+    "checked_at": "2026-06-06",
+    "issues": []
+  }
+}
+```
 
 ---
 
@@ -253,6 +458,15 @@ Record every generated file. During exploration, write `design-assets.manifest.j
   "concept_id": "coastal-clarity",
   "style_seed": "coastal-clarity-v1",
   "license_default": "ai-generated",
+  "visual_family": {
+    "version": 1,
+    "preset": "3d-object-pop",
+    "perspective": "three_quarter_front",
+    "material": "matte plastic with glossy accent",
+    "lighting": "soft studio key light",
+    "shadow": "soft elliptical cast shadow",
+    "background_complexity": "low"
+  },
   "assets": [
     {
       "id": "hero-coastal-clarity-v1",
@@ -261,13 +475,31 @@ Record every generated file. During exploration, write `design-assets.manifest.j
       "aspect_ratio": "16:9",
       "width_px": 1920,
       "height_px": 1080,
+      "file_size_kb": 384,
       "alt": "Calm coastal workspace metaphor for Tidepool scheduling",
+      "decorative": false,
       "prompt_hash": "sha256:…",
       "parent_id": null,
       "style_reference_id": null,
+      "visual_family_preset": "3d-object-pop",
+      "placement": {
+        "slot": "hero_visual",
+        "purpose": "emotional_anchor",
+        "size_rule": "42vw_desktop_80vw_mobile",
+        "copy_safe_zone": "left_40_percent",
+        "responsive_behavior": {
+          "desktop": "visual_right_third",
+          "mobile": "below_h1_center_crop"
+        }
+      },
       "preview": false
     }
-  ]
+  ],
+  "validation": {
+    "status": "passed",
+    "checked_at": "2026-06-06",
+    "issues": []
+  }
 }
 ```
 
@@ -290,21 +522,27 @@ When the user says "warmer" or "more minimal":
 After mood boards or concept previews are drafted:
 
 1. Build StyleContext from chosen or in-progress concept.
-2. Generate Asset Spec list for the page-type pack (preview resolution).
-3. Call generation adapter; embed `<img src="…">` in mood board HTML (relative paths).
-4. Update manifest alongside HTML artifacts.
+2. Define Visual Family Spec and Asset Placement Specs.
+3. Generate Asset Spec list for the page-type pack (preview resolution).
+4. Call generation adapter; embed `<img src="…">` in mood board HTML (relative paths).
+5. Update manifest alongside HTML artifacts.
+6. Run the manifest validator.
+7. Present a contact sheet, mood board wall, or placement preview before applying files to the project.
 
 ### During Mood Board Generation (Capability 4)
 
 Prefer **real generated images** over CSS placeholders when a generation tool is available. Keep CSS placeholders as fallback only.
+When multiple generated assets exist, include a combination review area so the user can choose cross-role pairings, not just individual images.
 
 ### During Design System Extraction (Capability 1)
 
 Add **Imagery strategy** and link to manifest paths in the design system document.
+Also add the locked UI icon source, custom SVG fallback, illustrated icon preset, asset placement rules, validation status, and any user overrides to the icon system section.
 
 ### During Apply (Capability 5)
 
 See [APPLY-DESIGN.md](APPLY-DESIGN.md) Step 3.5. Only copy assets the user confirmed.
+Do not Apply a visual asset until manifest validation passes or the user explicitly accepts the listed issues.
 
 ---
 
@@ -315,6 +553,7 @@ See [APPLY-DESIGN.md](APPLY-DESIGN.md) Step 3.5. Only copy assets the user confi
 - **User reference uploads**: remind the user they must have rights to use references.
 - **Generated assets**: `license: ai-generated` in manifest; do not impersonate third-party brands.
 - **No text in generated images** for copy that must be readable — set headlines in HTML/CSS instead.
+- **Icon roles**: small UI chrome icons must remain accessible, themeable, and state-aware. Prefer vector for these; use raster only for explicitly approved expressive surfaces.
 
 ---
 
@@ -333,7 +572,7 @@ Never block design system formalization because image generation failed.
 
 ## E2E Walkthrough (reference)
 
-See [assets/examples/visual-asset-e2e.md](../assets/examples/visual-asset-e2e.md) and [assets/examples/design-assets.manifest.example.json](../assets/examples/design-assets.manifest.example.json) for a full Concept → Mood Board → Apply trace using host `GenerateImage`.
+See [assets/examples/visual-asset-e2e.md](../assets/examples/visual-asset-e2e.md) and [assets/examples/design-assets.manifest.example.json](../assets/examples/design-assets.manifest.example.json) for a full Concept → Mood Board → Apply trace using a host image generation tool.
 
 ---
 

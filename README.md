@@ -102,15 +102,17 @@ After exploring and choosing a design direction — whether from concept preview
 #### 6. Visual Asset Generation
 *For users who want product-aligned imagery, not only tokens.*
 
-After a design direction exists (or during exploration), the skill compiles **StyleContext** from your product background, page type, tokens, and aesthetic guide, then drives your agent's **image generation tool** (Cursor `GenerateImage`, or an MCP server) to create:
+After a design direction exists (or during exploration), the skill compiles **StyleContext** from your product background, page type, tokens, and aesthetic guide, then drives your agent's **image generation tool** (a host-provided tool or MCP server) to create:
 
 - **Hero, feature, empty-state, and OG/social** illustrations (P0)
 - **Consistent visual families** per concept — hero first, then sibling assets with style reference
+- **Role-based icon strategy** — one locked UI icon library for chrome, custom SVG fallback, generated illustrated icons for marketing/social surfaces
+- **Review + placement workflow** — contact sheets, mood board walls, placement previews, safe zones, and manifest validation before Apply
 - **`design-assets.manifest.json`** — paths, roles, alt text, regeneration lineage
 - **Mood boards with real `<img>` assets** instead of CSS placeholders when tools are available
 - **Apply with assets** — copies into `public/design-assets/` and wires your components
 
-UI navigation icons still use icon libraries or custom SVG ([ICON-USAGE.md](references/ICON-USAGE.md)). Short video loops are planned for a later phase.
+UI navigation icons still use a single locked icon library or custom SVG ([ICON-USAGE.md](references/ICON-USAGE.md)). Expressive feature icons, 3D object icons, and social visuals can use generated SVG/PNG/WebP families when they support memorability and sharing. This phase focuses on image-based assets only.
 
 See [references/VISUAL-ASSET-GENERATION.md](references/VISUAL-ASSET-GENERATION.md) and the E2E walkthrough [assets/examples/visual-asset-e2e.md](assets/examples/visual-asset-e2e.md).
 
@@ -185,6 +187,9 @@ git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-t
 # Generate visuals for a concept (exploration — does not modify your project)
 "Generate hero and feature illustrations for Concept B that match our product"
 
+# Generate an expressive illustrated icon family
+"Create 3D feature icons for Concept B, but keep app navigation icons in Lucide"
+
 # Apply design tokens and images together
 "Apply Concept B with assets to my Next.js app"
 
@@ -199,9 +204,11 @@ git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-t
 
 vibe-to-ui is **instructions-only** — it does not bundle API keys or call image APIs itself. Your agent uses host tools or MCP.
 
-### Cursor (default)
+The skill passively records visual decisions in `DESIGN.md` when available: locked UI icon library, custom SVG fallback, illustrated icon preset, visual family rules, manifest paths, confirmed assets, and regeneration notes.
 
-Use the built-in image generation tool when the skill triggers Capability 6. Save outputs beside mood board HTML during exploration; copy to `public/design-assets/` on Apply.
+### Host image tool (default)
+
+Use the built-in image generation tool provided by your agent host when the skill triggers Capability 6. Save outputs beside mood board HTML during exploration; copy to `public/design-assets/` on Apply.
 
 ### Optional MCP / API providers
 
@@ -236,11 +243,13 @@ Expose MCP tools such as `generate_image(prompt, width, height, reference_path?)
 │   ├── LAYOUT-ANALYSIS.md            # Layout analysis and ASCII blueprint guide
 │   ├── MOTION-SYSTEM.md              # Motion system extraction and generation guide
 │   ├── AESTHETIC-ANALYSIS.md         # Aesthetic soul capture methodology
+│   ├── CONTEXT-COLLABORATION.md      # DESIGN.md collaboration protocol
 │   ├── ICON-USAGE.md                 # Icon component guidelines
 │   ├── MOOD-BOARD.md                 # Mood board generation guide
 │   ├── VISUAL-ASSET-GENERATION.md    # Hero/illustration generation + manifest
 │   └── APPLY-DESIGN.md              # Apply confirmed design to project guide
 └── assets/
+    ├── DESIGN.md                     # Persistent product/design context template
     ├── design-system-template.md     # Standard output template for design tokens
     └── examples/
         ├── visual-asset-e2e.md       # Concept → mood board → apply walkthrough

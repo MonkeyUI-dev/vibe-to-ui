@@ -4,6 +4,31 @@
   "style_seed": "coastal-clarity-v1",
   "license_default": "ai-generated",
   "generated_at": "2026-06-01",
+  "visual_family": {
+    "version": 1,
+    "preset": "3d-object-pop",
+    "line_language": "none",
+    "perspective": "three_quarter_front",
+    "object_language": "chunky product props",
+    "material": "matte plastic with soft glossy accent",
+    "lighting": "soft studio key light",
+    "shadow": "soft elliptical cast shadow",
+    "background": "dark card or transparent depending on placement",
+    "background_complexity": "low",
+    "accent_behavior": "muted sage as signature pop",
+    "detail_density": "medium",
+    "composition_system": {
+      "focal_position": "right_third",
+      "camera_distance": "medium",
+      "crop_behavior": "safe_crop",
+      "whitespace_position": "left",
+      "safe_zones": ["left_40_for_copy", "bottom_16_for_cta_clearance"]
+    },
+    "subject_policy": {
+      "allowed": ["abstract product metaphors", "simple workspace objects", "soft natural forms"],
+      "avoid": ["photorealistic faces", "literal UI screenshots", "third-party logos"]
+    }
+  },
   "product": {
     "name": "Tidepool",
     "domain": "Collaborative scheduling for remote teams"
@@ -20,13 +45,29 @@
       "aspect_ratio": "16:9",
       "width_px": 1920,
       "height_px": 1080,
+      "file_size_kb": 384,
       "alt": "Soft coastal morning light over a calm workspace — metaphor for Tidepool scheduling",
+      "decorative": false,
       "prompt_hash": "sha256:example-hero-prompt",
       "parent_id": null,
       "style_reference_id": null,
+      "visual_family_preset": "3d-object-pop",
       "preview": false,
       "provider": "host",
-      "composition": "wide hero, subject right third, negative space left for headline"
+      "composition": "wide hero, subject right third, negative space left for headline",
+      "placement": {
+        "slot": "hero_visual",
+        "purpose": "emotional_anchor",
+        "size_rule": "42vw_desktop_80vw_mobile",
+        "copy_safe_zone": "left_40_percent",
+        "copy_anchor": "h1_and_supporting_copy",
+        "cta_relationship": "visual frames the primary CTA without competing",
+        "responsive_behavior": {
+          "desktop": "visual_right_third",
+          "mobile": "below_h1_center_crop"
+        },
+        "avoid_overlap_with": ["h1", "primary_cta", "nav"]
+      }
     },
     {
       "id": "feature-coastal-clarity-v1",
@@ -35,12 +76,59 @@
       "aspect_ratio": "3:2",
       "width_px": 1200,
       "height_px": 800,
+      "file_size_kb": 220,
       "alt": "Team coordination illustrated with connected paths and soft natural forms",
+      "decorative": false,
       "prompt_hash": "sha256:example-feature-prompt",
       "parent_id": null,
       "style_reference_id": "hero-coastal-clarity-v1",
+      "visual_family_preset": "3d-object-pop",
       "preview": false,
-      "provider": "host"
+      "provider": "host",
+      "placement": {
+        "slot": "feature_card",
+        "purpose": "explain_feature",
+        "size_rule": "3:2_card_media",
+        "copy_safe_zone": "none_required",
+        "copy_anchor": "feature_title_and_body",
+        "cta_relationship": "keeps secondary CTA below copy dominant",
+        "responsive_behavior": {
+          "desktop": "media_left_copy_right",
+          "mobile": "media_above_copy"
+        },
+        "avoid_overlap_with": ["feature_cta"]
+      }
+    },
+    {
+      "id": "icon-focus-window-coastal-clarity-v1",
+      "role": "icon_illustrated",
+      "path": "design-assets/icon-focus-window-coastal-clarity-v1.webp",
+      "aspect_ratio": "1:1",
+      "width_px": 512,
+      "height_px": 512,
+      "file_size_kb": 90,
+      "alt": "Playful 3D focus-window object representing calmer scheduling decisions",
+      "decorative": false,
+      "prompt_hash": "sha256:example-illustrated-icon-prompt",
+      "parent_id": null,
+      "style_reference_id": "hero-coastal-clarity-v1",
+      "visual_family_preset": "3d-object-pop",
+      "preview": false,
+      "provider": "host",
+      "avoid_for": ["navigation", "form_controls", "table_actions", "toolbar_controls"],
+      "placement": {
+        "slot": "feature_icon",
+        "purpose": "brand_memory",
+        "size_rule": "96px_feature_card_512px_source",
+        "copy_safe_zone": "not_applicable",
+        "copy_anchor": "feature_label",
+        "cta_relationship": "supports label, does not replace CTA",
+        "responsive_behavior": {
+          "desktop": "above_feature_label",
+          "mobile": "left_of_feature_label_when_space_allows"
+        },
+        "avoid_overlap_with": ["navigation", "toolbar_controls"]
+      }
     },
     {
       "id": "og-coastal-clarity-v1",
@@ -49,12 +137,38 @@
       "aspect_ratio": "1200:630",
       "width_px": 1200,
       "height_px": 630,
+      "file_size_kb": 300,
       "alt": "Tidepool — calm scheduling for remote teams",
+      "decorative": false,
       "prompt_hash": "sha256:example-og-prompt",
       "parent_id": null,
       "style_reference_id": "hero-coastal-clarity-v1",
+      "visual_family_preset": "3d-object-pop",
       "preview": false,
-      "provider": "host"
+      "provider": "host",
+      "placement": {
+        "slot": "og_image",
+        "purpose": "share_hook",
+        "size_rule": "1200x630",
+        "copy_safe_zone": "center_60_percent_clear",
+        "copy_anchor": "social_title_overlay_if_needed",
+        "cta_relationship": "not_applicable",
+        "responsive_behavior": {
+          "social_thumbnail": "center_focal_object"
+        },
+        "avoid_overlap_with": ["social_title_overlay"]
+      }
     }
-  ]
+  ],
+  "review_surface": {
+    "type": "mood_board_wall",
+    "path": "mood-board-coastal-clarity.html",
+    "selected_combination": "A1 hero + B1 feature + C1 illustrated icon set",
+    "notes": "Hero preserves left copy safe zone; illustrated icon is for feature cards only."
+  },
+  "validation": {
+    "status": "passed",
+    "checked_at": "2026-06-06",
+    "issues": []
+  }
 }

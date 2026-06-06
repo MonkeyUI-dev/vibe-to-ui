@@ -125,6 +125,40 @@
 - **Status / Data Display**: [chips, tables, charts, metrics, lists]
 - **Icons / Imagery**: [style, stroke, visual role; UI icons vs illustration roles]
 
+## Icon System
+
+> Populated for every design system. See [references/ICON-USAGE.md](../references/ICON-USAGE.md).
+
+### UI Icon Strategy
+
+- **UI icon source**: [locked library name / custom_svg]
+- **Lock policy**: [single_library_for_new_ui_icons / custom_svg_only / library_only / user_override]
+- **Detected existing libraries**: [lucide, heroicons, phosphor, tabler, radix, none]
+- **Fallback**: [custom_svg_component / nearest_library_icon / none]
+- **Preset**: [outline-system / solid-glyph / duotone-soft / technical-line]
+- **Grid**: [24px / 20px / 15px]
+- **Stroke width**: [_px]
+- **Stroke caps / joins**: [round / square / mixed]
+- **Corner language**: [soft / crisp / geometric / playful]
+- **Color mode**: [currentColor + semantic tokens / filled semantic tokens]
+- **User override**: [none / library_only / custom_svg_only / generated_icons / raster_icons]
+
+### Custom SVG Rules
+
+- **Component API**: [match locked library props, for example `size`, `color`, `strokeWidth`, `className`]
+- **Allowed use**: [missing metaphors, aesthetic mismatch, product-specific icons]
+- **Forbidden use**: [replacing an adequate locked-library icon without reason]
+- **Token behavior**: [must inherit `currentColor` or semantic CSS variables]
+
+### Illustrated Icon Strategy
+
+- **Enabled for**: [landing_feature / social_preview / empty_state / onboarding / none]
+- **Preset**: [playful-sticker / 3d-object-pop / mascot-prop / custom]
+- **Format**: [svg / webp / png]
+- **Style reference**: [hero asset id or concept reference]
+- **Accent behavior**: [how brand accent appears]
+- **Avoid for**: [navigation, form_controls, table_actions, toolbar_controls]
+
 ## Visual Assets
 
 > Populated when Capability 6 (Visual Asset Generation) runs. See [references/VISUAL-ASSET-GENERATION.md](../references/VISUAL-ASSET-GENERATION.md).
@@ -134,11 +168,31 @@
 - **Concept ID**: [stable id for this direction]
 - **Style seed**: [shared seed / reference chain id]
 - **Imagery strategy**: [photography vs soft illustration vs abstract texture; hero vs restrained B-end]
+- **Visual family preset**: [3d-object-pop / playful-sticker / warm-organic / custom]
+- **Visual family rules**: [line language, perspective, material, lighting, shadow, background complexity, detail density]
+- **Subject policy**: [allowed subjects and forbidden subjects]
+- **Composition system**: [focal position, crop behavior, whitespace position, safe zones]
+- **Manifest validation**: [passed / warning / failed; date; issue summary]
 
-| ID | Role | Path | Aspect | Alt | Parent ID | License |
-|----|------|------|--------|-----|-----------|---------|
-| [hero-example-v1] | hero | [/design-assets/hero-example-v1.webp] | [16:9] | [accessible description] | [—] | [ai-generated] |
-| [feature-example-v1] | feature | [/design-assets/feature-example-v1.webp] | [3:2] | [accessible description] | [—] | [ai-generated] |
+| ID | Role | Path | Aspect | Size | Alt | Parent ID | Style Ref | License |
+|----|------|------|--------|------|-----|-----------|-----------|---------|
+| [hero-example-v1] | hero | [/design-assets/hero-example-v1.webp] | [16:9] | [1920×1080, 384KB] | [accessible description] | [—] | [—] | [ai-generated] |
+| [feature-example-v1] | feature | [/design-assets/feature-example-v1.webp] | [3:2] | [1200×800, 220KB] | [accessible description] | [—] | [hero-example-v1] | [ai-generated] |
+| [icon-example-v1] | icon_illustrated | [/design-assets/icon-example-v1.webp] | [1:1] | [512×512, 90KB] | [accessible description] | [—] | [hero-example-v1] | [ai-generated] |
+
+### Asset Placement Strategy
+
+| Asset ID | Slot | Purpose | Size Rule | Copy / CTA Relationship | Responsive Behavior | Avoid Overlap |
+|----------|------|---------|-----------|--------------------------|---------------------|---------------|
+| [hero-example-v1] | [hero_visual] | [emotional_anchor] | [42vw desktop / 80vw mobile] | [subject points toward CTA; left 40% safe for H1] | [right on desktop, below copy on mobile] | [h1, CTA, nav] |
+| [feature-example-v1] | [feature_card] | [explain_feature] | [3:2 card media] | [supports adjacent feature copy] | [above text on mobile] | [button row] |
+
+### Review Surface
+
+- **Review artifact**: [contact sheet / mood board wall / placement preview path]
+- **Combination selected**: [for example `A2 hero + B1 empty state + C3 icon set`]
+- **Rejected combinations**: [what did not work and why]
+- **Safe-zone notes**: [copy/CTA clear areas]
 
 ### Regeneration notes
 
