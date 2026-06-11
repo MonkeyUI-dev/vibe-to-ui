@@ -89,7 +89,7 @@ If the page is mixed, pick one **primary** type and note the secondary pattern. 
 
 ### Two operating modes
 
-- **Reference Fidelity Mode**: Use when the user provides a concrete UI, screenshot, live page, or local project. Goal: first match the page type and structural feel, then make the output look recognizably close to the reference before applying mood adjustments.
+- **Reference Fidelity Mode**: Use when the user provides a concrete UI, screenshot, live page, or local project. Goal: first match the page type and structural feel, then make the output look recognizably close to the reference before applying mood adjustments. To preserve the reference's **layout structure**, follow the structure-extraction path in [references/SPATIAL-VIBE.md](references/SPATIAL-VIBE.md).
 - **Vibe Translation Mode**: Use when the user provides only atmosphere references or abstract feelings. Goal: infer the intended page archetype from product context, then translate the mood into a UI direction that fits that archetype.
 
 Default to **Reference Fidelity Mode** whenever a concrete UI or project is provided.

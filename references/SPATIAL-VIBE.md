@@ -110,14 +110,42 @@ Keep the summary compact enough to guide generation. It should read like a set o
 
 Before generating a preview, use an invisible composition grid as a private reasoning scaffold. This is how a designer would organize alignment, rhythm, hierarchy, and responsive behavior before drawing the final page.
 
-The grid is not a user-facing artifact:
+The grid governs the *final rendered page*, not the agent's reasoning:
 
-- Do not display grid lines in the preview.
-- Do not output the grid as a separate deliverable.
+- Do not display grid lines in the finished preview.
 - Do not turn it into a fixed 12-column template.
 - Do not let the result look mechanically gridded unless the Spatial DNA calls for that.
+- The grid is a means, not the deliverable — the page is the deliverable.
 
-Derive the grid from the Spatial DNA:
+However, **do produce a lightweight, disposable structure sketch before generating the HTML**. Jumping straight from prose Spatial DNA to a final page tends to drift into generic, templated layouts. A quick throwaway sketch forces the spatial decisions to become concrete and gives you something to check the render against. It is a scratchpad, not a spec — rough values are intentional, and it is discarded once the preview exists.
+
+Use whichever sketch form fits the direction:
+
+**ASCII block sketch** — for reasoning about section order, nesting, and dominant regions:
+
+```
+┌──────────────────────────────────────┐
+│ NAV        [logo]            [link x3] │
+├──────────────────────────────────────┤
+│ HERO  (asymmetric 60/40)               │
+│   [big headline]      [inset visual]   │
+├──────────────────────────────────────┤
+│ FEATURES (3-up, equal weight)          │
+│   [card] [card] [card]                 │
+└──────────────────────────────────────┘
+```
+
+**Loose proportion table** — for reasoning about relative weight and rhythm (±10–15% is fine; the goal is spatial feel, not pixel replication):
+
+| Region | approx width% | approx height% | Spatial feel |
+|--------|---------------|----------------|--------------|
+| Hero headline | ~55% | ~40% | Dominant, left-anchored |
+| Hero visual | ~40% | ~40% | Floats right, same baseline |
+| Feature row | ~100% | ~30% | Shorter band, even cadence |
+
+Keep the sketch private or clearly labeled as a throwaway alignment aid. Do not present it as the final design, do not let it become a reusable template, and discard it once the rendered preview exists.
+
+Derive the grid (and the sketch) from the Spatial DNA:
 
 - **Editorial**: asymmetric columns, wide margins, deliberate offset alignments, varied section cadence
 - **Relaxed / calm**: larger gutters, slower vertical rhythm, fewer competing focal points
@@ -133,7 +161,7 @@ Use the internal grid to reason about:
 - section cadence
 - responsive collapse logic
 
-After rendering, check whether the page feels over-templated. The grid should support the intended vibe without exposing itself as the design.
+After rendering, compare the page against the structure sketch and check whether it feels over-templated. The grid should support the intended vibe without exposing itself as the design.
 
 ### 7. Generate Three Genuinely Different Layout Directions
 
@@ -187,6 +215,21 @@ After rendering, inspect the output as a designer would. Revise if the result:
 - fails on smaller screens
 
 State what changed after review. The final output should explain why the spatial direction fits both the user's feeling and the product surface.
+
+## Reference Fidelity: Extracting Structure From a Concrete UI
+
+When the user provides a concrete UI reference (screenshot, live page, or local project) and wants its **layout structure** preserved — not just its mood translated — run this lightweight extraction before exploring directions. This satisfies Reference Fidelity Mode's promise to "first match the page type and structural feel."
+
+This is deliberately lighter than full pixel reverse-engineering. The goal is a faithful structural read that can seed previews, not an exact reproduction.
+
+1. **Identify sections top-to-bottom** (or, for a partial screenshot, treat the whole image as one named section). Give each a semantic name based on what you actually see — not a canonical `header → hero → features → footer` template.
+2. **Read each section's grid**: container width (full-bleed / constrained / narrow), column count or asymmetric split, alignment, stacking direction, and approximate gutter.
+3. **Capture relative proportion**, not absolute coordinates, using the loose proportion-table form above. The most useful signals are relationships: which region dominates, which cards share a baseline, which row is clearly shorter, whether a block is half-width or full-width.
+4. **Note layering** where elements overlap: what recedes, what floats, where depth or tension is intended.
+5. **Infer responsive behavior**: which side-by-side relationships stack first, which spatial relationships are essential to preserve, what likely hides or simplifies on small screens.
+6. **Produce a semantic skeleton** reverse-engineered from this specific reference — class names derived from the section names above, reflecting the actual structure rather than a preset page template.
+
+Feed this structural read into the Spatial DNA (Step 5) as the **structure reference**, then explore directions that adapt mood, density, and material while staying recognizably descended from the reference's composition. Record the result in the design system document's **Spatial / Layout DNA** section.
 
 ## Interaction Principles
 
