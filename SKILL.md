@@ -210,8 +210,9 @@ User has a fuzzy aesthetic intent or mixed inspiration references and wants that
    - card usage, image behavior, interaction tempo, and responsive strategy
 5. Mark non-transferable signals that should not become literal UI decisions. Example: a coastal-road photo may imply openness, wide negative space, slow rhythm, and restrained density; it does not mean placing a road photo in the hero.
 6. Dynamically derive the page's **Spatial DNA** from the product constraints and references. Do not use preset vibe templates or fixed style taxonomies.
-7. Generate **3 genuinely different layout directions** as standalone previews before modifying production code
-8. Review the rendered output and revise anything that feels generic, mismatched to the product, or too literal to the references
+7. Use an invisible composition grid as a private reasoning scaffold for alignment, rhythm, hierarchy, and responsive behavior; never expose it as a user-facing artifact or fixed template
+8. Generate **3 genuinely different layout directions** as standalone previews before modifying production code
+9. Review the rendered output and revise anything that feels generic, mismatched to the product, or too literal to the references
 
 ### 4. Mood Board Generation
 

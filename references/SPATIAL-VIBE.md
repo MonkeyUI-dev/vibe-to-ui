@@ -106,7 +106,36 @@ A useful Spatial DNA summary may include:
 
 Keep the summary compact enough to guide generation. It should read like a set of spatial decisions, not a mood thesaurus.
 
-### 6. Generate Three Genuinely Different Layout Directions
+### 6. Use an Invisible Composition Grid
+
+Before generating a preview, use an invisible composition grid as a private reasoning scaffold. This is how a designer would organize alignment, rhythm, hierarchy, and responsive behavior before drawing the final page.
+
+The grid is not a user-facing artifact:
+
+- Do not display grid lines in the preview.
+- Do not output the grid as a separate deliverable.
+- Do not turn it into a fixed 12-column template.
+- Do not let the result look mechanically gridded unless the Spatial DNA calls for that.
+
+Derive the grid from the Spatial DNA:
+
+- **Editorial**: asymmetric columns, wide margins, deliberate offset alignments, varied section cadence
+- **Relaxed / calm**: larger gutters, slower vertical rhythm, fewer competing focal points
+- **Dense / operational**: compact module grid, stable alignment, predictable scan paths
+- **Cinematic**: strong focal axis, horizontal bands, large negative space, controlled reveal tempo
+
+Use the internal grid to reason about:
+
+- column structure
+- margins and gutters
+- focal axis
+- baseline rhythm
+- section cadence
+- responsive collapse logic
+
+After rendering, check whether the page feels over-templated. The grid should support the intended vibe without exposing itself as the design.
+
+### 7. Generate Three Genuinely Different Layout Directions
 
 Create 3 directions that vary the spatial grammar, not just colors.
 
@@ -129,7 +158,7 @@ The three directions should differ in meaningful ways, such as:
 
 Avoid fixed vibe presets. The directions should emerge from the user's references and product constraints.
 
-### 7. Generate Standalone Previews Before Production Changes
+### 8. Generate Standalone Previews Before Production Changes
 
 For each direction, generate a standalone preview artifact before modifying the user's project. The preview should show the page-level composition, not only tokens or isolated components.
 
@@ -145,7 +174,7 @@ The preview should make visible:
 
 Use realistic content from the user's product when available. If content is unknown, label assumptions clearly.
 
-### 8. Review Rendered Output and Revise
+### 9. Review Rendered Output and Revise
 
 After rendering, inspect the output as a designer would. Revise if the result:
 
