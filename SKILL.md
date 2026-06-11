@@ -246,16 +246,21 @@ User has confirmed a design direction (from exploration concepts, design system 
 
 **Trigger**: User says things like "apply this design", "use this one", "let's go with this direction", "integrate this into my project", "apply Concept B to my project", or confirms they are satisfied with a preview and want it in their codebase.
 
+Applying a confirmed direction has **two distinct layers**. Confirm which the user wants — often both:
+
+- **Token application**: visual and motion design tokens (color, typography, spacing, radius, shadow, motion). These are framework-agnostic values.
+- **Layout / structure application**: the confirmed **Spatial / Layout DNA** and section composition (see Capability 3 and [references/SPATIAL-VIBE.md](references/SPATIAL-VIBE.md)). This turns the chosen layout direction into actual page structure, not just values.
+
 **Workflow**:
-1. Confirm the scope with the user — which parts of the design to apply and where in the project
-2. Audit the user's project to understand existing framework, CSS approach, file conventions, and any existing design tokens
+1. Confirm the scope with the user — which layers to apply (tokens, layout, or both) and where in the project
+2. Audit the user's project to understand existing framework, CSS approach, file conventions, and any existing design tokens or page structure
 3. Re-check the confirmed **page type classification** so applied tokens and components stay aligned with the target surface
-4. Generate the appropriate token files (CSS custom properties, Tailwind config, JSON tokens) based on the user's tech stack
-5. Integrate the tokens into the project — create new files or merge with existing ones, respecting project conventions
-6. Present a clear summary of what was created or modified
+4. **Apply tokens** (when in scope): generate the appropriate token files (CSS custom properties, Tailwind config, JSON tokens) based on the user's tech stack, then integrate them — create new files or merge with existing ones, respecting project conventions
+5. **Apply layout** (when in scope): translate the confirmed Spatial / Layout DNA and section order into the project's structure — semantic skeleton, section composition, grid/spacing relationships, and responsive collapse logic. Reuse the chosen layout direction rather than defaulting to a generic page template, and wire the applied tokens into that structure.
+6. Present a clear summary of what was created or modified, separating token changes from structural changes
 7. Invite the user to review and iterate — the collaborative spirit continues after applying
 
-**Important**: This capability is the ONLY point at which the agent modifies the user's project files. All prior exploration (concept previews, mood boards, design system previews) produces standalone artifacts that do not touch the project.
+**Important**: This capability is the ONLY point at which the agent modifies the user's project files. All prior exploration (concept previews, mood boards, design system previews, layout direction previews) produces standalone artifacts that do not touch the project.
 
 ## Combining capabilities
 

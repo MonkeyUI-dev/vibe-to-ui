@@ -13,6 +13,15 @@ The core principle is **explore first, apply later**. The agent never modifies p
 - The user explicitly asks to apply design tokens, styles, or a design system to their project
 - The user says "apply to project", "integrate this", "use this design in my project", or similar
 
+## Two Application Layers
+
+Applying a confirmed direction can touch **two distinct layers**. Clarify which the user wants — frequently both:
+
+- **Token layer** — framework-agnostic design values: color, typography, spacing, radius, shadow, motion.
+- **Layout layer** — the confirmed **Spatial / Layout DNA** and section composition explored in Capability 3 (see [SPATIAL-VIBE.md](SPATIAL-VIBE.md)). This is the page-level grammar: section order, density, hierarchy, focal points, card/surface logic, image behavior, and responsive collapse logic.
+
+Tokens are the vocabulary; layout is the grammar. Applying tokens alone restyles existing structure; applying layout reshapes the structure itself. Many users want both, wired together.
+
 ## Prerequisites
 
 Before applying, the following must be confirmed:
@@ -21,6 +30,7 @@ Before applying, the following must be confirmed:
    - A chosen concept from Design Exploration (one of 3 concept previews)
    - A confirmed mood board direction
    - A design system preview from Design System Extraction
+   - A confirmed layout direction from Spatial Vibe Exploration (one of 3 layout previews)
    - A user-adjusted variant of any of the above
 
 2. **A formalized design system** — the confirmed direction must have been formalized into structured tokens:
@@ -33,7 +43,9 @@ Before applying, the following must be confirmed:
 
    If the design system has not yet been formalized, do so first using Design System Extraction (Capability 1) before applying.
 
-3. **User's tech stack** — know which format(s) the user needs:
+3. **A confirmed Spatial / Layout DNA** (when applying the layout layer) — the chosen layout direction recorded as Spatial / Layout DNA plus section order, following the template's Spatial / Layout DNA section. If only tokens are being applied, this can be skipped.
+
+4. **User's tech stack** — know which format(s) the user needs:
    - CSS custom properties
    - Tailwind CSS config
    - JSON token file
@@ -47,10 +59,12 @@ Before touching any project files, confirm with the user:
 
 ```
 Questions to ask:
-- Which parts of the design should I apply? (full design system, only colors, only motion, etc.)
+- Which layer(s) should I apply? (design tokens, the layout/structure, or both)
+- Which parts of the design system? (full system, only colors, only motion, etc.)
 - Where should the tokens go? (new file, existing config, specific directory)
+- For layout: new page/section structure, or restructure an existing page?
 - Should I update existing components or only create the token files?
-- Are there any existing styles I should preserve or merge with?
+- Are there any existing styles or structure I should preserve or merge with?
 ```
 
 Keep it conversational — 1–2 questions at a time.
@@ -125,7 +139,7 @@ Extend or create `tailwind.config.js` / `tailwind.config.ts` with the extracted 
 
 Generate a structured `design-tokens.json` for framework-agnostic consumption.
 
-### Step 4: Integrate into the Project
+### Step 4: Integrate Tokens into the Project
 
 Apply the generated tokens to the user's project:
 
@@ -134,15 +148,29 @@ Apply the generated tokens to the user's project:
 3. **Add font imports** if new fonts are required (Google Fonts `<link>` or `@import`)
 4. **Preserve existing styles** — merge with, don't overwrite, existing tokens unless the user explicitly asks to replace
 
+### Step 4b: Apply the Layout / Structure (when in scope)
+
+When the user wants the confirmed layout direction applied — not just restyled tokens — translate the Spatial / Layout DNA into real project structure:
+
+1. **Read the confirmed Spatial / Layout DNA and section order** from the design system document (the template's Spatial / Layout DNA section)
+2. **Build a semantic skeleton** that reflects the confirmed section order and composition — do NOT fall back to a generic header → hero → features → footer template. Use semantic, layout-specific names.
+3. **Express the spatial grammar in code**: container widths, column structure, margins/gutters, focal axis, section rhythm, and card/surface logic that match the chosen direction's density, hierarchy, and symmetry decisions
+4. **Wire the applied tokens into the structure** so color, type, spacing, and motion land on the new layout rather than living as detached variables
+5. **Implement responsive collapse logic** from the DNA's responsive strategy — preserve the relationships marked essential, reflow the rest
+6. **Respect existing structure** — when restructuring an existing page, preserve required content and task flow; reshape composition, not functionality, unless the user asks otherwise
+
+If only the token layer is in scope, skip this step.
+
 ### Step 5: Summary and Verification
 
-After applying, present a clear summary:
+After applying, present a clear summary, separating token changes from structural changes:
 
 ```
 Applied design summary:
 - Created: [list of new files]
 - Updated: [list of modified files]
 - Tokens applied: [colors, typography, spacing, radius, shadows, motion]
+- Layout applied: [sections/structure created or restructured, if any]
 - Font imports: [fonts added, if any]
 
 Please review the changes and let me know if you'd like to adjust anything.
