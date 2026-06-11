@@ -88,7 +88,7 @@ Translate references into product-aware decisions. A film still might imply low-
 
 ### 5. Dynamically Derive Spatial DNA
 
-Spatial DNA is the working grammar for the page. Derive it from the product goal, UX constraints, and references. Do not use preset style templates or a fixed vibe taxonomy.
+Spatial DNA is the working grammar for the page. Derive it from the product goal, UX constraints, and references. When the user leads with mood keywords or music instead of images, translate those first using the mapping aids in [Translating Keywords and Music Into Spatial Signals](#translating-keywords-and-music-into-spatial-signals). Do not use preset style templates or a fixed vibe taxonomy.
 
 A useful Spatial DNA summary may include:
 
@@ -230,6 +230,56 @@ This is deliberately lighter than full pixel reverse-engineering. The goal is a 
 6. **Produce a semantic skeleton** reverse-engineered from this specific reference — class names derived from the section names above, reflecting the actual structure rather than a preset page template.
 
 Feed this structural read into the Spatial DNA (Step 5) as the **structure reference**, then explore directions that adapt mood, density, and material while staying recognizably descended from the reference's composition. Record the result in the design system document's **Spatial / Layout DNA** section.
+
+## Translating Keywords and Music Into Spatial Signals
+
+References are not the only input. Users often lead with **mood keywords** ("relaxed", "distinctive", "neutral-cool", "premium", "free") or with **music**. Translate these into spatial decisions the same way you translate images — they feed the Spatial DNA in Step 5. Treat keywords and music as vibe references, always bounded by the page type.
+
+### Keywords → Spatial DNA
+
+Map the user's own words to spatial decisions instead of leaving them as adjectives. Keep their language; translate the consequence.
+
+| Keyword family | Spatial translation | Watch-outs |
+|----------------|---------------------|------------|
+| Relaxed / calm / unhurried (松弛) | Generous whitespace, slow vertical rhythm, fewer competing focal points, lower density | Do not let openness become emptiness that hides the primary action |
+| Distinctive / characterful (个性) | Asymmetry, deliberate offsets, broken-grid moments, varied section cadence | Keep one stable anchor so personality does not read as chaos |
+| Neutral-cool / understated (中性酷) | Restrained spacing, strong alignment, controlled negative space, quiet hierarchy | Avoid coldness that erases warmth or invitation where the product needs it |
+| Premium / high-end (高级) | Large negative space, few elements per view, generous margins, single strong focal plane | Sparse ≠ empty; each remaining element must earn its weight |
+| Free / open (自由) | Asymmetric balance, overlapping or layered surfaces, non-uniform rhythm | Preserve reading order and task flow under the looseness |
+| Editorial / magazine | Asymmetric columns, wide margins, mixed image/text blocks, deliberate cadence shifts | Maintain a consistent baseline so it reads composed, not random |
+| Cinematic | Strong focal axis, horizontal bands, large negative space, controlled reveal tempo | Reserve for surfaces that can afford slower information delivery |
+| Playful / energetic | Varied module sizes, rhythmic alternation, rounded or bouncy surfaces | Keep enough order for scanability on denser page types |
+| Dense / operational | Compact module grid, stable alignment, predictable scan paths | Density must stay legible; protect state clarity and spacing discipline |
+
+Combine families when the user gives several keywords (for example "relaxed + distinctive + neutral-cool"): reconcile them into one Spatial DNA, and note any tension you had to resolve.
+
+### Music → Spatial Signals
+
+When the user shares a recording, song, or musical feeling, map its sonic qualities to spatial decisions (this mirrors the visual mapping in [DESIGN-EXPLORATION.md](DESIGN-EXPLORATION.md), but lands on layout instead of color/type).
+
+| Musical quality | What to listen for | Spatial signal |
+|-----------------|--------------------|----------------|
+| **Tempo** | Slow ballad vs. fast track | Slow vertical rhythm and longer sections ↔ tighter, faster section cadence |
+| **Rhythm** | Steady beat vs. syncopated / free | Regular, aligned grid ↔ broken-grid, asymmetric offsets |
+| **Dynamics** | Even vs. wide soft-to-loud range | Uniform section weight ↔ strong contrast between dominant and quiet sections |
+| **Texture / layers** | Sparse solo vs. dense ensemble | Low content density, much whitespace ↔ layered, information-rich composition |
+| **Space / reverb** | Dry and close vs. roomy and reverberant | Compact, intimate spacing ↔ expansive margins and breathing room |
+| **Build-ups / drops** | Gradual swells, sudden drops | Section transitions and reveal tempo — scroll chapters, soft fades, or hard cuts |
+| **Register** | High and airy vs. deep low-end | Light visual gravity, content sitting high ↔ grounded, weighty anchoring |
+
+Example translation:
+
+```
+Music: slow, spacious R&B with sparse instrumentation, warm low-end, lots of room reverb.
+Spatial signals:
+- Tempo: slow -> unhurried vertical rhythm, long sections
+- Texture: sparse -> low density, generous whitespace
+- Space: reverberant -> wide margins, strong breathing room
+- Register: warm low-end -> grounded anchoring, weight near the base of sections
+-> Spatial DNA leaning: relaxed, image-led, large negative space, slow section cadence
+```
+
+Always reconcile keyword and music signals with the page type before locking the Spatial DNA: a dense B-end workbench stays scannable even when the music says "slow and spacious."
 
 ## Interaction Principles
 

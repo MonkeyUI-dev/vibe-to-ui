@@ -266,6 +266,21 @@ Applying a confirmed direction has **two distinct layers**. Confirm which the us
 
 These capabilities compose naturally. The workflow follows an **explore -> choose -> apply** pattern: the agent generates standalone previews for collaborative exploration, the user confirms a direction, and only then is the design applied to the project.
 
+### Pairing visual direction (Capability 2) with spatial direction (Capability 3)
+
+Capability 2 (Design Exploration) and Capability 3 (Spatial Vibe Exploration) overlap in triggers — both accept vague feelings, inspiration images, and music — but they answer different questions:
+
+- **Capability 2** produces the **visual concept**: color, typography, material, and motion personality.
+- **Capability 3** produces the **spatial concept**: layout grammar, density, hierarchy, rhythm, and section composition.
+
+A real page needs both, working together. Rules for combining them:
+
+- **Run both when the user is shaping a new page**, not just restyling one. Color without layout (or layout without color) is half a direction.
+- **Bind, don't multiply.** Do not present 3 visual concepts and 3 separate layout directions as 9 unrelated options. Pair them into a small number of **coherent concepts**, each with one visual direction locked to one spatial direction (for example "Concept A = neutral-cool palette + editorial asymmetric layout").
+- **Derive both from the same signals.** The same keywords, music, and references feed both the visual and spatial translation, so a single concept reads as one intentional idea rather than two unrelated layers.
+- **Sequence by what is fuzziest.** If the user is unsure about feel, explore visual concepts first; if they can feel the mood but not the page shape, explore spatial directions first. Either way, reconcile the two before formalizing.
+- **Record both** in the design system document: visual tokens in their sections, and the chosen layout in the **Spatial / Layout DNA** section, so they apply together in Capability 5.
+
 - **Reference-led Exploration -> Choose -> Apply**: Start from the user's product background plus a concrete reference, derive 3 contextual visual directions, user chooses -> formalize into design system -> apply to project
 - **Exploration -> Choose -> Apply**: Explore vibes, generate 3 concept previews + mood boards, user chooses -> formalize into design system -> apply to project
 - **Exploration -> Mood Board -> Choose -> Apply**: Explore vibes, classify page type, crystallize into mood boards for validation, user confirms direction -> extract design system -> apply to project
