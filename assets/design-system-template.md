@@ -17,6 +17,38 @@
 - **Must stay similar**: [what should remain faithful to the reference]
 - **May be adjusted**: [what can change without breaking fidelity]
 
+## Spatial / Layout DNA
+
+The page-level grammar: how content breathes, where attention lands, how sections relate. Fill this in when a spatial direction was explored (see [../references/SPATIAL-VIBE.md](../references/SPATIAL-VIBE.md)). Keep it as a set of spatial decisions, not a mood thesaurus.
+
+- **Confirmed layout direction**: [name of the chosen direction, if one was selected]
+- **Content density**: [sparse / balanced / compact / deliberately layered]
+- **Whitespace**: [where space expands, where it tightens, and why]
+- **Hierarchy**: [how attention moves from primary action to supporting content]
+- **Dominant visual focus**: [text-led / image-led / product-demo-led / data-led / mixed]
+- **Spatial rhythm**: [steady / slow / syncopated / modular / editorial / immersive]
+- **Symmetry / asymmetry**: [centered calm / off-axis tension / alternating rhythm]
+- **Card / surface logic**: [absent / minimal / dense / oversized / overlapping / broken-grid]
+- **Image / media behavior**: [full-bleed / cropped / inset / cinematic / documentary / abstracted]
+- **Section transitions**: [hard cuts / soft fades / overlapping bands / scroll chapters]
+- **Interaction tempo**: [still / subtle / responsive / flowing / cinematic]
+- **Responsive strategy**: [which spatial relationships must survive on small screens]
+
+### Section Order and Rhythm
+
+Capture the actual page composition that was confirmed — not a generic header → hero → features → footer template.
+
+| Section | Role | Spatial character | Notes |
+|---------|------|-------------------|-------|
+| [section name] | [purpose] | [dominant / supporting, dense / open, full-bleed / constrained] | [rhythm or alignment note] |
+| [section name] | [purpose] | [...] | [...] |
+
+### Reference Mapping (optional)
+
+- **Borrowed from structure references**: [what page organization was inherited]
+- **Borrowed from vibe references**: [what feeling, rhythm, or density was translated]
+- **Deliberately not copied**: [literal signals from references that were excluded]
+
 ## Color Palette
 
 ### Core Colors
@@ -323,6 +355,23 @@ export default {
     "pageType": "[type]",
     "density": "[low|medium|high]",
     "mode": "[reference-fidelity|vibe-translation]"
+  },
+  "layout": {
+    "direction": { "value": "[confirmed layout direction name, if any]" },
+    "contentDensity": { "value": "[sparse|balanced|compact|layered]" },
+    "whitespace": { "value": "[where space expands and tightens]" },
+    "hierarchy": { "value": "[primary-to-supporting attention flow]" },
+    "dominantFocus": { "value": "[text-led|image-led|demo-led|data-led|mixed]" },
+    "spatialRhythm": { "value": "[steady|slow|syncopated|modular|editorial|immersive]" },
+    "symmetry": { "value": "[centered|off-axis|alternating]" },
+    "cardLogic": { "value": "[absent|minimal|dense|oversized|overlapping|broken-grid]" },
+    "imageBehavior": { "value": "[full-bleed|cropped|inset|cinematic|documentary|abstracted]" },
+    "sectionTransitions": { "value": "[hard-cuts|soft-fades|overlapping-bands|scroll-chapters]" },
+    "interactionTempo": { "value": "[still|subtle|responsive|flowing|cinematic]" },
+    "responsiveStrategy": { "value": "[relationships that must survive small screens]" },
+    "sectionOrder": [
+      { "name": "[section]", "role": "[purpose]", "character": "[spatial character]" }
+    ]
   },
   "color": {
     "primary": { "value": "#______" },
