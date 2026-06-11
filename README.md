@@ -30,7 +30,7 @@ We believe: when more developers can carry the beauty that has moved them into w
 
 ## Skills
 
-A design companion for vibe coding developers. Turns screenshots, mood images, and gut feelings into structured design systems, motion languages, and layout blueprints — and, by default, uses the user's product background to derive **3 visual directions** before formalizing tokens, so the result is visible and exploratory instead of prematurely locked. Only applies designs to your project when you're ready.
+A design companion for vibe coding developers. Turns screenshots, mood images, non-UI inspiration, music, and gut feelings into structured design systems, motion languages, and product-aware spatial directions — and, by default, uses the user's product background to derive **3 visual directions** before formalizing tokens, so the result is visible and exploratory instead of prematurely locked. Only applies designs to your project when you're ready.
 
 **Five core capabilities:**
 
@@ -65,17 +65,19 @@ Not sure what style you want? Or do you already have a reference image, but want
 8. The chosen direction is formalized into a full design system with motion tokens and a preview page
 9. Once confirmed, the design is applied to your project (via Capability 5)
 
-#### 3. UI Layout Analysis
-*For users who can't describe layout in words.*
+#### 3. Spatial Vibe Exploration
+*For users who can feel the page, but cannot yet describe the layout.*
 
-Provide a webpage screenshot. The skill extracts its layout structure into formats both humans and LLMs can understand and reuse:
+Want a landing page to feel more relaxed, editorial, cinematic, spacious, or less like a generic SaaS template? Share fuzzy intent or references from anywhere:
 
-- **ASCII art diagram** — visual layout map any model can parse
-- **Semantic structure** — section-by-section role description
-- **Responsive behavior notes** — how the layout adapts across breakpoints
-- **HTML skeleton** — clean markup structure ready to style
-- **Component tree** — hierarchical breakdown of all UI parts
-- **Standalone HTML wireframe preview** — a visual structural draft generated automatically so you can verify the composition at a glance
+- photography, landscapes, architecture, interiors
+- magazines, posters, packaging, fashion
+- album covers, film stills, illustrations
+- music or video references
+
+The skill translates those references into transferable layout signals — content density, whitespace, hierarchy, dominant visual focus, spatial rhythm, card usage, image behavior, section transitions, interaction tempo, and responsive strategy. Non-UI inspiration is not copied literally: a coastal-road photo might become openness, wide negative space, slow rhythm, and restrained density, not "put a road photo in the hero."
+
+It then derives a product-aware **Spatial DNA** and generates **3 genuinely different standalone layout previews** before any production code changes.
 
 #### 4. Mood Board Generation
 *For users who want a visual direction board before locking tokens.*
@@ -106,7 +108,7 @@ These capabilities chain naturally, following an **explore → choose → apply*
 Use product background + reference → Get 3 contextual visual directions → Choose from concept previews + mood boards → Extract design system → Preview → Apply to project
 ```
 
-Or mix and match — extract style from one site, apply it to a layout from another. The agent only touches your project when you say "apply."
+Or mix and match — use one reference for structure, another for atmosphere, and translate both into a product-aware spatial direction. The agent only touches your project when you say "apply."
 
 ---
 
@@ -158,14 +160,14 @@ git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-t
 # Define motion from a vibe
 "I want my product to feel innovative and fast — help me define how things should animate"
 
-# Extract from a layout
-"I love how this page is structured, extract the layout so I can reuse it"
+# Explore spatial vibe
+"I like the vibe of this cafe, this film still, and this album cover — make my landing page feel editorial, but not like a generic SaaS page"
 
 # Apply a confirmed design to your project
 "I like Concept B — apply this design to my project"
 
 # Full pipeline
-"I have some inspiration images and a music clip — let's explore a style, then apply it to this layout I found"
+"I have some inspiration images and a music clip — let's explore the spatial vibe, choose a direction, then apply it to my product"
 ```
 
 ---
@@ -178,7 +180,7 @@ git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-t
 ├── references/
 │   ├── DESIGN-SYSTEM.md              # Design system extraction methodology
 │   ├── DESIGN-EXPLORATION.md         # Interactive exploration conversation guide
-│   ├── LAYOUT-ANALYSIS.md            # Layout analysis and ASCII blueprint guide
+│   ├── SPATIAL-VIBE.md               # Feeling-driven layout exploration guide
 │   ├── MOTION-SYSTEM.md              # Motion system extraction and generation guide
 │   ├── AESTHETIC-ANALYSIS.md         # Aesthetic soul capture methodology
 │   ├── ICON-USAGE.md                 # Icon component guidelines
