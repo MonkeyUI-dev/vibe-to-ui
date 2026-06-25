@@ -172,6 +172,8 @@ Each direction should include:
 - Concept name
 - Product goal fit
 - Spatial DNA summary
+- A mini layout sketch (ASCII block sketch or loose proportion table)
+- Section order and rhythm
 - What it borrows from structure references
 - What it borrows from vibe references
 - Key layout decisions
@@ -186,9 +188,48 @@ The three directions should differ in meaningful ways, such as:
 
 Avoid fixed vibe presets. The directions should emerge from the user's references and product constraints.
 
+### Mode A: Compare Three Complete Layout Directions
+
+Spatial Vibe Exploration defaults to **Mode A** when the user is exploring layout. This means all 3 directions must be comparable at the same level of detail.
+
+Do **not** produce 3 summary cards and then fully expand only 1 direction unless the user explicitly asks for a single recommended direction. That pattern makes the workflow look incomplete: it says "3 layouts" but shows only 1 layout in detail.
+
+For each of the 3 directions, provide the same comparison unit:
+
+```markdown
+### Direction [A/B/C]: [Name]
+
+- **Best for**: [product goal / audience / page type fit]
+- **Spatial DNA**: [density, whitespace, hierarchy, rhythm, focus]
+- **Mini layout sketch**: [ASCII block sketch or loose proportion table]
+- **Section order**: [top-to-bottom composition]
+- **Key layout decisions**: [3-5 bullets]
+- **Tradeoffs / risks**: [what this direction makes harder]
+- **Responsive posture**: [what collapses first, what must stay intact]
+```
+
+Then let the user choose one. Only after selection should you expand the chosen direction into a deeper implementation skeleton or formalize it into the design system document's **Spatial / Layout DNA** section.
+
+If you decide to recommend one direction before the user chooses, label it explicitly:
+
+```
+Recommended direction: Direction B
+Reason: [why it best fits the user's keywords, references, and page type]
+```
+
+The recommendation can sit above the 3-way comparison, but it must not replace the complete comparison.
+
 ### 8. Generate Standalone Previews Before Production Changes
 
 For each direction, generate a standalone preview artifact before modifying the user's project. The preview should show the page-level composition, not only tokens or isolated components.
+
+All 3 previews should have equal structural fidelity:
+
+- each preview shows its own mini layout sketch or visual layout thumbnail
+- each preview shows its own section order
+- each preview explains its own spatial rhythm and density
+- each preview states its own tradeoffs
+- no preview should be merely a color/style card while another is the only real layout
 
 The preview should make visible:
 
@@ -201,6 +242,8 @@ The preview should make visible:
 - responsive intent at a high level
 
 Use realistic content from the user's product when available. If content is unknown, label assumptions clearly.
+
+For long pages, it is acceptable to create one comparison artifact containing the 3 complete directions side by side, or 3 separate artifacts. In either case, each direction must be represented as a real layout option, not just a concept blurb.
 
 ### 9. Review Rendered Output and Revise
 

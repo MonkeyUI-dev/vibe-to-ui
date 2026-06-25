@@ -211,8 +211,9 @@ User has a fuzzy aesthetic intent or mixed inspiration references and wants that
 5. Mark non-transferable signals that should not become literal UI decisions. Example: a coastal-road photo may imply openness, wide negative space, slow rhythm, and restrained density; it does not mean placing a road photo in the hero.
 6. Dynamically derive the page's **Spatial DNA** from the product constraints and references. Do not use preset vibe templates or fixed style taxonomies.
 7. Use an invisible composition grid as a private reasoning scaffold for alignment, rhythm, hierarchy, and responsive behavior; never expose it as a user-facing artifact or fixed template
-8. Generate **3 genuinely different layout directions** as standalone previews before modifying production code
-9. Review the rendered output and revise anything that feels generic, mismatched to the product, or too literal to the references
+8. Generate **3 genuinely different layout directions** as standalone previews before modifying production code. Default to **Mode A: three complete, comparable layout directions** — each direction needs its own mini layout sketch or thumbnail, Spatial DNA summary, section order, key layout decisions, tradeoffs, and responsive posture.
+9. Do not show 3 shallow direction cards and then fully expand only 1 direction unless the user explicitly asks for a single recommended direction. If you recommend one, label it as the recommendation while still showing all 3 complete options.
+10. Review the rendered output and revise anything that feels generic, mismatched to the product, too literal to the references, or unevenly detailed across the 3 options
 
 ### 4. Mood Board Generation
 
@@ -311,7 +312,8 @@ Spatial Vibe outputs should include:
 - what the user likes about each reference
 - transferable and non-transferable signals
 - dynamically derived Spatial DNA
-- 3 distinct standalone layout direction previews
+- 3 distinct standalone layout direction previews with equal structural fidelity
+- for each direction: mini layout sketch or thumbnail, section order, key layout decisions, tradeoffs, and responsive posture
 - notes from reviewing the rendered output and any revisions made
 
 ## Icon usage guidelines
