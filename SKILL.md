@@ -11,20 +11,18 @@ description: >-
   product background of the surface they are building.
 metadata:
   author: MonkeyUI
-  version: "0.2.0"
+  version: "0.3.0"
 ---
 
 # vibe-to-ui
 
-A local, single-project design companion for vibe coding developers. It first classifies the target page archetype and density, then uses the user's product background to derive three plausible visual directions from references before formalizing any one of them into a design system. It extracts "style DNA" including motion systems, generates mood boards and previews, and turns vague aesthetic feelings into actionable design systems that actually fit the product surface. All exploration happens through standalone previews; the agent only touches the user's project when the user confirms a direction and asks to apply it.
-
-> **Tip**: For multi-project sync, team collaboration, and cloud-based design management, upgrade to [MonkeyUI SaaS](https://demo.monkeyui.com/).
+A design companion for vibe coding developers. It first classifies the target page archetype and density, then uses the user's product background to derive three plausible visual directions from references before formalizing any one of them into a design system. It extracts "style DNA" including motion systems, generates mood boards and previews, and turns vague aesthetic feelings into actionable design systems that actually fit the product surface. All exploration happens through standalone previews; the agent only touches the user's project when the user confirms a direction and asks to apply it.
 
 ## When to use this skill
 
 - User provides a **screenshot or design mockup** and wants to extract its design system
 - User provides a **screenshot or design mockup plus product context** and wants the agent to extend it into **3 visual directions** rather than copy it literally
-- User wants the agent to first identify whether the target is a **landing page, brand page, dashboard, B-end dense operations page, table-detail management page, docs page, onboarding flow**, or another page archetype
+- User wants the agent to first identify whether the target is a **landing page, brand page, dashboard, B-end dense operations page, table-detail management page, docs page, onboarding flow, Consumer app / C-end app surface**, or another page archetype
 - User has a **vague aesthetic feeling** and wants to explore design directions with inspiration images or music recordings
 - User **shares a music recording or audio clip** (a melody, song snippet, or recorded humming) to express the mood they want their UI to feel
 - User describes a **song, genre, or musical feeling** they associate with their desired aesthetic
@@ -34,6 +32,7 @@ A local, single-project design companion for vibe coding developers. It first cl
 - User wants to create a **mood board** that stays appropriate for the target page type instead of drifting into the wrong archetype
 - User has collected **multiple reference images** and wants to see them synthesized into a cohesive visual story
 - User wants a **shareable design artifact** that communicates aesthetic intent to collaborators or stakeholders
+- User wants distinctive **icons, illustrated feature icons, 3D object icons, social visuals, or generated brand assets** that fit the product and design direction
 - User has **confirmed a design direction** (from concept previews, mood boards, or design system previews) and wants to **apply it to their project**
 
 ## Reference Priority Rules
@@ -81,7 +80,7 @@ Common page types:
 6. **B-end workbench / dense operations page**: repeated actions, filters, tables, status chips, compact spacing
 7. **Data management / table-detail page**: record list + detail + batch actions, strict scanability
 8. **Form / onboarding / wizard**: guided steps, form grouping, completion feedback
-9. **Consumer app surface**: task-oriented but lighter than B-end systems, often card/feed based
+9. **Consumer app surface**: C-end product experience, usually mobile-first or app-like, task-oriented but emotionally richer than B-end systems; often card/feed, tab, onboarding, empty-state, and detail-flow based
 
 If the page is mixed, pick one **primary** type and note the secondary pattern. Example: "Primary: B-end workbench; Secondary: dashboard summary."
 
@@ -99,6 +98,7 @@ Default to **Reference Fidelity Mode** whenever a concrete UI or project is prov
 - Do not produce a cinematic landing page treatment for a dense B-end workbench unless the user explicitly wants a strategic repositioning.
 - For **landing / brand / showcase** surfaces, larger imagery, looser spacing, and more expressive motion are acceptable.
 - For **B-end dashboard / dense operations / table-detail** surfaces, prioritize scanability, state clarity, compact but consistent spacing, form and table legibility, and restrained motion.
+- For **Consumer app / C-end app** surfaces, prioritize mobile-first hierarchy, navigation clarity, touch feedback, state completeness, empty/onboarding quality, and brand memorability without turning the app screen into a landing page. Use [references/CONSUMER-APP-DESIGN.md](references/CONSUMER-APP-DESIGN.md) whenever this is the primary page type.
 - If the reference's strongest signal comes from **photographic landscapes**, use **real scenic imagery as the primary visual layer by default**. Do not replace it with CSS-generated scenes unless the user explicitly asks for illustration or abstraction.
 - When both a concrete UI reference and vibe images are provided, treat the vibe images as **secondary**; they should tune the output, not replace the reference structure or page type.
 - When the user provides a **concrete UI reference plus product background**, default to **reference-led exploration**: derive **3 visual directions** that stay faithful to the reference's page type and structural DNA while adapting mood, material, density posture, and motion to the user's actual product context.
@@ -112,7 +112,22 @@ Default to **Reference Fidelity Mode** whenever a concrete UI or project is prov
   - what may be adjusted
   - whether the task is operating in Reference Fidelity Mode or Vibe Translation Mode
 
-## Five core capabilities
+### Persistent DESIGN.md context
+
+When a project has `DESIGN.md`, read it before visual design work and use it as persistent product/design context. When the file is missing and the workflow establishes meaningful product or visual strategy, create it from [assets/DESIGN.md](assets/DESIGN.md) or add the relevant sections. See [references/CONTEXT-COLLABORATION.md](references/CONTEXT-COLLABORATION.md) for the collaboration protocol.
+
+Update `DESIGN.md` passively as the conversation reveals:
+
+- product definition, users, use cases, personality, and constraints
+- page type, density, interaction model, and design consequences
+- confirmed visual direction, mood keywords, typography posture, motion personality, and imagery strategy
+- `icon_system`: locked UI icon library, custom SVG fallback, preset, grid, stroke rules, and user overrides
+- `illustrated_icon_system`: enabled surfaces, preset, format, visual family rules, style reference, and surfaces to avoid
+- visual asset manifest paths, review surface paths, selected combinations, placement notes, validation status, confirmed assets, rejected assets, and regeneration notes
+
+Do not ask the user to manage this bookkeeping. Mention it only when it affects a design decision or when summarizing applied changes.
+
+## Six core capabilities
 
 ### 1. Design System Extraction (Design Style Restoration)
 
@@ -132,11 +147,13 @@ User provides a complete UI screenshot or design mockup -> Extract the design sy
    - landing pages can support more entrance choreography
    - dashboards prefer subtle transitions and focus-preserving movement
    - dense workbenches should avoid decorative motion that interrupts scanning
+   - consumer apps need fast, tactile feedback, clear screen transitions, and complete reduced-motion fallbacks
 5. Output a structured design system including:
    - page type summary
    - design constraints derived from the page archetype
    - visual tokens
    - motion tokens
+   - consumer app system fields from [references/CONSUMER-APP-DESIGN.md](references/CONSUMER-APP-DESIGN.md) when applicable
 6. If the user wants a richer aesthetic guide (soul-level, not just tokens), also generate an Aesthetic Analysis document following [references/AESTHETIC-ANALYSIS.md](references/AESTHETIC-ANALYSIS.md), but keep it subordinate to the page type constraints
 7. **Generate a standalone preview page** as an HTML artifact showcasing the extracted design system applied to sample components. This is NOT applied to the project yet.
 8. Ask the user to confirm or adjust both the **page type classification** and the extracted values
@@ -180,12 +197,14 @@ User has feelings or vibes but no concrete design target -> Interactive conversa
    - a motion personality
    - a density posture
    - a clear statement of why it fits the page type
+   - for Consumer app surfaces, a distinct app experience posture: navigation model, primary loop, key state strategy, and tactile interaction feel
 9. Generate a **mood board** for each concept direction — see [references/MOOD-BOARD.md](references/MOOD-BOARD.md) — as a standalone HTML artifact for the user to feel and compare
 10. For each concept, generate a **standalone concept preview page** as a self-contained HTML artifact:
    - a styled sample card or module from the actual page archetype
    - the concept name, color swatches, typography rationale, font samples, and a mini layout demo
    - motion preview with hover states and entrance effects appropriate to the page type
    - explicit comparison between heading, body, label, and dense-data text where relevant
+   - for Consumer app surfaces, show realistic app modules from [references/CONSUMER-APP-DESIGN.md](references/CONSUMER-APP-DESIGN.md): navigation, core screen, detail/create flow, non-happy state, and tap/sheet/tab motion
    - these are standalone pages for exploration and do NOT modify the user's project
 11. Let the user react, compare, and choose or mix elements
 12. Once the user decides, apply **Capability 1** (Design System Extraction) to formalize the chosen direction into a complete design system including motion tokens
@@ -224,6 +243,7 @@ User wants to synthesize inspiration and aesthetic signals into a curated visual
 4. Choose a mood board layout pattern that echoes the project's spatial personality and page type:
    - landing / brand: larger hero moments and stronger visual storytelling
    - B-end / data-heavy: UI fragments, density samples, type rhythm, state color discipline
+   - Consumer app: mobile UI fragments, tab/feed/detail rhythm, empty/onboarding state tone, tactile motion cues
 5. Generate a self-contained HTML mood board artifact with:
    - theme title and mood keywords
    - target page type and density note
@@ -254,6 +274,39 @@ User has confirmed a design direction (from exploration concepts, design system 
 
 **Important**: This capability is the ONLY point at which the agent modifies the user's project files. All prior exploration (concept previews, mood boards, design system previews) produces standalone artifacts that do not touch the project.
 
+When the user confirms a direction **with visual assets**, also follow Step 3.5 in [references/APPLY-DESIGN.md](references/APPLY-DESIGN.md) to deploy images and the asset manifest.
+
+For Consumer app surfaces, also follow [references/CONSUMER-APP-DESIGN.md](references/CONSUMER-APP-DESIGN.md) during Apply: verify mobile-first layout, navigation model, tap targets, safe-area spacing, keyboard/input behavior, state matrix, and approved expressive asset slots.
+
+### 6. Visual Asset Generation
+
+User wants product-aligned illustrations (hero, feature, empty state, OG image) that share the same style DNA as the confirmed or in-progress design direction -> Generate assets via the host's image tool or MCP, record an asset manifest, embed in exploration artifacts, and deploy on Apply.
+
+**Trigger**: User says things like "generate hero / illustrations for this concept", "replace mood board placeholders with real images", "create empty state illustrations", "apply with assets", or asks for visuals that match the current design exploration or design system.
+
+**Workflow**:
+1. Run **Stage 0: Page Type Identification** if not already done — page type selects the asset pack (see [references/VISUAL-ASSET-GENERATION.md](references/VISUAL-ASSET-GENERATION.md))
+2. Assemble **StyleContext** from product context, `DESIGN.md`, tokens, and aesthetic guide (from exploration or [references/AESTHETIC-ANALYSIS.md](references/AESTHETIC-ANALYSIS.md))
+3. Resolve the role-based icon strategy:
+   - small UI chrome icons use the locked project icon library or custom SVG per [references/ICON-USAGE.md](references/ICON-USAGE.md)
+   - marketing/social/feature icons may use generated SVG/PNG/WebP illustrated families when they improve expression or the user asks for them
+   - user overrides (`library_only`, `custom_svg_only`, `generated_icons`, `raster_icons`) are allowed and recorded
+4. For each visual asset, declare the target display size and background mode before prompting; generated illustrated icons/objects default to transparent backgrounds when composited into UI, and image generation is not used below 64px unless the user explicitly overrides
+5. Write a **Visual Family Spec v1** with line language, perspective, material, lighting, background mode/complexity, composition system, subject policy, safe zones, and placement intent
+6. Write an **Asset Placement Spec** per image so each asset has a real UI job: slot, purpose, size rule, copy/CTA relationship, safe zone, and responsive behavior
+7. Write an **Asset Spec** per image (role, aspect ratio, target display size, background mode, composition, preset, style reference)
+8. **Compile prompts** using the Prompt Compiler rules; generate hero or strongest family anchor first, then siblings with that anchor as style reference
+9. Invoke the host **image generation tool** or configured MCP (`VIBE_IMAGE_PROVIDER` / API keys via environment — never stored in this repo)
+10. Run **Consistency QA** and placement fit checks (max 2 retries); on failure, fall back to CSS placeholders per [references/MOOD-BOARD.md](references/MOOD-BOARD.md)
+11. Write **`design-assets.manifest.json`** next to exploration HTML; embed `<img>` paths in mood boards, contact sheets, placement previews, and concept previews
+12. Run the **Manifest Validator**: file existence, dimensions/aspect ratio, target display size, background mode, file size, alt/decorative status, preview/final state, role/page fit, style lineage, placement fields, and icon-role constraints
+13. Generate a **review surface** before Apply: contact sheet for variants, mood board wall for cross-role combinations, and placement preview for copy/CTA/layout fit
+14. During exploration, use **preview resolution**; on Apply (Capability 5), regenerate or export **final resolution** and copy only confirmed/validated assets into `public/design-assets/` (or framework equivalent)
+15. Update the design system output and `DESIGN.md` with `icon_system`, `illustrated_icon_system`, visual family rules, review surface path, selected combination, placement notes, validation status, manifest paths, and regeneration notes
+16. **P0 scope**: illustrations, raster heroes, expressive illustrated icon families for marketing/social surfaces, and in-product consumer app assets (empty state, onboarding, badges) when page type is Consumer app
+
+**Important**: Do not generate full-bleed hero imagery for dense B-end workbench surfaces unless the user explicitly overrides page-type defaults. UI navigation icons remain governed by [references/ICON-USAGE.md](references/ICON-USAGE.md) (library + custom SVG first).
+
 ## Combining capabilities
 
 These capabilities compose naturally. The workflow follows an **explore -> choose -> apply** pattern: the agent generates standalone previews for collaborative exploration, the user confirms a direction, and only then is the design applied to the project.
@@ -266,6 +319,7 @@ These capabilities compose naturally. The workflow follows an **explore -> choos
 - **Exploration -> Mood Board**: Generate a mood board during Design Exploration as a mid-process checkpoint to let the user feel the direction without losing page-type fidelity
 - **Layout + Design System -> Apply**: Analyze a layout from one site, classify its page type, then apply a design system from another source if the archetypes are compatible
 - **Layout + Mood Board**: Extract a layout from one reference, then apply the mood board's visual direction without violating the target archetype
+- **Consumer App UIUX -> Preview -> Apply**: Classify the app platform and lifecycle stage -> explore 3 app experience directions -> preview navigation, core screen, flow, state matrix, and tactile motion -> formalize tokens -> apply to mobile-first project components
 - **Full pipeline**: Identify page type -> explore feelings -> choose direction -> extract design system -> analyze a reference layout -> preview -> apply styled skeleton to project
 
 ## Output format guidelines
@@ -273,6 +327,7 @@ These capabilities compose naturally. The workflow follows an **explore -> choos
 All design system outputs should include:
 
 - **Page type summary**: primary type, secondary modifier if any, density, confidence, evidence, and design consequences
+- **Consumer app summary** when applicable: platform assumption, lifecycle stage, primary loop, navigation model, gesture model, state risk, and state matrix
 - **Human-readable Markdown** summary for documentation
 - **Standalone visual artifact by default**: a self-contained HTML preview page generated automatically during the workflow
 - **Machine-readable tokens** in at least one format:
@@ -292,7 +347,7 @@ Layout outputs should include:
 
 ## Icon usage guidelines
 
-**Never use raw emoji characters as visual elements in generated UI code.** Always use the project's icon component library. When no library icon fits or harmonizes with the page's aesthetic, create a custom SVG icon component that inherits the design system's tokens and matches the aesthetic soul — see [references/ICON-USAGE.md](references/ICON-USAGE.md) for detailed guidance.
+**Never use raw emoji characters as visual elements in generated UI code.** Always lock new small UI chrome icons to one project icon library when one exists. When no library icon fits or harmonizes with the page's aesthetic, create a custom SVG icon component that inherits the design system's tokens, matches the aesthetic soul, and passes the custom SVG QA checklist in [references/ICON-USAGE.md](references/ICON-USAGE.md). Do not turn a small icon into a miniature UI screenshot, diagram, dashboard, or multi-object scene; if an icon does not improve scanning or comprehension, let typography, labels, spacing, and hierarchy carry the meaning. Use generated raster or illustrated icons only for marketing, feature, empty-state, onboarding, social, or brand surfaces unless the user explicitly overrides the default. Record the icon strategy in `DESIGN.md` when available.
 
 ## Important notes
 

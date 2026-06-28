@@ -90,6 +90,8 @@ Do not treat every reference as if it were a landing page.
 - Balance utility with friendliness
 - Expect stronger card systems, feed rhythm, and lightweight visual delight
 - Favor snappy, tactile motion over cinematic motion unless the product explicitly aims for that
+- Treat navigation, state completeness, onboarding, empty/error/loading states, and touch feedback as core UIUX, not polish
+- When this is the primary page type, follow [CONSUMER-APP-DESIGN.md](CONSUMER-APP-DESIGN.md) and add its Consumer App System block to the deliverable
 
 When the atmosphere conflicts with the page type, page type wins first.
 
@@ -177,6 +179,7 @@ Interpret the typography based on page type:
 - Landing pages may justify stronger display drama
 - Dense B-end pages need narrower jumps, tighter but readable line heights, and clear label discipline
 - Editorial pages need reading rhythm more than brand theatrics
+- Consumer app surfaces need compact mobile readability with enough typographic personality for brand memory; avoid oversized landing-page type inside app chrome
 
 ---
 
@@ -285,6 +288,7 @@ Then explain motion through the page-type lens:
 - For landing and brand pages, ask whether motion builds reveal and atmosphere
 - For dashboards and workbenches, ask whether motion preserves focus and speeds recognition
 - For forms and onboarding, ask whether motion clarifies next-step progression
+- For consumer apps, ask whether motion creates tactile confidence, explains navigation direction, and keeps repeated flows feeling fast
 
 For deeper extraction guidance, read [MOTION-SYSTEM.md](MOTION-SYSTEM.md).
 
@@ -302,6 +306,7 @@ Capture repeated UI patterns that define the system:
 - tables, charts, lists, or feeds
 - imagery strategy
 - icon style and stroke weight
+- for consumer apps: bottom tabs or navigation model, feed/card rhythm, detail or create flow, empty/loading/error/offline states, permission or monetization surfaces when relevant
 
 Do not merely list them. Explain how they support the classified page type.
 
@@ -324,7 +329,7 @@ Use representative modules:
 - **Editorial / docs**: article header, sidebar nav, callout, inline code or note block
 - **Dashboard / B-end**: filters, KPI cards, table row, status chips, side panel
 - **Form / wizard**: stepper, grouped fields, completion state, inline validation
-- **Consumer app**: feed card, tab bar, action button, drawer or detail card
+- **Consumer app**: app-frame viewport, tab bar or chosen navigation, feed/home card, action button, drawer/bottom sheet or detail card, create/input flow, and at least one non-happy state such as empty/loading/error/offline
 
 The preview is a review artifact, not the final project implementation.
 

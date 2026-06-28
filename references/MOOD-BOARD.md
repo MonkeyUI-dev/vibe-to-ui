@@ -229,13 +229,42 @@ Generate a **self-contained HTML page** that the user can open in a browser. Thi
 6. **One motion hint**: Include at most one subtle CSS animation that captures the motion personality (a slow gradient shift, a gentle opacity pulse, a floating element). This should feel ambient, not distracting.
 7. **The board IS the pitch**: It should be polished enough to share with stakeholders. Visual quality matters.
 
-### Handling User-Provided Images
+### Handling User-Provided and Generated Images
 
-When the user has shared reference images during the conversation:
+When building a mood board:
 
+- **Generated assets (preferred when tools exist)**: Generate hero + supporting images for the active `concept_id` before finalizing HTML. Use preview resolution during exploration; see [VISUAL-ASSET-GENERATION.md](VISUAL-ASSET-GENERATION.md) for page-type asset packs and prompt rules.
+- **Review surface**: When multiple generated assets exist, include a contact sheet or mood board wall that lets the user compare combinations such as `A2 hero + B1 empty state + C3 icon set`.
 - **If images are accessible via URL**: Embed them directly in the mood board using `<img>` tags
 - **If images are local files in the project**: Reference them with relative paths
-- **If images were shared inline in chat** (not as files): Use CSS-generated visual placeholders with descriptive text labels that capture what the image conveyed (e.g., a gradient block labeled "soft morning light over ocean — warm golds into cool blues")
+- **If images were shared inline in chat** (not as files) and cannot be saved: Use CSS-generated visual placeholders with descriptive text labels that capture what the image conveyed (e.g., a gradient block labeled "soft morning light over ocean — warm golds into cool blues")
+- **On Apply**: Final-resolution assets copy into `public/design-assets/` per [APPLY-DESIGN.md](APPLY-DESIGN.md) Step 3.5 — do not leave exploration-only preview paths in the user's production pages without updating paths
+
+### Asset Review Wall
+
+When generated assets are part of the direction, the mood board should include a review wall, not just a collage.
+
+Required elements:
+
+- **Asset tiles**: each tile shows preview image, asset id, role, intended placement, and preview/final state
+- **Combination row**: suggested pairings such as `A1 hero + B2 feature + C1 icon set`
+- **Placement miniatures**: small UI compositions showing copy, CTA, and image scale together
+- **Safe-zone overlays**: for hero and social assets, show where headline/CTA can sit without collision
+- **Reject/iterate notes**: short labels such as "too busy behind copy" or "best thumbnail read"
+
+The review wall should help the user make a design decision. Avoid presenting generated images as a pile of files.
+
+### Placement Preview Rules
+
+For assets that will appear in UI, show how the image works with surrounding content:
+
+- Hero images must be previewed with representative H1, supporting copy, primary CTA, and responsive stacking note
+- Feature images must sit beside the feature title/body they support
+- Empty-state images must leave the action button dominant
+- Illustrated icon sets must be previewed in feature cards or launch/social contexts, not as tiny nav icons
+- Social/OG assets must be checked at thumbnail scale
+
+If the asset hurts readability, CTA clarity, or content hierarchy in the placement preview, regenerate it or move it to a different role.
 
 ### Mood Board Variants for Comparison
 

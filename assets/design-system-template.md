@@ -123,7 +123,125 @@
 - **Inputs / Forms**: [field treatment]
 - **Cards / Panels**: [surface construction]
 - **Status / Data Display**: [chips, tables, charts, metrics, lists]
-- **Icons / Imagery**: [style, stroke, visual role]
+- **Icons / Imagery**: [style, stroke, visual role; UI icons vs illustration roles]
+
+## Consumer App System
+
+> Populate when the primary page type is `consumer app`. See [references/CONSUMER-APP-DESIGN.md](../references/CONSUMER-APP-DESIGN.md).
+
+- **Platform assumption**: [mobile_app / responsive_web_app / tablet_app / unknown]
+- **Lifecycle stage**: [acquisition / onboarding / activation / daily_use / retention / monetization]
+- **Primary loop**: [browse / create / track / learn / transact / socialize / manage]
+- **Navigation model**: [bottom_tabs / top_tabs / stack_navigation / feed_first / hub_and_detail / unknown]
+- **Gesture model**: [tap_first / swipe_cards / pull_to_refresh / drag_reorder / camera_capture / mixed]
+- **State risk**: [low / medium / high]
+- **Thumb-zone notes**: [primary action reachability, destructive action placement, safe-area constraints]
+- **Monetization / permission notes**: [if relevant; transparent hierarchy and contextual permission asks]
+
+### Core Screen Coverage
+
+| Screen | Included | Design role | Notes |
+|--------|----------|-------------|-------|
+| Home / feed | [yes / no] | [re-entry / discovery / daily loop] | [card/feed rhythm, continuation point] |
+| Detail | [yes / no] | [decision / confidence] | [title hierarchy, primary action] |
+| Create / input | [yes / no] | [task completion] | [field grouping, validation, keyboard behavior] |
+| Onboarding | [yes / no] | [activation] | [value explanation, permission timing] |
+| Empty state | [yes / no] | [recovery / motivation] | [one next action] |
+| Profile / settings | [yes / no] | [identity / control] | [privacy, account, notifications] |
+
+### State Matrix
+
+| Component / screen | Loading | Empty | Error | Offline | Success |
+|--------------------|---------|-------|-------|---------|---------|
+| Home / feed | [behavior] | [behavior] | [behavior] | [behavior] | [behavior] |
+| Detail | [behavior] | [behavior] | [behavior] | [behavior] | [behavior] |
+| Create / input | [behavior] | [behavior] | [behavior] | [behavior] | [behavior] |
+
+### Consumer Interaction Rules
+
+| Pattern | Trigger | Timing | Role |
+|---------|---------|--------|------|
+| Tap feedback | [tap] | [80-140ms] | [tactile confidence] |
+| Tab switch | [navigation] | [120-220ms] | [orientation] |
+| Bottom sheet | [open / close] | [220-320ms] | [focused decision] |
+| Card expansion | [tap] | [180-260ms] | [causality / detail reveal] |
+
+## Icon System
+
+> Populated for every design system. See [references/ICON-USAGE.md](../references/ICON-USAGE.md).
+
+### UI Icon Strategy
+
+- **UI icon source**: [locked library name / custom_svg]
+- **Lock policy**: [single_library_for_new_ui_icons / custom_svg_only / library_only / user_override]
+- **Detected existing libraries**: [lucide, heroicons, phosphor, tabler, radix, none]
+- **Fallback**: [custom_svg_component / nearest_library_icon / none]
+- **Preset**: [outline-system / solid-glyph / duotone-soft / technical-line]
+- **Grid**: [24px / 20px / 15px]
+- **Stroke width**: [_px]
+- **Stroke caps / joins**: [round / square / mixed]
+- **Corner language**: [soft / crisp / geometric / playful]
+- **Color mode**: [currentColor + semantic tokens / filled semantic tokens]
+- **User override**: [none / library_only / custom_svg_only / generated_icons / raster_icons]
+
+### Custom SVG Rules
+
+- **Component API**: [match locked library props, for example `size`, `color`, `strokeWidth`, `className`]
+- **Allowed use**: [missing metaphors, aesthetic mismatch, product-specific icons]
+- **Forbidden use**: [replacing an adequate locked-library icon without reason]
+- **Token behavior**: [must inherit `currentColor` or semantic CSS variables]
+- **Role-fit policy**: [use icons only when they improve scanning or comprehension; otherwise let typography, labels, spacing, and hierarchy carry the meaning]
+- **Detail budget**: [1 primary shape + 0-2 supporting details for 16-24px UI icons; no miniature screenshots, diagrams, dashboards, or multi-object scenes]
+- **QA status**: [passed / warning / failed against ICON-USAGE.md custom SVG QA checklist]
+
+### Illustrated Icon Strategy
+
+- **Enabled for**: [landing_feature / social_preview / empty_state / onboarding / none]
+- **Preset**: [playful-sticker / 3d-object-pop / mascot-prop / custom]
+- **Format**: [svg / webp / png]
+- **Style reference**: [hero asset id or concept reference]
+- **Accent behavior**: [how brand accent appears]
+- **Avoid for**: [navigation, form_controls, table_actions, toolbar_controls]
+
+## Visual Assets
+
+> Populated when Capability 6 (Visual Asset Generation) runs. See [references/VISUAL-ASSET-GENERATION.md](../references/VISUAL-ASSET-GENERATION.md).
+
+- **Manifest path**: [for example `design-assets.manifest.json` or `public/design-assets/manifest.json`]
+- **Storage directory**: [for example `public/design-assets/`]
+- **Concept ID**: [stable id for this direction]
+- **Style seed**: [shared seed / reference chain id]
+- **Imagery strategy**: [photography vs soft illustration vs abstract texture; hero vs restrained B-end]
+- **Visual family preset**: [3d-object-pop / playful-sticker / warm-organic / custom]
+- **Visual family rules**: [line language, perspective, material, lighting, shadow, background mode/complexity, detail density]
+- **Subject policy**: [allowed subjects and forbidden subjects]
+- **Composition system**: [focal position, crop behavior, whitespace position, safe zones]
+- **Manifest validation**: [passed / warning / failed; date; issue summary]
+
+| ID | Role | Path | Aspect | Source Size | Target Display | Background | Alt | Parent ID | Style Ref | License |
+|----|------|------|--------|-------------|----------------|------------|-----|-----------|-----------|---------|
+| [hero-example-v1] | hero | [/design-assets/hero-example-v1.webp] | [16:9] | [1920×1080, 384KB] | [42vw desktop] | [scene] | [accessible description] | [—] | [—] | [ai-generated] |
+| [feature-example-v1] | feature | [/design-assets/feature-example-v1.webp] | [3:2] | [1200×800, 220KB] | [card media] | [scene/card] | [accessible description] | [—] | [hero-example-v1] | [ai-generated] |
+| [icon-example-v1] | icon_illustrated | [/design-assets/icon-example-v1.webp] | [1:1] | [512×512, 90KB] | [96px] | [transparent] | [accessible description] | [—] | [hero-example-v1] | [ai-generated] |
+
+### Asset Placement Strategy
+
+| Asset ID | Slot | Purpose | Size Rule | Copy / CTA Relationship | Responsive Behavior | Avoid Overlap |
+|----------|------|---------|-----------|--------------------------|---------------------|---------------|
+| [hero-example-v1] | [hero_visual] | [emotional_anchor] | [42vw desktop / 80vw mobile] | [subject points toward CTA; left 40% safe for H1] | [right on desktop, below copy on mobile] | [h1, CTA, nav] |
+| [feature-example-v1] | [feature_card] | [explain_feature] | [3:2 card media] | [supports adjacent feature copy] | [above text on mobile] | [button row] |
+
+### Review Surface
+
+- **Review artifact**: [contact sheet / mood board wall / placement preview path]
+- **Combination selected**: [for example `A2 hero + B1 empty state + C3 icon set`]
+- **Rejected combinations**: [what did not work and why]
+- **Safe-zone notes**: [copy/CTA clear areas]
+
+### Regeneration notes
+
+- [Which assets are preview-only vs final resolution]
+- [User adjustment history: e.g., hero v2 warmer, parent_id hero-v1]
 
 ## Aesthetic Summary
 

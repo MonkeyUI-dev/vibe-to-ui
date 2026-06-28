@@ -2,13 +2,13 @@
 
 [中文](README.zh_CN.md)
 
-> Agent Skills for [MonkeyUI](https://github.com/MonkeyUI-dev/MonkeyUI) — helping vibe coding developers build professional-grade UIs without designer expertise.
+> Agent Skills for vibe coding developers — build professional-grade UIs without designer expertise.
 
 ---
 
 ## What is vibe-to-ui?
 
-**vibe-to-ui** is a collection of [Agent Skills](https://agentskills.io) built for MonkeyUI's local, single-project mode. These skills give AI coding agents (Claude Code, GitHub Copilot, Cursor, etc.) specialized design knowledge so they can help developers who code by feel — but don't speak fluent design. Beyond static visual tokens, vibe-to-ui also extracts and generates **motion systems** — defining how, when, and why UI elements should animate to communicate meaning and product personality. The agent works collaboratively — all design exploration happens through standalone previews and concept pages, and only touches your project when you confirm a direction and ask to apply it.
+**vibe-to-ui** is an [Agent Skills](https://agentskills.io) package that gives AI coding agents (Claude Code, GitHub Copilot, Cursor, etc.) specialized design knowledge so they can help developers who code by feel — but don't speak fluent design. Beyond static visual tokens, vibe-to-ui also extracts and generates **motion systems** — defining how, when, and why UI elements should animate to communicate meaning and product personality. With **visual asset generation**, it can produce hero illustrations, feature imagery, and empty-state art aligned to your product and confirmed design direction (via your agent's image tool or MCP). The agent works collaboratively — all design exploration happens through standalone previews and concept pages, and only touches your project when you confirm a direction and ask to apply it.
 
 ---
 
@@ -30,9 +30,9 @@ We believe: when more developers can carry the beauty that has moved them into w
 
 ## Skills
 
-A design companion for vibe coding developers. Turns screenshots, mood images, and gut feelings into structured design systems, motion languages, and layout blueprints — and, by default, uses the user's product background to derive **3 visual directions** before formalizing tokens, so the result is visible and exploratory instead of prematurely locked. Only applies designs to your project when you're ready.
+A design companion for vibe coding developers. Turns screenshots, mood images, and gut feelings into structured design systems, motion languages, Consumer app UIUX systems, and layout blueprints — and, by default, uses the user's product background to derive **3 visual directions** before formalizing tokens, so the result is visible and exploratory instead of prematurely locked. Only applies designs to your project when you're ready.
 
-**Five core capabilities:**
+**Six core capabilities:**
 
 #### 1. Design System Extraction
 *For users who have a complete design to restore.*
@@ -45,6 +45,7 @@ Provide a screenshot of a UI or design mockup. The skill extracts its complete "
 - **Border radius** — per-component radius strategy
 - **Shadows** — elevation system
 - **Motion** — tempo, easing, density, triggers, reduced-motion fallback
+- **Consumer app UIUX** — navigation model, primary loop, state matrix, tactile feedback, and mobile-first preview requirements when the page type is a C-end app surface
 
 Outputs tokens in three formats: **CSS custom properties**, **Tailwind CSS config**, and a **JSON token file** — applied to your project only after you confirm the preview.
 
@@ -60,7 +61,7 @@ Not sure what style you want? Or do you already have a reference image, but want
 3. The skill translates both visual and sonic signals into design qualities — tempo, timbre, and rhythm become energy, warmth, and texture in your UI
 4. Explores **typography as its own axis** across the 3 directions — heading/body pairing, readability posture, hierarchy feel, and fallback stack
 5. Synthesizes **3 distinct design concepts** — each with its own visual style **and motion personality** — and, when a concrete reference exists, keeps them recognizably descended from that reference's structure and page archetype
-6. Generates **standalone concept preview pages** with hover transitions and entrance animations, plus **mood boards** for each direction
+6. Generates **standalone concept preview pages** with page-type appropriate transitions and entrance animations, plus **mood boards** for each direction. For Consumer app surfaces, previews include navigation, a core screen, a detail/create flow, a non-happy state, and tactile app motion.
 7. You react, compare, and choose — or mix elements from different concepts, including typography across directions
 8. The chosen direction is formalized into a full design system with motion tokens and a preview page
 9. Once confirmed, the design is applied to your project (via Capability 5)
@@ -97,6 +98,37 @@ After exploring and choosing a design direction — whether from concept preview
 - Generates token files in your preferred format (CSS, Tailwind, JSON)
 - Integrates tokens into your project, respecting existing conventions
 - Presents a summary of changes for your review
+- Optionally deploys visual assets to `public/design-assets/` with a manifest (see Capability 6)
+
+#### 6. Visual Asset Generation
+*For users who want product-aligned imagery, not only tokens.*
+
+After a design direction exists (or during exploration), the skill compiles **StyleContext** from your product background, page type, tokens, and aesthetic guide, then drives your agent's **image generation tool** (a host-provided tool or MCP server) to create:
+
+- **Hero, feature, empty-state, and OG/social** illustrations (P0)
+- **Consistent visual families** per concept — hero first, then sibling assets with style reference
+- **Role-based icon strategy** — one locked UI icon library for chrome, custom SVG fallback, generated illustrated icons for marketing/social surfaces
+- **Review + placement workflow** — contact sheets, mood board walls, placement previews, safe zones, and manifest validation before Apply
+- **`design-assets.manifest.json`** — paths, roles, alt text, regeneration lineage
+- **Mood boards with real `<img>` assets** instead of CSS placeholders when tools are available
+- **Apply with assets** — copies into `public/design-assets/` and wires your components
+
+UI navigation icons still use a single locked icon library or custom SVG ([ICON-USAGE.md](references/ICON-USAGE.md)). Expressive feature icons, 3D object icons, and social visuals can use generated SVG/PNG/WebP families when they support memorability and sharing. This phase focuses on image-based assets only.
+
+See [references/VISUAL-ASSET-GENERATION.md](references/VISUAL-ASSET-GENERATION.md) and the E2E walkthrough [assets/examples/visual-asset-e2e.md](assets/examples/visual-asset-e2e.md).
+
+#### Consumer App UIUX scenario
+
+When the target is a Consumer app / C-end app, vibe-to-ui treats it as a first-class development scene, not just a page type label:
+
+- Classifies platform, lifecycle stage, primary loop, navigation model, gesture model, and state risk
+- Requires previews to show navigation, home/feed or main task, detail/create flow, non-happy state, and touch-oriented motion
+- Adds a state matrix for loading, empty, error, offline, and success behavior
+- Keeps generated assets in product-safe slots such as onboarding, empty states, badges, achievements, and share cards
+- Preserves vector UI chrome icons while allowing expressive illustrated assets where they improve memory and motivation
+
+See [references/CONSUMER-APP-DESIGN.md](references/CONSUMER-APP-DESIGN.md) and the E2E walkthrough [assets/examples/consumer-app-e2e.md](assets/examples/consumer-app-e2e.md).
+
 
 #### Composing capabilities
 
@@ -164,9 +196,55 @@ git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-t
 # Apply a confirmed design to your project
 "I like Concept B — apply this design to my project"
 
+
+# Generate visuals for a concept (exploration — does not modify your project)
+"Generate hero and feature illustrations for Concept B that match our product"
+
+# Generate an expressive illustrated icon family
+"Create 3D feature icons for Concept B, but keep app navigation icons in Lucide"
+
+# Explore a Consumer app experience
+"Design 3 visual/UIUX directions for my habit-tracking consumer app, including onboarding, tabs, empty state, and tactile motion"
+
+# Apply design tokens and images together
+"Apply Concept B with assets to my Next.js app"
+
 # Full pipeline
 "I have some inspiration images and a music clip — let's explore a style, then apply it to this layout I found"
 ```
+
+
+---
+
+## Visual assets: tools and environment
+
+vibe-to-ui is **instructions-only** — it does not bundle API keys or call image APIs itself. Your agent uses host tools or MCP.
+
+The skill passively records visual decisions in `DESIGN.md` when available: locked UI icon library, custom SVG fallback, illustrated icon preset, visual family rules, manifest paths, confirmed assets, and regeneration notes.
+
+### Host image tool (default)
+
+Use the built-in image generation tool provided by your agent host when the skill triggers Capability 6. Save outputs beside mood board HTML during exploration; copy to `public/design-assets/` on Apply.
+
+### Optional MCP / API providers
+
+Set environment variables in your shell or agent config (never commit secrets):
+
+| Variable | Purpose |
+|----------|---------|
+| `VIBE_IMAGE_PROVIDER` | `host` (default), `openai`, `flux`, `ideogram`, `recraft` |
+| `OPENAI_API_KEY` | OpenAI image models |
+| `BFL_API_KEY` | Flux API |
+| `IDEOGRAM_API_KEY` | Ideogram |
+| `RECRAFT_API_KEY` | Recraft |
+
+Expose MCP tools such as `generate_image(prompt, width, height, reference_path?)` that write files to disk and return paths.
+
+### Cost and resolution
+
+- **Exploration**: preview size (~960px long edge) to limit cost
+- **Apply**: regenerate at final size (e.g. 1920px hero) when the user confirms
+- **Retries**: at most 2 per asset, then CSS placeholder fallback
 
 ---
 
@@ -181,11 +259,19 @@ git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-t
 │   ├── LAYOUT-ANALYSIS.md            # Layout analysis and ASCII blueprint guide
 │   ├── MOTION-SYSTEM.md              # Motion system extraction and generation guide
 │   ├── AESTHETIC-ANALYSIS.md         # Aesthetic soul capture methodology
+│   ├── CONTEXT-COLLABORATION.md      # DESIGN.md collaboration protocol
 │   ├── ICON-USAGE.md                 # Icon component guidelines
 │   ├── MOOD-BOARD.md                 # Mood board generation guide
+│   ├── CONSUMER-APP-DESIGN.md        # Consumer app / C-end UIUX scenario guide
+│   ├── VISUAL-ASSET-GENERATION.md    # Hero/illustration generation + manifest
 │   └── APPLY-DESIGN.md              # Apply confirmed design to project guide
 └── assets/
-    └── design-system-template.md     # Standard output template for design tokens
+    ├── DESIGN.md                     # Persistent product/design context template
+    ├── design-system-template.md     # Standard output template for design tokens
+    └── examples/
+        ├── visual-asset-e2e.md       # Concept → mood board → apply walkthrough
+        ├── consumer-app-e2e.md       # Consumer app UIUX → preview → apply walkthrough
+        └── design-assets.manifest.example.json
 ```
 
 Following [Agent Skills progressive disclosure](https://agentskills.io/specification): only `SKILL.md` metadata loads at startup (~100 tokens). Reference files load on demand, keeping context lean.
@@ -204,4 +290,4 @@ Claude Code · GitHub Copilot · Cursor · Gemini CLI · TRAE · and more.
 
 MIT — see [LICENSE](LICENSE).
 
-Built with ❤️ by [MonkeyUI](https://github.com/MonkeyUI-dev/MonkeyUI).
+Built with ❤️ by [MonkeyUI-dev](https://github.com/MonkeyUI-dev).

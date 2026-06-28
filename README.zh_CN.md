@@ -1,12 +1,12 @@
 # vibe-to-ui
 
-> [MonkeyUI](https://github.com/MonkeyUI-dev/MonkeyUI) 的 Agent Skills 技能包 —— 帮助 vibe coding 开发者无需设计师经验也能打造专业级 UI。
+> 面向 vibe coding 开发者的 Agent Skills 技能包 —— 无需设计师经验也能打造专业级 UI。
 
 ---
 
 ## vibe-to-ui 是什么？
 
-**vibe-to-ui** 是一套专为 MonkeyUI 本地单项目模式构建的 [Agent Skills](https://agentskills.io) 技能集合。这些技能为 AI 编程助手（Claude Code、GitHub Copilot、Cursor 等）注入专业的设计知识，帮助那些凭感觉写代码、但不擅长设计语言的开发者。除了静态视觉 Token，vibe-to-ui 还能提取和生成**动效系统** —— 定义 UI 元素何时、如何以及为何需要动画，以传达含义和产品气质。Agent 采用协作模式工作 —— 所有设计探索都通过独立的预览页面和概念稿进行，只有当你确认方向并要求应用时，才会修改你的项目。
+**vibe-to-ui** 是一套 [Agent Skills](https://agentskills.io) 技能包，为 AI 编程助手（Claude Code、GitHub Copilot、Cursor 等）注入专业的设计知识，帮助那些凭感觉写代码、但不擅长设计语言的开发者。除了静态视觉 Token，vibe-to-ui 还能提取和生成**动效系统** —— 定义 UI 元素何时、如何以及为何需要动画，以传达含义和产品气质。通过**视觉素材生成**，还可根据产品背景与已确认的设计方向生成 Hero 插画、功能配图与空状态插图（由 Agent 的图像工具或 MCP 调用）。Agent 采用协作模式工作 —— 所有设计探索都通过独立的预览页面和概念稿进行，只有当你确认方向并要求应用时，才会修改你的项目。
 
 ---
 
@@ -28,9 +28,9 @@ vibe-to-ui 是这把翻译工具。把一张照片、一段录音、一种说不
 
 ## 技能
 
-面向 vibe coding 开发者的设计助手。将截图、情绪图片和直觉感受转化为结构化的设计系统、动效语言与布局蓝图 —— 所有探索都通过独立的预览页面协作完成，只有当你准备好时才会将设计应用到项目。
+面向 vibe coding 开发者的设计助手。将截图、情绪图片和直觉感受转化为结构化的设计系统、动效语言、C 端 App UIUX 系统与布局蓝图 —— 所有探索都通过独立的预览页面协作完成，只有当你准备好时才会将设计应用到项目。
 
-**四大核心能力：**
+**六大核心能力：**
 
 #### 1. 设计系统提取
 *适用于：拥有完整设计稿需要还原风格的用户。*
@@ -43,6 +43,7 @@ vibe-to-ui 是这把翻译工具。把一张照片、一段录音、一种说不
 - **圆角** —— 各组件的圆角策略
 - **阴影** —— 层级投影系统
 - **动效** —— 节奏、缓动曲线、动效密度、触发方式、减少动画适配
+- **C 端 App UIUX** —— 当页面类型是 Consumer app 时，补充导航模型、主循环、状态矩阵、触感反馈与移动端优先预览要求
 
 输出三种格式的设计 Token：**CSS 自定义属性**、**Tailwind CSS 配置**和 **JSON Token 文件** —— 仅在你确认预览后才应用到项目。
 
@@ -54,7 +55,7 @@ vibe-to-ui 是这把翻译工具。把一张照片、一段录音、一种说不
 1. 说明你的项目用途和目标用户
 2. 上传任意灵感图片（风景、物体、其他应用 —— 任何东西皆可）**或音乐录音**（音频片段、哼唱旋律、歌曲片段）
 3. 技能将视觉信号与音频信号一同转化为设计特质 —— 节奏、音色和韵律会映射为 UI 中的活力感、温度感和质感
-4. 综合生成 **3 个不同的设计概念** —— 每个都有独立的视觉风格**和动效个性** —— 并为每个概念生成**独立概念预览页面**（带悬停过渡和入场动画）以及**情绪看板**
+4. 综合生成 **3 个不同的设计概念** —— 每个都有独立的视觉风格**和动效个性** —— 并为每个概念生成**独立概念预览页面**（使用符合页面类型的过渡和入场动画）以及**情绪看板**；如果是 C 端 App，会包含导航、核心屏、详情/创建流程、非 happy path 状态与触感动效
 5. 你进行反馈、比较与选择 —— 或混合不同概念的元素
 6. 确定方向后，将其正式整理为包含动效 Token 的完整设计系统及预览页面
 7. 确认后，将设计应用到你的项目（通过能力 5 实现）
@@ -70,7 +71,19 @@ vibe-to-ui 是这把翻译工具。把一张照片、一段录音、一种说不
 - **HTML 骨架** —— 干净的标记结构，可直接添加样式
 - **组件树** —— 所有 UI 部件的层级拆解
 
-#### 4. 应用设计到项目
+#### 4. 情绪看板生成
+*适用于：在锁定 Token 之前需要可分享视觉方向的用户。*
+
+将灵感与审美信号整理为**独立 HTML 情绪看板**：
+
+- 将参考 curated 成连贯视觉叙事，而非素材堆砌
+- 展示色彩、字体气质、材质与动效暗示
+- 与页面原型保持一致，避免偏离产品形态
+- 支持多方向并排对比
+
+生成工具可用时，优先嵌入**真实生成配图**；否则回退 CSS 占位（见 [MOOD-BOARD.md](references/MOOD-BOARD.md)）。
+
+#### 5. 应用设计到项目
 *适用于：已确认设计方向并准备应用的用户。*
 
 在探索并选择了设计方向之后 —— 无论来自概念预览、情绪看板还是设计系统提取 —— 该能力将最终确认的设计系统应用到你的实际项目：
@@ -79,7 +92,34 @@ vibe-to-ui 是这把翻译工具。把一张照片、一段录音、一种说不
 - 审查项目的现有框架、CSS 方案和文件规范
 - 以你偏好的格式（CSS、Tailwind、JSON）生成 Token 文件
 - 将 Token 集成到项目中，尊重现有的项目规范
+- 可选：**Step 3.5** 将 `public/design-assets/` 与 manifest 写入项目
 - 展示变更摘要供你审阅
+
+#### 6. 视觉素材生成
+*适用于：需要与产品、设计方向一致的配图，而不仅是 Token 的用户。*
+
+在探索或确认方向后，技能会组装 **StyleContext**（产品、页面类型、Token、美学指南），通过 Agent 的**图像生成工具**或 MCP 生成：
+
+- **Hero、功能配图、空状态、OG 图**
+- 同一概念下**视觉族一致**（先生成 Hero，再以其为风格参考）
+- **按角色区分图标策略** —— UI 小图标锁定单一图标库，自定义 SVG 作为 fallback，营销/社媒图标可生成插画族
+- **Review + Placement 流程** —— contact sheet、mood board wall、placement preview、安全区与 manifest 校验后再 Apply
+- **`design-assets.manifest.json`** —— 路径、角色、alt、迭代 lineage
+- 探索阶段嵌入情绪看板；Apply 时复制到 `public/design-assets/`
+
+导航级 UI 图标仍使用单一锁定图标库或自定义 SVG；功能卖点图标、3D 物件图标、社媒传播图可使用生成式 SVG/PNG/WebP 视觉族。详见 [ICON-USAGE.md](references/ICON-USAGE.md)、[VISUAL-ASSET-GENERATION.md](references/VISUAL-ASSET-GENERATION.md) 与 [visual-asset-e2e.md](assets/examples/visual-asset-e2e.md)。
+
+#### C 端 App UIUX 场景
+
+当目标是 Consumer app / C 端 App 时，vibe-to-ui 会将其作为一等开发场景处理，而不只是页面类型标签：
+
+- 识别平台、生命周期阶段、主循环、导航模型、手势模型与状态风险
+- 预览必须覆盖导航、首页/feed 或核心任务屏、详情/创建流程、非 happy path 状态与触感动效
+- 输出 loading、empty、error、offline、success 的状态矩阵
+- 生成素材默认放在 onboarding、空状态、徽章/成就、分享卡等产品内安全位置
+- UI chrome 图标保持矢量和可主题化；表达性插画素材只用于能提升记忆点和动机的位置
+
+详见 [CONSUMER-APP-DESIGN.md](references/CONSUMER-APP-DESIGN.md) 与完整 E2E 示例 [consumer-app-e2e.md](assets/examples/consumer-app-e2e.md)。
 
 #### 能力组合
 
@@ -147,9 +187,53 @@ git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-t
 # 将确认的设计应用到项目
 "我喜欢概念 B —— 把这个设计应用到我的项目"
 
+# 为概念生成配图（探索阶段，不修改项目）
+"为概念 B 生成与产品一致的 Hero 和功能配图"
+
+# 生成表达性图标族
+"为概念 B 生成 3D 功能图标，但 App 导航图标继续使用 Lucide"
+
+# 探索 C 端 App 体验
+"为我的习惯追踪 App 设计 3 个视觉/UIUX 方向，包含 onboarding、底部导航、空状态和触感动效"
+
+# 同时应用 Token 与图片
+"把概念 B 的设计和素材一起应用到我的 Next.js 项目"
+
 # 完整流程
 "我有一些灵感图片和一段音乐片段 —— 先探索风格，再将其应用到我找到的这个布局上"
 ```
+
+
+
+---
+
+## 视觉素材：工具与环境变量
+
+vibe-to-ui **仅包含指令文档**，不内置 API Key，也不直接调用图像 API。由 Agent 使用宿主工具或 MCP。
+
+当项目中存在 `DESIGN.md` 时，技能会被动记录视觉决策：锁定的 UI 图标库、自定义 SVG fallback、插画图标 preset、视觉族规则、manifest 路径、已确认素材与迭代记录。
+
+### 宿主图像工具（默认）
+
+技能触发能力 6 时使用 Agent 宿主提供的内置图像生成工具；探索阶段保存在情绪看板旁；Apply 时复制到 `public/design-assets/`。
+
+### 可选 MCP / API
+
+在 shell 或 Agent 配置中设置环境变量（勿提交到仓库）：
+
+| 变量 | 说明 |
+|------|------|
+| `VIBE_IMAGE_PROVIDER` | `host`（默认）、`openai`、`flux`、`ideogram`、`recraft` |
+| `OPENAI_API_KEY` | OpenAI 图像模型 |
+| `BFL_API_KEY` | Flux API |
+| `IDEOGRAM_API_KEY` | Ideogram |
+| `RECRAFT_API_KEY` | Recraft |
+
+### 成本与分辨率
+
+- **探索**：预览尺寸（长边约 960px）以控制成本
+- **Apply**：用户确认后按最终尺寸重新生成（如 Hero 1920px）
+- **重试**：每张图最多 2 次，失败后回退 CSS 占位
 
 ---
 
@@ -164,11 +248,19 @@ git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-t
 │   ├── LAYOUT-ANALYSIS.md            # 布局分析与 ASCII 蓝图指南
 │   ├── MOTION-SYSTEM.md              # 动效系统提取与生成指南
 │   ├── AESTHETIC-ANALYSIS.md         # 美学灵魂捕获方法论
+│   ├── CONTEXT-COLLABORATION.md      # DESIGN.md 协作协议
 │   ├── ICON-USAGE.md                 # 图标组件指南
 │   ├── MOOD-BOARD.md                 # 情绪看板生成指南
+│   ├── CONSUMER-APP-DESIGN.md        # Consumer app / C 端 UIUX 场景指南
+│   ├── VISUAL-ASSET-GENERATION.md    # 配图生成与 manifest
 │   └── APPLY-DESIGN.md              # 将确认的设计应用到项目指南
 └── assets/
-    └── design-system-template.md     # 设计 Token 标准输出模板
+    ├── DESIGN.md                     # 持久化产品/设计上下文模板
+    ├── design-system-template.md     # 设计 Token 标准输出模板
+    └── examples/
+        ├── visual-asset-e2e.md
+        ├── consumer-app-e2e.md
+        └── design-assets.manifest.example.json
 ```
 
 遵循 [Agent Skills 渐进式披露](https://agentskills.io/specification) 原则：启动时仅加载 `SKILL.md` 元数据（约 100 个 Token），参考文件按需加载，保持上下文精简。
@@ -187,4 +279,4 @@ Claude Code · GitHub Copilot · Cursor · Gemini CLI · TRAE · 以及更多。
 
 MIT —— 详见 [LICENSE](LICENSE)。
 
-由 [MonkeyUI](https://github.com/MonkeyUI-dev/MonkeyUI) 用 ❤️ 构建。
+由 [MonkeyUI-dev](https://github.com/MonkeyUI-dev) 用 ❤️ 构建。
