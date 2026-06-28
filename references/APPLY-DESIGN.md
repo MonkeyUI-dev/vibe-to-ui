@@ -76,6 +76,7 @@ Examine the user's project to understand what exists:
 - **Framework/build tool**: React, Vue, Svelte, Next.js, Astro, plain HTML, etc.
 - **CSS approach**: Tailwind, CSS Modules, styled-components, vanilla CSS, etc.
 - **Existing design tokens**: Check for existing `tailwind.config.*`, CSS variable files, theme files, or token JSON
+- **Existing icon system**: Check `package.json`, imports, shared icon wrappers, and component conventions to identify the locked UI icon library or custom SVG pattern
 - **File conventions**: Where are styles stored? What naming patterns are used?
 
 Respect existing project conventions. Adapt the output to fit, not the other way around.
@@ -139,6 +140,35 @@ Extend or create `tailwind.config.js` / `tailwind.config.ts` with the extracted 
 
 Generate a structured `design-tokens.json` for framework-agnostic consumption.
 
+### Step 3.5: Deploy Visual Assets (when confirmed)
+
+Follow [VISUAL-ASSET-GENERATION.md](VISUAL-ASSET-GENERATION.md) when the user wants imagery in the project.
+
+1. **Choose destination** — default `public/design-assets/` (Next.js, Vite, Astro) or `static/design-assets/` (SvelteKit) or `src/assets/design-assets/` when the project has no `public/` folder. Match existing conventions from Step 2.
+
+2. **Finalize files**:
+   - Regenerate at **final resolution** if exploration used previews only
+   - Copy WebP/PNG/SVG files into the destination folder
+   - Copy or merge `design-assets.manifest.json` to project root or beside assets (document the chosen location)
+   - For illustrated icon sets, copy only confirmed assets and preserve the same `concept_id`, `style_seed`, and `visual_family_preset`
+   - Run the manifest validator; do not Apply failed entries unless the user explicitly accepts the listed issues
+
+3. **Wire components**:
+   - Update hero, feature, and empty-state components with correct public paths (`/design-assets/...`)
+   - Set `alt` from manifest entries; decorative images use `alt=""`
+   - Do not inline multi-megabyte base64 in source files
+   - Do not wire raster illustrated icons into 16–24px navigation, form, table, or toolbar controls unless the user explicitly requested image-based UI icons
+   - Use each asset's placement spec (`slot`, `purpose`, `size_rule`, `copy_safe_zone`, `responsive_behavior`) when deciding layout, crop, and size
+   - Verify the asset does not overlap H1 text, CTA controls, nav, forms, data tables, or other primary content
+
+4. **Extend design system doc** — add the Icon System and Visual Assets tables from [design-system-template.md](../assets/design-system-template.md) with live paths
+
+5. **Update DESIGN.md** — passively record `icon_system`, `illustrated_icon_system`, visual family rules, manifest path, review surface path, selected combination, placement notes, validation status, confirmed assets, and regeneration notes when `DESIGN.md` exists or is created for the workflow
+
+6. **Verify** — every manifest `path` resolves to an existing file; no broken relative links from exploration artifact folders; small UI icons still use the locked library or custom SVG strategy; production pages do not reference preview-only assets
+
+If generation tools are unavailable at apply time, apply tokens only and tell the user which manifest entries still need images.
+
 ### Step 4: Integrate Tokens into the Project
 
 Apply the generated tokens to the user's project:
@@ -147,6 +177,18 @@ Apply the generated tokens to the user's project:
 2. **Update config files** (e.g., `tailwind.config.js`) if applicable
 3. **Add font imports** if new fonts are required (Google Fonts `<link>` or `@import`)
 4. **Preserve existing styles** — merge with, don't overwrite, existing tokens unless the user explicitly asks to replace
+5. **Preserve icon consistency** — do not introduce a new icon library when an adequate locked library or custom SVG pattern already exists
+
+### Step 4.5: Consumer App Application Checks
+
+When the primary page type is Consumer app, also follow [CONSUMER-APP-DESIGN.md](CONSUMER-APP-DESIGN.md) before summarizing:
+
+- Verify the mobile viewport first, including safe-area spacing and thumb-zone placement.
+- Confirm navigation model, selected states, badges, and app chrome icons remain vector and token-colored.
+- Check the core screen, detail/create flow, and at least one non-happy state from the state matrix.
+- Validate tap target sizing, pressed/disabled/loading states, input/keyboard behavior, and reduced-motion behavior.
+- Deploy generated assets only to approved expressive slots such as onboarding, empty states, achievements, badges, or share cards.
+- If the app is responsive web, also verify the wider layout behavior after the mobile pass.
 
 ### Step 4b: Apply the Layout / Structure (when in scope)
 
