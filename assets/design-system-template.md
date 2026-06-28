@@ -43,6 +43,15 @@ Capture the actual page composition that was confirmed — not a generic header 
 | [section name] | [purpose] | [dominant / supporting, dense / open, full-bleed / constrained] | [rhythm or alignment note] |
 | [section name] | [purpose] | [...] | [...] |
 
+### Architecture Label Map
+
+If the confirmed direction includes an ASCII architecture sketch, visual thumbnail, or abbreviated layout labels, define every label in product language so the structure can be understood and applied later.
+
+| Label in sketch | Meaning in this product | Example content | Why it belongs here |
+|-----------------|-------------------------|-----------------|---------------------|
+| [label] | [semantic product meaning] | [real or assumed content] | [layout / hierarchy rationale] |
+| [label] | [...] | [...] | [...] |
+
 ### Reference Mapping (optional)
 
 - **Borrowed from structure references**: [what page organization was inherited]
@@ -371,6 +380,14 @@ export default {
     "responsiveStrategy": { "value": "[relationships that must survive small screens]" },
     "sectionOrder": [
       { "name": "[section]", "role": "[purpose]", "character": "[spatial character]" }
+    ],
+    "architectureLabels": [
+      {
+        "label": "[label in sketch]",
+        "meaning": "[semantic product meaning]",
+        "exampleContent": "[real or assumed content]",
+        "rationale": "[why this region belongs here]"
+      }
     ]
   },
   "color": {

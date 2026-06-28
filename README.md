@@ -77,7 +77,7 @@ Want a landing page to feel more relaxed, editorial, cinematic, spacious, or les
 
 The skill translates those references into transferable layout signals — content density, whitespace, hierarchy, dominant visual focus, spatial rhythm, card usage, image behavior, section transitions, interaction tempo, and responsive strategy. Non-UI inspiration is not copied literally: a coastal-road photo might become openness, wide negative space, slow rhythm, and restrained density, not "put a road photo in the hero."
 
-It then derives a product-aware **Spatial DNA** and generates **3 genuinely different standalone layout previews** before any production code changes. Each direction is comparable at the same level of detail: mini layout sketch, section order, spatial rhythm, tradeoffs, and responsive posture.
+It then derives a product-aware **Spatial DNA** and generates **3 genuinely different standalone layout previews** before any production code changes. Each direction is comparable at the same level of detail: user-readable mini layout sketch, label/content map, section order, spatial rhythm, tradeoffs, and responsive posture.
 
 #### 4. Mood Board Generation
 *For users who want a visual direction board before locking tokens.*

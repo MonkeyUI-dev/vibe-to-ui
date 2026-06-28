@@ -119,21 +119,39 @@ The grid governs the *final rendered page*, not the agent's reasoning:
 
 However, **do produce a lightweight, disposable structure sketch before generating the HTML**. Jumping straight from prose Spatial DNA to a final page tends to drift into generic, templated layouts. A quick throwaway sketch forces the spatial decisions to become concrete and gives you something to check the render against. It is a scratchpad, not a spec — rough values are intentional, and it is discarded once the preview exists.
 
-Use whichever sketch form fits the direction:
+Use whichever sketch form fits the direction, but make the sketch understandable to a non-designer. The sketch is not useful if it only contains internal shorthand such as `copy`, `cards`, `specimen`, or `story` without explaining what those blocks mean in the user's product.
 
-**ASCII block sketch** — for reasoning about section order, nesting, and dominant regions:
+**User-readable ASCII architecture sketch** — for reasoning about section order, nesting, and dominant regions:
 
 ```
 ┌──────────────────────────────────────┐
-│ NAV        [logo]            [link x3] │
+│ 01 NAVIGATION                         │
+│    brand mark              key links  │
 ├──────────────────────────────────────┤
-│ HERO  (asymmetric 60/40)               │
-│   [big headline]      [inset visual]   │
+│ 02 HERO  (asymmetric 60/40)            │
+│    promise copy        product visual  │
 ├──────────────────────────────────────┤
-│ FEATURES (3-up, equal weight)          │
-│   [card] [card] [card]                 │
+│ 03 LEARNING MODES (3-up cards)         │
+│    collect words | review | practice   │
 └──────────────────────────────────────┘
 ```
+
+Every ASCII sketch must be paired with a short legend or content map:
+
+| Label in sketch | Meaning in this product | Example content | Why it belongs here |
+|-----------------|-------------------------|-----------------|---------------------|
+| `promise copy` | Main value proposition | "Collect each word into a quiet place" | Establishes the emotional thesis before details |
+| `product visual` | Screenshot, illustration, or product specimen | Vocabulary card / learning sheet | Grounds the abstract mood in the actual product |
+| `learning modes` | User-facing ways to use the product | Collect, review, practice | Turns the page from mood into product understanding |
+
+Rules for sketch labels:
+
+- Prefer semantic product labels (`learning modes`, `word specimen`, `practice flow`) over generic labels (`cards`, `image`, `copy`).
+- If a short label is necessary to fit the sketch, define it in the legend immediately below.
+- Number the major sections (`01`, `02`, `03`) so the reading order is obvious.
+- Use the user's language when possible. If the product/content is Chinese, labels may be Chinese or bilingual.
+- Avoid unexplained abbreviations such as `idx`, `CTA`, `specimen`, or `copy` unless the legend defines them.
+- Do not let the sketch become purely decorative ASCII. It must explain what content lives in each region and why that region exists.
 
 **Loose proportion table** — for reasoning about relative weight and rhythm (±10–15% is fine; the goal is spatial feel, not pixel replication):
 
@@ -201,7 +219,8 @@ For each of the 3 directions, provide the same comparison unit:
 
 - **Best for**: [product goal / audience / page type fit]
 - **Spatial DNA**: [density, whitespace, hierarchy, rhythm, focus]
-- **Mini layout sketch**: [ASCII block sketch or loose proportion table]
+- **Mini layout sketch**: [user-readable ASCII architecture sketch or loose proportion table]
+- **Sketch legend / content map**: [what each label means in the user's product, with example content]
 - **Section order**: [top-to-bottom composition]
 - **Key layout decisions**: [3-5 bullets]
 - **Tradeoffs / risks**: [what this direction makes harder]
@@ -226,16 +245,20 @@ For each direction, generate a standalone preview artifact before modifying the 
 All 3 previews should have equal structural fidelity:
 
 - each preview shows its own mini layout sketch or visual layout thumbnail
+- each preview includes a legend or content map that explains every non-obvious sketch label
 - each preview shows its own section order
 - each preview explains its own spatial rhythm and density
 - each preview states its own tradeoffs
 - no preview should be merely a color/style card while another is the only real layout
+- no preview should rely on unexplained internal shorthand that leaves the user guessing what the architecture means
 
 The preview should make visible:
 
 - section order and rhythm
 - density and whitespace
 - hierarchy and focal points
+- semantic meaning of each major region
+- example real content or assumptions for each major region
 - image or media behavior
 - card or surface logic
 - motion and interaction tempo when relevant
@@ -254,8 +277,12 @@ After rendering, inspect the output as a designer would. Revise if the result:
 - ignores the product's required content or task flow
 - has a mood that conflicts with the page type
 - makes all three directions feel too similar
+- uses labels that only the agent understands, such as unexplained `copy`, `cards`, `idx`, `specimen`, or `CTA`
+- lacks a legend/content map that tells the user what each architecture block means
 - uses decorative spacing that harms clarity
 - fails on smaller screens
+
+If the architecture sketch is unclear, revise the labels first. The user should be able to answer, "What content goes here, why is it here, and how do I read this page?" without needing to infer the agent's shorthand.
 
 State what changed after review. The final output should explain why the spatial direction fits both the user's feeling and the product surface.
 
