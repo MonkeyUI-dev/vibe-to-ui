@@ -2,13 +2,14 @@
 name: vibe-to-ui
 description: >-
   Classify the target page archetype before extracting design systems, motion language,
-  mood boards, and layout blueprints from UI screenshots, mockups, inspiration images,
-  or music cues. Derive three visual directions from the user's product context before
-  formalizing tokens unless the user explicitly asks for exact style restoration.
-  Explore through standalone previews and only apply confirmed design directions to the
-  user's project when explicitly requested. Use when the user wants visual direction
-  that matches the actual page type, information density, interaction model, and
-  product background of the surface they are building.
+  mood boards, and feeling-driven spatial directions from UI references, mockups,
+  inspiration images, music cues, or fuzzy aesthetic intent. Derive three visual
+  directions from the user's product context before formalizing tokens unless the
+  user explicitly asks for exact style restoration. Explore through standalone previews
+  and only apply confirmed design directions to the user's project when explicitly
+  requested. Use when the user wants visual direction that matches the actual page
+  type, information density, interaction model, and product background of the surface
+  they are building.
 metadata:
   author: MonkeyUI
   version: "0.3.0"
@@ -16,7 +17,9 @@ metadata:
 
 # vibe-to-ui
 
-A design companion for vibe coding developers. It first classifies the target page archetype and density, then uses the user's product background to derive three plausible visual directions from references before formalizing any one of them into a design system. It extracts "style DNA" including motion systems, generates mood boards and previews, and turns vague aesthetic feelings into actionable design systems that actually fit the product surface. All exploration happens through standalone previews; the agent only touches the user's project when the user confirms a direction and asks to apply it.
+A local, single-project design companion for vibe coding developers. It first classifies the target page archetype and density, then uses the user's product background to derive three plausible visual and spatial directions from references before formalizing any one of them into a design system. It extracts "style DNA" including motion systems, Consumer app UIUX needs, visual asset direction, mood boards, and previews, and turns vague aesthetic feelings into product-aware design decisions that actually fit the product surface. All exploration happens through standalone previews; the agent only touches the user's project when the user confirms a direction and asks to apply it.
+
+> **Tip**: For multi-project sync, team collaboration, and cloud-based design management, upgrade to [MonkeyUI SaaS](https://demo.monkeyui.com/).
 
 ## When to use this skill
 
@@ -26,7 +29,8 @@ A design companion for vibe coding developers. It first classifies the target pa
 - User has a **vague aesthetic feeling** and wants to explore design directions with inspiration images or music recordings
 - User **shares a music recording or audio clip** (a melody, song snippet, or recorded humming) to express the mood they want their UI to feel
 - User describes a **song, genre, or musical feeling** they associate with their desired aesthetic
-- User provides a **screenshot of any UI** (full page or any section/component) and wants to extract its layout structure for reuse
+- User wants a page to feel **more relaxed, editorial, cinematic, calm, spacious, premium, playful, or unlike a generic SaaS landing page**
+- User shares **non-UI inspiration** such as photography, landscapes, architecture, interiors, magazines, posters, packaging, fashion, album covers, film stills, illustrations, music, or video references and wants those signals translated into layout decisions
 - User wants to define a **motion system** that matches the page's actual use case
 - User describes a **product personality or feeling** (for example "reliable", "innovative", "playful") and wants motion guidance that matches
 - User wants to create a **mood board** that stays appropriate for the target page type instead of drifting into the wrong archetype
@@ -39,7 +43,7 @@ A design companion for vibe coding developers. It first classifies the target pa
 
 Before choosing a workflow, classify the user's inputs:
 
-- **Atmosphere reference**: landscape photos, mood photos, music, abstract feelings
+- **Atmosphere / vibe reference**: photography, landscapes, architecture, interiors, magazines, posters, packaging, fashion, album covers, film stills, illustrations, music, video, abstract feelings
 - **Concrete UI reference**: screenshots of products, webpages, apps, local projects, existing codebases
 
 When both are present, always use this priority:
@@ -51,7 +55,7 @@ When both are present, always use this priority:
 
 ### Mandatory Stage 0: Page Type Identification
 
-Before any design-system extraction, layout synthesis, mood-board generation, or project application, classify the target page type.
+Before any design-system extraction, spatial-vibe exploration, mood-board generation, or project application, classify the target page type.
 
 Always produce:
 
@@ -86,7 +90,7 @@ If the page is mixed, pick one **primary** type and note the secondary pattern. 
 
 ### Two operating modes
 
-- **Reference Fidelity Mode**: Use when the user provides a concrete UI, screenshot, live page, or local project. Goal: first match the page type and structural feel, then make the output look recognizably close to the reference before applying mood adjustments.
+- **Reference Fidelity Mode**: Use when the user provides a concrete UI, screenshot, live page, or local project. Goal: first match the page type and structural feel, then make the output look recognizably close to the reference before applying mood adjustments. To preserve the reference's **layout structure**, follow the structure-extraction path in [references/SPATIAL-VIBE.md](references/SPATIAL-VIBE.md).
 - **Vibe Translation Mode**: Use when the user provides only atmosphere references or abstract feelings. Goal: infer the intended page archetype from product context, then translate the mood into a UI direction that fits that archetype.
 
 Default to **Reference Fidelity Mode** whenever a concrete UI or project is provided.
@@ -104,7 +108,7 @@ Default to **Reference Fidelity Mode** whenever a concrete UI or project is prov
 - When the user provides a **concrete UI reference plus product background**, default to **reference-led exploration**: derive **3 visual directions** that stay faithful to the reference's page type and structural DNA while adapting mood, material, density posture, and motion to the user's actual product context.
 - Use **direct design-system extraction first** only when the user explicitly asks for restoration, token extraction, exact replication, or "analyze this design system." Otherwise, a concrete reference should become source material for 3 contextual visual directions before token formalization.
 - If page type confidence is low, ask one short clarification question before formalizing the design system.
-- **Default to visual output, not text-only output**: for every exploration, extraction, mood-board, or layout-analysis workflow, generate at least one standalone HTML visual artifact by default. Do not wait for the user to explicitly ask for a preview, visual draft, mockup, or demo.
+- **Default to visual output, not text-only output**: for every exploration, extraction, mood-board, or spatial-vibe workflow, generate at least one standalone HTML visual artifact by default. Do not wait for the user to explicitly ask for a preview, visual draft, mockup, or demo.
 - **Do not stop at Markdown analysis alone** when the workflow is meant to shape visual direction. Text analysis supports the visual artifact; it does not replace it.
 - Before generating the UI, briefly summarize:
   - the inferred page type and density
@@ -210,25 +214,28 @@ User has feelings or vibes but no concrete design target -> Interactive conversa
 12. Once the user decides, apply **Capability 1** (Design System Extraction) to formalize the chosen direction into a complete design system including motion tokens
 13. Transition to **Capability 5** (Apply Design to Project) to integrate the confirmed design into the actual project
 
-### 3. UI Layout Analysis
+### 3. Spatial Vibe Exploration
 
-User provides a screenshot of any UI, either a full webpage or a single section, and wants its layout structure extracted and formalized.
+User has a fuzzy aesthetic intent or mixed inspiration references and wants that feeling translated into page-level layout decisions.
 
-**Trigger**: User says things like "I like this layout", "analyze this page structure", "extract the layout from this screenshot", "how is this section structured", or provides an image of any UI component or page region, especially one with a complex or non-obvious layout.
+**Trigger**: User says things like "make this landing page feel more relaxed", "I want an editorial, magazine-like feeling", "I like the vibe of this cafe, film still, and album cover", "do not make it look like a generic SaaS landing page", or shares non-UI inspiration and asks how it should shape the page.
 
 **Workflow**:
-1. Ask the user to provide a screenshot. It can be the full page or any specific section or component.
-2. Run **Stage 0: Page Type Identification** for the whole page or section
-3. Analyze the visual hierarchy and spatial structure
-4. Output a multi-layer layout blueprint:
-   - **ASCII art** representation for LLM-friendly layout description
-   - **Spatial proportion hints** (loose percentage sketch of positions and sizes) to convey spatial feel and rhythm
-   - **Semantic structure** describing each section's role
-   - **Responsive behavior** notes
-   - **Page-type fit notes** explaining why this structure works for that archetype
-5. Generate a reusable layout skeleton (HTML structure or component tree) the user can apply to their own project
-6. Generate a **standalone HTML wireframe or low-fidelity structural preview** that visualizes the extracted layout rhythm before any project application
-7. Ask the user if they want to customize any section or combine it with a design system from Capability 1
+1. Run **Stage 0: Page Type Identification** and clarify the product goal, UX constraints, target content, and any anti-references
+2. Distinguish **structure references** (sources that inform page organization) from **vibe references** (sources that inform feeling, rhythm, density, and emphasis)
+3. Identify what the user actually likes about each reference instead of copying the source literally
+4. Translate references into transferable signals:
+   - content density and whitespace
+   - hierarchy and dominant visual focus
+   - spatial rhythm, symmetry/asymmetry, and section transitions
+   - card usage, image behavior, interaction tempo, and responsive strategy
+5. Mark non-transferable signals that should not become literal UI decisions. Example: a coastal-road photo may imply openness, wide negative space, slow rhythm, and restrained density; it does not mean placing a road photo in the hero.
+6. Dynamically derive the page's **Spatial DNA** from the product constraints and references. Do not use preset vibe templates or fixed style taxonomies.
+7. Use an invisible composition grid as a private reasoning scaffold for alignment, rhythm, hierarchy, and responsive behavior; never expose it as a user-facing artifact or fixed template
+8. Generate **3 genuinely different layout directions** as standalone previews before modifying production code. Default to **Mode A: three complete, comparable layout directions** — each direction needs its own user-readable mini layout sketch or thumbnail, sketch legend/content map, Spatial DNA summary, section order, key layout decisions, tradeoffs, and responsive posture.
+9. Do not show 3 shallow direction cards and then fully expand only 1 direction unless the user explicitly asks for a single recommended direction. If you recommend one, label it as the recommendation while still showing all 3 complete options.
+10. Do not use unexplained architecture shorthand such as "copy", "cards", "idx", "specimen", or "CTA" without a legend. The user should understand what content each block contains and why it exists.
+11. Review the rendered output and revise anything that feels generic, mismatched to the product, too literal to the references, unclear to the user, or unevenly detailed across the 3 options
 
 ### 4. Mood Board Generation
 
@@ -263,16 +270,21 @@ User has confirmed a design direction (from exploration concepts, design system 
 
 **Trigger**: User says things like "apply this design", "use this one", "let's go with this direction", "integrate this into my project", "apply Concept B to my project", or confirms they are satisfied with a preview and want it in their codebase.
 
+Applying a confirmed direction has **two distinct layers**. Confirm which the user wants — often both:
+
+- **Token application**: visual and motion design tokens (color, typography, spacing, radius, shadow, motion). These are framework-agnostic values.
+- **Layout / structure application**: the confirmed **Spatial / Layout DNA** and section composition (see Capability 3 and [references/SPATIAL-VIBE.md](references/SPATIAL-VIBE.md)). This turns the chosen layout direction into actual page structure, not just values.
+
 **Workflow**:
-1. Confirm the scope with the user — which parts of the design to apply and where in the project
-2. Audit the user's project to understand existing framework, CSS approach, file conventions, and any existing design tokens
+1. Confirm the scope with the user — which layers to apply (tokens, layout, or both) and where in the project
+2. Audit the user's project to understand existing framework, CSS approach, file conventions, and any existing design tokens or page structure
 3. Re-check the confirmed **page type classification** so applied tokens and components stay aligned with the target surface
-4. Generate the appropriate token files (CSS custom properties, Tailwind config, JSON tokens) based on the user's tech stack
-5. Integrate the tokens into the project — create new files or merge with existing ones, respecting project conventions
-6. Present a clear summary of what was created or modified
+4. **Apply tokens** (when in scope): generate the appropriate token files (CSS custom properties, Tailwind config, JSON tokens) based on the user's tech stack, then integrate them — create new files or merge with existing ones, respecting project conventions
+5. **Apply layout** (when in scope): translate the confirmed Spatial / Layout DNA and section order into the project's structure — semantic skeleton, section composition, grid/spacing relationships, and responsive collapse logic. Reuse the chosen layout direction rather than defaulting to a generic page template, and wire the applied tokens into that structure.
+6. Present a clear summary of what was created or modified, separating token changes from structural changes
 7. Invite the user to review and iterate — the collaborative spirit continues after applying
 
-**Important**: This capability is the ONLY point at which the agent modifies the user's project files. All prior exploration (concept previews, mood boards, design system previews) produces standalone artifacts that do not touch the project.
+**Important**: This capability is the ONLY point at which the agent modifies the user's project files. All prior exploration (concept previews, mood boards, design system previews, layout direction previews) produces standalone artifacts that do not touch the project.
 
 When the user confirms a direction **with visual assets**, also follow Step 3.5 in [references/APPLY-DESIGN.md](references/APPLY-DESIGN.md) to deploy images and the asset manifest.
 
@@ -311,16 +323,33 @@ User wants product-aligned illustrations (hero, feature, empty state, OG image) 
 
 These capabilities compose naturally. The workflow follows an **explore -> choose -> apply** pattern: the agent generates standalone previews for collaborative exploration, the user confirms a direction, and only then is the design applied to the project.
 
+### Pairing visual direction (Capability 2) with spatial direction (Capability 3)
+
+Capability 2 (Design Exploration) and Capability 3 (Spatial Vibe Exploration) overlap in triggers — both accept vague feelings, inspiration images, and music — but they answer different questions:
+
+- **Capability 2** produces the **visual concept**: color, typography, material, and motion personality.
+- **Capability 3** produces the **spatial concept**: layout grammar, density, hierarchy, rhythm, and section composition.
+
+A real page needs both, working together. Rules for combining them:
+
+- **Run both when the user is shaping a new page**, not just restyling one. Color without layout (or layout without color) is half a direction.
+- **Bind, don't multiply.** Do not present 3 visual concepts and 3 separate layout directions as 9 unrelated options. Pair them into a small number of **coherent concepts**, each with one visual direction locked to one spatial direction (for example "Concept A = neutral-cool palette + editorial asymmetric layout").
+- **Derive both from the same signals.** The same keywords, music, and references feed both the visual and spatial translation, so a single concept reads as one intentional idea rather than two unrelated layers.
+- **Sequence by what is fuzziest.** If the user is unsure about feel, explore visual concepts first; if they can feel the mood but not the page shape, explore spatial directions first. Either way, reconcile the two before formalizing.
+- **Record both** in the design system document: visual tokens in their sections, and the chosen layout in the **Spatial / Layout DNA** section, so they apply together in Capability 5.
+
 - **Reference-led Exploration -> Choose -> Apply**: Start from the user's product background plus a concrete reference, derive 3 contextual visual directions, user chooses -> formalize into design system -> apply to project
 - **Exploration -> Choose -> Apply**: Explore vibes, generate 3 concept previews + mood boards, user chooses -> formalize into design system -> apply to project
 - **Exploration -> Mood Board -> Choose -> Apply**: Explore vibes, classify page type, crystallize into mood boards for validation, user confirms direction -> extract design system -> apply to project
 - **Design Restoration -> Preview -> Apply**: Extract design system from a complete design draft, classify page type, generate a standalone preview page -> user confirms -> apply to project
 - **Mood Board -> Extraction -> Apply**: Generate mood board from references, formalize confirmed direction into design system -> apply to project
 - **Exploration -> Mood Board**: Generate a mood board during Design Exploration as a mid-process checkpoint to let the user feel the direction without losing page-type fidelity
+- **Spatial Vibe -> Mood Board -> Choose -> Apply**: Translate non-UI inspiration into Spatial DNA, crystallize the feeling in mood boards, choose a direction -> formalize -> apply
+- **Structure Reference + Vibe Reference -> Apply**: Use one reference for page organization and another for spatial feeling, then reconcile both through the target page type
 - **Layout + Design System -> Apply**: Analyze a layout from one site, classify its page type, then apply a design system from another source if the archetypes are compatible
 - **Layout + Mood Board**: Extract a layout from one reference, then apply the mood board's visual direction without violating the target archetype
 - **Consumer App UIUX -> Preview -> Apply**: Classify the app platform and lifecycle stage -> explore 3 app experience directions -> preview navigation, core screen, flow, state matrix, and tactile motion -> formalize tokens -> apply to mobile-first project components
-- **Full pipeline**: Identify page type -> explore feelings -> choose direction -> extract design system -> analyze a reference layout -> preview -> apply styled skeleton to project
+- **Full pipeline**: Identify page type -> explore feelings and references -> derive visual direction, Spatial DNA, Consumer app UIUX needs, and/or visual asset direction as applicable -> preview 3 comparable directions -> choose -> extract design system -> apply tokens, layout, and confirmed assets to the project
 
 ## Output format guidelines
 
@@ -336,14 +365,16 @@ All design system outputs should include:
   - JSON token file (for framework-agnostic use)
 - **Motion tokens**: duration, easing, and animation definitions alongside visual tokens
 
-Layout outputs should include:
+Spatial Vibe outputs should include:
 
-- page type classification for the analyzed surface
-- ASCII art layout diagram
-- **Spatial proportion hints** (loose percentage sketch of each major element's position and size)
-- semantic HTML structure
-- component hierarchy description
-- **Standalone HTML wireframe preview by default**
+- page type classification and UX constraints
+- structure references vs. vibe references
+- what the user likes about each reference
+- transferable and non-transferable signals
+- dynamically derived Spatial DNA
+- 3 distinct standalone layout direction previews with equal structural fidelity
+- for each direction: user-readable mini layout sketch or thumbnail, sketch legend/content map, section order, key layout decisions, tradeoffs, and responsive posture
+- notes from reviewing the rendered output and any revisions made
 
 ## Icon usage guidelines
 
@@ -352,7 +383,7 @@ Layout outputs should include:
 ## Important notes
 
 - **Explore first, apply later**: Never modify the user's project files during design exploration. Generate all concept previews, mood boards, and design system previews as standalone artifacts. Only apply to the project when the user explicitly confirms a direction (via Capability 5).
-- When the user asks for a design direction, extraction, or layout analysis and does not explicitly opt out, automatically produce the corresponding HTML visual artifact in the same pass.
+- When the user asks for a design direction, extraction, or spatial-vibe exploration and does not explicitly opt out, automatically produce the corresponding HTML visual artifact in the same pass.
 - When a user gives both UI references and atmosphere references, prefer **"first make it look like the reference, then tune the mood"** over redesigning from scratch.
 - Always classify page type before locking a palette, spacing scale, typography scale, or motion language.
 - For atmosphere-led pages, prefer **fewer modules, larger scenic imagery, and lower information density** by default, unless the product context clearly points to a denser archetype.
