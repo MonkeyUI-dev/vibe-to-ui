@@ -152,6 +152,7 @@ User provides a complete UI screenshot or design mockup -> Extract the design sy
    - dashboards prefer subtle transitions and focus-preserving movement
    - dense workbenches should avoid decorative motion that interrupts scanning
    - consumer apps need fast, tactile feedback, clear screen transitions, and complete reduced-motion fallbacks
+   - when **implementing** motion in preview or project code, progressively load [references/MOTION-ENGINE-ROUTER.md](references/MOTION-ENGINE-ROUTER.md): compile Motion DNA → select exactly one engine (Motion / GSAP / OGL / Three.js-R3F) → one primary recipe → dependency, mobile, and reduced-motion fallbacks
 5. Output a structured design system including:
    - page type summary
    - design constraints derived from the page archetype
@@ -393,4 +394,5 @@ Spatial Vibe outputs should include:
 - For typography, note both the font family and the scale ratios, not just absolute sizes
 - Spacing should be expressed as a consistent scale (for example a 4px base unit)
 - Motion tokens should always include `prefers-reduced-motion` fallbacks. Accessibility is non-negotiable.
+- When writing motion **implementation** code (not during exploration), load [references/MOTION-ENGINE-ROUTER.md](references/MOTION-ENGINE-ROUTER.md). Use the simplest engine tier that can express the confirmed Motion DNA; never mix engines, stack decorative effects, or copy library default demo styles on the same surface.
 - Be honest when visual analysis is uncertain. Flag low-confidence extractions and suggest the user verify.

@@ -326,6 +326,19 @@ If the confirmed direction includes an ASCII architecture sketch, visual thumbna
 - Disable parallax and scroll-linked decorative effects
 - Keep meaning-bearing motion only in simplified form
 
+### Motion Engine (implementation only)
+
+Fill this section when implementing motion in preview or project code — not during exploration. See [../references/MOTION-ENGINE-ROUTER.md](../references/MOTION-ENGINE-ROUTER.md).
+
+- **Selected tier**: [L1 Motion / L2 GSAP / L3 OGL / L4 Three.js-R3F]
+- **Primary recipe**: [recipe id from router, e.g. `in-view-stagger`]
+- **Secondary recipe**: [optional, or none]
+- **Escalation reason**: [why a higher tier was required, or N/A]
+- **Rejected tiers**: [e.g. L3, L4 — with one-line reason each]
+- **Dependency check**: [pass / fail notes]
+- **Mobile strategy**: [e.g. static poster, reduced distance, no scroll-scrub]
+- **Decorative budget**: [none / one atmosphere effect — name it]
+
 ## Preview Artifact
 
 - **Artifact type**: standalone HTML preview page

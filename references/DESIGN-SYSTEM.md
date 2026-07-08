@@ -292,6 +292,8 @@ Then explain motion through the page-type lens:
 
 For deeper extraction guidance, read [MOTION-SYSTEM.md](MOTION-SYSTEM.md).
 
+When generating preview or project motion **code**, progressively load [MOTION-ENGINE-ROUTER.md](MOTION-ENGINE-ROUTER.md) after Motion DNA is locked. Select one engine tier, one primary recipe, run dependency checks, and document `motion_engine_decision` before implementation.
+
 ---
 
 ## 7. Component and Module Patterns

@@ -192,3 +192,22 @@ Let these factors shape the motion personality — don't map product category to
 ## Output
 
 Generate motion tokens as part of the design system output using the motion section of [../assets/design-system-template.md](../assets/design-system-template.md).
+
+## Motion Engine Router (progressive load)
+
+**During exploration and token extraction**, stop at Motion DNA + motion tokens. Do **not** load implementation libraries yet.
+
+**When implementing motion in code** (standalone preview HTML, concept page, or Apply to project), progressively load [MOTION-ENGINE-ROUTER.md](MOTION-ENGINE-ROUTER.md) and run:
+
+1. **Compile Motion DNA** — finalize the eight dimensions plus narrative (`personality`, `page_metaphor`, `primary_intent`) from vibe, reference, music, and page type.
+2. **Capability check** — list only the expressiveness that is **required** (feedback, scroll narrative, shader atmosphere, true 3D, etc.).
+3. **Select one engine tier** — L1 Motion → L2 GSAP → L3 OGL → L4 Three.js/R3F; pick the **lowest** tier that satisfies all functional requirements.
+4. **Pick one primary recipe** — from the router's minimal high-frequency set; at most one secondary recipe if roles demand it.
+5. **Emit `motion_engine_decision`** — document selected tier, rejected tiers, dependency check, reduced-motion strategy, and mobile strategy before writing animation code.
+
+Router non-negotiables (see full matrix in the router doc):
+
+- **One engine per surface** — never mix Motion + GSAP + WebGL runtimes on the same page
+- **Simplest sufficient technology** — do not reach for Three.js when Motion can carry the feeling
+- **One decorative motion budget** — no stacked parallax, particles, and 3D on the same hero
+- **No default demo aesthetics** — motion must follow Motion DNA and design tokens, not library boilerplate
