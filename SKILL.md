@@ -366,7 +366,7 @@ Also accept `--from-url`, `--from-image`, `--init`, and `--list` as described in
 1. Resolve a kebab-case **profile** id (brand / product / client — not a medium).
 2. Ensure `~/.vibe-to-ui/profiles/<profile>/` exists with `assets/` and `sources/`. Do **not** create `targets/` until a target is requested.
 3. If initializing or refreshing from a URL/screenshot: record the source under `sources/`, reuse Design System Extraction ([references/DESIGN-SYSTEM.md](references/DESIGN-SYSTEM.md)), optional Aesthetic Analysis, and Motion System guidance to write `profile.yaml`, `brand.md`, `tokens.json`, and append to `decisions.md`. Copy durable visuals into `assets/`.
-4. On `--target <name>`: if `targets/<name>.md` is missing, generate it from the brand master using the matching template under `assets/design-context/targets/`; if it exists, **reuse and update** rather than regenerating from scratch.
+4. On `--target <name>`: if `targets/<name>.md` is missing, generate it from the brand master using the target guides in [references/DESIGN-CONTEXT.md](references/DESIGN-CONTEXT.md) (this skill does **not** ship `web` / `social-cover` / `hyperframes` seed files; external target packs may be supplied later). If the file exists, **reuse and update** rather than regenerating from scratch.
 5. Merge brand master + tokens + decisions + target rules (+ relevant asset pointers) and output that package for the webpage, social-cover, or launch-video agent.
 6. When working inside a project, also read project `DESIGN.md` if present; optionally record `design_context_profile: <profile>` in Iteration Context. Do not replace `DESIGN.md` with the profile.
 

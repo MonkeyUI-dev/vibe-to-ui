@@ -121,13 +121,13 @@ Profile (brand / product / client)
    - For URL sources without a screenshot: browse or fetch the page when tools allow; otherwise ask the user for a screenshot and continue with partial confidence notes.
 
 5. **Write shared profile files**
-   - Copy seed templates from the skill package's `assets/design-context/` for **shared files only**: `profile.yaml`, `brand.md`, `tokens.json`, `decisions.md`. Do **not** copy `targets/` at init.
+   - Copy seed templates from the skill package's `assets/design-context/` for **shared files only**: `profile.yaml`, `brand.md`, `tokens.json`, `decisions.md`. Do **not** create or seed `targets/` at init.
    - Fill `profile.yaml` — metadata (name, description, sources summary, created/updated timestamps).
    - Fill `brand.md` — cross-medium brand temperament, visual language, design principles.
    - Fill `tokens.json` — structured design tokens (color, typography, spacing, radius, elevation, motion). Prefer the JSON shape from [design-system-template.md](../assets/design-system-template.md); drop page-layout-only fields that are not brand-shared, or keep them under a `layoutHints` object if useful.
    - Append to `decisions.md` — important extraction/adaptation decisions and why (Design Memory). Never delete prior decisions; mark superseded ones instead.
    - Copy durable brand visuals (logo, key screenshots, illustrations) into `assets/` when available.
-   - When a target is later requested, copy the matching seed from `assets/design-context/targets/<target>.md` into the profile's `targets/` and fill it from the brand master.
+   - This skill package does **not** ship `web.md` / `social-cover.md` / `hyperframes.md` templates. Target rule packs may be supplied later by an external mechanism; until then, generate `targets/<target>.md` from the brand master using the guides below when a target is requested.
 
 6. **Update vs recreate**
    - If the profile already exists: update `brand.md` / `tokens.json` with new evidence, bump `updated_at` in `profile.yaml`, append to `decisions.md` and `sources/`.
@@ -152,10 +152,11 @@ Profile (brand / product / client)
    - Path: `targets/<target>.md`.
 
 3. **Create or update target rules**
+   - If an **external target rule pack** for this target is available (future provider), prefer that as the starting structure, then fill from the brand master.
    - If `targets/<target>.md` **does not exist**:
      - Create `targets/` if needed.
-     - Generate rules from `brand.md` + `tokens.json` + `decisions.md` + relevant `assets/` using the matching target template under [assets/design-context/targets/](../assets/design-context/targets/).
-     - Save the file.
+     - Generate rules from `brand.md` + `tokens.json` + `decisions.md` + relevant `assets/` using the matching **Target generation guide** in this document (not a bundled seed file).
+     - Save the file under the profile's `targets/`.
    - If it **does exist**:
      - Prefer reuse: read the existing file first.
      - Update only where brand master changes, new decisions, or user feedback require it.
@@ -260,15 +261,14 @@ Rules:
 
 ## Templates
 
-Seed files (copy into the profile directory; never edit user copies via skill update):
+Shared seed files only (copy into the profile directory; never edit user copies via skill update):
 
 - [profile.yaml](../assets/design-context/profile.yaml)
 - [brand.md](../assets/design-context/brand.md)
 - [tokens.json](../assets/design-context/tokens.json)
 - [decisions.md](../assets/design-context/decisions.md)
 - [sources/SOURCE.template.md](../assets/design-context/sources/SOURCE.template.md)
-- [targets/web.md](../assets/design-context/targets/web.md)
-- [targets/social-cover.md](../assets/design-context/targets/social-cover.md)
-- [targets/hyperframes.md](../assets/design-context/targets/hyperframes.md)
+
+Target rule files (`web.md`, `social-cover.md`, `hyperframes.md`) are **not** bundled in this skill. They are written under `~/.vibe-to-ui/profiles/<profile>/targets/` when requested, using the guides above or a future external provider.
 
 Example walkthrough: [design-context-e2e.md](../assets/examples/design-context-e2e.md)

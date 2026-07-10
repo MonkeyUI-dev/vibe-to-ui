@@ -126,7 +126,7 @@ Extract brand visual language from a **website URL or screenshot** and persist i
 
 - **Profile** = one brand, product, or client (e.g. `vibe-to-ui`, `nextai`) — not an output platform
 - Shared brand master: `profile.yaml`, `brand.md`, `tokens.json`, `decisions.md`, `assets/`, `sources/`
-- **Targets on demand** (`web`, `social-cover`, `hyperframes`): created the first time you ask, then reused and updated
+- **Targets on demand** (`web`, `social-cover`, `hyperframes`): created under the profile when first requested, then reused and updated. Target rule packs are **not** bundled in this skill; they may be supplied later by an external provider.
 - Merge brand + tokens + decisions + target rules for webpage, social-cover, or launch-video agents
 
 ```bash
@@ -296,13 +296,12 @@ Expose MCP tools such as `generate_image(prompt, width, height, reference_path?)
 └── assets/
     ├── DESIGN.md                     # Persistent product/design context template
     ├── design-system-template.md     # Standard output template for design tokens
-    ├── design-context/               # Seed templates for ~/.vibe-to-ui/profiles/
-    │   ├── profile.yaml
+    ├── design-context/               # Shared seeds for ~/.vibe-to-ui/profiles/
+    │   ├── profile.yaml              # (no bundled web/social-cover/hyperframes seeds)
     │   ├── brand.md
     │   ├── tokens.json
     │   ├── decisions.md
-    │   ├── sources/
-    │   └── targets/                  # web | social-cover | hyperframes seeds
+    │   └── sources/
     └── examples/
         ├── visual-asset-e2e.md       # Concept → mood board → apply walkthrough
         ├── consumer-app-e2e.md       # Consumer app UIUX → preview → apply walkthrough

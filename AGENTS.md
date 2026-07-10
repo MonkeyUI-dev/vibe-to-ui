@@ -29,8 +29,8 @@ The meaningful integrity checks for this repo are:
    `references/DESIGN-CONTEXT.md`) resolves to a real file. Broken cross-references are
    the most likely regression when editing content.
 3. Design Context seed files under `assets/design-context/` exist for
-   `profile.yaml`, `brand.md`, `tokens.json`, `decisions.md`, and
-   `targets/{web,social-cover,hyperframes}.md`.
+   `profile.yaml`, `brand.md`, `tokens.json`, and `decisions.md`.
+   Do **not** ship bundled `targets/{web,social-cover,hyperframes}.md` seeds.
 
 ### Consuming / demonstrating the skill
 

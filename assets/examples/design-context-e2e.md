@@ -61,7 +61,7 @@ vibe-to-ui context --profile nextai --target web
 Agent:
 
 1. Load `brand.md`, `tokens.json`, `decisions.md`.
-2. See that `targets/web.md` is missing → create `targets/` and generate `web.md` from the brand master using the web target template.
+2. See that `targets/web.md` is missing → create `targets/` and generate `web.md` from the brand master using the web target guide in `DESIGN-CONTEXT.md` (no bundled target seed in the skill package).
 3. Append a decision: "Target web created".
 4. Update `profile.yaml` → `targets_available: [web]`, bump `updated_at`.
 5. Emit **merged context**: metadata + brand + tokens + decisions + `targets/web.md` (+ asset pointers) for the web/UI agent.
