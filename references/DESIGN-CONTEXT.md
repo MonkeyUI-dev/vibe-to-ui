@@ -124,7 +124,7 @@ Profile (brand / product / client)
    - Copy seed templates from the skill package's `assets/design-context/` for **shared files only**: `profile.yaml`, `brand.md`, `tokens.json`, `decisions.md`. Do **not** create or seed `targets/` at init.
    - Fill `profile.yaml` — metadata (name, description, sources summary, created/updated timestamps).
    - Fill `brand.md` — cross-medium brand temperament, visual language, design principles.
-   - Fill `tokens.json` — structured design tokens (color, typography, spacing, radius, elevation, motion). Prefer the JSON shape from [design-system-template.md](../assets/design-system-template.md); drop page-layout-only fields that are not brand-shared, or keep them under a `layoutHints` object if useful.
+   - Fill `tokens.json` — brand-shared Design Tokens in DTCG Format Module (2025.10) shape, with group names aligned to Google DESIGN.md (`colors`, `typography`, `spacing`, `rounded`). See [Token format](#token-format-dtcg--designmd). Do not put page-layout-only or component-only tokens here; those belong in project `DESIGN.md` or a target.
    - Append to `decisions.md` — important extraction/adaptation decisions and why (Design Memory). Never delete prior decisions; mark superseded ones instead.
    - Copy durable brand visuals (logo, key screenshots, illustrations) into `assets/` when available.
    - This skill package does **not** ship `web.md` / `social-cover.md` / `hyperframes.md` templates. Target rule packs may be supplied later by an external mechanism; until then, generate `targets/<target>.md` from the brand master using the guides below when a target is requested.
@@ -258,6 +258,30 @@ Rules:
 [ ] Merged context emitted for the requesting medium agent
 [ ] ~/.vibe-to-ui/ left untouched by any skill install/update path
 ```
+
+## Token format (DTCG + DESIGN.md)
+
+`tokens.json` is the machine-readable brand token store. It is shaped for two industry references:
+
+| Source | What we take |
+|--------|----------------|
+| [W3C DTCG Format Module 2025.10](https://www.w3.org/community/reports/design-tokens/CG-FINAL-format-20251028/) | Token envelope: `$value`, `$type`, `$description`, `$extensions`; groups; `{path.to.token}` aliases; typed values (`color`, `dimension`, `fontFamily`, `fontWeight`, `duration`, `cubicBezier`); composites (`typography`, `shadow`, `transition`) |
+| [Google DESIGN.md](https://github.com/google-labs-code/design.md) (alpha) | Group names and agent-facing roles: `colors`, `typography` (named text styles), `spacing`, `rounded`; CSS color strings; `{colors.primary}`-style references; recommended names such as `primary` / `on-surface` / `body-md` |
+
+### Rules for this MVP
+
+1. **Envelope is DTCG.** Every token is an object with `$value` (and usually `$type`, inherited from the group when omitted on the leaf).
+2. **Groups mirror DESIGN.md** where they overlap: `colors`, `typography`, `spacing`, `rounded`. Use `rounded`, not `radius`.
+3. **Colors** use CSS color strings (hex recommended), matching DESIGN.md. Full DTCG Color Module objects are optional when wide-gamut precision is required.
+4. **Dimensions / durations** use DTCG `{ "value": number, "unit": "px"|"rem" }` or `{ "value": number, "unit": "ms"|"s" }`.
+5. **Typography** is a map of composite styles (e.g. `headline-md`, `body-md`), not only a font-family list — same idea as DESIGN.md frontmatter.
+6. **Aliases** use `{group.token}` (e.g. `"{fontFamily.heading}"`).
+7. **Profile metadata** (profile id, confidence, sources) goes in `$extensions["com.vibe-to-ui"]`, not as fake tokens.
+8. **Motion** is a vibe-to-ui extension (`duration`, `easing`, `transition`) until DESIGN.md adds an official motion section.
+9. **Components** stay out of the brand profile by default — put them in project `DESIGN.md` or a medium target when needed.
+10. When syncing into a project `DESIGN.md`, map `colors` / `typography` / `spacing` / `rounded` into YAML frontmatter; keep elevation/motion in prose or extensions until the project format supports them.
+
+Seed file: [tokens.json](../assets/design-context/tokens.json)
 
 ## Templates
 
