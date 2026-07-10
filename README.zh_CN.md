@@ -30,7 +30,7 @@ vibe-to-ui 是这把翻译工具。把一张照片、一段录音、一种说不
 
 面向 vibe coding 开发者的设计助手。将截图、情绪图片、非 UI 灵感、音乐和直觉感受转化为结构化的设计系统、动效语言、C 端 App UIUX 系统、视觉素材方向与符合产品语境的空间布局 —— 默认会结合你的产品背景生成 **3 个视觉方向**，再正式整理 Token，让结果先可见、可比较，而不是过早锁定。所有探索都通过独立的预览页面协作完成，只有当你准备好时才会将设计应用到项目。
 
-**六大核心能力：**
+**七大核心能力：**
 
 #### 1. 设计系统提取
 *适用于：拥有完整设计稿需要还原风格的用户。*
@@ -115,6 +115,22 @@ vibe-to-ui 是这把翻译工具。把一张照片、一段录音、一种说不
 - 探索阶段嵌入情绪看板；Apply 时复制到 `public/design-assets/`
 
 导航级 UI 图标仍使用单一锁定图标库或自定义 SVG；功能卖点图标、3D 物件图标、社媒传播图可使用生成式 SVG/PNG/WebP 视觉族。详见 [ICON-USAGE.md](references/ICON-USAGE.md)、[VISUAL-ASSET-GENERATION.md](references/VISUAL-ASSET-GENERATION.md) 与 [visual-asset-e2e.md](assets/examples/visual-asset-e2e.md)。
+
+#### 7. 本地 Design Context（Profile + Targets）
+*适用于：需要跨项目、跨媒介复用品牌视觉记忆的用户。*
+
+从**网站 URL 或截图**提取品牌视觉语言，并持久化到 `~/.vibe-to-ui/profiles/<profile>/` —— 与 Skill 包分离，安装/更新不会覆盖你的数据：
+
+- **Profile** = 一套品牌、产品或客户（如 `vibe-to-ui`、`nextai`），不是产出平台
+- 共享品牌母版：`profile.yaml`、`brand.md`、`tokens.json`、`decisions.md`、`assets/`、`sources/`
+- **按需 Target**（`web`、`social-cover`、`hyperframes`）：首次请求时创建，之后优先复用与更新
+- 将品牌母版、Tokens、设计决策与对应 target 规则合并，交给网页、社媒封面或 Launch 视频 Agent
+
+```bash
+vibe-to-ui context --profile <profile> --target web|social-cover|hyperframes
+```
+
+详见 [DESIGN-CONTEXT.md](references/DESIGN-CONTEXT.md) 与 [design-context-e2e.md](assets/examples/design-context-e2e.md)。本 MVP 暂不实现云同步、团队协作与向量检索。
 
 #### C 端 App UIUX 场景
 
@@ -206,6 +222,14 @@ git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-t
 # 同时应用 Token 与图片
 "把概念 B 的设计和素材一起应用到我的 Next.js 项目"
 
+# 从 URL 或截图保存本地 Design Context profile
+"把 https://nextai.example 的设计上下文提取到 profile nextai"
+
+# 按需加载或生成媒介规则
+"vibe-to-ui context --profile nextai --target web"
+"vibe-to-ui context --profile nextai --target social-cover"
+"vibe-to-ui context --profile nextai --target hyperframes"
+
 # 完整流程
 "我有一些灵感图片和一段音乐片段 —— 先探索空间氛围，选定方向后再应用到我的产品"
 ```
@@ -257,6 +281,7 @@ vibe-to-ui **仅包含指令文档**，不内置 API Key，也不直接调用图
 │   ├── MOTION-ENGINE-ROUTER.md       # 渐进加载动效引擎路由（Web/React/Vue × L1–L4）
 │   ├── AESTHETIC-ANALYSIS.md         # 美学灵魂捕获方法论
 │   ├── CONTEXT-COLLABORATION.md      # DESIGN.md 协作协议
+│   ├── DESIGN-CONTEXT.md             # 本地 Design Context profile + targets MVP
 │   ├── ICON-USAGE.md                 # 图标组件指南
 │   ├── MOOD-BOARD.md                 # 情绪看板生成指南
 │   ├── CONSUMER-APP-DESIGN.md        # Consumer app / C 端 UIUX 场景指南
@@ -265,11 +290,21 @@ vibe-to-ui **仅包含指令文档**，不内置 API Key，也不直接调用图
 └── assets/
     ├── DESIGN.md                     # 持久化产品/设计上下文模板
     ├── design-system-template.md     # 设计 Token 标准输出模板
+    ├── design-context/               # ~/.vibe-to-ui/profiles/ 的种子模板
+    │   ├── profile.yaml
+    │   ├── brand.md
+    │   ├── tokens.json
+    │   ├── decisions.md
+    │   ├── sources/
+    │   └── targets/                  # web | social-cover | hyperframes 种子
     └── examples/
         ├── visual-asset-e2e.md
         ├── consumer-app-e2e.md
+        ├── design-context-e2e.md
         └── design-assets.manifest.example.json
 ```
+
+用户 Design Context 数据位于 `~/.vibe-to-ui/profiles/<profile>/`，**不属于**本技能包；Skill 更新不会覆盖它。
 
 遵循 [Agent Skills 渐进式披露](https://agentskills.io/specification) 原则：启动时仅加载 `SKILL.md` 元数据（约 100 个 Token），参考文件按需加载，保持上下文精简。
 

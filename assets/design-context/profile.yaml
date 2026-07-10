@@ -1,0 +1,12 @@
+# Profile metadata
+# Live copy lives at: ~/.vibe-to-ui/profiles/<profile>/profile.yaml
+# This file is a seed template only — skill updates must never overwrite user profiles.
+
+name: "<profile>"                 # kebab-case id, same as directory name
+display_name: ""                  # human-readable brand / product / client name
+description: ""                   # one or two sentences
+created_at: "YYYY-MM-DDTHH:MM:SSZ"
+updated_at: "YYYY-MM-DDTHH:MM:SSZ"
+sources_summary: []               # short list of primary URLs or image basenames
+targets_available: []             # populated as targets are created: web | social-cover | hyperframes
+version: 1

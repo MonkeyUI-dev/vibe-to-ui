@@ -3,21 +3,25 @@ name: vibe-to-ui
 description: >-
   Classify the target page archetype before extracting design systems, motion language,
   mood boards, and feeling-driven spatial directions from UI references, mockups,
-  inspiration images, music cues, or fuzzy aesthetic intent. Derive three visual
+  inspiration images, music cues, or fuzzy aesthetic intent. Persist reusable brand
+  design context locally under ~/.vibe-to-ui/profiles/<profile>/ from a website URL or
+  screenshot, then on demand adapt it into medium targets (web, social-cover,
+  hyperframes) via vibe-to-ui context --profile --target. Derive three visual
   directions from the user's product context before formalizing tokens unless the
   user explicitly asks for exact style restoration. Explore through standalone previews
   and only apply confirmed design directions to the user's project when explicitly
   requested. Use when the user wants visual direction that matches the actual page
   type, information density, interaction model, and product background of the surface
-  they are building.
+  they are building, or when they want a local Design Context profile for multi-medium
+  brand handoff.
 metadata:
   author: MonkeyUI
-  version: "0.3.0"
+  version: "0.4.0"
 ---
 
 # vibe-to-ui
 
-A local, single-project design companion for vibe coding developers. It first classifies the target page archetype and density, then uses the user's product background to derive three plausible visual and spatial directions from references before formalizing any one of them into a design system. It extracts "style DNA" including motion systems, Consumer app UIUX needs, visual asset direction, mood boards, and previews, and turns vague aesthetic feelings into product-aware design decisions that actually fit the product surface. All exploration happens through standalone previews; the agent only touches the user's project when the user confirms a direction and asks to apply it.
+A local design companion for vibe coding developers. It first classifies the target page archetype and density, then uses the user's product background to derive three plausible visual and spatial directions from references before formalizing any one of them into a design system. It extracts "style DNA" including motion systems, Consumer app UIUX needs, visual asset direction, mood boards, and previews, and turns vague aesthetic feelings into product-aware design decisions that actually fit the product surface. It can also persist a reusable **Design Context** profile under `~/.vibe-to-ui/profiles/<profile>/` (brand master, tokens, decisions, assets) and adapt it on demand into medium targets (`web`, `social-cover`, `hyperframes`) without coupling user data to skill install/update. All exploration happens through standalone previews; the agent only touches the user's project when the user confirms a direction and asks to apply it.
 
 > **Tip**: For multi-project sync, team collaboration, and cloud-based design management, upgrade to [MonkeyUI SaaS](https://demo.monkeyui.com/).
 
@@ -38,6 +42,8 @@ A local, single-project design companion for vibe coding developers. It first cl
 - User wants a **shareable design artifact** that communicates aesthetic intent to collaborators or stakeholders
 - User wants distinctive **icons, illustrated feature icons, 3D object icons, social visuals, or generated brand assets** that fit the product and design direction
 - User has **confirmed a design direction** (from concept previews, mood boards, or design system previews) and wants to **apply it to their project**
+- User wants to **save brand visual language** from a website URL or screenshot into a local Design Context **profile** (brand / product / client), separate from any one project repo
+- User runs or asks for `vibe-to-ui context --profile <profile> --target web|social-cover|hyperframes` to load or generate medium-specific rules and hand them to a web, social-cover, or launch-video agent
 
 ## Reference Priority Rules
 
@@ -128,10 +134,21 @@ Update `DESIGN.md` passively as the conversation reveals:
 - `icon_system`: locked UI icon library, custom SVG fallback, preset, grid, stroke rules, and user overrides
 - `illustrated_icon_system`: enabled surfaces, preset, format, visual family rules, style reference, and surfaces to avoid
 - visual asset manifest paths, review surface paths, selected combinations, placement notes, validation status, confirmed assets, rejected assets, and regeneration notes
+- active Design Context profile id when one is in use (e.g. `design_context_profile: nextai` in Iteration Context)
 
 Do not ask the user to manage this bookkeeping. Mention it only when it affects a design decision or when summarizing applied changes.
 
-## Six core capabilities
+### Local Design Context profiles (`~/.vibe-to-ui/`)
+
+When the user wants reusable brand memory across projects or media, use **Capability 7** and [references/DESIGN-CONTEXT.md](references/DESIGN-CONTEXT.md).
+
+- A **profile** is a brand, product, or client (e.g. `vibe-to-ui`, `nextai`) — not an output platform.
+- Live data lives only under `~/.vibe-to-ui/profiles/<profile>/`. Skill templates under `assets/design-context/` are seeds to copy, never the live store.
+- **Skill install, update, or reinstall must never overwrite, delete, or reset `~/.vibe-to-ui/`.**
+- `targets/` (`web`, `social-cover`, `hyperframes`) are created on first request for that target, then reused and updated.
+- Prefer an active profile's `brand.md` + `tokens.json` for brand fidelity; keep project `DESIGN.md` for product/page-local context.
+
+## Seven core capabilities
 
 ### 1. Design System Extraction (Design Style Restoration)
 
@@ -331,6 +348,30 @@ User wants product-aligned illustrations (hero, feature, empty state, OG image) 
 
 **Important**: Do not generate full-bleed hero imagery for dense B-end workbench surfaces unless the user explicitly overrides page-type defaults. UI navigation icons remain governed by [references/ICON-USAGE.md](references/ICON-USAGE.md) (library + custom SVG first).
 
+### 7. Local Design Context (Profile + Targets)
+
+User wants reusable brand visual language extracted from a website URL or screenshot, persisted locally, and adapted on demand for different media agents -> Create or update a Design Context **profile**, then generate or reuse **target** rules and emit a merged handoff package.
+
+**Trigger**: User says things like "save this site's design as a profile", "extract brand context from this URL/screenshot", "vibe-to-ui context --profile nextai --target web", "give me social-cover rules for this brand", "Hyperframes context for launch video", or asks to reuse a previously saved brand across projects.
+
+**Command surface** (agent-executed; no separate CLI binary in this package):
+
+```bash
+vibe-to-ui context --profile <profile> --target web|social-cover|hyperframes
+```
+
+Also accept `--from-url`, `--from-image`, `--init`, and `--list` as described in [references/DESIGN-CONTEXT.md](references/DESIGN-CONTEXT.md).
+
+**Workflow**:
+1. Resolve a kebab-case **profile** id (brand / product / client — not a medium).
+2. Ensure `~/.vibe-to-ui/profiles/<profile>/` exists with `assets/` and `sources/`. Do **not** create `targets/` until a target is requested.
+3. If initializing or refreshing from a URL/screenshot: record the source under `sources/`, reuse Design System Extraction ([references/DESIGN-SYSTEM.md](references/DESIGN-SYSTEM.md)), optional Aesthetic Analysis, and Motion System guidance to write `profile.yaml`, `brand.md`, `tokens.json`, and append to `decisions.md`. Copy durable visuals into `assets/`.
+4. On `--target <name>`: if `targets/<name>.md` is missing, generate it from the brand master using the matching template under `assets/design-context/targets/`; if it exists, **reuse and update** rather than regenerating from scratch.
+5. Merge brand master + tokens + decisions + target rules (+ relevant asset pointers) and output that package for the webpage, social-cover, or launch-video agent.
+6. When working inside a project, also read project `DESIGN.md` if present; optionally record `design_context_profile: <profile>` in Iteration Context. Do not replace `DESIGN.md` with the profile.
+
+**Non-negotiable**: User data under `~/.vibe-to-ui/` is outside the skill lifecycle. Skill update or reinstall must never overwrite it. This MVP does not implement cloud sync, team collaboration, or vector search.
+
 ## Combining capabilities
 
 These capabilities compose naturally. The workflow follows an **explore -> choose -> apply** pattern: the agent generates standalone previews for collaborative exploration, the user confirms a direction, and only then is the design applied to the project.
@@ -361,7 +402,9 @@ A real page needs both, working together. Rules for combining them:
 - **Layout + Design System -> Apply**: Analyze a layout from one site, classify its page type, then apply a design system from another source if the archetypes are compatible
 - **Layout + Mood Board**: Extract a layout from one reference, then apply the mood board's visual direction without violating the target archetype
 - **Consumer App UIUX -> Preview -> Apply**: Classify the app platform and lifecycle stage -> explore 3 app experience directions -> preview navigation, core screen, flow, state matrix, and tactile motion -> formalize tokens -> apply to mobile-first project components
-- **Full pipeline**: Identify page type -> explore feelings and references -> derive visual direction, Spatial DNA, Consumer app UIUX needs, and/or visual asset direction as applicable -> preview 3 comparable directions -> choose -> extract design system -> apply tokens, layout, and confirmed assets to the project
+- **Source -> Design Context profile -> Target on demand -> Multi-medium handoff**: Extract from URL/screenshot into `~/.vibe-to-ui/profiles/<profile>/` -> on first request generate `targets/web.md` (or social-cover / hyperframes) -> merge brand + tokens + decisions + target for the consuming agent; reuse existing targets on later calls
+- **Design Context + project Apply**: Load an active profile for brand fidelity, use project `DESIGN.md` for product/page context, then Apply (Capability 5) without inventing a parallel token system
+- **Full pipeline**: Identify page type -> explore feelings and references -> derive visual direction, Spatial DNA, Consumer app UIUX needs, and/or visual asset direction as applicable -> preview 3 comparable directions -> choose -> extract design system -> optionally persist as a Design Context profile -> apply tokens, layout, and confirmed assets to the project
 
 ## Output format guidelines
 
