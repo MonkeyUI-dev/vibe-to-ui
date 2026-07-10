@@ -17,6 +17,7 @@ This is the 90/10 MVP: reuse existing extraction capabilities (Design System Ext
 | **Profile** | One independent brand, product, or client design context (e.g. `vibe-to-ui`, `nextai`, a customer brand). Not an output platform. |
 | **Target** | A medium adaptation of the same profile: `web`, `social-cover`, or `hyperframes`. |
 | **Brand master** | Cross-medium shared language in `brand.md` + `tokens.json` + `decisions.md`. |
+| **Profile doc** | `profile.md` — human-readable profile summary with YAML frontmatter for id/timestamps (same pattern as project `DESIGN.md`). |
 | **Merged context** | Brand master + requested target rules, assembled for a downstream agent. |
 
 ## Storage root (user data, not skill data)
@@ -25,7 +26,7 @@ This is the 90/10 MVP: reuse existing extraction capabilities (Design System Ext
 ~/.vibe-to-ui/
 └── profiles/
     └── <profile>/
-        ├── profile.yaml
+        ├── profile.md
         ├── brand.md
         ├── tokens.json
         ├── decisions.md
@@ -121,8 +122,8 @@ Profile (brand / product / client)
    - For URL sources without a screenshot: browse or fetch the page when tools allow; otherwise ask the user for a screenshot and continue with partial confidence notes.
 
 5. **Write shared profile files**
-   - Copy seed templates from the skill package's `assets/design-context/` for **shared files only**: `profile.yaml`, `brand.md`, `tokens.json`, `decisions.md`. Do **not** create or seed `targets/` at init.
-   - Fill `profile.yaml` — metadata (name, description, sources summary, created/updated timestamps).
+   - Copy seed templates from the skill package's `assets/design-context/` for **shared files only**: `profile.md`, `brand.md`, `tokens.json`, `decisions.md`. Do **not** create or seed `targets/` at init.
+   - Fill `profile.md` — metadata (name, description, sources summary, created/updated timestamps).
    - Fill `brand.md` — cross-medium brand temperament, visual language, design principles.
    - Fill `tokens.json` — brand-shared Design Tokens in DTCG Format Module (2025.10) shape, with group names aligned to Google DESIGN.md (`colors`, `typography`, `spacing`, `rounded`). See [Token format](#token-format-dtcg--designmd). Do not put page-layout-only or component-only tokens here; those belong in project `DESIGN.md` or a target.
    - Append to `decisions.md` — important extraction/adaptation decisions and why (Design Memory). Never delete prior decisions; mark superseded ones instead.
@@ -130,7 +131,7 @@ Profile (brand / product / client)
    - This skill package does **not** ship `web.md` / `social-cover.md` / `hyperframes.md` templates. Target rule packs may be supplied later by an external mechanism; until then, generate `targets/<target>.md` from the brand master using the guides below when a target is requested.
 
 6. **Update vs recreate**
-   - If the profile already exists: update `brand.md` / `tokens.json` with new evidence, bump `updated_at` in `profile.yaml`, append to `decisions.md` and `sources/`.
+   - If the profile already exists: update `brand.md` / `tokens.json` with new evidence, bump `updated_at` in `profile.md`, append to `decisions.md` and `sources/`.
    - Do not wipe `assets/`, `sources/`, or existing `targets/` during a refresh.
 
 7. **Confirm to the user**
@@ -145,7 +146,7 @@ Profile (brand / product / client)
 1. **Load the profile**
    - Read `~/.vibe-to-ui/profiles/<profile>/`.
    - If missing: tell the user and offer Workflow A (init from URL/screenshot).
-   - Required shared files: `brand.md`, `tokens.json`. If `decisions.md` or `profile.yaml` is missing, recreate from templates without inventing fake history.
+   - Required shared files: `brand.md`, `tokens.json`. If `decisions.md` or `profile.md` is missing, recreate from templates without inventing fake history.
 
 2. **Resolve target path**
    - Allowed targets: `web` | `social-cover` | `hyperframes`.
@@ -167,7 +168,7 @@ Profile (brand / product / client)
 
 Assemble one merged package (Markdown + embedded or adjacent JSON) containing:
 
-1. Profile metadata (`profile.yaml`)
+1. Profile metadata (`profile.md`)
 2. Brand master (`brand.md`)
 3. Design tokens (`tokens.json`)
 4. Relevant decisions (full `decisions.md`, or the latest / target-tagged entries if very long)
@@ -287,7 +288,7 @@ Seed file: [tokens.json](../assets/design-context/tokens.json)
 
 Shared seed files only (copy into the profile directory; never edit user copies via skill update):
 
-- [profile.yaml](../assets/design-context/profile.yaml)
+- [profile.md](../assets/design-context/profile.md)
 - [brand.md](../assets/design-context/brand.md)
 - [tokens.json](../assets/design-context/tokens.json)
 - [decisions.md](../assets/design-context/decisions.md)

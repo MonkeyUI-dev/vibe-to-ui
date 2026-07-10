@@ -29,7 +29,7 @@ The meaningful integrity checks for this repo are:
    `references/DESIGN-CONTEXT.md`) resolves to a real file. Broken cross-references are
    the most likely regression when editing content.
 3. Design Context seed files under `assets/design-context/` exist for
-   `profile.yaml`, `brand.md`, `tokens.json`, and `decisions.md`.
+   `profile.md`, `brand.md`, `tokens.json`, and `decisions.md`.
    Do **not** ship bundled `targets/{web,social-cover,hyperframes}.md` seeds.
 
 ### Consuming / demonstrating the skill
@@ -50,7 +50,7 @@ To smoke-test Design Context persistence (agent workflow, not a CLI binary):
 
 ```bash
 mkdir -p ~/.vibe-to-ui/profiles/demo/{assets,sources}
-cp /workspace/assets/design-context/profile.yaml \
+cp /workspace/assets/design-context/profile.md \
    /workspace/assets/design-context/brand.md \
    /workspace/assets/design-context/tokens.json \
    /workspace/assets/design-context/decisions.md \

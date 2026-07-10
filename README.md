@@ -125,7 +125,7 @@ See [references/VISUAL-ASSET-GENERATION.md](references/VISUAL-ASSET-GENERATION.m
 Extract brand visual language from a **website URL or screenshot** and persist it under `~/.vibe-to-ui/profiles/<profile>/` — outside the skill package so install/update never overwrites your data:
 
 - **Profile** = one brand, product, or client (e.g. `vibe-to-ui`, `nextai`) — not an output platform
-- Shared brand master: `profile.yaml`, `brand.md`, `tokens.json`, `decisions.md`, `assets/`, `sources/`
+- Shared brand master: `profile.md`, `brand.md`, `tokens.json`, `decisions.md`, `assets/`, `sources/`
 - **Targets on demand** (`web`, `social-cover`, `hyperframes`): created under the profile when first requested, then reused and updated. Target rule packs are **not** bundled in this skill; they may be supplied later by an external provider.
 - Merge brand + tokens + decisions + target rules for webpage, social-cover, or launch-video agents
 
@@ -297,7 +297,7 @@ Expose MCP tools such as `generate_image(prompt, width, height, reference_path?)
     ├── DESIGN.md                     # Persistent product/design context template
     ├── design-system-template.md     # Standard output template for design tokens
     ├── design-context/               # Shared seeds for ~/.vibe-to-ui/profiles/
-    │   ├── profile.yaml              # (no bundled web/social-cover/hyperframes seeds)
+    │   ├── profile.md              # (no bundled web/social-cover/hyperframes seeds)
     │   ├── brand.md
     │   ├── tokens.json
     │   ├── decisions.md

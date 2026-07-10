@@ -122,7 +122,7 @@ vibe-to-ui 是这把翻译工具。把一张照片、一段录音、一种说不
 从**网站 URL 或截图**提取品牌视觉语言，并持久化到 `~/.vibe-to-ui/profiles/<profile>/` —— 与 Skill 包分离，安装/更新不会覆盖你的数据：
 
 - **Profile** = 一套品牌、产品或客户（如 `vibe-to-ui`、`nextai`），不是产出平台
-- 共享品牌母版：`profile.yaml`、`brand.md`、`tokens.json`、`decisions.md`、`assets/`、`sources/`
+- 共享品牌母版：`profile.md`、`brand.md`、`tokens.json`、`decisions.md`、`assets/`、`sources/`
 - **按需 Target**（`web`、`social-cover`、`hyperframes`）：首次请求时写入 profile，之后优先复用与更新。本技能包**不内置** target 规则种子文件，未来可通过外部方式提供。
 - 将品牌母版、Tokens、设计决策与对应 target 规则合并，交给网页、社媒封面或 Launch 视频 Agent
 
@@ -291,7 +291,7 @@ vibe-to-ui **仅包含指令文档**，不内置 API Key，也不直接调用图
     ├── DESIGN.md                     # 持久化产品/设计上下文模板
     ├── design-system-template.md     # 设计 Token 标准输出模板
     ├── design-context/               # ~/.vibe-to-ui/profiles/ 的共享种子模板
-    │   ├── profile.yaml              # （不内置 web/social-cover/hyperframes 种子）
+    │   ├── profile.md              # （不内置 web/social-cover/hyperframes 种子）
     │   ├── brand.md
     │   ├── tokens.json
     │   ├── decisions.md

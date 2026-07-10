@@ -27,10 +27,10 @@ Extract design context from this screenshot into profile "nextai"
 Agent:
 
 1. Create `~/.vibe-to-ui/profiles/nextai/` with `assets/` and `sources/` (no `targets/` yet).
-2. Copy **shared** seed templates only (`profile.yaml`, `brand.md`, `tokens.json`, `decisions.md`) from the skill's `assets/design-context/` — do not copy `targets/` at init.
+2. Copy **shared** seed templates only (`profile.md`, `brand.md`, `tokens.json`, `decisions.md`) from the skill's `assets/design-context/` — do not copy `targets/` at init.
 3. Record the source under `sources/` (URL notes and/or copied screenshot).
 4. Reuse Design System Extraction + optional Aesthetic Analysis to fill:
-   - `profile.yaml`
+   - `profile.md`
    - `brand.md`
    - `tokens.json`
    - `decisions.md` (append initial extraction)
@@ -41,7 +41,7 @@ Expected tree:
 
 ```text
 ~/.vibe-to-ui/profiles/nextai/
-├── profile.yaml
+├── profile.md
 ├── brand.md
 ├── tokens.json
 ├── decisions.md
@@ -63,7 +63,7 @@ Agent:
 1. Load `brand.md`, `tokens.json`, `decisions.md`.
 2. See that `targets/web.md` is missing → create `targets/` and generate `web.md` from the brand master using the web target guide in `DESIGN-CONTEXT.md` (no bundled target seed in the skill package).
 3. Append a decision: "Target web created".
-4. Update `profile.yaml` → `targets_available: [web]`, bump `updated_at`.
+4. Update `profile.md` frontmatter → `targets_available: [web]`, bump `updated_at`.
 5. Emit **merged context**: metadata + brand + tokens + decisions + `targets/web.md` (+ asset pointers) for the web/UI agent.
 
 ## 3. Request the same target again (reuse)
