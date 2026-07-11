@@ -57,31 +57,46 @@ Expand `~` to the current user's home directory. If `$HOME` / `~` is unavailable
 
 ## Command surface
 
-Agents should treat the following as the canonical invocation (natural language equivalents are fine):
-
 ```bash
+vibe-to-ui context --list
+vibe-to-ui context --profile <profile> --init
 vibe-to-ui context --profile <profile> --target <medium>
 ```
 
 `<medium>` is a kebab-case medium id. Examples (not an exhaustive allow-list): `web`, `social-cover`, `hyperframes`, `linkedin`, `print-brochure`, `email-header`.
 
-Optional source flags the agent may accept in the same turn:
+### CLI (programmatic)
+
+This skill package ships a **Node.js zero-dependency CLI** (`bin/vibe-to-ui.js`, `package.json` bin: `vibe-to-ui`):
+
+| Command | Behavior |
+|---------|----------|
+| `--list` | List profiles under the Design Context root |
+| `--profile <id> --init` | Create profile skeleton from `assets/design-context/` seeds; create `assets/` + `sources/`; **do not** create `targets/`; never overwrite existing shared files |
+| `--profile <id> --target <medium>` | Ensure `targets/<medium>.md` exists (create stub if missing, else reuse); append a decision note; print **merged context** on stdout |
+
+Root resolution:
+
+1. `VIBE_TO_UI_HOME` if set (absolute path after resolve)
+2. Else `~/.vibe-to-ui` (`os.homedir()`)
+
+The CLI checks that the root is writable (user-level home permissions — not elevated privileges). If the root cannot be written, it exits non-zero with a clear error.
+
+Run via:
 
 ```bash
-# URL source
-vibe-to-ui context --profile <profile> --from-url https://example.com
+# from a checkout / installed skill directory
+node bin/vibe-to-ui.js context --list
+node bin/vibe-to-ui.js context --profile vibe-to-ui --init
+node bin/vibe-to-ui.js context --profile vibe-to-ui --target print-brochure
 
-# Screenshot / image source
-vibe-to-ui context --profile <profile> --from-image ./shot.png
-
-# Create or refresh brand master only (no target yet)
-vibe-to-ui context --profile <profile> --init
-
-# List known profiles
-vibe-to-ui context --list
+# when the package bin is on PATH (local npm link / npx)
+npx vibe-to-ui context --list
 ```
 
-There is no separate CLI binary in this skill package. The agent executes the workflow with filesystem tools: create directories, write files, read existing profiles, and merge context for the user.
+`--from-url` / `--from-image` are **not** implemented in the CLI yet. URL/image extraction remains an agent workflow that writes into an already-initialized profile.
+
+Agents should prefer the CLI for list / init / target lifecycle and merge assembly, then fill brand/target **content** using the skill guides.
 
 ## Profile vs target
 

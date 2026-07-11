@@ -359,23 +359,25 @@ User wants reusable brand visual language extracted from a website URL or screen
 
 **Trigger**: User says things like "save this site's design as a profile", "extract brand context from this URL/screenshot", "vibe-to-ui context --profile vibe-to-ui --target web", "give me LinkedIn rules for this brand", "print brochure context from this profile", "Hyperframes context for launch video", or asks to reuse a previously saved brand across projects or media.
 
-**Command surface** (agent-executed; no separate CLI binary in this package):
+**Command surface** (Node CLI in this package — prefer programmatic lifecycle over hand-rolled mkdir):
 
 ```bash
+vibe-to-ui context --list
+vibe-to-ui context --profile <profile> --init
 vibe-to-ui context --profile <profile> --target <medium>
 ```
 
-`<medium>` is any kebab-case medium id. Examples (not an allow-list): `web`, `social-cover`, `hyperframes`, `linkedin`, `print-brochure`. Also accept `--from-url`, `--from-image`, `--init`, and `--list` as described in [references/DESIGN-CONTEXT.md](references/DESIGN-CONTEXT.md).
+`<medium>` is any kebab-case medium id. Examples (not an allow-list): `web`, `social-cover`, `hyperframes`, `linkedin`, `print-brochure`.
+
+Run as `node <skill>/bin/vibe-to-ui.js ...` or `npx vibe-to-ui ...` when the package bin is available. Root defaults to `~/.vibe-to-ui` (override with `VIBE_TO_UI_HOME`). See [references/DESIGN-CONTEXT.md](references/DESIGN-CONTEXT.md).
 
 **Workflow**:
-1. Resolve a kebab-case **profile** id (brand / product / client — not a medium).
-2. Ensure `~/.vibe-to-ui/profiles/<profile>/` exists with `assets/` and `sources/`. Do **not** create `targets/` until a target is requested.
-3. If initializing or refreshing from a URL/screenshot: record the source under `sources/`, reuse Design System Extraction ([references/DESIGN-SYSTEM.md](references/DESIGN-SYSTEM.md)), optional Aesthetic Analysis, and Motion System guidance to write `profile.md`, `brand.md`, `tokens.json`, and append to `decisions.md`. Copy durable visuals into `assets/`.
-4. On `--target <name>`: normalize to kebab-case; if `targets/<name>.md` is missing, generate it from the brand master using the target guides in [references/DESIGN-CONTEXT.md](references/DESIGN-CONTEXT.md) — named example guides when they apply, otherwise the **generic custom-medium** guide. This skill does **not** ship per-medium seed files; external target packs may be supplied later. If the file exists, **reuse and update** rather than regenerating from scratch. Do not reject user-defined media.
-5. Merge brand master + tokens + decisions + target rules (+ relevant asset pointers) and output that package for the consuming medium agent.
-6. When working inside a project, also read project `DESIGN.md` if present; optionally record `design_context_profile: <profile>` in Iteration Context. Do not replace `DESIGN.md` with the profile.
+1. Resolve a kebab-case **profile** id (brand / product / client — not a medium). Prefer `vibe-to-ui context --profile <id> --init` to create the skeleton (shared seeds only; no `targets/` yet).
+2. Brand extraction (URL/screenshot/images) remains agent-led for now — write into the initialized profile's `brand.md` / `tokens.json` / `decisions.md` / `sources/`.
+3. On `--target <name>`: run the CLI so it creates or reuses `targets/<name>.md` and prints the merged handoff package. Fill stub target content from the brand master using the guides in [references/DESIGN-CONTEXT.md](references/DESIGN-CONTEXT.md). Do not reject user-defined media.
+4. When working inside a project, also read project `DESIGN.md` if present; optionally record `design_context_profile: <profile>` in Iteration Context. Do not replace `DESIGN.md` with the profile.
 
-**Non-negotiable**: User data under `~/.vibe-to-ui/` is outside the skill lifecycle. Skill update or reinstall must never overwrite it. This MVP does not implement cloud sync, team collaboration, or vector search.
+**Non-negotiable**: User data under `~/.vibe-to-ui/` (or `VIBE_TO_UI_HOME`) is outside the skill lifecycle. Skill update or reinstall must never overwrite it. This MVP does not implement cloud sync, team collaboration, or vector search.
 
 ## Combining capabilities
 

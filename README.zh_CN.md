@@ -128,10 +128,14 @@ vibe-to-ui 是这把翻译工具。把一张照片、一段录音、一种说不
 - 将品牌母版、Tokens、设计决策与对应 target 规则合并，交给该媒介的下游 Agent
 
 ```bash
+vibe-to-ui context --list
+vibe-to-ui context --profile <profile> --init
 vibe-to-ui context --profile <profile> --target <medium>
 ```
 
 `<medium>` 示例（非封闭枚举）：`web`、`social-cover`、`hyperframes`、`linkedin`、`print-brochure`。
+
+本包装有 **Node.js CLI**（`bin/vibe-to-ui.js`，零依赖）负责 list / init / target merge。数据根目录为 `~/.vibe-to-ui`（可用 `VIBE_TO_UI_HOME` 覆盖）。从 URL/截图提取品牌内容目前仍由 Agent 完成。
 
 详见 [DESIGN-CONTEXT.md](references/DESIGN-CONTEXT.md) 与 [design-context-e2e.md](assets/examples/design-context-e2e.md)。本 MVP 暂不实现云同步、团队协作与向量检索。
 
@@ -231,13 +235,13 @@ git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-t
 # 同时应用 Token 与图片
 "把概念 B 的设计和素材一起应用到我的 Next.js 项目"
 
-# 从 URL 或截图保存本地 Design Context profile
+# 保存本地 Design Context profile（CLI 骨架 + Agent 提取）
+"vibe-to-ui context --profile vibe-to-ui --init"
 "把 https://vibe-to-ui.example 的设计上下文提取到 profile vibe-to-ui"
 
-# 按需加载或生成媒介规则（任意媒介 id）
+# 列出 profile / 按需生成媒介规则（CLI）
+"vibe-to-ui context --list"
 "vibe-to-ui context --profile vibe-to-ui --target web"
-"vibe-to-ui context --profile vibe-to-ui --target social-cover"
-"vibe-to-ui context --profile vibe-to-ui --target hyperframes"
 "vibe-to-ui context --profile vibe-to-ui --target linkedin"
 "vibe-to-ui context --profile vibe-to-ui --target print-brochure"
 
@@ -284,6 +288,9 @@ vibe-to-ui **仅包含指令文档**，不内置 API Key，也不直接调用图
 ```
 .
 ├── SKILL.md                          # 核心指令（激活时加载）
+├── package.json                      # vibe-to-ui context CLI 的 npm bin
+├── bin/vibe-to-ui.js                 # CLI 入口（context --list/--init/--target）
+├── lib/context.js                    # Design Context 文件系统逻辑
 ├── references/
 │   ├── DESIGN-SYSTEM.md              # 设计系统提取方法论
 │   ├── DESIGN-EXPLORATION.md         # 交互式探索对话指南

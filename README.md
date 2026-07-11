@@ -131,10 +131,14 @@ Extract brand visual language from a **website URL or screenshot** and persist i
 - Merge brand + tokens + decisions + target rules for the consuming medium agent
 
 ```bash
+vibe-to-ui context --list
+vibe-to-ui context --profile <profile> --init
 vibe-to-ui context --profile <profile> --target <medium>
 ```
 
 `<medium>` examples (not an allow-list): `web`, `social-cover`, `hyperframes`, `linkedin`, `print-brochure`.
+
+The package ships a **Node.js CLI** (`bin/vibe-to-ui.js`, zero dependencies) for list / init / target merge. Root is `~/.vibe-to-ui` (override with `VIBE_TO_UI_HOME`). Brand extraction from URL/screenshot remains agent-led for now.
 
 See [references/DESIGN-CONTEXT.md](references/DESIGN-CONTEXT.md) and [assets/examples/design-context-e2e.md](assets/examples/design-context-e2e.md). Cloud sync, team collaboration, and vector search are out of scope for this MVP.
 
@@ -236,13 +240,13 @@ git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-t
 # Apply design tokens and images together
 "Apply Concept B with assets to my Next.js app"
 
-# Save brand context from a URL or screenshot into a local profile
+# Save brand context into a local profile (CLI skeleton + agent extraction)
+"vibe-to-ui context --profile vibe-to-ui --init"
 "Extract design context from https://vibe-to-ui.example into profile vibe-to-ui"
 
-# Load or generate medium-specific rules for a profile (any medium id)
+# List profiles / load medium rules (CLI)
+"vibe-to-ui context --list"
 "vibe-to-ui context --profile vibe-to-ui --target web"
-"vibe-to-ui context --profile vibe-to-ui --target social-cover"
-"vibe-to-ui context --profile vibe-to-ui --target hyperframes"
 "vibe-to-ui context --profile vibe-to-ui --target linkedin"
 "vibe-to-ui context --profile vibe-to-ui --target print-brochure"
 
@@ -290,6 +294,9 @@ Expose MCP tools such as `generate_image(prompt, width, height, reference_path?)
 ```
 .
 ├── SKILL.md                          # Core instructions (loaded on activation)
+├── package.json                      # Optional npm bin for vibe-to-ui context CLI
+├── bin/vibe-to-ui.js                 # CLI entry (context --list/--init/--target)
+├── lib/context.js                    # Design Context filesystem helpers
 ├── references/
 │   ├── DESIGN-SYSTEM.md              # Design system extraction methodology
 │   ├── DESIGN-EXPLORATION.md         # Interactive exploration conversation guide
