@@ -300,6 +300,7 @@ If the confirmed direction includes an ASCII architecture sketch, visual thumbna
 - **Density**: [minimal / moderate / rich]
 - **Distance**: [small / medium / large] — base translate: [for example `12px`]
 - **Personality**: [reliable and composed / innovative and performant / guiding and supportive / premium and luxurious / playful and energetic]
+- **Signature motif**: [one memorable motion sentence derived from vibe/reference — e.g. "soft paper settle: 12px rise, calm ease-out, 60ms stagger"]
 - **Reduced motion**: [fade only / static / simplified / pausable]
 
 ### Motion Tokens
@@ -333,13 +334,16 @@ Fill this section when implementing motion in preview or project code — not du
 - **Stack family**: [web / react / vue]
 - **Stack binding**: [e.g. css-tokens / motion / framer-motion / motion-v / @vueuse/motion / gsap / ogl / three / r3f / tresjs]
 - **Selected tier**: [L1 / L2 GSAP / L3 OGL / L4 Three.js family]
-- **Primary recipe**: [recipe id from router, e.g. `in-view-stagger`]
-- **Secondary recipe**: [optional, or none]
+- **Primary recipe**: [recipe id from router, e.g. `in-view-stagger` / `sheet-rise` / `tab-indicator`]
+- **Secondary recipe**: [optional feedback+guidance pair only, or none]
+- **Recipe mutations**: [how DNA/signature motif changed defaults]
+- **Signature motif**: [same as Motion Character, carried into implementation]
 - **Escalation reason**: [why a higher tier was required, or N/A]
 - **Rejected tiers**: [e.g. L3, L4 — with one-line reason each]
 - **Dependency check**: [pass / fail notes]
 - **Mobile strategy**: [e.g. static poster, reduced distance, no scroll-scrub]
 - **Decorative budget**: [none / one atmosphere effect — name it]
+- **Mediocrity self-review**: [pass / fail — motif, lineage, mutation, budget, a11y]
 
 ## Preview Artifact
 

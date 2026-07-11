@@ -147,20 +147,20 @@ User provides a complete UI screenshot or design mockup -> Extract the design sy
    - typography hierarchy and readability needs
    - color semantics, especially status and priority colors for B-end surfaces
    - component patterns that fit the classified archetype
-4. Analyze the motion system with the page type in mind:
+4. Analyze the motion system with the page type in mind (Motion DNA only — **do not** load the Motion Engine Router yet):
    - landing pages can support more entrance choreography
    - dashboards prefer subtle transitions and focus-preserving movement
    - dense workbenches should avoid decorative motion that interrupts scanning
    - consumer apps need fast, tactile feedback, clear screen transitions, and complete reduced-motion fallbacks
-   - when **implementing** motion in preview or project code, progressively load [references/MOTION-ENGINE-ROUTER.md](references/MOTION-ENGINE-ROUTER.md): compile Motion DNA → detect stack family (`web` / `react` / `vue`) → select exactly one engine tier (L1 / GSAP / OGL / Three.js family) with the correct stack binding → one primary recipe → dependency, mobile, and reduced-motion fallbacks
+   - extract tempo, easing, density, distance, personality, and one **signature motion motif** from the reference/vibe (see [references/MOTION-SYSTEM.md](references/MOTION-SYSTEM.md))
 5. Output a structured design system including:
    - page type summary
    - design constraints derived from the page archetype
    - visual tokens
-   - motion tokens
+   - motion tokens + signature motion motif
    - consumer app system fields from [references/CONSUMER-APP-DESIGN.md](references/CONSUMER-APP-DESIGN.md) when applicable
 6. If the user wants a richer aesthetic guide (soul-level, not just tokens), also generate an Aesthetic Analysis document following [references/AESTHETIC-ANALYSIS.md](references/AESTHETIC-ANALYSIS.md), but keep it subordinate to the page type constraints
-7. **Generate a standalone preview page** as an HTML artifact showcasing the extracted design system applied to sample components. This is NOT applied to the project yet.
+7. **Generate a standalone preview page** as an HTML artifact showcasing the extracted design system applied to sample components. This is NOT applied to the project yet. **When writing the preview's motion code**, progressively load [references/MOTION-ENGINE-ROUTER.md](references/MOTION-ENGINE-ROUTER.md): compile Motion DNA → detect stack family (`web` / `react` / `vue`) → select one engine tier + stack binding → one primary recipe (mutate parameters from DNA/signature motif — do not ship recipe defaults unchanged) → dependency, mobile, and reduced-motion fallbacks.
 8. Ask the user to confirm or adjust both the **page type classification** and the extracted values
 9. Once the user confirms, transition to **Capability 5** (Apply Design to Project) to integrate the design system into the actual project
 
@@ -199,7 +199,7 @@ User has feelings or vibes but no concrete design target -> Interactive conversa
 8. Synthesize findings into **3 distinct design concept directions**, each with:
    - clear inheritance from the reference or product context
    - a distinct typography direction, not just a color change
-   - a motion personality
+   - a motion personality **and one signature motion motif** (what makes this direction's movement memorable)
    - a density posture
    - a clear statement of why it fits the page type
    - for Consumer app surfaces, a distinct app experience posture: navigation model, primary loop, key state strategy, and tactile interaction feel
@@ -207,13 +207,24 @@ User has feelings or vibes but no concrete design target -> Interactive conversa
 10. For each concept, generate a **standalone concept preview page** as a self-contained HTML artifact:
    - a styled sample card or module from the actual page archetype
    - the concept name, color swatches, typography rationale, font samples, and a mini layout demo
-   - motion preview with hover states and entrance effects appropriate to the page type
+   - motion preview using **Exploration Interim Motion** rules below (do **not** load the full Motion Engine Router yet unless the user asks to formalize implementation)
    - explicit comparison between heading, body, label, and dense-data text where relevant
    - for Consumer app surfaces, show realistic app modules from [references/CONSUMER-APP-DESIGN.md](references/CONSUMER-APP-DESIGN.md): navigation, core screen, detail/create flow, non-happy state, and tap/sheet/tab motion
    - these are standalone pages for exploration and do NOT modify the user's project
 11. Let the user react, compare, and choose or mix elements
 12. Once the user decides, apply **Capability 1** (Design System Extraction) to formalize the chosen direction into a complete design system including motion tokens
-13. Transition to **Capability 5** (Apply Design to Project) to integrate the confirmed design into the actual project
+13. Transition to **Capability 5** (Apply Design to Project) to integrate the confirmed design into the actual project. **On Apply**, load [references/MOTION-ENGINE-ROUTER.md](references/MOTION-ENGINE-ROUTER.md) for production motion code.
+
+#### Exploration Interim Motion (before Router load)
+
+During Capability 2 concept previews and mood boards, motion must still feel intentional — but stay lightweight:
+
+1. Draft a **provisional Motion DNA** per concept: tempo, easing, density, distance, personality, signature motif
+2. Implement with **CSS custom properties + CSS transitions/keyframes only** in the standalone HTML (no GSAP/OGL/Three CDN demos)
+3. Show **one** signature motif + essential feedback (hover/tap); for Consumer apps also show sheet rise and tab indicator using CSS
+4. Vary the signature motif across the 3 concepts so comparison is about *feeling*, not only color
+5. Forbidden in exploration: library default demos, fade-up-everything, bounce-everywhere, particle fields, purple glow loops
+6. When the user confirms a direction and you need production-grade motion code, **then** load the Motion Engine Router
 
 ### 3. Spatial Vibe Exploration
 
@@ -394,5 +405,6 @@ Spatial Vibe outputs should include:
 - For typography, note both the font family and the scale ratios, not just absolute sizes
 - Spacing should be expressed as a consistent scale (for example a 4px base unit)
 - Motion tokens should always include `prefers-reduced-motion` fallbacks. Accessibility is non-negotiable.
-- When writing motion **implementation** code (not during exploration), load [references/MOTION-ENGINE-ROUTER.md](references/MOTION-ENGINE-ROUTER.md). Detect whether the surface is **web**, **React**, or **Vue**, then use the simplest engine tier that can express the confirmed Motion DNA with that stack's binding (e.g. `motion` / `motion-v` / GSAP / OGL / R3F / TresJS). Never mix engines, cross-wire React packages into Vue (or vice versa), stack decorative effects, or copy library default demo styles on the same surface.
+- During **exploration**, use Exploration Interim Motion (CSS + provisional DNA + signature motif). Do **not** load the Motion Engine Router for mood boards or early concept feeling checks.
+- When writing motion **implementation** code (design-system preview Step 7, confirmed concept productionization, or Capability 5 Apply), load [references/MOTION-ENGINE-ROUTER.md](references/MOTION-ENGINE-ROUTER.md). Detect whether the surface is **web**, **React**, or **Vue**, then use the simplest engine tier with the correct stack binding. Mutate recipe parameters from Motion DNA and the signature motif — never ship unchanged library defaults. Never mix engines, cross-wire React packages into Vue (or vice versa), stack decorative effects, or copy demo aesthetics.
 - Be honest when visual analysis is uncertain. Flag low-confidence extractions and suggest the user verify.

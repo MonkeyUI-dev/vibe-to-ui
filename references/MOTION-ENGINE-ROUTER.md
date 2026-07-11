@@ -1,16 +1,17 @@
 # Motion Engine Router
 
-Progressive-load reference. **Do not read this file during vibe exploration, mood boards, or token extraction.** Load it only when the agent is about to **implement motion in code** (preview HTML, concept page, or project Apply) and has already produced Motion DNA from [MOTION-SYSTEM.md](MOTION-SYSTEM.md).
+Progressive-load reference. **Do not read this file during vibe exploration, mood boards, or token extraction.** For exploration HTML motion, use **Exploration Interim Motion** in [SKILL.md](../SKILL.md) (CSS + provisional DNA + signature motif). Load this file only when the agent is about to **implement production-grade motion in code** (design-system preview, productionized concept, or project Apply) and has already produced Motion DNA + signature motif from [MOTION-SYSTEM.md](MOTION-SYSTEM.md).
 
 ## Purpose
 
-Turn the user's vibe and confirmed Motion DNA into **one** implementation engine, **one** stack binding, and **one** minimal recipe set. The router exists so agents:
+Turn the user's vibe and confirmed Motion DNA into **one** implementation engine, **one** stack binding, and **one** minimal recipe set — then **mutate** that recipe with the signature motif so the result feels like the user's references, not a correct-but-generic template. The router exists so agents:
 
 1. Express the target feeling with the **simplest technology that can carry it**
 2. Bind that engine to the project's **Web / React / Vue** stack family — not a kitchen-sink multi-platform catalog
 3. **Never mix engines** on the same surface
 4. **Never stack** decorative effects (parallax + particles + 3D + scroll scrub on the same hero)
 5. **Never copy** library default demo aesthetics (generic floating shapes, stock purple gradients, boilerplate particle fields)
+6. **Break mediocrity gravity** — recipes are skeletons; DNA + signature motif must change defaults before shipping
 
 ## Product scope (what this router covers)
 
@@ -74,6 +75,21 @@ Use the eight dimensions in [MOTION-SYSTEM.md](MOTION-SYSTEM.md). When the user 
 | `personality` | narrative layer | `reliable & composed` |
 | `page_metaphor` | product manual / launch / dashboard / story / showcase | `dashboard` |
 | `primary_intent` | understanding / excitement | `understanding` |
+| `signature_motif` | One memorable motion idea from vibe/reference | `"soft paper settle: 12px rise, calm ease-out, 60ms stagger"` |
+
+### Signature motif (required)
+
+Before picking a recipe, write one sentence for `signature_motif`. It must be specific enough to change recipe defaults (distance, easing, stagger, which property moves). Reject motifs that are only "fade in" or "subtle hover."
+
+**Motif → parameter mutation examples**
+
+| Motif cue | Mutate |
+|-----------|--------|
+| soft / paper / calm | smaller distance, longer ease-out, gentler stagger |
+| snappy / tool / precise | shorter duration, sharp easing, near-zero overshoot |
+| playful / bounce | elastic only on **feedback** roles; keep guidance calm |
+| cinematic / premium | larger distance on hero only; everywhere else restrained |
+| music syncopation | uneven stagger (e.g. 40/80/40ms) instead of uniform 80ms |
 
 ### Vibe word → DNA shortcuts
 
@@ -290,6 +306,7 @@ Run before locking an engine. If a check fails, **downgrade tier** or switch to 
 ```yaml
 motion_engine_decision:
   motion_dna_summary: "medium tempo, calm easing, minimal density, feedback+guidance"
+  signature_motif: "soft paper settle: 12px rise, calm ease-out, 60ms stagger"
   stack_family: react   # web | react | vue
   stack_signals: ["next", "react", "shadcn"]
   selected_tier: L1
@@ -301,7 +318,8 @@ motion_engine_decision:
   dependencies_ok: true
   dependency_notes: ["motion present", "LazyMotion for SSR"]
   primary_recipe: "in-view-stagger"
-  secondary_recipe: null
+  secondary_recipe: "tap-feedback"  # only if feedback+guidance; else null
+  recipe_mutations: "distance 12px; stagger 60ms; ease calm — from signature_motif"
   decorative_budget: none
   reduced_motion_strategy: fade
   mobile_strategy: transform-none; opacity-only under 768px for atmosphere
@@ -309,7 +327,14 @@ motion_engine_decision:
 
 ## Step 7 — Recipes (minimal high-frequency)
 
-Pick **one primary recipe**. Add **at most one** secondary recipe only if roles span feedback + guidance and both are token-light.
+Pick **one primary recipe**. Add **at most one** secondary recipe **only** when both of these are true:
+
+1. Roles span **feedback + guidance** (e.g. tap-feedback + in-view-stagger, or tap-feedback + tab-indicator)
+2. Both recipes stay token-light (no atmosphere, no L2 scrub, no WebGL as secondary)
+
+**Never** use atmosphere, emphasis-only spectacle, or a second scroll/WebGL driver as a secondary recipe. If the surface needs atmosphere, that atmosphere recipe **is** the primary (and decorative budget is spent).
+
+Recipes are **capability skeletons**. After choosing one, **mutate** duration, easing, distance, and stagger from Motion DNA + `signature_motif`. Shipping the numeric defaults below unchanged is a mediocrity failure.
 
 Recipes are **capability patterns**. Implement them with the stack binding from Step 3 — do not copy React JSX into Vue SFCs.
 
@@ -319,7 +344,7 @@ Recipes are **capability patterns**. Implement them with the stack binding from 
 
 - **Role**: guidance
 - **Trigger**: in-view (once)
-- **Pattern**: parent stagger 0.06–0.12s; child opacity 0→1 + y 8–16px (from `--motion-distance-md`)
+- **Pattern**: parent stagger 0.06–0.12s; child opacity 0→1 + y 8–16px (from `--motion-distance-md`) — **override from motif**
 - **Page types**: landing sections, marketing lists, editorial
 - **Reduced**: opacity only, stagger 0
 - **Mobile**: same; cap distance to `--motion-distance-sm`
@@ -345,7 +370,7 @@ Recipes are **capability patterns**. Implement them with the stack binding from 
 
 - **Role**: feedback
 - **Trigger**: click / tap
-- **Pattern**: press scale ~0.97 + optional hover lift 2px; duration `--duration-fast`
+- **Pattern**: press scale ~0.97 + optional hover lift 2px; duration `--duration-fast` — scale/lift from motif
 - **Page types**: consumer app, forms, CTAs
 - **Reduced**: instant state change or border-color only
 - **Mobile**: default for all touch targets; no hover-dependent behavior
@@ -353,6 +378,34 @@ Recipes are **capability patterns**. Implement them with the stack binding from 
   - **web**: `:active { transform: scale(0.97) }` + transition
   - **react**: `whileTap` / `whileHover` on `motion.*`
   - **vue**: `motion-v` tap/hover gestures; or CSS `:active` if staying dependency-free
+
+#### R4 — Sheet rise (`sheet-rise`)
+
+- **Role**: explanation + guidance
+- **Trigger**: click / tap (open), dismiss gesture or backdrop (close)
+- **Pattern**: sheet enters from bottom (`y` 100%→0 or 24–48px rise + fade); duration 220–320ms from Consumer app guidance; controlled spring or calm ease-out per motif — **no full-screen bounce**
+- **Page types**: Consumer app detail/create flows, filters, confirmations
+- **Reduced**: instant show/hide or opacity-only; keep final state readable
+- **Mobile**: primary pattern; respect safe-area inset; backdrop fade without parallax stack
+- **Bindings**:
+  - **web**: CSS `@keyframes` / `transition` on transform + opacity; `role="dialog"`
+  - **react**: `motion` animate `y` + opacity; exit animation on unmount
+  - **vue**: `motion-v` enter/exit or CSS transition on `v-if` / `<Transition>`
+
+#### R5 — Tab indicator (`tab-indicator`)
+
+- **Role**: feedback + guidance
+- **Trigger**: click / tap (tab change)
+- **Pattern**: selected indicator slides or morphs to the active tab (layout handoff on the underline/pill only); content crossfades or short directional slide ≤12px; duration `--duration-fast`–`--duration-normal`
+- **Page types**: Consumer app bottom tabs, top tabs, segmented controls
+- **Reduced**: instant selection state; no sliding indicator required
+- **Mobile**: thumb-zone stable; do not animate the whole tab bar vertically
+- **Bindings**:
+  - **web**: indicator `transform: translateX(...)` with token easing
+  - **react**: `layoutId` on indicator only (prefer over animating all tab panels)
+  - **vue**: `motion-v` layout on indicator; or CSS transform on active index
+
+**Consumer app default pairing**: primary `sheet-rise` or `tab-indicator` as required by the screen; secondary `tap-feedback` only (feedback + guidance rule).
 
 ---
 
@@ -499,16 +552,33 @@ Engine-specific:
 | Infinite hero loops | Accessibility + distraction | once or pausable |
 | 3D on B-end dashboard | Page type violation | L1 feedback only |
 | Forcing GSAP because a blog post used it | Ignores simplest-sufficient rule | Stay on L1 when DNA fits |
+| Shipping recipe numeric defaults unchanged | Correct but mediocre | Mutate from `signature_motif` |
+| Uniform fade-up on every section | Generic LLM gravity | One motif; vary only where hierarchy needs it |
+| Exploration HTML with GSAP/Three CDN demos | Loads Router too early / demo cosplay | CSS interim motion + motif |
+
+## Step 10 — Break mediocrity gravity (self-review before ship)
+
+After implementing, answer **yes** to all before considering motion done:
+
+1. **Motif present** — Can you name the signature motif in one sentence, and does the code encode it (not only comments)?
+2. **Reference lineage** — Does at least one timing/distance/easing choice trace to the user's vibe, music, or UI reference?
+3. **Not template-identical** — If brand color/type were swapped, would the motion still feel distinct from a generic SaaS fade-up kit?
+4. **Recipe mutated** — Did duration, distance, or stagger differ from the recipe's printed defaults for a DNA reason?
+5. **Budget held** — Still one engine, ≤1 secondary (feedback+guidance only), ≤1 atmosphere effect?
+6. **A11y held** — Reduced-motion and mobile fallbacks still match the motif's *meaning* (state visible), not only "turn off"?
+
+If any answer is no, revise before showing the user.
 
 ## Agent workflow (when implementing)
 
-1. Read confirmed Motion DNA from design system or exploration output
-2. **Load this file** (progressive load — not before)
+1. Read confirmed Motion DNA + signature motif from design system or exploration output
+2. **Load this file** (progressive load — not during early exploration)
 3. Run capability check → **detect stack family** → dependency check → select tier + binding
-4. Emit `motion_engine_decision` YAML (see Step 6) including `stack_family` and `stack_binding`
-5. Implement **one primary recipe** with token-bound durations/easing in the correct stack idiom
-6. Wire `prefers-reduced-motion` and mobile fallback
-7. Self-review: page type, single engine, correct stack binding, no demo aesthetics, no stacked atmosphere
+4. Pick primary recipe (+ optional feedback+guidance secondary); **mutate** from motif
+5. Emit `motion_engine_decision` YAML (see Step 6) including `signature_motif` and `recipe_mutations`
+6. Implement with token-bound durations/easing in the correct stack idiom
+7. Wire `prefers-reduced-motion` and mobile fallback
+8. Pass Step 10 mediocrity self-review
 
 ## Related references
 
@@ -516,3 +586,4 @@ Engine-specific:
 - Token output shape: [../assets/design-system-template.md](../assets/design-system-template.md) § Motion System
 - Consumer app tactile patterns: [CONSUMER-APP-DESIGN.md](CONSUMER-APP-DESIGN.md)
 - Page type constraints: [SKILL.md](../SKILL.md) § Stage 0
+- Exploration Interim Motion: [SKILL.md](../SKILL.md) § Design Exploration
