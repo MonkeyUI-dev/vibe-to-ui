@@ -1,23 +1,13 @@
 ---
 name: vibe-to-ui
 description: >-
-  Classify the target page archetype before extracting design systems, motion language,
-  mood boards, and feeling-driven spatial directions from UI references, mockups,
-  website URLs, inspiration images, music cues, or fuzzy aesthetic intent. Adapt
-  intake to whatever the user provides (URL, screenshot, images, music, or mix);
-  when a website URL is shared, the agent may visit the page, read frontend cues,
-  capture selectively, and observe motion. Persist reusable brand design context
-  locally under ~/.vibe-to-ui/profiles/<profile>/ from a website URL or
-  screenshot, then on demand adapt it into open-ended medium targets (examples:
-  web, social-cover, hyperframes — or user-defined media like linkedin,
-  print-brochure) via vibe-to-ui context --profile --target. Derive three visual
-  directions from the user's product context before formalizing tokens unless the
-  user explicitly asks for exact style restoration. Explore through standalone
-  previews and only apply confirmed design directions to the user's project when
-  explicitly requested. Use when the user wants visual direction that matches the
-  actual page type, information density, interaction model, and product background
-  of the surface they are building, or when they want a local Design Context
-  profile for multi-medium brand handoff.
+  Design systems, motion, mood boards, spatial layout, visual assets, and local
+  Design Context profiles from screenshots, website URLs, inspiration images,
+  music, or fuzzy aesthetic intent. Classifies page archetype, explores 3
+  product-aware directions before locking tokens (unless exact restoration),
+  and applies only after confirmation. Use when designing or restyling UI,
+  exploring visual direction, extracting tokens/motion, generating assets, or
+  saving brand context under ~/.vibe-to-ui for multi-medium handoff.
 metadata:
   author: MonkeyUI
   version: "0.4.0"
