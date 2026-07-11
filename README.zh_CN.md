@@ -161,7 +161,7 @@ vibe-to-ui context --profile <profile> --target web|social-cover|hyperframes
 **推荐方式 —— 适用于 Claude Code、Codex、Cursor、Gemini CLI、Kimi Code 等任何支持 `npx` 的 Agent：**
 
 ```bash
-npx skills add MonkeyUI-dev/vibe-to-ui#v0.3.0
+npx skills add MonkeyUI-dev/vibe-to-ui#v0.4.0
 ```
 
 **手动安装（git clone）：**

@@ -165,7 +165,7 @@ Or mix and match — use one reference for structure, another for atmosphere, an
 **Preferred — works with Claude Code, Codex, Cursor, Gemini CLI, Kimi Code, and any `npx`-capable agent:**
 
 ```bash
-npx skills add MonkeyUI-dev/vibe-to-ui#v0.3.0
+npx skills add MonkeyUI-dev/vibe-to-ui#v0.4.0
 ```
 
 **Manual (git clone):**
