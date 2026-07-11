@@ -124,12 +124,14 @@ vibe-to-ui 是这把翻译工具。把一张照片、一段录音、一种说不
 
 - **Profile** = 一套品牌、产品或客户（如 `vibe-to-ui`、`acme-brand`），不是产出平台
 - 共享品牌母版：`profile.md`、`brand.md`、`tokens.json`、`decisions.md`、`assets/`、`sources/`
-- **按需 Target**（`web`、`social-cover`、`hyperframes`）：首次请求时写入 profile，之后优先复用与更新。本技能包**不内置** target 规则种子文件，未来可通过外部方式提供。
-- 将品牌母版、Tokens、设计决策与对应 target 规则合并，交给网页、社媒封面或 Launch 视频 Agent
+- **按需 Target**：任意 kebab-case 媒介 id（示例：`web`、`social-cover`、`hyperframes`；也可自定义如 `linkedin`、`print-brochure`）。首次请求时写入 profile，之后优先复用与更新。本技能包**不内置** target 规则种子文件，未来可通过外部方式提供。
+- 将品牌母版、Tokens、设计决策与对应 target 规则合并，交给该媒介的下游 Agent
 
 ```bash
-vibe-to-ui context --profile <profile> --target web|social-cover|hyperframes
+vibe-to-ui context --profile <profile> --target <medium>
 ```
+
+`<medium>` 示例（非封闭枚举）：`web`、`social-cover`、`hyperframes`、`linkedin`、`print-brochure`。
 
 详见 [DESIGN-CONTEXT.md](references/DESIGN-CONTEXT.md) 与 [design-context-e2e.md](assets/examples/design-context-e2e.md)。本 MVP 暂不实现云同步、团队协作与向量检索。
 
@@ -232,10 +234,12 @@ git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-t
 # 从 URL 或截图保存本地 Design Context profile
 "把 https://vibe-to-ui.example 的设计上下文提取到 profile vibe-to-ui"
 
-# 按需加载或生成媒介规则
+# 按需加载或生成媒介规则（任意媒介 id）
 "vibe-to-ui context --profile vibe-to-ui --target web"
 "vibe-to-ui context --profile vibe-to-ui --target social-cover"
 "vibe-to-ui context --profile vibe-to-ui --target hyperframes"
+"vibe-to-ui context --profile vibe-to-ui --target linkedin"
+"vibe-to-ui context --profile vibe-to-ui --target print-brochure"
 
 # 完整流程
 "我有一些灵感图片和一段音乐片段 —— 先探索空间氛围，选定方向后再应用到我的产品"
@@ -299,7 +303,7 @@ vibe-to-ui **仅包含指令文档**，不内置 API Key，也不直接调用图
     ├── DESIGN.md                     # 持久化产品/设计上下文模板
     ├── design-system-template.md     # 设计 Token 标准输出模板
     ├── design-context/               # ~/.vibe-to-ui/profiles/ 的共享种子模板
-    │   ├── profile.md              # （不内置 web/social-cover/hyperframes 种子）
+    │   ├── profile.md              # （不内置按媒介划分的 target 种子）
     │   ├── brand.md
     │   ├── tokens.json
     │   ├── decisions.md

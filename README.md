@@ -127,12 +127,14 @@ Extract brand visual language from a **website URL or screenshot** and persist i
 
 - **Profile** = one brand, product, or client (e.g. `vibe-to-ui`, `acme-brand`) — not an output platform
 - Shared brand master: `profile.md`, `brand.md`, `tokens.json`, `decisions.md`, `assets/`, `sources/`
-- **Targets on demand** (`web`, `social-cover`, `hyperframes`): created under the profile when first requested, then reused and updated. Target rule packs are **not** bundled in this skill; they may be supplied later by an external provider.
-- Merge brand + tokens + decisions + target rules for webpage, social-cover, or launch-video agents
+- **Targets on demand**: any kebab-case medium id (examples: `web`, `social-cover`, `hyperframes`; also user-defined such as `linkedin`, `print-brochure`). Created under the profile when first requested, then reused and updated. Target rule packs are **not** bundled in this skill; they may be supplied later by an external provider.
+- Merge brand + tokens + decisions + target rules for the consuming medium agent
 
 ```bash
-vibe-to-ui context --profile <profile> --target web|social-cover|hyperframes
+vibe-to-ui context --profile <profile> --target <medium>
 ```
+
+`<medium>` examples (not an allow-list): `web`, `social-cover`, `hyperframes`, `linkedin`, `print-brochure`.
 
 See [references/DESIGN-CONTEXT.md](references/DESIGN-CONTEXT.md) and [assets/examples/design-context-e2e.md](assets/examples/design-context-e2e.md). Cloud sync, team collaboration, and vector search are out of scope for this MVP.
 
@@ -237,10 +239,12 @@ git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-t
 # Save brand context from a URL or screenshot into a local profile
 "Extract design context from https://vibe-to-ui.example into profile vibe-to-ui"
 
-# Load or generate medium-specific rules for a profile
+# Load or generate medium-specific rules for a profile (any medium id)
 "vibe-to-ui context --profile vibe-to-ui --target web"
 "vibe-to-ui context --profile vibe-to-ui --target social-cover"
 "vibe-to-ui context --profile vibe-to-ui --target hyperframes"
+"vibe-to-ui context --profile vibe-to-ui --target linkedin"
+"vibe-to-ui context --profile vibe-to-ui --target print-brochure"
 
 # Full pipeline
 "I have some inspiration images and a music clip — let's explore the spatial vibe, choose a direction, then apply it to my product"
@@ -305,7 +309,7 @@ Expose MCP tools such as `generate_image(prompt, width, height, reference_path?)
     ├── DESIGN.md                     # Persistent product/design context template
     ├── design-system-template.md     # Standard output template for design tokens
     ├── design-context/               # Shared seeds for ~/.vibe-to-ui/profiles/
-    │   ├── profile.md              # (no bundled web/social-cover/hyperframes seeds)
+    │   ├── profile.md              # (no bundled per-medium target seeds)
     │   ├── brand.md
     │   ├── tokens.json
     │   ├── decisions.md

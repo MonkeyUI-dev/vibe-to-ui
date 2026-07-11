@@ -30,7 +30,8 @@ The meaningful integrity checks for this repo are:
    the most likely regression when editing content.
 3. Design Context seed files under `assets/design-context/` exist for
    `profile.md`, `brand.md`, `tokens.json`, and `decisions.md`.
-   Do **not** ship bundled `targets/{web,social-cover,hyperframes}.md` seeds.
+   Do **not** ship bundled per-medium `targets/*.md` seeds (neither for
+   example media like web/social-cover/hyperframes, nor for user-defined media).
 
 ### Consuming / demonstrating the skill
 

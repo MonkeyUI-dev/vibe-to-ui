@@ -80,7 +80,7 @@ Agent:
 2. Reuse it; only update if brand master or user feedback changed.
 3. Emit the same merged package without a full regenerate.
 
-## 4. Add another medium
+## 4. Add another medium (example or user-defined)
 
 User:
 
@@ -88,7 +88,14 @@ User:
 vibe-to-ui context --profile vibe-to-ui --target social-cover
 ```
 
-Agent creates `targets/social-cover.md` on demand (does not regenerate `web.md` unless brand master changed). Later, `--target hyperframes` follows the same pattern.
+or a custom medium:
+
+```text
+vibe-to-ui context --profile vibe-to-ui --target linkedin
+vibe-to-ui context --profile vibe-to-ui --target print-brochure
+```
+
+Agent creates `targets/<medium>.md` on demand (does not regenerate `web.md` unless brand master changed). Named example guides apply when the id matches (`web` / `social-cover` / `hyperframes`); otherwise use the generic custom-medium guide in `DESIGN-CONTEXT.md`.
 
 ## 5. Consume in a project
 
@@ -112,5 +119,5 @@ After `npx skills add ...` or git pull of the skill:
 |-----------|----------------|
 | Profile missing | Offer `--init` / `--from-url` / `--from-image` |
 | URL unreachable | Follow inspiration fallback: try HTML/CSS fetch, then offer cropped screenshots or partial continuation — user chooses; write partial profile with confidence notes |
-| Unknown target | Accept only `web`, `social-cover`, `hyperframes` |
+| Invalid target id | Normalize to kebab-case; if still invalid (empty / non-slug), ask once. Do **not** reject merely because the medium is not `web` / `social-cover` / `hyperframes` |
 | Empty brand master | Refuse to invent a full system; extract from source first |

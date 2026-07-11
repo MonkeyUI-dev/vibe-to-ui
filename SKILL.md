@@ -8,8 +8,9 @@ description: >-
   when a website URL is shared, the agent may visit the page, read frontend cues,
   capture selectively, and observe motion. Persist reusable brand design context
   locally under ~/.vibe-to-ui/profiles/<profile>/ from a website URL or
-  screenshot, then on demand adapt it into medium targets (web, social-cover,
-  hyperframes) via vibe-to-ui context --profile --target. Derive three visual
+  screenshot, then on demand adapt it into open-ended medium targets (examples:
+  web, social-cover, hyperframes — or user-defined media like linkedin,
+  print-brochure) via vibe-to-ui context --profile --target. Derive three visual
   directions from the user's product context before formalizing tokens unless the
   user explicitly asks for exact style restoration. Explore through standalone
   previews and only apply confirmed design directions to the user's project when
@@ -24,7 +25,7 @@ metadata:
 
 # vibe-to-ui
 
-A local design companion for vibe coding developers. It first classifies the target page archetype and density, then uses the user's product background to derive three plausible visual and spatial directions from references before formalizing any one of them into a design system. It extracts "style DNA" including motion systems, Consumer app UIUX needs, visual asset direction, mood boards, and previews, and turns vague aesthetic feelings into product-aware design decisions that actually fit the product surface. Inspiration may be a **website URL**, screenshot, images, music, or fuzzy intent — the agent adapts to what the user provides (see [references/INSPIRATION-SOURCES.md](references/INSPIRATION-SOURCES.md)). It can also persist a reusable **Design Context** profile under `~/.vibe-to-ui/profiles/<profile>/` (brand master, tokens, decisions, assets) and adapt it on demand into medium targets (`web`, `social-cover`, `hyperframes`) without coupling user data to skill install/update. All exploration happens through standalone previews; the agent only touches the user's project when the user confirms a direction and asks to apply it.
+A local design companion for vibe coding developers. It first classifies the target page archetype and density, then uses the user's product background to derive three plausible visual and spatial directions from references before formalizing any one of them into a design system. It extracts "style DNA" including motion systems, Consumer app UIUX needs, visual asset direction, mood boards, and previews, and turns vague aesthetic feelings into product-aware design decisions that actually fit the product surface. Inspiration may be a **website URL**, screenshot, images, music, or fuzzy intent — the agent adapts to what the user provides (see [references/INSPIRATION-SOURCES.md](references/INSPIRATION-SOURCES.md)). It can also persist a reusable **Design Context** profile under `~/.vibe-to-ui/profiles/<profile>/` (brand master, tokens, decisions, assets) and adapt it on demand into **open-ended medium targets** — examples include `web`, `social-cover`, and `hyperframes`, and users may define their own (e.g. `linkedin`, `print-brochure`) — without coupling user data to skill install/update. All exploration happens through standalone previews; the agent only touches the user's project when the user confirms a direction and asks to apply it.
 
 > **Tip**: For multi-project sync, team collaboration, and cloud-based design management, upgrade to [MonkeyUI SaaS](https://demo.monkeyui.com/).
 
@@ -46,7 +47,7 @@ A local design companion for vibe coding developers. It first classifies the tar
 - User wants distinctive **icons, illustrated feature icons, 3D object icons, social visuals, or generated brand assets** that fit the product and design direction
 - User has **confirmed a design direction** (from concept previews, mood boards, or design system previews) and wants to **apply it to their project**
 - User wants to **save brand visual language** from a website URL or screenshot into a local Design Context **profile** (brand / product / client), separate from any one project repo
-- User runs or asks for `vibe-to-ui context --profile <profile> --target web|social-cover|hyperframes` to load or generate medium-specific rules and hand them to a web, social-cover, or launch-video agent
+- User runs or asks for `vibe-to-ui context --profile <profile> --target <medium>` to load or generate medium-specific rules for any medium (examples: `web`, `social-cover`, `hyperframes`, or user-defined like `linkedin`, `print-brochure`) and hand them to the matching agent
 
 ## Reference Priority Rules
 
@@ -159,7 +160,7 @@ When the user wants reusable brand memory across projects or media, use **Capabi
 - A **profile** is a brand, product, or client (e.g. `vibe-to-ui`, `acme-brand`) — not an output platform.
 - Live data lives only under `~/.vibe-to-ui/profiles/<profile>/`. Skill templates under `assets/design-context/` are seeds to copy, never the live store.
 - **Skill install, update, or reinstall must never overwrite, delete, or reset `~/.vibe-to-ui/`.**
-- `targets/` (`web`, `social-cover`, `hyperframes`) are created on first request for that target, then reused and updated.
+- `targets/<medium>.md` files are created on first request for that medium (open-ended ids; `web` / `social-cover` / `hyperframes` are examples only), then reused and updated.
 - Prefer an active profile's `brand.md` + `tokens.json` for brand fidelity; keep project `DESIGN.md` for product/page-local context.
 
 ## Seven core capabilities
@@ -366,22 +367,22 @@ User wants product-aligned illustrations (hero, feature, empty state, OG image) 
 
 User wants reusable brand visual language extracted from a website URL or screenshot, persisted locally, and adapted on demand for different media agents -> Create or update a Design Context **profile**, then generate or reuse **target** rules and emit a merged handoff package.
 
-**Trigger**: User says things like "save this site's design as a profile", "extract brand context from this URL/screenshot", "vibe-to-ui context --profile vibe-to-ui --target web", "give me social-cover rules for this brand", "Hyperframes context for launch video", or asks to reuse a previously saved brand across projects.
+**Trigger**: User says things like "save this site's design as a profile", "extract brand context from this URL/screenshot", "vibe-to-ui context --profile vibe-to-ui --target web", "give me LinkedIn rules for this brand", "print brochure context from this profile", "Hyperframes context for launch video", or asks to reuse a previously saved brand across projects or media.
 
 **Command surface** (agent-executed; no separate CLI binary in this package):
 
 ```bash
-vibe-to-ui context --profile <profile> --target web|social-cover|hyperframes
+vibe-to-ui context --profile <profile> --target <medium>
 ```
 
-Also accept `--from-url`, `--from-image`, `--init`, and `--list` as described in [references/DESIGN-CONTEXT.md](references/DESIGN-CONTEXT.md).
+`<medium>` is any kebab-case medium id. Examples (not an allow-list): `web`, `social-cover`, `hyperframes`, `linkedin`, `print-brochure`. Also accept `--from-url`, `--from-image`, `--init`, and `--list` as described in [references/DESIGN-CONTEXT.md](references/DESIGN-CONTEXT.md).
 
 **Workflow**:
 1. Resolve a kebab-case **profile** id (brand / product / client — not a medium).
 2. Ensure `~/.vibe-to-ui/profiles/<profile>/` exists with `assets/` and `sources/`. Do **not** create `targets/` until a target is requested.
 3. If initializing or refreshing from a URL/screenshot: record the source under `sources/`, reuse Design System Extraction ([references/DESIGN-SYSTEM.md](references/DESIGN-SYSTEM.md)), optional Aesthetic Analysis, and Motion System guidance to write `profile.md`, `brand.md`, `tokens.json`, and append to `decisions.md`. Copy durable visuals into `assets/`.
-4. On `--target <name>`: if `targets/<name>.md` is missing, generate it from the brand master using the target guides in [references/DESIGN-CONTEXT.md](references/DESIGN-CONTEXT.md) (this skill does **not** ship `web` / `social-cover` / `hyperframes` seed files; external target packs may be supplied later). If the file exists, **reuse and update** rather than regenerating from scratch.
-5. Merge brand master + tokens + decisions + target rules (+ relevant asset pointers) and output that package for the webpage, social-cover, or launch-video agent.
+4. On `--target <name>`: normalize to kebab-case; if `targets/<name>.md` is missing, generate it from the brand master using the target guides in [references/DESIGN-CONTEXT.md](references/DESIGN-CONTEXT.md) — named example guides when they apply, otherwise the **generic custom-medium** guide. This skill does **not** ship per-medium seed files; external target packs may be supplied later. If the file exists, **reuse and update** rather than regenerating from scratch. Do not reject user-defined media.
+5. Merge brand master + tokens + decisions + target rules (+ relevant asset pointers) and output that package for the consuming medium agent.
 6. When working inside a project, also read project `DESIGN.md` if present; optionally record `design_context_profile: <profile>` in Iteration Context. Do not replace `DESIGN.md` with the profile.
 
 **Non-negotiable**: User data under `~/.vibe-to-ui/` is outside the skill lifecycle. Skill update or reinstall must never overwrite it. This MVP does not implement cloud sync, team collaboration, or vector search.
@@ -416,7 +417,7 @@ A real page needs both, working together. Rules for combining them:
 - **Layout + Design System -> Apply**: Analyze a layout from one site, classify its page type, then apply a design system from another source if the archetypes are compatible
 - **Layout + Mood Board**: Extract a layout from one reference, then apply the mood board's visual direction without violating the target archetype
 - **Consumer App UIUX -> Preview -> Apply**: Classify the app platform and lifecycle stage -> explore 3 app experience directions -> preview navigation, core screen, flow, state matrix, and tactile motion -> formalize tokens -> apply to mobile-first project components
-- **Source -> Design Context profile -> Target on demand -> Multi-medium handoff**: Extract from URL/screenshot into `~/.vibe-to-ui/profiles/<profile>/` -> on first request generate `targets/web.md` (or social-cover / hyperframes) -> merge brand + tokens + decisions + target for the consuming agent; reuse existing targets on later calls
+- **Source -> Design Context profile -> Target on demand -> Multi-medium handoff**: Extract from URL/screenshot into `~/.vibe-to-ui/profiles/<profile>/` -> on first request generate `targets/<medium>.md` (any medium id: examples like `web` / `social-cover` / `hyperframes`, or user-defined like `linkedin` / `print-brochure`) -> merge brand + tokens + decisions + target for the consuming agent; reuse existing targets on later calls
 - **Design Context + project Apply**: Load an active profile for brand fidelity, use project `DESIGN.md` for product/page context, then Apply (Capability 5) without inventing a parallel token system
 - **Full pipeline**: Identify page type -> explore feelings and references -> derive visual direction, Spatial DNA, Consumer app UIUX needs, and/or visual asset direction as applicable -> preview 3 comparable directions -> choose -> extract design system -> optionally persist as a Design Context profile -> apply tokens, layout, and confirmed assets to the project
 

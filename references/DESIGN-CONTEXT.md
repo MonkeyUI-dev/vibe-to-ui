@@ -4,7 +4,7 @@
 
 Design Context is a **local, profile-scoped brand memory** that lives outside the skill package and outside any single project repo.
 
-It turns a website URL or screenshot into a reusable brand visual language, persists it under `~/.vibe-to-ui/profiles/<profile>/`, and on demand adapts that shared brand into medium-specific target rules (`web`, `social-cover`, `hyperframes`).
+It turns a website URL or screenshot into a reusable brand visual language, persists it under `~/.vibe-to-ui/profiles/<profile>/`, and on demand adapts that shared brand into **medium-specific target rules**. A target is an open medium abstraction — not a fixed enum. Common examples include `web`, `social-cover`, and `hyperframes`; users may also define their own (e.g. `linkedin`, `print-brochure`, `email-header`).
 
 This is the 90/10 MVP: reuse existing extraction capabilities (Design System Extraction, Aesthetic Analysis, Motion System), write plain files, and keep user data separate from skill install/update. When the user provides a URL, intake follows [INSPIRATION-SOURCES.md](INSPIRATION-SOURCES.md) (browse → frontend cues → selective capture → optional motion); screenshots and other sources remain equally valid.
 
@@ -15,7 +15,7 @@ This is the 90/10 MVP: reuse existing extraction capabilities (Design System Ext
 | Term | Meaning |
 |------|---------|
 | **Profile** | One independent brand, product, or client design context (e.g. `vibe-to-ui`, `acme-brand`). Not an output platform. |
-| **Target** | A medium adaptation of the same profile: `web`, `social-cover`, or `hyperframes`. |
+| **Target** | A medium adaptation of the same profile — any kebab-case medium id the user needs (e.g. `web`, `social-cover`, `hyperframes`, `linkedin`, `print-brochure`). Not a closed list. |
 | **Brand master** | Cross-medium shared language in `brand.md` + `tokens.json` + `decisions.md`. |
 | **Profile doc** | `profile.md` — human-readable profile summary with YAML frontmatter for id/timestamps (same pattern as project `DESIGN.md`). |
 | **Merged context** | Brand master + requested target rules, assembled for a downstream agent. |
@@ -33,10 +33,14 @@ This is the 90/10 MVP: reuse existing extraction capabilities (Design System Ext
         ├── assets/
         ├── sources/
         └── targets/          # created on demand, not at profile creation
-            ├── web.md
-            ├── social-cover.md
-            └── hyperframes.md
+            ├── web.md                 # example
+            ├── social-cover.md        # example
+            ├── hyperframes.md         # example
+            ├── linkedin.md            # user-defined example
+            └── print-brochure.md      # user-defined example
 ```
+
+Target filenames are `targets/<target-id>.md`. The ids above are illustrations only — any valid medium id may appear.
 
 ### Lifecycle separation (non-negotiable)
 
@@ -56,8 +60,10 @@ Expand `~` to the current user's home directory. If `$HOME` / `~` is unavailable
 Agents should treat the following as the canonical invocation (natural language equivalents are fine):
 
 ```bash
-vibe-to-ui context --profile <profile> --target web|social-cover|hyperframes
+vibe-to-ui context --profile <profile> --target <medium>
 ```
+
+`<medium>` is a kebab-case medium id. Examples (not an exhaustive allow-list): `web`, `social-cover`, `hyperframes`, `linkedin`, `print-brochure`, `email-header`.
 
 Optional source flags the agent may accept in the same turn:
 
@@ -82,15 +88,18 @@ There is no separate CLI binary in this skill package. The agent executes the wo
 ```text
 Profile (brand / product / client)
   └── shared: brand.md + tokens.json + decisions.md + assets/ + sources/
-        ├── target: web            → layout, components, responsive, interaction
-        ├── target: social-cover   → ratio, composition, title hierarchy, mobile readability
-        └── target: hyperframes    → shots, captions, transitions, pacing, motion
+        ├── target: web              → layout, components, responsive, interaction   (example)
+        ├── target: social-cover     → ratio, composition, title hierarchy           (example)
+        ├── target: hyperframes      → shots, captions, transitions, pacing          (example)
+        ├── target: linkedin         → feed crop, headline budget, professional tone (user-defined)
+        └── target: print-brochure   → trim, folds, ink/contrast, physical hierarchy (user-defined)
 ```
 
 - Creating a profile writes the shared brand master only.
 - `targets/` is **not** created by default.
 - The first request for a given target generates that target file from the brand master and saves it.
 - Later requests **reuse and update** the existing target file instead of regenerating from scratch.
+- Targets are **open-ended**: `web` / `social-cover` / `hyperframes` are common examples and have built-in generation guides; any other medium id the user names is valid and uses the [generic target generation guide](#generic-custom-medium).
 
 ## Workflow A — Create or refresh a profile from a source
 
@@ -128,7 +137,7 @@ Profile (brand / product / client)
    - Fill `tokens.json` — brand-shared Design Tokens in DTCG Format Module (2025.10) shape, with group names aligned to Google DESIGN.md (`colors`, `typography`, `spacing`, `rounded`). See [Token format](#token-format-dtcg--designmd). Do not put page-layout-only or component-only tokens here; those belong in project `DESIGN.md` or a target.
    - Append to `decisions.md` — important extraction/adaptation decisions and why (Design Memory). Never delete prior decisions; mark superseded ones instead.
    - Copy durable brand visuals (logo, key screenshots, illustrations) into `assets/` when available.
-   - This skill package does **not** ship `web.md` / `social-cover.md` / `hyperframes.md` templates. Target rule packs may be supplied later by an external mechanism; until then, generate `targets/<target>.md` from the brand master using the guides below when a target is requested.
+   - This skill package does **not** ship per-medium target templates (neither for common examples like `web` / `social-cover` / `hyperframes`, nor for user-defined media). Target rule packs may be supplied later by an external mechanism; until then, generate `targets/<target>.md` from the brand master using the guides below when a target is requested.
 
 6. **Update vs recreate**
    - If the profile already exists: update `brand.md` / `tokens.json` with new evidence, bump `updated_at` in `profile.md`, append to `decisions.md` and `sources/`.
@@ -149,14 +158,18 @@ Profile (brand / product / client)
    - Required shared files: `brand.md`, `tokens.json`. If `decisions.md` or `profile.md` is missing, recreate from templates without inventing fake history.
 
 2. **Resolve target path**
-   - Allowed targets: `web` | `social-cover` | `hyperframes`.
+   - Accept any kebab-case medium id: lowercase letters, digits, and hyphens only (e.g. `web`, `social-cover`, `linkedin`, `print-brochure`).
+   - Normalize user phrasing to a stable id (`"LinkedIn cover"` → `linkedin`, `"纸质产品宣传手册"` / `"print brochure"` → `print-brochure`). Confirm once when the mapping is ambiguous.
+   - Do **not** reject a target merely because it is not `web` / `social-cover` / `hyperframes` — those are examples, not an allow-list.
    - Path: `targets/<target>.md`.
 
 3. **Create or update target rules**
    - If an **external target rule pack** for this target is available (future provider), prefer that as the starting structure, then fill from the brand master.
    - If `targets/<target>.md` **does not exist**:
      - Create `targets/` if needed.
-     - Generate rules from `brand.md` + `tokens.json` + `decisions.md` + relevant `assets/` using the matching **Target generation guide** in this document (not a bundled seed file).
+     - Generate rules from `brand.md` + `tokens.json` + `decisions.md` + relevant `assets/`:
+       - If the id matches a **named example guide** below (`web`, `social-cover`, `hyperframes`), use that guide.
+       - Otherwise use the **[generic custom-medium guide](#generic-custom-medium)** — derive constraints from the medium's physical/digital properties (format, audience, reading distance, motion capability, production limits).
      - Save the file under the profile's `targets/`.
    - If it **does exist**:
      - Prefer reuse: read the existing file first.
@@ -175,19 +188,23 @@ Assemble one merged package (Markdown + embedded or adjacent JSON) containing:
 5. Target rules (`targets/<target>.md`)
 6. Asset pointers under `assets/` that matter for this target (logos, hero refs, motion refs)
 
-Present this merged context to the user and to the consuming agent for that medium:
+Present this merged context to the user and to the consuming agent for that medium. Examples of typical consumers (not exhaustive):
 
-| Target | Typical consumer |
-|--------|------------------|
+| Target (examples) | Typical consumer |
+|-------------------|------------------|
 | `web` | Webpage / app UI agent |
 | `social-cover` | Social cover / OG / share-card agent |
 | `hyperframes` | Launch video / Hyperframes agent |
+| `linkedin` | LinkedIn post / profile / cover agent |
+| `print-brochure` | Print / layout agent (trim, folds, ink) |
 
 Do not invent a second token system per target. Targets adapt **application rules**; shared tokens stay in `tokens.json`.
 
 ## Target generation guides
 
-### `web.md`
+Targets are medium abstractions. The three guides below are **common examples** with concrete checklists. For any other medium id, use the [generic custom-medium guide](#generic-custom-medium).
+
+### Example: `web.md`
 
 Derive from brand master:
 
@@ -197,7 +214,7 @@ Derive from brand master:
 - Interaction and motion application (hover, focus, page transitions) using shared motion tokens
 - What must stay brand-faithful vs what may flex per page type
 
-### `social-cover.md`
+### Example: `social-cover.md`
 
 Derive from brand master:
 
@@ -207,7 +224,7 @@ Derive from brand master:
 - Color/type usage when space is scarce (hero budget: brand + one headline + one short line + one dominant visual)
 - Avoid card chrome and overlay stickers unless the brand already uses them
 
-### `hyperframes.md`
+### Example: `hyperframes.md`
 
 Derive from brand master:
 
@@ -216,6 +233,31 @@ Derive from brand master:
 - Transition vocabulary mapped from motion tokens (tempo, easing, density)
 - Pacing and beat structure that match brand energy
 - What not to do (generic stock motion, conflicting color flashes, unreadable type)
+
+### Generic custom medium
+
+Use when the target id is **not** one of the named examples above (or when the user names a medium that only partially overlaps an example — e.g. `linkedin` is closer to social-cover but may need feed-specific rules).
+
+Always start by writing these fields into `targets/<target>.md`:
+
+1. **Medium identity** — human name, slug, and one sentence on what artifact this produces
+2. **Format constraints** — size / aspect / page count / fold / duration / character limits / safe zones
+3. **Audience & context** — where it is seen (desk, phone feed, trade show, mailer) and reading distance
+4. **Brand application** — how color, type, imagery, and motion (if any) map from the brand master without inventing a second token system
+5. **Hierarchy budget** — what must appear (brand mark, headline, support, CTA, legal) and what must not crowd the first view
+6. **Production limits** — print ink/bleed, platform crop rules, motion capability, file formats
+7. **Do / don't** — medium-specific anti-patterns that would break brand or usability
+
+Reuse overlapping example guides as **partial checklists** when helpful (e.g. LinkedIn cover → social-cover ratio/composition ideas; print brochure → hierarchy + contrast from web, but drop interaction/motion). Never refuse a custom medium; generate a best-effort rule pack and note confidence gaps in `decisions.md`.
+
+**Illustrative custom media** (not seeded; generate on request):
+
+| Slug example | Derive especially |
+|--------------|-------------------|
+| `linkedin` | Feed crop, professional tone, headline budget, mobile scan |
+| `print-brochure` | Trim/bleed, folds, ink contrast, physical reading order |
+| `email-header` | Narrow width, dark-mode clients, alt text, load weight |
+| `packaging` | Dieline panels, viewing angles, material/finish cues |
 
 ## Relationship to project `DESIGN.md`
 
@@ -240,9 +282,10 @@ Rules:
 ## Anti-patterns
 
 - Storing profiles inside the skill repo or `~/.agents/skills/vibe-to-ui/`
-- Creating all three target files on profile init
+- Creating all target files (or any fixed set of example targets) on profile init
 - Regenerating an existing target from scratch when a light update would do
-- Treating `web` / `social-cover` / `hyperframes` as separate profiles
+- Treating media ids (`web`, `social-cover`, `hyperframes`, `linkedin`, …) as separate **profiles**
+- Rejecting a user-defined medium because it is not in the example list
 - Cloud sync, team sharing, or embedding pipelines in this MVP
 - Overwriting `decisions.md` or deleting `sources/` history
 
@@ -254,8 +297,9 @@ Rules:
 [ ] Skill package templates were copied, not used as the live store
 [ ] sources/ records URL and/or screenshot provenance
 [ ] brand.md + tokens.json + decisions.md reflect shared brand language
-[ ] targets/ created only when a target was requested
+[ ] targets/ created only when a target was requested (any medium id)
 [ ] Existing target reused/updated rather than blindly regenerated
+[ ] Custom media use the generic guide (examples are not an allow-list)
 [ ] Merged context emitted for the requesting medium agent
 [ ] ~/.vibe-to-ui/ left untouched by any skill install/update path
 ```
@@ -294,6 +338,6 @@ Shared seed files only (copy into the profile directory; never edit user copies 
 - [decisions.md](../assets/design-context/decisions.md)
 - [sources/SOURCE.template.md](../assets/design-context/sources/SOURCE.template.md)
 
-Target rule files (`web.md`, `social-cover.md`, `hyperframes.md`) are **not** bundled in this skill. They are written under `~/.vibe-to-ui/profiles/<profile>/targets/` when requested, using the guides above or a future external provider.
+Target rule files are **not** bundled in this skill. They are written under `~/.vibe-to-ui/profiles/<profile>/targets/<target>.md` when requested — for common examples (`web`, `social-cover`, `hyperframes`) or any user-defined medium — using the guides above or a future external provider.
 
 Example walkthrough: [design-context-e2e.md](../assets/examples/design-context-e2e.md)
