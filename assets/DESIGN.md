@@ -203,6 +203,7 @@ Cross-references to design artifacts produced during project iterations. Keeps t
 - **Active Mood Board**: <!-- path or description -->
 - **Layout Blueprint**: <!-- path or description -->
 - **Asset Manifest**: <!-- path to design-assets.manifest.json if generated -->
+- **Design Context Profile**: <!-- e.g. vibe-to-ui — maps to ~/.vibe-to-ui/profiles/<profile>/ -->
 - **Last Updated**: <!-- YYYY-MM-DD -->
 
 ---

@@ -147,12 +147,30 @@ Write technical constraints such as framework, browser support, performance budg
 
 Write mood, visual direction, icon family decisions, generated asset manifests, and image-generation lineage to `## Visual Direction`, `## Icon System`, and `## Visual Assets`.
 
+## Local Design Context profiles (cross-project brand memory)
+
+Project `DESIGN.md` is **repo-scoped**. For brand / product / client memory that should survive across repos and media, use a local Design Context **profile** under `~/.vibe-to-ui/profiles/<profile>/`. See [DESIGN-CONTEXT.md](DESIGN-CONTEXT.md).
+
+| Concern | Where it lives |
+|---------|----------------|
+| Product definition, page type, project-local decisions | Project `DESIGN.md` |
+| Shared brand temperament, tokens, design memory, medium targets | `~/.vibe-to-ui/profiles/<profile>/` |
+
+Collaboration rules:
+
+1. When a profile is active, vibe-to-ui should read `brand.md` + `tokens.json` (+ requested `targets/*.md`) before inventing a new palette.
+2. Continue writing product and page discoveries to project `DESIGN.md`.
+3. Optionally record `design_context_profile: <profile>` under Iteration Context so later sessions reconnect.
+4. Never store live profiles inside the skill package. Skill install/update must not touch `~/.vibe-to-ui/`.
+5. `web`, `social-cover`, and `hyperframes` are **targets** of one profile, not separate profiles.
+
 ## The 90/10 Principle
 
-- The interface is a Markdown file.
+- The interface is a Markdown file (and, for Design Context, a small local directory of Markdown/JSON).
 - Sections are stable.
 - Any skill can read it.
 - Any skill can update the relevant section.
 - No coordination protocol is required beyond the file.
+- User design memory stays outside the skill package lifecycle.
 
 The file is the interface. That's it.

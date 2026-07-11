@@ -32,7 +32,7 @@ We believe: when more developers can carry the beauty that has moved them into w
 
 A design companion for vibe coding developers. Turns screenshots, mood images, non-UI inspiration, music, and gut feelings into structured design systems, motion languages, Consumer app UIUX systems, visual asset directions, and product-aware spatial layouts — and, by default, uses the user's product background to derive **3 visual directions** before formalizing tokens, so the result is visible and exploratory instead of prematurely locked. Only applies designs to your project when you're ready.
 
-**Six core capabilities:**
+**Seven core capabilities:**
 
 #### 1. Design System Extraction
 *For users who have a complete design to restore.*
@@ -119,6 +119,22 @@ UI navigation icons still use a single locked icon library or custom SVG ([ICON-
 
 See [references/VISUAL-ASSET-GENERATION.md](references/VISUAL-ASSET-GENERATION.md) and the E2E walkthrough [assets/examples/visual-asset-e2e.md](assets/examples/visual-asset-e2e.md).
 
+#### 7. Local Design Context (Profile + Targets)
+*For users who want reusable brand memory across projects and media.*
+
+Extract brand visual language from a **website URL or screenshot** and persist it under `~/.vibe-to-ui/profiles/<profile>/` — outside the skill package so install/update never overwrites your data:
+
+- **Profile** = one brand, product, or client (e.g. `vibe-to-ui`, `acme-brand`) — not an output platform
+- Shared brand master: `profile.md`, `brand.md`, `tokens.json`, `decisions.md`, `assets/`, `sources/`
+- **Targets on demand** (`web`, `social-cover`, `hyperframes`): created under the profile when first requested, then reused and updated. Target rule packs are **not** bundled in this skill; they may be supplied later by an external provider.
+- Merge brand + tokens + decisions + target rules for webpage, social-cover, or launch-video agents
+
+```bash
+vibe-to-ui context --profile <profile> --target web|social-cover|hyperframes
+```
+
+See [references/DESIGN-CONTEXT.md](references/DESIGN-CONTEXT.md) and [assets/examples/design-context-e2e.md](assets/examples/design-context-e2e.md). Cloud sync, team collaboration, and vector search are out of scope for this MVP.
+
 #### Consumer App UIUX scenario
 
 When the target is a Consumer app / C-end app, vibe-to-ui treats it as a first-class development scene, not just a page type label:
@@ -149,7 +165,7 @@ Or mix and match — use one reference for structure, another for atmosphere, an
 **Preferred — works with Claude Code, Codex, Cursor, Gemini CLI, Kimi Code, and any `npx`-capable agent:**
 
 ```bash
-npx skills add MonkeyUI-dev/vibe-to-ui#v0.3.0
+npx skills add MonkeyUI-dev/vibe-to-ui#v0.4.0
 ```
 
 **Manual (git clone):**
@@ -211,6 +227,14 @@ git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-t
 # Apply design tokens and images together
 "Apply Concept B with assets to my Next.js app"
 
+# Save brand context from a URL or screenshot into a local profile
+"Extract design context from https://vibe-to-ui.example into profile vibe-to-ui"
+
+# Load or generate medium-specific rules for a profile
+"vibe-to-ui context --profile vibe-to-ui --target web"
+"vibe-to-ui context --profile vibe-to-ui --target social-cover"
+"vibe-to-ui context --profile vibe-to-ui --target hyperframes"
+
 # Full pipeline
 "I have some inspiration images and a music clip — let's explore the spatial vibe, choose a direction, then apply it to my product"
 ```
@@ -263,6 +287,7 @@ Expose MCP tools such as `generate_image(prompt, width, height, reference_path?)
 │   ├── MOTION-ENGINE-ROUTER.md       # Progressive-load engine router (web/React/Vue × L1–L4)
 │   ├── AESTHETIC-ANALYSIS.md         # Aesthetic soul capture methodology
 │   ├── CONTEXT-COLLABORATION.md      # DESIGN.md collaboration protocol
+│   ├── DESIGN-CONTEXT.md             # Local Design Context profile + targets MVP
 │   ├── ICON-USAGE.md                 # Icon component guidelines
 │   ├── MOOD-BOARD.md                 # Mood board generation guide
 │   ├── CONSUMER-APP-DESIGN.md        # Consumer app / C-end UIUX scenario guide
@@ -271,11 +296,20 @@ Expose MCP tools such as `generate_image(prompt, width, height, reference_path?)
 └── assets/
     ├── DESIGN.md                     # Persistent product/design context template
     ├── design-system-template.md     # Standard output template for design tokens
+    ├── design-context/               # Shared seeds for ~/.vibe-to-ui/profiles/
+    │   ├── profile.md              # (no bundled web/social-cover/hyperframes seeds)
+    │   ├── brand.md
+    │   ├── tokens.json
+    │   ├── decisions.md
+    │   └── sources/
     └── examples/
         ├── visual-asset-e2e.md       # Concept → mood board → apply walkthrough
         ├── consumer-app-e2e.md       # Consumer app UIUX → preview → apply walkthrough
+        ├── design-context-e2e.md     # Source → profile → target → handoff walkthrough
         └── design-assets.manifest.example.json
 ```
+
+User Design Context data lives at `~/.vibe-to-ui/profiles/<profile>/` and is **not** part of this package. Skill updates never overwrite it.
 
 Following [Agent Skills progressive disclosure](https://agentskills.io/specification): only `SKILL.md` metadata loads at startup (~100 tokens). Reference files load on demand, keeping context lean.
 
