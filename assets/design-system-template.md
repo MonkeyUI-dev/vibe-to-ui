@@ -330,7 +330,9 @@ If the confirmed direction includes an ASCII architecture sketch, visual thumbna
 
 Fill this section when implementing motion in preview or project code — not during exploration. See [../references/MOTION-ENGINE-ROUTER.md](../references/MOTION-ENGINE-ROUTER.md).
 
-- **Selected tier**: [L1 Motion / L2 GSAP / L3 OGL / L4 Three.js-R3F]
+- **Stack family**: [web / react / vue]
+- **Stack binding**: [e.g. css-tokens / motion / framer-motion / motion-v / @vueuse/motion / gsap / ogl / three / r3f / tresjs]
+- **Selected tier**: [L1 / L2 GSAP / L3 OGL / L4 Three.js family]
 - **Primary recipe**: [recipe id from router, e.g. `in-view-stagger`]
 - **Secondary recipe**: [optional, or none]
 - **Escalation reason**: [why a higher tier was required, or N/A]

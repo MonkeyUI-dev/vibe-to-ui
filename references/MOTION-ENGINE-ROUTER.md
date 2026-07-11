@@ -4,12 +4,25 @@ Progressive-load reference. **Do not read this file during vibe exploration, moo
 
 ## Purpose
 
-Turn the user's vibe and confirmed Motion DNA into **one** implementation engine and **one** minimal recipe set. The router exists so agents:
+Turn the user's vibe and confirmed Motion DNA into **one** implementation engine, **one** stack binding, and **one** minimal recipe set. The router exists so agents:
 
 1. Express the target feeling with the **simplest technology that can carry it**
-2. **Never mix engines** on the same surface
-3. **Never stack** decorative effects (parallax + particles + 3D + scroll scrub on the same hero)
-4. **Never copy** library default demo aesthetics (generic floating shapes, stock purple gradients, boilerplate particle fields)
+2. Bind that engine to the project's **Web / React / Vue** stack family — not a kitchen-sink multi-platform catalog
+3. **Never mix engines** on the same surface
+4. **Never stack** decorative effects (parallax + particles + 3D + scroll scrub on the same hero)
+5. **Never copy** library default demo aesthetics (generic floating shapes, stock purple gradients, boilerplate particle fields)
+
+## Product scope (what this router covers)
+
+vibe-to-ui is a **web-first design companion**. Motion implementation guidance covers three stack families only:
+
+| Family | Detect when | Out of scope |
+|--------|-------------|--------------|
+| **Web** | Vanilla HTML/CSS, static preview HTML, Astro content islands without a SPA framework, Tailwind-only pages | — |
+| **React** | `react`, Next.js, Remix, Vite+React, shadcn/ui (React) | React Native |
+| **Vue** | `vue`, Nuxt, Vite+Vue, Nuxt UI | Native mobile |
+
+**Do not** invent Flutter / RN / SwiftUI / Compose motion paths here. If the project is native-mobile, keep Motion DNA as tokens and ask the user which web surface (if any) should receive implementation.
 
 ## Router pipeline
 
@@ -20,9 +33,11 @@ Motion DNA (8 dimensions + narrative from MOTION-SYSTEM.md)
         ↓
 Capability check (what must be expressed?)
         ↓
+Stack family detect (web | react | vue)
+        ↓
 Dependency audit (project + device + a11y)
         ↓
-Engine selection (exactly one: L1–L4)
+Engine selection (exactly one: L1–L4) + stack binding
         ↓
 Recipe pick (1 primary + at most 1 supporting pattern)
         ↓
@@ -34,9 +49,10 @@ Implement with tokens + fallbacks
 | Rule | Requirement |
 |------|-------------|
 | **One engine per surface** | A page, screen, or preview artifact uses **one** engine tier. Shared layout CSS transitions are allowed; do not add a second animation runtime. |
-| **Simplest sufficient layer** | Start at L1 (Motion). Escalate only when L1 cannot express a **required** capability (see ladder below). |
+| **Simplest sufficient layer** | Start at L1. Escalate only when L1 cannot express a **required** capability (see ladder below). |
+| **Stack follows the project** | Prefer packages already in `package.json`. Do not force React Motion into a Vue app or TresJS into a React app. |
 | **One decorative motion budget** | At most **one** atmosphere-class effect per surface (role = atmosphere in Motion DNA). Feedback and guidance patterns are separate and stay minimal. |
-| **No demo cosplay** | Do not reproduce official examples (Framer Motion layout demos, GSAP ScrollSmoother defaults, Three.js particle fields, shader toy noise). Derive motion from **Motion DNA + design tokens**. |
+| **No demo cosplay** | Do not reproduce official examples (Motion layout demos, GSAP ScrollSmoother defaults, Three.js particle fields, Tres/drei boilerplate). Derive motion from **Motion DNA + design tokens**. |
 | **Page type wins** | B-end / dense surfaces default to L1 or CSS-only. Landing / brand may reach L2–L4 only when atmosphere is an explicit design goal. |
 | **Reduced motion first-class** | Every recipe ships with a `prefers-reduced-motion` branch before shipping. |
 | **Mobile honesty** | If the chosen recipe cannot hold 60fps on mid-tier mobile, downgrade engine tier or switch to static / simplified fallback — do not ship jank. |
@@ -78,42 +94,74 @@ Ask: **What is the minimum expressiveness required?**
 
 | Required capability | Minimum tier |
 |--------------------|--------------|
-| Hover / tap feedback, enter/exit, layout morph, modal, tab, list stagger | **L1 Motion** |
+| Hover / tap feedback, enter/exit, layout morph, modal, tab, list stagger | **L1** |
 | Scroll-scrubbed narrative, pinned sections, complex multi-step timeline, horizontal scroll choreography | **L2 GSAP** |
 | Full-screen shader atmosphere, 2D WebGL image warp, lightweight GPU gradient/noise tied to scroll or pointer | **L3 OGL** |
-| True 3D object, camera path, lighting on mesh, interactive orbit, spatial product hero | **L4 Three.js / R3F** |
+| True 3D object, camera path, lighting on mesh, interactive orbit, spatial product hero | **L4 Three.js family** |
 
 If multiple rows match, pick the **lowest** tier that covers all **functional** requirements. Atmosphere alone never justifies L4.
 
-## Step 3 — Engine ladder
+## Step 3 — Stack family adapter
 
-| Tier | Engine | Runtime | Typical stack |
-|------|--------|---------|---------------|
-| **L1** | **Motion** (`motion` / `framer-motion`) | React declarative | Next.js, Vite + React |
-| **L2** | **GSAP** (+ ScrollTrigger when needed) | Imperative timeline | Any DOM; React use `useGSAP` / `gsap.context` |
-| **L3** | **OGL** | Minimal WebGL | Vanilla or React wrapper; no full scene graph |
-| **L4** | **Three.js** / **React Three Fiber** | Full 3D | `@react-three/fiber` + `@react-three/drei` when in React |
+Detect the project's stack family **before** locking packages. Capability chooses the **tier**; stack family chooses the **binding**.
+
+### Detection signals
+
+| Family | Signals (any strong match) |
+|--------|----------------------------|
+| **react** | `react` / `next` / `react-dom` in deps; `.tsx` app router; shadcn/ui; Remix |
+| **vue** | `vue` / `nuxt` / `nuxt-ui` in deps; `.vue` SFCs; Vite Vue plugin |
+| **web** | No SPA framework; static HTML preview; Astro content-only; plain Tailwind/CSS |
+
+If both React and Vue appear (e.g. Astro islands), bind to the **island framework that owns the animated surface**, not the site shell.
+
+If detection confidence is low, ask one short question: "Is this surface React, Vue, or plain HTML?"
+
+### Tier → package binding matrix
+
+| Tier | Capability | **Web** binding | **React** binding | **Vue** binding |
+|------|------------|-----------------|-------------------|-----------------|
+| **L1** | Declarative UI motion | CSS transitions/animations first; escalate to vanilla **`motion`** (`animate` / `scroll`) only if CSS cannot express stagger/gestures | **`motion`** (preferred) or `framer-motion` if already installed | **`motion-v`** (preferred Motion-for-Vue); if project already uses **`@vueuse/motion`**, keep it — do not dual-install |
+| **L2** | Timeline / scroll choreography | **`gsap`** + `ScrollTrigger` | **`gsap`** + `@gsap/react` (`useGSAP`) / `gsap.context` | **`gsap`** + `ScrollTrigger`; cleanup in `onUnmounted` via `gsap.context` / `ctx.revert()` |
+| **L3** | Lightweight WebGL / shader plane | **`ogl`** (vanilla canvas) | **`ogl`** in a client component (or thin wrapper); avoid a second 3D framework | **`ogl`** in `onMounted` / `onBeforeUnmount`; dispose on unmount |
+| **L4** | True 3D scene | **`three`** (vanilla) | **`three`** + **`@react-three/fiber`**; `@react-three/drei` only when justified | **`three`** + **`@tresjs/core`** (TresJS); `@tresjs/cientos` only when justified; Nuxt may use `@tresjs/nuxt` |
+
+### Stack adapter rules
+
+1. **Same tier, different package** — L1 on Vue is `motion-v`, not React `motion`. Do not cross-wire.
+2. **Prefer already-installed peers** — If `framer-motion` is present and `motion` is not, stay on `framer-motion`. If `@vueuse/motion` is present and DNA fits, stay — do not add `motion-v` just for brand alignment.
+3. **Web L1 stays CSS-first** — Standalone HTML previews should prefer CSS `@keyframes` / transitions bound to design tokens. Add vanilla `motion` only when gestures, layout handoff, or orchestrated stagger are required.
+4. **Astro / multi-island** — Animate inside one island with one engine; do not put GSAP in the layout and Motion inside a React island on the same hero.
+5. **Out of scope stacks** — RN, Flutter, SwiftUI, Compose: emit Motion DNA only; do not fake a web binding.
+
+## Step 4 — Engine ladder
+
+| Tier | Engine (capability name) | Runtime idea |
+|------|--------------------------|--------------|
+| **L1** | Declarative motion (Motion family / CSS) | Component or CSS-driven UI motion |
+| **L2** | **GSAP** (+ ScrollTrigger when needed) | Imperative timeline / scrub |
+| **L3** | **OGL** | Minimal WebGL quad / shader |
+| **L4** | **Three.js family** (vanilla / R3F / TresJS) | Full 3D scene |
 
 Escalation requires a **written reason** tied to Motion DNA, not "it would look cool."
 
-## Step 4 — Selection & rejection matrix
+## Step 5 — Selection & rejection matrix
 
-### L1 — Motion
+### L1 — Declarative motion
 
 **Choose when**
 
-- React (or preview HTML with React CDN) is the implementation surface
 - Motion roles are feedback, guidance, explanation with DOM/CSS-friendly transforms
 - Density is minimal or moderate
 - Consumer app tactile patterns (press, sheet, tab indicator)
 - Page metaphor is product manual, dashboard, or form
+- Stack is Web (CSS/`motion`), React (`motion`), or Vue (`motion-v` / `@vueuse/motion`)
 
 **Reject when**
 
 - Scroll position must drive animation progress with sub-section precision (use L2)
 - Need WebGL shader or mesh deformation (use L3+)
 - Need real 3D camera and lit geometry (use L4)
-- Non-React project with no appetite for Motion — prefer CSS transitions or GSAP
 
 **Do not use for**
 
@@ -129,7 +177,7 @@ Escalation requires a **written reason** tied to Motion DNA, not "it would look 
 - Scroll-scrubbed or pinned section narrative is **required**
 - Multi-element timeline with precise sequencing (>3 chained beats on one trigger)
 - Horizontal scroll gallery with snap and progress sync
-- Vanilla HTML preview without React
+- Vanilla HTML preview without a declarative motion library — **or** Web stack where L1 CSS is insufficient
 
 **Reject when**
 
@@ -166,7 +214,7 @@ Escalation requires a **written reason** tied to Motion DNA, not "it would look 
 
 ---
 
-### L4 — Three.js / R3F
+### L4 — Three.js family
 
 **Choose when**
 
@@ -184,9 +232,9 @@ Escalation requires a **written reason** tied to Motion DNA, not "it would look 
 **Do not use for**
 
 - Default rotating cube / torus / particle field
-- Copying drei `Float`, `Stars`, or example boilerplate without DNA-driven art direction
+- Copying drei / cientos `Float`, `Stars`, or example boilerplate without DNA-driven art direction
 
-## Step 5 — Dependency check
+## Step 6 — Dependency check
 
 Run before locking an engine. If a check fails, **downgrade tier** or switch to static fallback.
 
@@ -198,55 +246,60 @@ Run before locking an engine. If a check fails, **downgrade tier** or switch to 
 | Page type fit | Motion density ≤ archetype allowance | Remove atmosphere; keep feedback only |
 | Single engine | No second runtime planned | Remove extra library |
 | Token binding | Durations/easing from design tokens | Remap; no library defaults |
+| Stack family | Detected `web` / `react` / `vue` | Ask once, or default `web` for standalone HTML previews |
 
-### L1 Motion
+### L1 by stack
 
-| Check | How |
-|-------|-----|
-| React available | `package.json` has `react` + `motion` or `framer-motion`, or preview uses React CDN |
-| SSR | Use `LazyMotion` + `domAnimation` or client-only boundary in Next.js |
-| Bundle | One motion feature slice; avoid importing entire motion-plus |
+| Stack | Check |
+|-------|-------|
+| **web** | Prefer CSS variables for duration/easing; if using vanilla `motion`, confirm package or CDN; no React/Vue imports in static HTML |
+| **react** | `react` + `motion` or `framer-motion`; Next.js → `LazyMotion` / client boundary; avoid importing entire motion-plus |
+| **vue** | `vue` ≥ 3 + `motion-v` **or** existing `@vueuse/motion`; Nuxt → `motion-v/nuxt` module or client-only plugin; do not install both Motion Vue libraries |
 
-### L2 GSAP
+### L2 GSAP by stack
 
-| Check | How |
-|-------|-----|
-| License | GSAP standard license OK for target; note Club plugins only if user has them |
-| ScrollTrigger | Register plugin once; `gsap.context()` for React cleanup |
-| Reduced motion | `gsap.matchMedia('(prefers-reduced-motion: reduce)')` → set duration 0 or opacity-only |
-| Mobile scroll | Avoid heavy scrub on long pinned sections; cap pin duration |
+| Stack | Check |
+|-------|-------|
+| **all** | GSAP standard license OK; Club plugins (Flip, SplitText) only if user has them |
+| **web** | Register ScrollTrigger once; kill tweens on page teardown |
+| **react** | `useGSAP` or `gsap.context` + cleanup; no duplicate ScrollTrigger registrations |
+| **vue** | Create animations in `onMounted`; `gsap.context(el)` + `ctx.revert()` in `onUnmounted` |
+| **a11y** | `gsap.matchMedia('(prefers-reduced-motion: reduce)')` → duration 0 or opacity-only |
+| **mobile** | Avoid heavy scrub on long pinned sections; cap pin duration |
 
-### L3 OGL
+### L3 OGL by stack
 
-| Check | How |
-|-------|-----|
-| WebGL | `canvas.getContext('webgl')` or WebGL2; fallback image/CSS |
-| DPR cap | `Math.min(devicePixelRatio, 2)` on mobile |
-| Resize | Listener + cancel animation on unmount |
-| Memory | Dispose programs/textures on route change |
+| Stack | Check |
+|-------|-------|
+| **all** | WebGL context available; DPR `Math.min(devicePixelRatio, 2)` on mobile; dispose on unmount |
+| **react** | Client-only component; cancel RAF on unmount |
+| **vue** | `ref` canvas; init in `onMounted`; dispose program/geometry/textures in `onBeforeUnmount` |
+| **web** | Same dispose discipline on `pagehide` / navigation |
 
-### L4 Three.js / R3F
+### L4 Three.js family by stack
 
-| Check | How |
-|-------|-----|
-| Packages | `three`, `@react-three/fiber`; `drei` only for justified helpers |
-| Canvas budget | ≤1 Canvas per surface; limit lights and postprocessing |
-| Mobile | Reduce geometry, shadow off, cap DPR; offer static poster |
-| SSR | `dynamic(..., { ssr: false })` for Canvas |
-| Reduced motion | Pause render loop or show poster frame |
+| Stack | Check |
+|-------|-------|
+| **web** | `three` only; ≤1 renderer; dispose geometries/materials/renderer |
+| **react** | `three` + `@react-three/fiber`; `drei` only when justified; `dynamic(..., { ssr: false })` in Next.js |
+| **vue** | `three` + `@tresjs/core`; Vite needs Tres `templateCompilerOptions`; `@tresjs/cientos` only when justified; Nuxt may use `@tresjs/nuxt` |
+| **all** | ≤1 Canvas/renderer per surface; mobile: lower poly, shadows off, DPR cap, static poster; reduced-motion → poster / pause loop |
 
 ### Dependency check output (agent must emit)
 
 ```yaml
 motion_engine_decision:
   motion_dna_summary: "medium tempo, calm easing, minimal density, feedback+guidance"
+  stack_family: react   # web | react | vue
+  stack_signals: ["next", "react", "shadcn"]
   selected_tier: L1
   selected_engine: motion
+  stack_binding: "motion@12"   # e.g. css-tokens | motion | framer-motion | motion-v | @vueuse/motion | gsap | ogl | three | r3f | tresjs
   escalation_reason: null
   rejected_tiers: [L2, L3, L4]
   rejection_notes: "No scroll-scrub narrative; dashboard page type"
   dependencies_ok: true
-  dependency_notes: ["motion@12 present", "LazyMotion for SSR"]
+  dependency_notes: ["motion present", "LazyMotion for SSR"]
   primary_recipe: "in-view-stagger"
   secondary_recipe: null
   decorative_budget: none
@@ -254,38 +307,52 @@ motion_engine_decision:
   mobile_strategy: transform-none; opacity-only under 768px for atmosphere
 ```
 
-## Step 6 — Recipes (minimal high-frequency)
+## Step 7 — Recipes (minimal high-frequency)
 
 Pick **one primary recipe**. Add **at most one** secondary recipe only if roles span feedback + guidance and both are token-light.
 
-### L1 — Motion recipes
+Recipes are **capability patterns**. Implement them with the stack binding from Step 3 — do not copy React JSX into Vue SFCs.
+
+### L1 recipes
 
 #### R1 — In-view stagger (`in-view-stagger`)
 
 - **Role**: guidance
 - **Trigger**: in-view (once)
-- **Pattern**: parent `staggerChildren` 0.06–0.12s; child `opacity` 0→1 + `y` 8–16px (from `--motion-distance-md`)
+- **Pattern**: parent stagger 0.06–0.12s; child opacity 0→1 + y 8–16px (from `--motion-distance-md`)
 - **Page types**: landing sections, marketing lists, editorial
 - **Reduced**: opacity only, stagger 0
 - **Mobile**: same; cap distance to `--motion-distance-sm`
+- **Bindings**:
+  - **web**: CSS `@keyframes` + `animation-delay` per child, or vanilla `motion` stagger
+  - **react**: `staggerChildren` / variants on `motion.*`
+  - **vue**: `motion-v` variants / stagger; or `@vueuse/motion` `v-motion` + delay per item
 
 #### R2 — Shared layout transition (`layout-handoff`)
 
 - **Role**: explanation
 - **Trigger**: state-change (tab, filter, route segment)
-- **Pattern**: `layoutId` on shared element; `transition` from `--duration-normal` + `--ease-default`
+- **Pattern**: shared-element or layout interpolation; duration `--duration-normal` + `--ease-default`
 - **Page types**: consumer app tabs, settings panels, segmented controls
 - **Reduced**: crossfade without layout interpolation
 - **Mobile**: prefer opacity morph; avoid large shared-element flights
+- **Bindings**:
+  - **web**: View Transitions API when enough; else crossfade CSS — do not fake FLIP with GSAP unless escalated to L2
+  - **react**: `layoutId` on `motion.*`
+  - **vue**: `motion-v` layout / shared layout APIs; if only `@vueuse/motion`, degrade to crossfade (no fake layoutId)
 
 #### R3 — Tactile press (`tap-feedback`)
 
 - **Role**: feedback
 - **Trigger**: click / tap
-- **Pattern**: `whileTap={{ scale: 0.97 }}` + optional `whileHover` lift 2px; duration `--duration-fast`
+- **Pattern**: press scale ~0.97 + optional hover lift 2px; duration `--duration-fast`
 - **Page types**: consumer app, forms, CTAs
 - **Reduced**: instant state change or border-color only
 - **Mobile**: default for all touch targets; no hover-dependent behavior
+- **Bindings**:
+  - **web**: `:active { transform: scale(0.97) }` + transition
+  - **react**: `whileTap` / `whileHover` on `motion.*`
+  - **vue**: `motion-v` tap/hover gestures; or CSS `:active` if staying dependency-free
 
 ---
 
@@ -298,7 +365,8 @@ Pick **one primary recipe**. Add **at most one** secondary recipe only if roles 
 - **Pattern**: ScrollTrigger scrub 0.5–1.5; section children fade + y tied to scroll progress; one pinned block max
 - **Page types**: brand story, launch narrative
 - **Reduced**: trigger once on enter, no scrub; or static layout
-- **Mobile**: shorten pin; reduce scrub sensitivity; prefer R1 Motion in-view instead if jank
+- **Mobile**: shorten pin; reduce scrub sensitivity; prefer L1 in-view instead if jank
+- **Bindings**: same GSAP API on web/react/vue — differ only in lifecycle (`useGSAP` vs `onMounted`/`revert`)
 
 #### R2 — Timeline entrance (`load-timeline`)
 
@@ -330,6 +398,7 @@ Pick **one primary recipe**. Add **at most one** secondary recipe only if roles 
 - **Page types**: landing, brand hero background
 - **Reduced**: static CSS `linear-gradient` from same tokens
 - **Mobile**: DPR cap 1.5; pause when `document.hidden`; static fallback under `prefers-reduced-motion`
+- **Bindings**: vanilla OGL in all families; wrap only for mount/unmount
 
 #### R2 — Image plane warp (`pointer-warp`)
 
@@ -351,7 +420,7 @@ Pick **one primary recipe**. Add **at most one** secondary recipe only if roles 
 
 ---
 
-### L4 — Three.js / R3F recipes
+### L4 — Three.js family recipes
 
 #### R1 — Product orbit (`product-orbit`)
 
@@ -361,6 +430,10 @@ Pick **one primary recipe**. Add **at most one** secondary recipe only if roles 
 - **Page types**: product launch, configurable hero
 - **Reduced**: poster image + drag disabled
 - **Mobile**: lower poly; no shadows; drag only if essential
+- **Bindings**:
+  - **web**: `three` + `OrbitControls` if needed
+  - **react**: R3F `<Canvas>` + mesh; avoid default `Float`/`Stars`
+  - **vue**: TresJS `<TresCanvas>` + mesh; avoid default cientos spectacle helpers
 
 #### R2 — Scroll camera (`scroll-camera-path`)
 
@@ -380,7 +453,7 @@ Pick **one primary recipe**. Add **at most one** secondary recipe only if roles 
 - **Reduced**: accordion of static images per hotspot
 - **Mobile**: tap hotspots; limit to 3 views
 
-## Step 7 — Mobile & reduced-motion fallbacks
+## Step 8 — Mobile & reduced-motion fallbacks
 
 Apply **both** branches to every implementation.
 
@@ -395,10 +468,12 @@ Apply **both** branches to every implementation.
 
 Engine-specific:
 
-- **Motion**: `useReducedMotion()` → skip `transform` variants
+- **L1 web**: CSS media query zeroes duration / distance tokens
+- **L1 react**: `useReducedMotion()` → skip `transform` variants
+- **L1 vue**: `useReducedMotion` from `motion-v` / matchMedia; or CSS media query with `@vueuse/motion`
 - **GSAP**: `matchMedia` context with `duration: 0` or simplified tweens
 - **OGL**: detach RAF; swap canvas for CSS/static image
-- **R3F**: render poster frame; unmount Canvas when `reduce`
+- **R3F / TresJS / three**: poster frame; pause or unmount renderer when `reduce`
 
 ### Mobile
 
@@ -410,27 +485,30 @@ Engine-specific:
 | Safe areas | Motion must not shift fixed nav / notches; test 390×844 |
 | Connection / CPU | Prefer L1; lazy-load L3/L4 after first paint with poster |
 
-## Step 8 — Anti-patterns (reject automatically)
+## Step 9 — Anti-patterns (reject automatically)
 
 | Anti-pattern | Why | Instead |
 |--------------|-----|---------|
 | Motion + GSAP on same page | Double runtime, inconsistent easing | One engine |
+| React `motion` inside a Vue SFC (or vice versa) | Wrong stack binding | Use `motion-v` / `@vueuse/motion` on Vue |
+| `motion-v` + `@vueuse/motion` together | Duplicate L1 runtimes | Keep the one already in the project |
 | GSAP + OGL scroll both scrubbing | Stacked scroll listeners | One scroll driver |
-| R3F background + GSAP parallax + Motion text stagger | Triple decorative stack | Pick one atmosphere recipe |
-| `Float` + `Stars` + bloom defaults | Demo cosplay | DNA-driven single effect |
+| R3F/Tres background + GSAP parallax + L1 text stagger | Triple decorative stack | Pick one atmosphere recipe |
+| `Float` + `Stars` + bloom defaults (drei/cientos) | Demo cosplay | DNA-driven single effect |
 | Elastic easing on tables/forms | Breaks scanability | calm + fast, small distance |
 | Infinite hero loops | Accessibility + distraction | once or pausable |
 | 3D on B-end dashboard | Page type violation | L1 feedback only |
+| Forcing GSAP because a blog post used it | Ignores simplest-sufficient rule | Stay on L1 when DNA fits |
 
 ## Agent workflow (when implementing)
 
 1. Read confirmed Motion DNA from design system or exploration output
 2. **Load this file** (progressive load — not before)
-3. Run capability check → dependency check → select tier
-4. Emit `motion_engine_decision` YAML (see Step 5)
-5. Implement **one primary recipe** with token-bound durations/easing
+3. Run capability check → **detect stack family** → dependency check → select tier + binding
+4. Emit `motion_engine_decision` YAML (see Step 6) including `stack_family` and `stack_binding`
+5. Implement **one primary recipe** with token-bound durations/easing in the correct stack idiom
 6. Wire `prefers-reduced-motion` and mobile fallback
-7. Self-review: page type, single engine, no demo aesthetics, no stacked atmosphere
+7. Self-review: page type, single engine, correct stack binding, no demo aesthetics, no stacked atmosphere
 
 ## Related references
 
