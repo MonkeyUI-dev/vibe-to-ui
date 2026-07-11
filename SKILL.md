@@ -148,8 +148,9 @@ Do not ask the user to manage this bookkeeping. Mention it only when it affects 
 When the user wants reusable brand memory across projects or media, use **Capability 7** and [references/DESIGN-CONTEXT.md](references/DESIGN-CONTEXT.md).
 
 - A **profile** is a brand, product, or client (e.g. `vibe-to-ui`, `acme-brand`) — not an output platform.
-- Live data lives only under `~/.vibe-to-ui/profiles/<profile>/`. Skill templates under `assets/design-context/` are seeds to copy, never the live store.
+- Live data lives only under `~/.vibe-to-ui/profiles/<profile>/` (or `$VIBE_TO_UI_HOME`). Skill templates under `assets/design-context/` are seeds to copy, never the live store.
 - **Skill install, update, or reinstall must never overwrite, delete, or reset `~/.vibe-to-ui/`.**
+- Prefer the Node CLI (`bin/vibe-to-ui.js`) for `--list` / `--init` / `--target` lifecycle and merge assembly.
 - `targets/<medium>.md` files are created on first request for that medium (open-ended ids; `web` / `social-cover` / `hyperframes` are examples only), then reused and updated.
 - Prefer an active profile's `brand.md` + `tokens.json` for brand fidelity; keep project `DESIGN.md` for product/page-local context.
 
