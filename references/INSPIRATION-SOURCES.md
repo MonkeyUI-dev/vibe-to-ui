@@ -1,47 +1,48 @@
-# Inspiration Sources (URL-first intake)
+# Inspiration Sources
 
 ## Why this exists
 
-Users often want a live website as inspiration or as a concrete UI reference. Uploading a full-page screenshot is a poor default:
+Inspiration can arrive as a website URL, a screenshot, a mood photo, music, a local project, or a fuzzy description. **None of these is privileged.** The agent adapts to whatever the user actually provides — and may combine multiple kinds in one turn.
 
-- Large images (multi‑MB) waste context and force the user to compress manually
-- Static captures miss scroll choreography, hover states, and timed motion
-- Frontend tokens (CSS variables, font links, motion libraries) are easier to read from the live page than to guess from pixels
+A **website URL** is one valid source among others. When the user *does* share a link, this playbook describes how to use it well: visit the page, read frontend cues, take selective captures if needed, and observe motion when tools allow. That avoids forcing the user to upload a multi‑MB full-page screenshot just because a live page was involved — but it does **not** mean the agent should steer every workflow toward URLs.
 
-**Prefer a public URL** whenever the user can share one. Accept screenshots and images when a URL is unavailable, private, or blocked — but do not ask for a full-page upload first if a link would work.
+This playbook is shared by Design System Extraction, Design Exploration, Spatial Vibe, Aesthetic Analysis, Motion System, Mood Board, and Design Context. Design Context’s `--from-url` is the same URL intake, persisted under `~/.vibe-to-ui/`.
 
-This playbook is shared by Design System Extraction, Design Exploration, Spatial Vibe, Aesthetic Analysis, Motion System, Mood Board, and Design Context. Design Context’s `--from-url` is the same intake, persisted under `~/.vibe-to-ui/`.
+## Accepted source kinds (equal options)
 
-## Accepted source kinds
-
-| Kind | Examples | Typical use |
-|------|----------|-------------|
-| **Live page URL** | `https://example.com`, deep links, docs, landing pages | Preferred for concrete UI / brand / motion references |
-| **Screenshot / mockup** | PNG/WebP of a UI, Figma export | When the page is private, gated, or tools cannot browse |
+| Kind | Examples | Typical use when the user provides it |
+|------|----------|---------------------------------------|
+| **Live page URL** | `https://example.com`, deep links, docs, landing pages | Concrete UI / brand / motion from a public page |
+| **Screenshot / mockup** | PNG/WebP of a UI, Figma export | Concrete UI when the user uploads or pastes an image |
 | **Atmosphere image** | Photo, packaging, magazine, film still | Vibe translation (not structure cloning) |
 | **Music / audio** | Clip, hum, song description | Energy, tempo, texture → visual + motion axes |
-| **Local project / codebase** | Repo the agent already has open | Highest fidelity for structure + tokens |
+| **Local project / codebase** | Repo the agent already has open | Structure + tokens from code the user is working in |
+| **Description only** | Words, anti-references, feelings | Proceed with explicit confidence limits |
 
-Sources can mix. When both a URL and vibe images are present, keep **Reference Priority Rules** from [SKILL.md](../SKILL.md): concrete UI / live page fidelity first, atmosphere second.
+Sources can mix. When both a concrete UI reference (URL, screenshot, or local project) and vibe images are present, keep **Reference Priority Rules** from [SKILL.md](../SKILL.md): concrete UI fidelity first, atmosphere second. That rule is about *signal role*, not about ranking URL above screenshot.
 
-## Preference order
+## Adapt to what the user provided
 
-1. **URL** (or local project) the agent can visit or open
-2. **Selective captures** the agent takes after visiting (hero, one section, one component) — small, cropped, compressed
-3. **User-provided screenshot** — ask for this only after URL intake fails or is incomplete
-4. **User description only** — proceed with low confidence and say so
+| User provides | Agent does |
+|---------------|------------|
+| URL (alone or with other sources) | Run [URL intake](#url-intake-workflow) for that link; merge with any images/music they also shared |
+| Screenshot / mockup | Analyze the image directly; do not ask for a URL first |
+| Atmosphere images / music | Vibe translation path; do not insist on a live site |
+| Local project | Read project UI/code; URL/screenshot optional |
+| Mix | Use each source for what it is good at; state how they were weighted |
+| Nothing concrete yet | Invite options neutrally (URL, image, music, description) — let the user choose |
 
-Never ask the user to compress a 10 MB full-page screenshot when a URL would let the agent do the work.
+Do **not** reframe the user’s screenshot as “you should have sent a URL instead.” Do **not** skip a provided image to go fetch a URL they did not ask you to use.
 
 ## URL intake workflow
 
-When the user shares a website link (as inspiration, restoration reference, structure reference, or Design Context source):
+Run this **only when the user shared a website link** (as inspiration, restoration reference, structure reference, or Design Context source).
 
 ### 1. Resolve access
 
 - Use host tools that are available: browser / computer-use, `WebFetch` / HTTP fetch, or MCP browse tools.
-- Prefer the exact URL given (including path and hash). If redirected, record the final URL.
-- If auth, paywall, bot block, or empty shell (client-only with no SSR) blocks access: say so, try one alternate (e.g. `view-source` / HTML fetch / public CDN assets), then fall back to selective capture request or user screenshot — **not** a demand for a giant full-bleed upload.
+- Use the exact URL given (including path and hash). If redirected, record the final URL.
+- If auth, paywall, bot block, or empty shell (client-only with no SSR) blocks access: say so, try one alternate (e.g. HTML fetch / public CDN assets), then ask whether they want to provide a screenshot or continue with partial confidence — **not** a demand for a giant full-bleed upload.
 
 ### 2. Read the frontend (structure + tokens)
 
@@ -87,41 +88,45 @@ Record Motion DNA signals for [MOTION-SYSTEM.md](MOTION-SYSTEM.md): roles, trigg
 
 ### 5. Hand off into the active capability
 
-| Capability | How to use the intake |
-|------------|------------------------|
+| Capability | How to use URL intake (when a URL was provided) |
+|------------|--------------------------------------------------|
 | Design System Extraction | Stage 0 from live structure + styles; tokens from CSS when reliable, visuals from selective captures |
-| Design Exploration | Treat URL as concrete UI reference for 3 product-aware directions (unless user asked for exact restoration) |
+| Design Exploration | Treat URL as a concrete UI reference for 3 product-aware directions (unless user asked for exact restoration) |
 | Spatial Vibe | Structure references from DOM/section order; vibe still from atmosphere sources |
-| Aesthetic Analysis | Soul/principles from observed page + selective visuals (not “image only”) |
-| Motion System | Prefer live observation; fall back to CSS/JS + static cues |
+| Aesthetic Analysis | Soul/principles from observed page + selective visuals |
+| Motion System | Live observation when possible; else CSS/JS + static cues with confidence notes |
 | Mood Board | Embed selective captures or OG/hero assets; avoid dumping full-page screenshots |
 | Design Context | Same intake, then persist under profile `sources/` via `--from-url` |
 
 ## Anti-patterns
 
-- Asking for a full-page screenshot before trying the URL
-- Dumping multi‑MB images into context when a link exists
+- Treating URL as the default or “preferred” inspiration channel across capabilities
+- Asking for a URL when the user already gave a screenshot, music, or description
+- Asking for a full-page screenshot before trying a URL *the user already provided*
+- Dumping multi‑MB images into context when selective crops or CSS/DOM reads suffice
 - Pasting entire HTML/JS bundles instead of extracting tokens and structure
 - Claiming motion personality from a static crop without noting confidence
 - Cloning copyrighted brand assets into the user’s product without adaptation (inspiration ≠ pixel theft)
 - Treating every URL as a Design Context profile write — only persist when the user asks to save a profile
 
-## Fallback ladder (copy into decisions / notes)
+## When a provided URL cannot be fully used
 
 ```text
 URL browse OK → read CSS/DOM → selective captures → optional motion pass → analyze
-URL HTML only → tokens/structure from markup/CSS → ask for one cropped screenshot if visuals ambiguous
-URL blocked → ask for 1–2 cropped screenshots (hero + one section), not a 10MB full page
-Description only → proceed with low confidence; offer to retry when a URL or crop is available
+URL HTML only → tokens/structure from markup/CSS → ask for a cropped screenshot only if visuals stay ambiguous
+URL blocked → offer options: cropped screenshot, continue partial, or different source — user chooses
+Screenshot / image provided → analyze it; URL optional, never required
+Description only → proceed with low confidence; invite any source kind the user prefers
 ```
 
 ## Quick checklist
 
 ```text
-[ ] User offered a URL → agent visits before asking for uploads
+[ ] Intake matches what the user actually sent (URL, image, music, project, mix)
+[ ] URL workflow runs only when a link was provided — not as a global default
 [ ] Frontend tokens/structure skimmed without dumping full source
-[ ] Visuals are selective, cropped, and reasonably sized
+[ ] Visuals are selective, cropped, and reasonably sized when captures are needed
 [ ] Motion observed or explicitly marked low-confidence
-[ ] Intake results feed the active capability (not a parallel undocumented path)
+[ ] Intake results feed the active capability
 [ ] Design Context persistence only when requested (--from-url / save profile)
 ```

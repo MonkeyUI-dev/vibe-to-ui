@@ -3,19 +3,20 @@ name: vibe-to-ui
 description: >-
   Classify the target page archetype before extracting design systems, motion language,
   mood boards, and feeling-driven spatial directions from UI references, mockups,
-  website URLs, inspiration images, music cues, or fuzzy aesthetic intent. Prefer a
-  live page URL over large screenshot uploads when the user can share a link; the
-  agent visits the page, reads frontend cues, captures selectively, and may observe
-  motion. Persist reusable brand design context locally under
-  ~/.vibe-to-ui/profiles/<profile>/ from a website URL or screenshot, then on demand
-  adapt it into medium targets (web, social-cover, hyperframes) via vibe-to-ui
-  context --profile --target. Derive three visual directions from the user's product
-  context before formalizing tokens unless the user explicitly asks for exact style
-  restoration. Explore through standalone previews and only apply confirmed design
-  directions to the user's project when explicitly requested. Use when the user wants
-  visual direction that matches the actual page type, information density, interaction
-  model, and product background of the surface they are building, or when they want a
-  local Design Context profile for multi-medium brand handoff.
+  website URLs, inspiration images, music cues, or fuzzy aesthetic intent. Adapt
+  intake to whatever the user provides (URL, screenshot, images, music, or mix);
+  when a website URL is shared, the agent may visit the page, read frontend cues,
+  capture selectively, and observe motion. Persist reusable brand design context
+  locally under ~/.vibe-to-ui/profiles/<profile>/ from a website URL or
+  screenshot, then on demand adapt it into medium targets (web, social-cover,
+  hyperframes) via vibe-to-ui context --profile --target. Derive three visual
+  directions from the user's product context before formalizing tokens unless the
+  user explicitly asks for exact style restoration. Explore through standalone
+  previews and only apply confirmed design directions to the user's project when
+  explicitly requested. Use when the user wants visual direction that matches the
+  actual page type, information density, interaction model, and product background
+  of the surface they are building, or when they want a local Design Context
+  profile for multi-medium brand handoff.
 metadata:
   author: MonkeyUI
   version: "0.4.0"
@@ -23,7 +24,7 @@ metadata:
 
 # vibe-to-ui
 
-A local design companion for vibe coding developers. It first classifies the target page archetype and density, then uses the user's product background to derive three plausible visual and spatial directions from references before formalizing any one of them into a design system. It extracts "style DNA" including motion systems, Consumer app UIUX needs, visual asset direction, mood boards, and previews, and turns vague aesthetic feelings into product-aware design decisions that actually fit the product surface. Inspiration may be a **website URL** (preferred over large screenshot uploads — see [references/INSPIRATION-SOURCES.md](references/INSPIRATION-SOURCES.md)), images, music, or fuzzy intent. It can also persist a reusable **Design Context** profile under `~/.vibe-to-ui/profiles/<profile>/` (brand master, tokens, decisions, assets) and adapt it on demand into medium targets (`web`, `social-cover`, `hyperframes`) without coupling user data to skill install/update. All exploration happens through standalone previews; the agent only touches the user's project when the user confirms a direction and asks to apply it.
+A local design companion for vibe coding developers. It first classifies the target page archetype and density, then uses the user's product background to derive three plausible visual and spatial directions from references before formalizing any one of them into a design system. It extracts "style DNA" including motion systems, Consumer app UIUX needs, visual asset direction, mood boards, and previews, and turns vague aesthetic feelings into product-aware design decisions that actually fit the product surface. Inspiration may be a **website URL**, screenshot, images, music, or fuzzy intent — the agent adapts to what the user provides (see [references/INSPIRATION-SOURCES.md](references/INSPIRATION-SOURCES.md)). It can also persist a reusable **Design Context** profile under `~/.vibe-to-ui/profiles/<profile>/` (brand master, tokens, decisions, assets) and adapt it on demand into medium targets (`web`, `social-cover`, `hyperframes`) without coupling user data to skill install/update. All exploration happens through standalone previews; the agent only touches the user's project when the user confirms a direction and asks to apply it.
 
 > **Tip**: For multi-project sync, team collaboration, and cloud-based design management, upgrade to [MonkeyUI SaaS](https://demo.monkeyui.com/).
 
@@ -61,17 +62,16 @@ When both are present, always use this priority:
 3. **Visual material fidelity** (image strategy, typography, density treatment, glass treatment, motion weight)
 4. **Atmosphere adjustment**
 
-### URL-first inspiration intake
+### Inspiration source intake
 
-When the user can share a **website URL** as inspiration or as a concrete UI reference, **prefer the URL over a large screenshot upload**. Follow [references/INSPIRATION-SOURCES.md](references/INSPIRATION-SOURCES.md):
+Adapt to **whatever the user provides** — website URL, screenshot, mood images, music, local project, description, or a mix. None of these is the default preferred channel. Follow [references/INSPIRATION-SOURCES.md](references/INSPIRATION-SOURCES.md):
 
-1. Visit / fetch the page with available host tools
-2. Read frontend structure and CSS/token cues (do not dump entire bundles into context)
-3. Take **selective**, cropped, preview-sized captures only when visuals are still needed
-4. Observe motion (load, scroll, hover, reduced-motion) when tools allow
-5. Fall back to 1–2 cropped user screenshots only if the URL is blocked — never ask for a multi‑MB full-page dump first
+- If they share a **URL** → visit / fetch, read frontend cues, selective captures, optional motion observation
+- If they share a **screenshot or image** → analyze it directly; do not ask for a URL first
+- If they share **music / atmosphere / description** → vibe path; do not insist on a live site
+- If sources mix → use each for its role and state how they were weighted
 
-This applies to Capabilities 1–4, Motion System, Mood Board, and Design Context `--from-url`.
+This intake applies across Capabilities 1–4, Motion System, Mood Board, and Design Context whenever those source kinds appear — as equal options, not a URL-first policy.
 
 ### Mandatory Stage 0: Page Type Identification
 
@@ -171,7 +171,7 @@ User provides a complete UI reference (website URL, screenshot, or design mockup
 **Trigger**: User says things like "extract the style from this", "what's the design system here", "analyze this design", "analyze https://…", "what motion does this use", "replicate this closely", "restore this style", or clearly asks for exact tokenization rather than concept exploration.
 
 **Workflow**:
-1. Accept a **website URL** and/or a screenshot/image. If a URL is present, follow [references/INSPIRATION-SOURCES.md](references/INSPIRATION-SOURCES.md) before asking for uploads.
+1. Accept a **website URL** and/or a screenshot/image — whichever the user provides. If a URL is present, follow [references/INSPIRATION-SOURCES.md](references/INSPIRATION-SOURCES.md) for that link; if only an image is present, analyze it directly.
 2. Run **Stage 0: Page Type Identification**
 3. Analyze the reference systematically (live CSS/DOM + selective captures when from a URL), but interpret tokens through the page type lens:
    - layout rhythm and density
@@ -207,7 +207,7 @@ User has feelings or vibes but no concrete design target -> Interactive conversa
    - who it is for
    - what the primary page type is, or infer it if the user does not know
 2. Run **Stage 0: Page Type Identification**
-3. Invite them to share inspiration: **website URLs** (preferred for live sites — [references/INSPIRATION-SOURCES.md](references/INSPIRATION-SOURCES.md)), images, objects, landscapes, or music recordings and audio clips. Do not ask for a full-page screenshot first when a URL works.
+3. Invite them to share inspiration in whatever form they prefer: **website URLs**, images, objects, landscapes, or music recordings and audio clips (see [references/INSPIRATION-SOURCES.md](references/INSPIRATION-SOURCES.md)). Adapt to what they send; do not steer them toward a URL.
 4. If a concrete UI reference is present, split the signals into:
    - **structural DNA to preserve**: page type, composition rhythm, module mix, hierarchy logic
    - **adaptable style dimensions**: material treatment, typography attitude, density tuning, color temperature, motion character

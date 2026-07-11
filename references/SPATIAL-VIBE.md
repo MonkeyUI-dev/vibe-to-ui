@@ -11,7 +11,7 @@ Use this guide when the user says things like:
 - "I like the vibe of this cafe, this film still, and this album cover."
 - "Do not make it look like a generic SaaS landing page."
 
-Inspiration can come from anywhere: **website URLs**, apps, photography, landscapes, architecture, interiors, magazines, posters, packaging, fashion, album covers, film stills, illustrations, music, or video. For live sites, prefer a URL and follow [INSPIRATION-SOURCES.md](INSPIRATION-SOURCES.md) instead of asking for a full-page screenshot. Non-UI references should be translated into transferable design signals, not copied literally.
+Inspiration can come from anywhere: **website URLs**, apps, photography, landscapes, architecture, interiors, magazines, posters, packaging, fashion, album covers, film stills, illustrations, music, or video. Adapt to the sources the user provides; when they share a live-site URL, follow [INSPIRATION-SOURCES.md](INSPIRATION-SOURCES.md). Non-UI references should be translated into transferable design signals, not copied literally.
 
 Example:
 
@@ -290,7 +290,7 @@ State what changed after review. The final output should explain why the spatial
 
 When the user provides a concrete UI reference (**website URL**, screenshot, live page, or local project) and wants its **layout structure** preserved — not just its mood translated — run this lightweight extraction before exploring directions. This satisfies Reference Fidelity Mode's promise to "first match the page type and structural feel."
 
-When the reference is a URL, follow [INSPIRATION-SOURCES.md](INSPIRATION-SOURCES.md): read DOM/section order from the live page first; use selective captures only where layout is visually ambiguous.
+When the reference includes a URL, follow [INSPIRATION-SOURCES.md](INSPIRATION-SOURCES.md) for that link (DOM/section order first; selective captures where layout is visually ambiguous). When the reference is only a screenshot, extract structure from the image — do not require a URL.
 
 This is deliberately lighter than full pixel reverse-engineering. The goal is a faithful structural read that can seed previews, not an exact reproduction.
 

@@ -37,7 +37,7 @@ A design companion for vibe coding developers. Turns **website URLs**, screensho
 #### 1. Design System Extraction
 *For users who have a complete design to restore.*
 
-Provide a **website URL** and/or a screenshot of a UI or design mockup. When you share a link, the agent visits the page, reads frontend cues, takes selective captures, and may observe motion — you do not need to upload a multi‑MB full-page screenshot. The skill extracts its complete "style DNA" and generates a **standalone preview page** for you to evaluate — it does not modify your project until you confirm:
+Provide a **website URL** and/or a screenshot of a UI or design mockup — whichever you prefer. If you share a link, the agent can visit the page, read frontend cues, take selective captures, and observe motion. The skill extracts its complete "style DNA" and generates a **standalone preview page** for you to evaluate — it does not modify your project until you confirm:
 
 - **Colors** — with semantic roles (primary, surface, text, border, etc.)
 - **Typography** — font families, size scale, weights, line heights
@@ -57,8 +57,8 @@ Use this path when you want **restoration or close replication**. If you instead
 Not sure what style you want? Or do you already have a reference image, but want it translated into **3 visual directions based on your product background** instead of copied literally? The skill guides you through an interactive conversation:
 
 1. Shares what your project does and who it's for
-2. Drop any inspiration — **website URLs** (preferred for live sites), images (landscapes, objects, other apps), **or music recordings** (audio clips, hummed melodies, song snippets)
-3. The skill translates both visual and sonic signals into design qualities — tempo, timbre, and rhythm become energy, warmth, and texture in your UI. For URLs, the agent browses the page instead of asking you to compress a huge screenshot.
+2. Drop any inspiration — **website URLs**, images (landscapes, objects, other apps), **or music recordings** (audio clips, hummed melodies, song snippets). Choose whatever fits; the agent adapts to what you send.
+3. The skill translates both visual and sonic signals into design qualities — tempo, timbre, and rhythm become energy, warmth, and texture in your UI. For URLs, the agent can browse the page; for screenshots and photos, it reads those directly.
 4. Explores **typography as its own axis** across the 3 directions — heading/body pairing, readability posture, hierarchy feel, and fallback stack
 5. Synthesizes **3 distinct design concepts** — each with its own visual style **and motion personality** — and, when a concrete reference exists, keeps them recognizably descended from that reference's structure and page archetype
 6. Generates **standalone concept preview pages** with page-type appropriate transitions and entrance animations, plus **mood boards** for each direction. For Consumer app surfaces, previews include navigation, a core screen, a detail/create flow, a non-happy state, and tactile app motion.
@@ -71,7 +71,7 @@ Not sure what style you want? Or do you already have a reference image, but want
 
 Want a landing page to feel more relaxed, editorial, cinematic, spacious, or less like a generic SaaS template? Share fuzzy intent or references from anywhere:
 
-- **website URLs** (preferred for live sites — agent visits instead of requiring a huge screenshot)
+- **website URLs** (optional; agent can visit when you share a link)
 - photography, landscapes, architecture, interiors
 - magazines, posters, packaging, fashion
 - album covers, film stills, illustrations
@@ -194,13 +194,13 @@ git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-t
 ## Usage Examples
 
 ```
-# Extract a design system from a URL (agent visits the page — no huge screenshot upload)
+# Extract a design system from a URL (when you choose to share a link)
 "Analyze https://example.com and give me the design tokens"
 
-# Extract from a screenshot when a URL is unavailable
+# Extract from a screenshot
 "Analyze the design of this screenshot and give me the design tokens"
 
-# Explore aesthetics with a live site as inspiration
+# Explore aesthetics with a live site as one inspiration source
 "Use https://example.com as inspiration — give me 3 visual directions for my product"
 
 # Explore aesthetics with images (generates 3 concepts + mood boards)
@@ -295,7 +295,7 @@ Expose MCP tools such as `generate_image(prompt, width, height, reference_path?)
 │   ├── AESTHETIC-ANALYSIS.md         # Aesthetic soul capture methodology
 │   ├── CONTEXT-COLLABORATION.md      # DESIGN.md collaboration protocol
 │   ├── DESIGN-CONTEXT.md             # Local Design Context profile + targets MVP
-│   ├── INSPIRATION-SOURCES.md        # URL-first intake (browse, CSS, selective capture, motion)
+│   ├── INSPIRATION-SOURCES.md        # Inspiration intake (URL, image, music — adapt to what user sends)
 │   ├── ICON-USAGE.md                 # Icon component guidelines
 │   ├── MOOD-BOARD.md                 # Mood board generation guide
 │   ├── CONSUMER-APP-DESIGN.md        # Consumer app / C-end UIUX scenario guide

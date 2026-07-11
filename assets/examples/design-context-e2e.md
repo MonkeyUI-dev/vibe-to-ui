@@ -28,7 +28,7 @@ Agent:
 
 1. Create `~/.vibe-to-ui/profiles/vibe-to-ui/` with `assets/` and `sources/` (no `targets/` yet).
 2. Copy **shared** seed templates only (`profile.md`, `brand.md`, `tokens.json`, `decisions.md`) from the skill's `assets/design-context/` — do not copy `targets/` at init.
-3. For a URL: follow [INSPIRATION-SOURCES.md](../../references/INSPIRATION-SOURCES.md) — browse/fetch, read frontend cues, selective captures, optional motion observation. Record under `sources/` (do not require a user full-page upload when the URL works).
+3. For a URL: follow [INSPIRATION-SOURCES.md](../../references/INSPIRATION-SOURCES.md) — browse/fetch, read frontend cues, selective captures, optional motion observation. Record under `sources/`. For a screenshot-only request, analyze the image directly (URL not required).
 4. Reuse Design System Extraction + optional Aesthetic Analysis to fill:
    - `profile.md`
    - `brand.md`
@@ -111,6 +111,6 @@ After `npx skills add ...` or git pull of the skill:
 | Situation | Agent response |
 |-----------|----------------|
 | Profile missing | Offer `--init` / `--from-url` / `--from-image` |
-| URL unreachable | Follow inspiration fallback: try HTML/CSS fetch, then ask for **1–2 cropped** screenshots (hero + one section), not a multi‑MB full page; write partial profile with confidence notes |
+| URL unreachable | Follow inspiration fallback: try HTML/CSS fetch, then offer cropped screenshots or partial continuation — user chooses; write partial profile with confidence notes |
 | Unknown target | Accept only `web`, `social-cover`, `hyperframes` |
 | Empty brand master | Refuse to invent a full system; extract from source first |
