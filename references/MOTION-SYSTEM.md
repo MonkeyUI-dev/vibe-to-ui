@@ -145,16 +145,20 @@ Most pages blend both, but knowing the primary intent helps make consistent choi
 
 ### From a Reference Screenshot or Live Site
 
-When extracting motion from a reference (screenshot with visible motion cues, or a live site the user describes):
+When extracting motion from a reference:
 
-1. **Catalog visible animations**: List every moving element and what it does
-2. **Classify by role**: Is each animation for emphasis, explanation, guidance, feedback, or atmosphere?
-3. **Identify triggers**: What causes each animation (scroll, hover, page load, etc.)?
-4. **Extract timing**: Estimate duration and easing from the observed motion character
-5. **Note density**: How many elements animate on the page? Is it minimal, moderate, or rich?
-6. **Check repeat behavior**: Do animations replay or fire only once?
-7. **Check accessibility**: Does the site respect `prefers-reduced-motion`? Are auto-playing elements pausable?
-8. **Identify narrative**: What personality and metaphor does the overall motion system create?
+1. **If the reference is a live URL the user shared**, follow [INSPIRATION-SOURCES.md](INSPIRATION-SOURCES.md): browse the page, skim CSS/JS motion hooks, then **observe** load, scroll, hover, and reduced-motion behavior when tools allow.
+2. **If the reference is a screenshot or static mockup**, catalog motion cues visible in the image (blur, stagger, implied transitions) and mark confidence accordingly — do not demand a URL.
+3. **Catalog visible animations**: List every moving element and what it does
+4. **Classify by role**: Is each animation for emphasis, explanation, guidance, feedback, or atmosphere?
+5. **Identify triggers**: What causes each animation (scroll, hover, page load, etc.)?
+6. **Extract timing**: Estimate duration and easing from observed motion (or from CSS `transition` / `@keyframes` when interaction is blocked)
+7. **Note density**: How many elements animate on the page? Is it minimal, moderate, or rich?
+8. **Check repeat behavior**: Do animations replay or fire only once?
+9. **Check accessibility**: Does the site respect `prefers-reduced-motion`? Are auto-playing elements pausable?
+10. **Identify narrative**: What personality and metaphor does the overall motion system create?
+
+Match the method to the source the user provided. If only a static screenshot is available, do not invent cinematic motion — mark **low confidence** and optionally offer a URL pass as an extra option, not a requirement.
 
 ### From User Vibes (No Concrete Reference)
 

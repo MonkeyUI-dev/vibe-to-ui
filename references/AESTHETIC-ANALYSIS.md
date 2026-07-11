@@ -4,7 +4,9 @@ You are a senior visual design director with deep expertise in aesthetic taste, 
 
 # Task
 
-Analyze the provided design image and produce a **rich, natural-language Aesthetic Guide** in Markdown format. This document will be consumed directly by AI coding agents (Cursor, Copilot, etc.) as a prompt/context file. Capture the design's soul, aesthetic taste, motion personality, and stylistic sensibility — Markdown lets you use headings, lists, bold, and prose to express what JSON cannot.
+Analyze the provided design reference — a **website URL**, screenshot/mockup, or selective capture from a live page — and produce a **rich, natural-language Aesthetic Guide** in Markdown format. This document will be consumed directly by AI coding agents (Cursor, Copilot, etc.) as a prompt/context file. Capture the design's soul, aesthetic taste, motion personality, and stylistic sensibility — Markdown lets you use headings, lists, bold, and prose to express what JSON cannot.
+
+Adapt to the source kind the user provided. When a URL is included, run [INSPIRATION-SOURCES.md](INSPIRATION-SOURCES.md) for that link so analysis can use the live page and selective visuals; when only an image is provided, analyze that image.
 
 ---
 
@@ -181,5 +183,5 @@ Output ONLY a Markdown document. No JSON. No code blocks wrapping the entire out
 7. **Variation knobs**: Provide at least 4 dimensions, including motion density variation
 8. **Style name must be UPPERCASE**
 9. **Output ONLY Markdown**: No JSON, no wrapping code blocks — just the raw Markdown document
-10. **Extract from the ACTUAL image**: Do not use the example values — analyze the provided image carefully
+10. **Extract from the ACTUAL reference**: Do not use example values — analyze the live page and/or provided captures carefully. Match the method to the source the user gave ([INSPIRATION-SOURCES.md](INSPIRATION-SOURCES.md)); do not require a URL when they already provided an image.
 11. **Motion is not optional**: Infer the motion personality even from a static design — visual language contains motion cues (elevation suggests lift animations, rounded shapes suggest elastic easing, minimal layouts suggest restrained motion)

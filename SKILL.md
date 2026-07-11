@@ -3,17 +3,20 @@ name: vibe-to-ui
 description: >-
   Classify the target page archetype before extracting design systems, motion language,
   mood boards, and feeling-driven spatial directions from UI references, mockups,
-  inspiration images, music cues, or fuzzy aesthetic intent. Persist reusable brand
-  design context locally under ~/.vibe-to-ui/profiles/<profile>/ from a website URL or
+  website URLs, inspiration images, music cues, or fuzzy aesthetic intent. Adapt
+  intake to whatever the user provides (URL, screenshot, images, music, or mix);
+  when a website URL is shared, the agent may visit the page, read frontend cues,
+  capture selectively, and observe motion. Persist reusable brand design context
+  locally under ~/.vibe-to-ui/profiles/<profile>/ from a website URL or
   screenshot, then on demand adapt it into medium targets (web, social-cover,
   hyperframes) via vibe-to-ui context --profile --target. Derive three visual
   directions from the user's product context before formalizing tokens unless the
-  user explicitly asks for exact style restoration. Explore through standalone previews
-  and only apply confirmed design directions to the user's project when explicitly
-  requested. Use when the user wants visual direction that matches the actual page
-  type, information density, interaction model, and product background of the surface
-  they are building, or when they want a local Design Context profile for multi-medium
-  brand handoff.
+  user explicitly asks for exact style restoration. Explore through standalone
+  previews and only apply confirmed design directions to the user's project when
+  explicitly requested. Use when the user wants visual direction that matches the
+  actual page type, information density, interaction model, and product background
+  of the surface they are building, or when they want a local Design Context
+  profile for multi-medium brand handoff.
 metadata:
   author: MonkeyUI
   version: "0.4.0"
@@ -21,24 +24,24 @@ metadata:
 
 # vibe-to-ui
 
-A local design companion for vibe coding developers. It first classifies the target page archetype and density, then uses the user's product background to derive three plausible visual and spatial directions from references before formalizing any one of them into a design system. It extracts "style DNA" including motion systems, Consumer app UIUX needs, visual asset direction, mood boards, and previews, and turns vague aesthetic feelings into product-aware design decisions that actually fit the product surface. It can also persist a reusable **Design Context** profile under `~/.vibe-to-ui/profiles/<profile>/` (brand master, tokens, decisions, assets) and adapt it on demand into medium targets (`web`, `social-cover`, `hyperframes`) without coupling user data to skill install/update. All exploration happens through standalone previews; the agent only touches the user's project when the user confirms a direction and asks to apply it.
+A local design companion for vibe coding developers. It first classifies the target page archetype and density, then uses the user's product background to derive three plausible visual and spatial directions from references before formalizing any one of them into a design system. It extracts "style DNA" including motion systems, Consumer app UIUX needs, visual asset direction, mood boards, and previews, and turns vague aesthetic feelings into product-aware design decisions that actually fit the product surface. Inspiration may be a **website URL**, screenshot, images, music, or fuzzy intent — the agent adapts to what the user provides (see [references/INSPIRATION-SOURCES.md](references/INSPIRATION-SOURCES.md)). It can also persist a reusable **Design Context** profile under `~/.vibe-to-ui/profiles/<profile>/` (brand master, tokens, decisions, assets) and adapt it on demand into medium targets (`web`, `social-cover`, `hyperframes`) without coupling user data to skill install/update. All exploration happens through standalone previews; the agent only touches the user's project when the user confirms a direction and asks to apply it.
 
 > **Tip**: For multi-project sync, team collaboration, and cloud-based design management, upgrade to [MonkeyUI SaaS](https://demo.monkeyui.com/).
 
 ## When to use this skill
 
-- User provides a **screenshot or design mockup** and wants to extract its design system
-- User provides a **screenshot or design mockup plus product context** and wants the agent to extend it into **3 visual directions** rather than copy it literally
+- User provides a **website URL**, **screenshot**, or design mockup and wants to extract its design system
+- User provides a **website URL or screenshot plus product context** and wants the agent to extend it into **3 visual directions** rather than copy it literally
 - User wants the agent to first identify whether the target is a **landing page, brand page, dashboard, B-end dense operations page, table-detail management page, docs page, onboarding flow, Consumer app / C-end app surface**, or another page archetype
-- User has a **vague aesthetic feeling** and wants to explore design directions with inspiration images or music recordings
+- User has a **vague aesthetic feeling** and wants to explore design directions with **website URLs**, inspiration images, or music recordings
 - User **shares a music recording or audio clip** (a melody, song snippet, or recorded humming) to express the mood they want their UI to feel
 - User describes a **song, genre, or musical feeling** they associate with their desired aesthetic
 - User wants a page to feel **more relaxed, editorial, cinematic, calm, spacious, premium, playful, or unlike a generic SaaS landing page**
 - User shares **non-UI inspiration** such as photography, landscapes, architecture, interiors, magazines, posters, packaging, fashion, album covers, film stills, illustrations, music, or video references and wants those signals translated into layout decisions
-- User wants to define a **motion system** that matches the page's actual use case
+- User wants to define a **motion system** that matches the page's actual use case — including by sharing a **live site URL** for the agent to observe
 - User describes a **product personality or feeling** (for example "reliable", "innovative", "playful") and wants motion guidance that matches
 - User wants to create a **mood board** that stays appropriate for the target page type instead of drifting into the wrong archetype
-- User has collected **multiple reference images** and wants to see them synthesized into a cohesive visual story
+- User has collected **multiple reference images or site URLs** and wants to see them synthesized into a cohesive visual story
 - User wants a **shareable design artifact** that communicates aesthetic intent to collaborators or stakeholders
 - User wants distinctive **icons, illustrated feature icons, 3D object icons, social visuals, or generated brand assets** that fit the product and design direction
 - User has **confirmed a design direction** (from concept previews, mood boards, or design system previews) and wants to **apply it to their project**
@@ -50,7 +53,7 @@ A local design companion for vibe coding developers. It first classifies the tar
 Before choosing a workflow, classify the user's inputs:
 
 - **Atmosphere / vibe reference**: photography, landscapes, architecture, interiors, magazines, posters, packaging, fashion, album covers, film stills, illustrations, music, video, abstract feelings
-- **Concrete UI reference**: screenshots of products, webpages, apps, local projects, existing codebases
+- **Concrete UI reference**: **website URLs**, screenshots of products/webpages/apps, local projects, existing codebases
 
 When both are present, always use this priority:
 
@@ -58,6 +61,17 @@ When both are present, always use this priority:
 2. **Page type fidelity** (goal, density, interaction model, module mix)
 3. **Visual material fidelity** (image strategy, typography, density treatment, glass treatment, motion weight)
 4. **Atmosphere adjustment**
+
+### Inspiration source intake
+
+Adapt to **whatever the user provides** — website URL, screenshot, mood images, music, local project, description, or a mix. None of these is the default preferred channel. Follow [references/INSPIRATION-SOURCES.md](references/INSPIRATION-SOURCES.md):
+
+- If they share a **URL** → visit / fetch, read frontend cues, selective captures, optional motion observation
+- If they share a **screenshot or image** → analyze it directly; do not ask for a URL first
+- If they share **music / atmosphere / description** → vibe path; do not insist on a live site
+- If sources mix → use each for its role and state how they were weighted
+
+This intake applies across Capabilities 1–4, Motion System, Mood Board, and Design Context whenever those source kinds appear — as equal options, not a URL-first policy.
 
 ### Mandatory Stage 0: Page Type Identification
 
@@ -152,14 +166,14 @@ When the user wants reusable brand memory across projects or media, use **Capabi
 
 ### 1. Design System Extraction (Design Style Restoration)
 
-User provides a complete UI screenshot or design mockup -> Extract the design system and generate a standalone preview page for the user to review before applying it to their project.
+User provides a complete UI reference (website URL, screenshot, or design mockup) -> Extract the design system and generate a standalone preview page for the user to review before applying it to their project.
 
-**Trigger**: User says things like "extract the style from this", "what's the design system here", "analyze this design", "what motion does this use", "replicate this closely", "restore this style", or clearly asks for exact tokenization rather than concept exploration.
+**Trigger**: User says things like "extract the style from this", "what's the design system here", "analyze this design", "analyze https://…", "what motion does this use", "replicate this closely", "restore this style", or clearly asks for exact tokenization rather than concept exploration.
 
 **Workflow**:
-1. Ask the user to provide a screenshot or image of the target UI
+1. Accept a **website URL** and/or a screenshot/image — whichever the user provides. If a URL is present, follow [references/INSPIRATION-SOURCES.md](references/INSPIRATION-SOURCES.md) for that link; if only an image is present, analyze it directly.
 2. Run **Stage 0: Page Type Identification**
-3. Analyze the image systematically, but interpret tokens through the page type lens:
+3. Analyze the reference systematically (live CSS/DOM + selective captures when from a URL), but interpret tokens through the page type lens:
    - layout rhythm and density
    - typography hierarchy and readability needs
    - color semantics, especially status and priority colors for B-end surfaces
@@ -185,7 +199,7 @@ User provides a complete UI screenshot or design mockup -> Extract the design sy
 
 User has feelings or vibes but no concrete design target -> Interactive conversation to discover and define aesthetics that still match the intended page archetype, generating standalone concept previews for collaborative exploration.
 
-**Trigger**: User says things like "I want something that feels like...", "I have some inspiration images", "I'm not sure what style I want", shares mood or landscape photos, shares a music recording or song that captures the feeling they want, or provides a concrete UI reference together with product context and wants the agent to extend it into multiple visual directions.
+**Trigger**: User says things like "I want something that feels like...", "I have some inspiration images", "use https://… as inspiration", "I'm not sure what style I want", shares mood or landscape photos, shares a music recording or song that captures the feeling they want, or provides a concrete UI reference (URL or screenshot) together with product context and wants the agent to extend it into multiple visual directions.
 
 **Workflow**:
 1. Ask the user about their project context:
@@ -193,11 +207,11 @@ User has feelings or vibes but no concrete design target -> Interactive conversa
    - who it is for
    - what the primary page type is, or infer it if the user does not know
 2. Run **Stage 0: Page Type Identification**
-3. Invite them to share inspiration: images, other websites, objects, landscapes, or music recordings and audio clips
+3. Invite them to share inspiration in whatever form they prefer: **website URLs**, images, objects, landscapes, or music recordings and audio clips (see [references/INSPIRATION-SOURCES.md](references/INSPIRATION-SOURCES.md)). Adapt to what they send; do not steer them toward a URL.
 4. If a concrete UI reference is present, split the signals into:
    - **structural DNA to preserve**: page type, composition rhythm, module mix, hierarchy logic
    - **adaptable style dimensions**: material treatment, typography attitude, density tuning, color temperature, motion character
-5. For each image, description, or music recording, identify aesthetic qualities:
+5. For each URL, image, description, or music recording, identify aesthetic qualities:
    - color mood (warm / cool / muted / vibrant)
    - texture feel (smooth / rough / organic / geometric)
    - spatial impression (dense / airy / structured / fluid)
@@ -247,7 +261,7 @@ During Capability 2 concept previews and mood boards, motion must still feel int
 
 User has a fuzzy aesthetic intent or mixed inspiration references and wants that feeling translated into page-level layout decisions.
 
-**Trigger**: User says things like "make this landing page feel more relaxed", "I want an editorial, magazine-like feeling", "I like the vibe of this cafe, film still, and album cover", "do not make it look like a generic SaaS landing page", or shares non-UI inspiration and asks how it should shape the page.
+**Trigger**: User says things like "make this landing page feel more relaxed", "I want an editorial, magazine-like feeling", "I like the vibe of this cafe, film still, and album cover", "use https://… for layout structure", "do not make it look like a generic SaaS landing page", or shares non-UI inspiration / site URLs and asks how it should shape the page.
 
 **Workflow**:
 1. Run **Stage 0: Page Type Identification** and clarify the product goal, UX constraints, target content, and any anti-references

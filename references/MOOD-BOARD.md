@@ -233,6 +233,7 @@ Generate a **self-contained HTML page** that the user can open in a browser. Thi
 
 When building a mood board:
 
+- **Live site references**: If the user shared a website URL, use **selective agent captures** or the site’s OG/hero asset URLs from [INSPIRATION-SOURCES.md](INSPIRATION-SOURCES.md) rather than embedding a multi‑MB full-page screenshot. If they shared images directly, embed those.
 - **Generated assets (preferred when tools exist)**: Generate hero + supporting images for the active `concept_id` before finalizing HTML. Use preview resolution during exploration; see [VISUAL-ASSET-GENERATION.md](VISUAL-ASSET-GENERATION.md) for page-type asset packs and prompt rules.
 - **Review surface**: When multiple generated assets exist, include a contact sheet or mood board wall that lets the user compare combinations such as `A2 hero + B1 empty state + C3 icon set`.
 - **If images are accessible via URL**: Embed them directly in the mood board using `<img>` tags
