@@ -18,13 +18,67 @@ repository. Templates under `assets/design-context/` are seeds only. Skill
 install, update, or reinstall must **never** overwrite, delete, or reset
 `~/.vibe-to-ui/`.
 
+### `SKILL.md` description (progressive disclosure — do not inflate)
+
+`name` + `description` are the **only** fields loaded at agent startup for every
+installed skill ([Agent Skills progressive disclosure](https://agentskills.io/specification)).
+They must stay small, stable, and optimized for **routing** (when to activate),
+not for teaching the full product.
+
+Follow the [Agent Skills spec](https://agentskills.io/specification) and these
+repo rules when editing frontmatter:
+
+| Rule | Requirement |
+|------|-------------|
+| Hard limit | `description` **≤ 1024 characters** (spec max). Non-empty. |
+| Soft target | Prefer **≈ 400–700 characters** (~100–175 tokens). Do not drift toward the hard ceiling. |
+| Job of the field | **What** the skill does + **when** to use it, with concrete trigger keywords |
+| Not the job | Workflow steps, CLI flags, path layouts, open-ended target examples, intake playbooks, long capability catalogs |
+| Activation | Include keywords agents match on user intent (e.g. design system, tokens, motion, mood board, spatial layout, visual assets, Design Context, `~/.vibe-to-ui`, screenshot, URL, inspiration) |
+| Stability | Do not casually rewrite or expand `description` while implementing features — put detail in the Markdown body or `references/` |
+
+**Good shape** (current intent):
+
+```yaml
+description: >-
+  Design systems, motion, mood boards, … Use when designing or restyling UI,
+  exploring visual direction, extracting tokens/motion, …
+```
+
+**Bad shape** (reject in review):
+
+- Pasting Capability 1–7 workflows into `description`
+- Encoding `vibe-to-ui context --profile --target` flag matrices
+- Listing every medium example (`linkedin`, `print-brochure`, …)
+- Narrating URL browse / CSS / motion-observation procedures
+
+Validate after any frontmatter edit:
+
+```bash
+python3 - <<'PY'
+from pathlib import Path
+import yaml
+fm = yaml.safe_load(Path("SKILL.md").read_text().split("---", 2)[1])
+desc = fm["description"]
+assert fm["name"] == "vibe-to-ui"
+assert 1 <= len(desc) <= 1024, len(desc)
+# Soft budget: warn (do not fail CI-less smoke) if growing past preferred range
+if len(desc) > 700:
+    raise SystemExit(f"description too long for progressive disclosure soft target: {len(desc)} chars (prefer ≤700)")
+print(f"OK description: {len(desc)} chars")
+PY
+```
+
+Body length guidance (same progressive-disclosure spirit): keep `SKILL.md` body
+focused; move deep methodology into `references/`. Spec recommends the main
+skill file stay lean (under ~500 lines when practical).
+
 ### Validating changes (the closest analog to test/lint here)
 
 The meaningful integrity checks for this repo are:
 
-1. `SKILL.md` has valid YAML frontmatter with required `name` (lowercase/digits/hyphens)
-   and `description` fields (max 1024 characters), per the
-   [Agent Skills spec](https://agentskills.io/specification).
+1. `SKILL.md` frontmatter: valid `name` + `description` per the section above
+   and the [Agent Skills spec](https://agentskills.io/specification).
 2. Every internal Markdown link (e.g. `references/DESIGN-SYSTEM.md`,
    `references/DESIGN-CONTEXT.md`) resolves to a real file. Broken cross-references are
    the most likely regression when editing content.
