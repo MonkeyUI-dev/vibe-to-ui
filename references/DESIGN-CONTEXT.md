@@ -6,7 +6,7 @@ Design Context is a **local, profile-scoped brand memory** that lives outside th
 
 It turns a website URL or screenshot into a reusable brand visual language, persists it under `~/.vibe-to-ui/profiles/<profile>/`, and on demand adapts that shared brand into medium-specific target rules (`web`, `social-cover`, `hyperframes`).
 
-This is the 90/10 MVP: reuse existing extraction capabilities (Design System Extraction, Aesthetic Analysis, Motion System), write plain files, and keep user data separate from skill install/update.
+This is the 90/10 MVP: reuse existing extraction capabilities (Design System Extraction, Aesthetic Analysis, Motion System), write plain files, and keep user data separate from skill install/update. URL intake follows [INSPIRATION-SOURCES.md](INSPIRATION-SOURCES.md) (browse → frontend cues → selective capture → optional motion).
 
 **Out of scope for this MVP:** cloud sync, team collaboration, vector databases, and complex UI.
 
@@ -119,7 +119,7 @@ Profile (brand / product / client)
    - Reuse Design System Extraction ([DESIGN-SYSTEM.md](DESIGN-SYSTEM.md)) for colors, typography, spacing, radius, shadow, motion.
    - Optionally deepen with [AESTHETIC-ANALYSIS.md](AESTHETIC-ANALYSIS.md) for brand soul / principles (keep subordinate to observed evidence).
    - Reuse [MOTION-SYSTEM.md](MOTION-SYSTEM.md) when motion is visible or clearly implied.
-   - For URL sources without a screenshot: browse or fetch the page when tools allow; otherwise ask the user for a screenshot and continue with partial confidence notes.
+   - For URL sources: follow [INSPIRATION-SOURCES.md](INSPIRATION-SOURCES.md) — browse/fetch the page, read frontend structure and CSS tokens, take **selective** visual captures only as needed, and observe motion when tools allow. Prefer this over asking the user for a large full-page screenshot. If the URL cannot be accessed, ask for 1–2 cropped screenshots (hero + one section) and continue with partial confidence notes.
 
 5. **Write shared profile files**
    - Copy seed templates from the skill package's `assets/design-context/` for **shared files only**: `profile.md`, `brand.md`, `tokens.json`, `decisions.md`. Do **not** create or seed `targets/` at init.

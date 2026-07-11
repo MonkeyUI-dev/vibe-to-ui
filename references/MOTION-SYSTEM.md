@@ -145,16 +145,19 @@ Most pages blend both, but knowing the primary intent helps make consistent choi
 
 ### From a Reference Screenshot or Live Site
 
-When extracting motion from a reference (screenshot with visible motion cues, or a live site the user describes):
+When extracting motion from a reference:
 
-1. **Catalog visible animations**: List every moving element and what it does
-2. **Classify by role**: Is each animation for emphasis, explanation, guidance, feedback, or atmosphere?
-3. **Identify triggers**: What causes each animation (scroll, hover, page load, etc.)?
-4. **Extract timing**: Estimate duration and easing from the observed motion character
-5. **Note density**: How many elements animate on the page? Is it minimal, moderate, or rich?
-6. **Check repeat behavior**: Do animations replay or fire only once?
-7. **Check accessibility**: Does the site respect `prefers-reduced-motion`? Are auto-playing elements pausable?
-8. **Identify narrative**: What personality and metaphor does the overall motion system create?
+1. **Prefer a live URL** when the user can share one. Follow [INSPIRATION-SOURCES.md](INSPIRATION-SOURCES.md): browse the page, skim CSS/JS motion hooks, then **observe** load, scroll, hover, and reduced-motion behavior when tools allow. Do not ask for a giant static screenshot just to guess animation.
+2. **Catalog visible animations**: List every moving element and what it does
+3. **Classify by role**: Is each animation for emphasis, explanation, guidance, feedback, or atmosphere?
+4. **Identify triggers**: What causes each animation (scroll, hover, page load, etc.)?
+5. **Extract timing**: Estimate duration and easing from the observed motion character (or from CSS `transition` / `@keyframes` when interaction is blocked)
+6. **Note density**: How many elements animate on the page? Is it minimal, moderate, or rich?
+7. **Check repeat behavior**: Do animations replay or fire only once?
+8. **Check accessibility**: Does the site respect `prefers-reduced-motion`? Are auto-playing elements pausable?
+9. **Identify narrative**: What personality and metaphor does the overall motion system create?
+
+If only a static screenshot is available, infer cautiously from motion blur, staggered layouts, and copy that implies animation — mark **low confidence** and offer to re-run from a URL.
 
 ### From User Vibes (No Concrete Reference)
 

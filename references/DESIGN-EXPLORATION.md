@@ -38,16 +38,17 @@ Use [CONSUMER-APP-DESIGN.md](CONSUMER-APP-DESIGN.md) for the required screen, st
 
 ### Phase 2: Inspiration Collection
 
-Invite the user to share visual references **or music recordings**. These can be anything:
+Invite the user to share visual references **or music recordings**. Prefer the lightest input that still carries signal:
 
-- **Direct references**: Screenshots of websites/apps they like
+- **Live page URLs** (preferred for websites/apps they like): the agent visits the page, reads frontend structure/CSS, takes selective captures, and may observe motion — see [INSPIRATION-SOURCES.md](INSPIRATION-SOURCES.md). Do **not** ask for a full-page screenshot first when a URL works.
+- **Direct references**: Screenshots or mockups of websites/apps when a URL is private, gated, or unavailable
 - **Indirect references**: Photos of landscapes, architecture, fashion, nature, objects
 - **Abstract references**: Color swatches, mood words, music genres, feelings
 - **Music recordings**: Audio clips, hummed melodies, song snippets, or recorded music that captures the feeling they want
 
-If the user already shared a **concrete UI screenshot**, do not jump straight to token extraction unless they explicitly asked for exact restoration. First read it as a source of structural and stylistic signals that can branch into multiple candidate directions.
+If the user already shared a **concrete UI reference** (URL, screenshot, or local project), do not jump straight to token extraction unless they explicitly asked for exact restoration. First read it as a source of structural and stylistic signals that can branch into multiple candidate directions.
 
-For each image or description the user shares, extract aesthetic signals:
+For each URL, image, or description the user shares, extract aesthetic signals:
 
 | Dimension | Spectrum | Example signals |
 |-----------|----------|----------------|
