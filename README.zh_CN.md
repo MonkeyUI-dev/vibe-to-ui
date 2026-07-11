@@ -254,6 +254,7 @@ vibe-to-ui **仅包含指令文档**，不内置 API Key，也不直接调用图
 │   ├── DESIGN-EXPLORATION.md         # 交互式探索对话指南
 │   ├── SPATIAL-VIBE.md               # 感受驱动的布局探索指南
 │   ├── MOTION-SYSTEM.md              # 动效系统提取与生成指南
+│   ├── MOTION-ENGINE-ROUTER.md       # 渐进加载动效引擎路由（Web/React/Vue × L1–L4）
 │   ├── AESTHETIC-ANALYSIS.md         # 美学灵魂捕获方法论
 │   ├── CONTEXT-COLLABORATION.md      # DESIGN.md 协作协议
 │   ├── ICON-USAGE.md                 # 图标组件指南

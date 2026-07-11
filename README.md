@@ -260,6 +260,7 @@ Expose MCP tools such as `generate_image(prompt, width, height, reference_path?)
 │   ├── DESIGN-EXPLORATION.md         # Interactive exploration conversation guide
 │   ├── SPATIAL-VIBE.md               # Feeling-driven layout exploration guide
 │   ├── MOTION-SYSTEM.md              # Motion system extraction and generation guide
+│   ├── MOTION-ENGINE-ROUTER.md       # Progressive-load engine router (web/React/Vue × L1–L4)
 │   ├── AESTHETIC-ANALYSIS.md         # Aesthetic soul capture methodology
 │   ├── CONTEXT-COLLABORATION.md      # DESIGN.md collaboration protocol
 │   ├── ICON-USAGE.md                 # Icon component guidelines

@@ -292,6 +292,8 @@ Then explain motion through the page-type lens:
 
 For deeper extraction guidance, read [MOTION-SYSTEM.md](MOTION-SYSTEM.md).
 
+When generating preview or project motion **code**, progressively load [MOTION-ENGINE-ROUTER.md](MOTION-ENGINE-ROUTER.md) after Motion DNA and signature motif are locked. Detect stack family (`web` / `react` / `vue`), select one engine tier with the matching package binding, pick one primary recipe, **mutate** it from the signature motif, run dependency checks, and document `motion_engine_decision` before implementation. Exploration concept previews use CSS interim motion instead of this router.
+
 ---
 
 ## 7. Component and Module Patterns

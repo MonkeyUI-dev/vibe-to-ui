@@ -192,3 +192,41 @@ Let these factors shape the motion personality — don't map product category to
 ## Output
 
 Generate motion tokens as part of the design system output using the motion section of [../assets/design-system-template.md](../assets/design-system-template.md).
+
+## Motion Engine Router (progressive load)
+
+**During exploration and token extraction**, stop at provisional/confirmed Motion DNA + motion tokens + signature motif. Do **not** load the full engine/package matrix yet. For exploration HTML, follow **Exploration Interim Motion** in [SKILL.md](../SKILL.md) (CSS-only, one signature motif).
+
+**When implementing motion in code** (design-system preview, productionized concept, or Apply to project), progressively load [MOTION-ENGINE-ROUTER.md](MOTION-ENGINE-ROUTER.md) and run:
+
+1. **Compile Motion DNA** — finalize the eight dimensions plus narrative (`personality`, `page_metaphor`, `primary_intent`) and the **signature motion motif** from vibe, reference, music, and page type.
+2. **Capability check** — list only the expressiveness that is **required** (feedback, scroll narrative, shader atmosphere, true 3D, etc.).
+3. **Detect stack family** — `web` | `react` | `vue` (web-first scope; not RN/Flutter). Bind packages to that family (e.g. L1 → CSS/`motion` | `motion`/`framer-motion` | `motion-v`/`@vueuse/motion`; L4 → `three` | R3F | TresJS).
+4. **Select one engine tier** — L1 → L2 GSAP → L3 OGL → L4 Three.js family; pick the **lowest** tier that satisfies all functional requirements.
+5. **Pick one primary recipe** — from the router's minimal high-frequency set; add **at most one** secondary recipe only when roles span **feedback + guidance** and both stay token-light (never atmosphere as secondary).
+6. **Mutate the recipe from DNA** — override default distances, easing, stagger, and timing with Motion DNA + signature motif values. Shipping unchanged recipe defaults is a failure.
+7. **Emit `motion_engine_decision`** — document stack family, stack binding, selected tier, signature motif, rejected tiers, dependency check, reduced-motion strategy, and mobile strategy before writing animation code.
+
+Router non-negotiables (see full matrix in the router doc):
+
+- **One engine per surface** — never mix Motion + GSAP + WebGL runtimes on the same page
+- **Correct stack binding** — do not put React Motion in Vue SFCs or TresJS in React apps
+- **Simplest sufficient technology** — do not reach for Three.js when L1 can carry the feeling
+- **One decorative motion budget** — no stacked parallax, particles, and 3D on the same hero
+- **No default demo aesthetics** — motion must follow Motion DNA, signature motif, and design tokens — not library boilerplate
+- **Break mediocrity gravity** — correct timing alone is not enough; the signature motif must make the motion feel like *this* product's references and vibe
+
+## Signature motion motif
+
+Every concept direction and every formalized motion system needs **one** signature motif: a short, memorable motion idea derived from the user's references and feeling — not from a library demo.
+
+| Source | How to derive the motif |
+|--------|-------------------------|
+| UI reference | What movement would preserve the reference's *tempo and causality* without cloning its exact animation? |
+| Atmosphere / photo / film | Translate rhythm, weight, and stillness into distance, easing, and stagger — never paste the photo into the hero as motion |
+| Music | Map BPM → tempo, dynamics → distance, syncopation → stagger pattern |
+| Product personality | Reliable → composed settles; playful → elastic micro-overshoot on feedback only; premium → slow large reveals with calm easing |
+
+**Motif test**: If you strip brand colors and fonts, would a stranger still sense the same personality from the motion alone? If not, the motif is too generic (usually "everything fades up 16px").
+
+Record the motif in the design system (e.g. `"cards settle like soft paper, 12px rise, calm ease-out, 60ms stagger"`). Recipes are skeletons; the motif supplies the soul.
