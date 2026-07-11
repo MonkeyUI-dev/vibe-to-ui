@@ -134,7 +134,7 @@ Update `DESIGN.md` passively as the conversation reveals:
 - `icon_system`: locked UI icon library, custom SVG fallback, preset, grid, stroke rules, and user overrides
 - `illustrated_icon_system`: enabled surfaces, preset, format, visual family rules, style reference, and surfaces to avoid
 - visual asset manifest paths, review surface paths, selected combinations, placement notes, validation status, confirmed assets, rejected assets, and regeneration notes
-- active Design Context profile id when one is in use (e.g. `design_context_profile: nextai` in Iteration Context)
+- active Design Context profile id when one is in use (e.g. `design_context_profile: vibe-to-ui` in Iteration Context)
 
 Do not ask the user to manage this bookkeeping. Mention it only when it affects a design decision or when summarizing applied changes.
 
@@ -142,7 +142,7 @@ Do not ask the user to manage this bookkeeping. Mention it only when it affects 
 
 When the user wants reusable brand memory across projects or media, use **Capability 7** and [references/DESIGN-CONTEXT.md](references/DESIGN-CONTEXT.md).
 
-- A **profile** is a brand, product, or client (e.g. `vibe-to-ui`, `nextai`) — not an output platform.
+- A **profile** is a brand, product, or client (e.g. `vibe-to-ui`, `acme-brand`) — not an output platform.
 - Live data lives only under `~/.vibe-to-ui/profiles/<profile>/`. Skill templates under `assets/design-context/` are seeds to copy, never the live store.
 - **Skill install, update, or reinstall must never overwrite, delete, or reset `~/.vibe-to-ui/`.**
 - `targets/` (`web`, `social-cover`, `hyperframes`) are created on first request for that target, then reused and updated.
@@ -352,7 +352,7 @@ User wants product-aligned illustrations (hero, feature, empty state, OG image) 
 
 User wants reusable brand visual language extracted from a website URL or screenshot, persisted locally, and adapted on demand for different media agents -> Create or update a Design Context **profile**, then generate or reuse **target** rules and emit a merged handoff package.
 
-**Trigger**: User says things like "save this site's design as a profile", "extract brand context from this URL/screenshot", "vibe-to-ui context --profile nextai --target web", "give me social-cover rules for this brand", "Hyperframes context for launch video", or asks to reuse a previously saved brand across projects.
+**Trigger**: User says things like "save this site's design as a profile", "extract brand context from this URL/screenshot", "vibe-to-ui context --profile vibe-to-ui --target web", "give me social-cover rules for this brand", "Hyperframes context for launch video", or asks to reuse a previously saved brand across projects.
 
 **Command surface** (agent-executed; no separate CLI binary in this package):
 

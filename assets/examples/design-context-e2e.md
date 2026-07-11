@@ -15,18 +15,18 @@ This is documentation for agents and humans. It does not run as a script. Paths 
 User:
 
 ```text
-vibe-to-ui context --profile nextai --from-url https://nextai.example
+vibe-to-ui context --profile vibe-to-ui --from-url https://vibe-to-ui.example
 ```
 
 or:
 
 ```text
-Extract design context from this screenshot into profile "nextai"
+Extract design context from this screenshot into profile "vibe-to-ui"
 ```
 
 Agent:
 
-1. Create `~/.vibe-to-ui/profiles/nextai/` with `assets/` and `sources/` (no `targets/` yet).
+1. Create `~/.vibe-to-ui/profiles/vibe-to-ui/` with `assets/` and `sources/` (no `targets/` yet).
 2. Copy **shared** seed templates only (`profile.md`, `brand.md`, `tokens.json`, `decisions.md`) from the skill's `assets/design-context/` — do not copy `targets/` at init.
 3. Record the source under `sources/` (URL notes and/or copied screenshot).
 4. Reuse Design System Extraction + optional Aesthetic Analysis to fill:
@@ -40,7 +40,7 @@ Agent:
 Expected tree:
 
 ```text
-~/.vibe-to-ui/profiles/nextai/
+~/.vibe-to-ui/profiles/vibe-to-ui/
 ├── profile.md
 ├── brand.md
 ├── tokens.json
@@ -55,7 +55,7 @@ Expected tree:
 User:
 
 ```text
-vibe-to-ui context --profile nextai --target web
+vibe-to-ui context --profile vibe-to-ui --target web
 ```
 
 Agent:
@@ -71,7 +71,7 @@ Agent:
 User:
 
 ```text
-vibe-to-ui context --profile nextai --target web
+vibe-to-ui context --profile vibe-to-ui --target web
 ```
 
 Agent:
@@ -85,7 +85,7 @@ Agent:
 User:
 
 ```text
-vibe-to-ui context --profile nextai --target social-cover
+vibe-to-ui context --profile vibe-to-ui --target social-cover
 ```
 
 Agent creates `targets/social-cover.md` on demand (does not regenerate `web.md` unless brand master changed). Later, `--target hyperframes` follows the same pattern.
@@ -94,16 +94,16 @@ Agent creates `targets/social-cover.md` on demand (does not regenerate `web.md` 
 
 When building UI in a repo:
 
-1. Read `~/.vibe-to-ui/profiles/nextai/` (brand + tokens + `targets/web.md`).
+1. Read `~/.vibe-to-ui/profiles/vibe-to-ui/` (brand + tokens + `targets/web.md`).
 2. Read project `DESIGN.md` if present for product/page-local context.
-3. Optionally note `design_context_profile: nextai` in `DESIGN.md` Iteration Context.
+3. Optionally note `design_context_profile: vibe-to-ui` in `DESIGN.md` Iteration Context.
 4. Apply or generate UI using shared tokens; do not invent a parallel palette.
 
 ## 6. Skill update safety check
 
 After `npx skills add ...` or git pull of the skill:
 
-- `~/.vibe-to-ui/profiles/nextai/` must still exist unchanged.
+- `~/.vibe-to-ui/profiles/vibe-to-ui/` must still exist unchanged.
 - Only skill templates under the package's `assets/design-context/` may change.
 
 ## Failure cases

@@ -124,7 +124,7 @@ See [references/VISUAL-ASSET-GENERATION.md](references/VISUAL-ASSET-GENERATION.m
 
 Extract brand visual language from a **website URL or screenshot** and persist it under `~/.vibe-to-ui/profiles/<profile>/` — outside the skill package so install/update never overwrites your data:
 
-- **Profile** = one brand, product, or client (e.g. `vibe-to-ui`, `nextai`) — not an output platform
+- **Profile** = one brand, product, or client (e.g. `vibe-to-ui`, `acme-brand`) — not an output platform
 - Shared brand master: `profile.md`, `brand.md`, `tokens.json`, `decisions.md`, `assets/`, `sources/`
 - **Targets on demand** (`web`, `social-cover`, `hyperframes`): created under the profile when first requested, then reused and updated. Target rule packs are **not** bundled in this skill; they may be supplied later by an external provider.
 - Merge brand + tokens + decisions + target rules for webpage, social-cover, or launch-video agents
@@ -228,12 +228,12 @@ git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-t
 "Apply Concept B with assets to my Next.js app"
 
 # Save brand context from a URL or screenshot into a local profile
-"Extract design context from https://nextai.example into profile nextai"
+"Extract design context from https://vibe-to-ui.example into profile vibe-to-ui"
 
 # Load or generate medium-specific rules for a profile
-"vibe-to-ui context --profile nextai --target web"
-"vibe-to-ui context --profile nextai --target social-cover"
-"vibe-to-ui context --profile nextai --target hyperframes"
+"vibe-to-ui context --profile vibe-to-ui --target web"
+"vibe-to-ui context --profile vibe-to-ui --target social-cover"
+"vibe-to-ui context --profile vibe-to-ui --target hyperframes"
 
 # Full pipeline
 "I have some inspiration images and a music clip — let's explore the spatial vibe, choose a direction, then apply it to my product"

@@ -14,7 +14,7 @@ This is the 90/10 MVP: reuse existing extraction capabilities (Design System Ext
 
 | Term | Meaning |
 |------|---------|
-| **Profile** | One independent brand, product, or client design context (e.g. `vibe-to-ui`, `nextai`, a customer brand). Not an output platform. |
+| **Profile** | One independent brand, product, or client design context (e.g. `vibe-to-ui`, `acme-brand`). Not an output platform. |
 | **Target** | A medium adaptation of the same profile: `web`, `social-cover`, or `hyperframes`. |
 | **Brand master** | Cross-medium shared language in `brand.md` + `tokens.json` + `decisions.md`. |
 | **Profile doc** | `profile.md` — human-readable profile summary with YAML frontmatter for id/timestamps (same pattern as project `DESIGN.md`). |
@@ -100,7 +100,7 @@ Profile (brand / product / client)
 
 1. **Resolve profile id**
    - Prefer the explicit `--profile` value.
-   - Normalize to lowercase kebab-case: letters, digits, hyphens only (`nextai`, `acme-brand`).
+   - Normalize to lowercase kebab-case: letters, digits, hyphens only (`vibe-to-ui`, `acme-brand`).
    - If missing, derive a short id from the product/brand name and confirm once.
 
 2. **Ensure directory skeleton**
@@ -228,7 +228,7 @@ Rules:
 
 1. When a profile is active and the user is working in a project, **read the profile first** for brand tokens and principles.
 2. Continue using project `DESIGN.md` for product definition, page type, and project-local decisions ([CONTEXT-COLLABORATION.md](CONTEXT-COLLABORATION.md)).
-3. Optionally note the active profile id in `DESIGN.md` Iteration Context (e.g. `design_context_profile: nextai`) so later sessions reconnect.
+3. Optionally note the active profile id in `DESIGN.md` Iteration Context (e.g. `design_context_profile: vibe-to-ui`) so later sessions reconnect.
 4. Do not replace `DESIGN.md` with the profile; do not copy the entire profile into the repo unless the user asks to export.
 
 ## Confidence and honesty
