@@ -327,7 +327,7 @@ For Consumer app surfaces, also follow [references/CONSUMER-APP-DESIGN.md](refer
 
 ### 6. Visual Asset Generation
 
-User wants product-aligned illustrations (hero, feature, empty state, OG image) that share the same style DNA as the confirmed or in-progress design direction -> Generate assets via the host's image tool or MCP, record an asset manifest, embed in exploration artifacts, and deploy on Apply.
+User wants product-aligned illustrations (hero, feature, empty state, OG image) that share the same style DNA as the confirmed or in-progress design direction -> Generate assets via the host's image tool, record an asset manifest, embed in exploration artifacts, and deploy on Apply.
 
 **Trigger**: User says things like "generate hero / illustrations for this concept", "replace mood board placeholders with real images", "create empty state illustrations", "apply with assets", or asks for visuals that match the current design exploration or design system.
 
@@ -343,7 +343,7 @@ User wants product-aligned illustrations (hero, feature, empty state, OG image) 
 6. Write an **Asset Placement Spec** per image so each asset has a real UI job: slot, purpose, size rule, copy/CTA relationship, safe zone, and responsive behavior
 7. Write an **Asset Spec** per image (role, aspect ratio, target display size, background mode, composition, preset, style reference)
 8. **Compile prompts** using the Prompt Compiler rules; generate hero or strongest family anchor first, then siblings with that anchor as style reference
-9. Invoke the host **image generation tool** or configured MCP (`VIBE_IMAGE_PROVIDER` / API keys via environment — never stored in this repo)
+9. Invoke the host **image generation tool** (this skill does not call external image APIs or MCP image providers)
 10. Run **Consistency QA** and placement fit checks (max 2 retries); on failure, fall back to CSS placeholders per [references/MOOD-BOARD.md](references/MOOD-BOARD.md)
 11. Write **`design-assets.manifest.json`** next to exploration HTML; embed `<img>` paths in mood boards, contact sheets, placement previews, and concept previews
 12. Run the **Manifest Validator**: file existence, dimensions/aspect ratio, target display size, background mode, file size, alt/decorative status, preview/final state, role/page fit, style lineage, placement fields, and icon-role constraints

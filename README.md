@@ -194,7 +194,7 @@ Yes. Tokens and direction are framework-agnostic; apply respects your project co
 In [`references/`](references/) — progressive disclosure keeps startup context lean.
 
 **Image generation?**  
-Uses your agent’s host image tool or optional MCP providers. No API keys are bundled. See [VISUAL-ASSET-GENERATION.md](references/VISUAL-ASSET-GENERATION.md).
+Uses your agent’s **host image tool**. No API keys or MCP image providers are bundled or required. See [VISUAL-ASSET-GENERATION.md](references/VISUAL-ASSET-GENERATION.md).
 
 ---
 

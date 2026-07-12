@@ -194,7 +194,7 @@ node bin/vibe-to-ui.js context --profile my-brand --target web
 [`references/`](references/) —— 渐进披露，启动时不塞满上下文。
 
 **配图怎么生成？**  
-用 Agent 宿主图像工具或可选 MCP。不内置 API Key。见 [VISUAL-ASSET-GENERATION.md](references/VISUAL-ASSET-GENERATION.md)。
+用 Agent 的**宿主图像工具**。不内置 API Key，也不依赖 MCP 图像服务。见 [VISUAL-ASSET-GENERATION.md](references/VISUAL-ASSET-GENERATION.md)。
 
 ---
 
