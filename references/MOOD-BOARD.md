@@ -19,7 +19,9 @@ A mood board is the right tool when:
 
 ## Mood Board Anatomy
 
-A well-constructed mood board is not a random collage. It has intentional structure:
+A well-constructed mood board is not a random collage. It has intentional structure.
+
+Internally, a board carries two layers — **palette** (color story) and **style** (material, type attitude, geometry, density, motion hints) — but the **default** board for each concept presents them as one coherent composition. Do **not** turn every exploration into a separate "pick a style" board. References already imply both layers; open an explicit style-only or palette-only board set only when the user asks (see [DESIGN-EXPLORATION.md](DESIGN-EXPLORATION.md) — Palette vs style).
 
 ### 1. Theme Title & Mood Line
 
@@ -276,6 +278,15 @@ When the user is choosing between directions, generate **multiple mood boards** 
 - Be clearly labeled with concept name and mood keywords
 - Feel visually different enough that the user can react viscerally — if two boards look similar, the concepts aren't distinct enough
 
+### On-demand style or palette boards
+
+**Do not** invent an extra set of "style option" boards by default. When the user explicitly asks to explore other styles (or other palettes), generate a focused comparison set:
+
+- **Style pass**: 3 boards that share the locked (or reference-implied) palette and vary style language — material, type attitude, geometry, density, motion hints
+- **Palette pass**: 3 boards that share the locked style language and vary color story only
+
+Label them clearly (`Style: Editorial Soft`, `Palette: Cool Slate`, …). After the user picks, re-bind into an updated concept mood board — do not leave them with an unbound matrix of options.
+
 ## Mood Board in the Design Workflow
 
 ### As Input to Design System Extraction
@@ -302,6 +313,7 @@ Sometimes the user just wants a mood board — no design system, no code. That's
 ## Interaction Principles
 
 - **Curate, don't dump**: A mood board is not "all the references arranged on a page." It's a selective, intentional composition. Omit references that don't serve the narrative.
+- **Respect implied taste**: Default boards follow the reference-implied palette + style; open style-only or palette-only boards only on explicit request
 - **Tell a visual story**: The board should have a reading flow — hero image grabs attention, color and type reinforce direction, keywords summarize the philosophy.
 - **Match the board's style to its content**: If the mood is "minimal and restrained," the board itself should be clean and spacious. If the mood is "rich and layered," the board can be denser and more collage-like.
 - **Name everything**: Unnamed mood boards are forgettable. A good name ("Coastal Clarity", "Midnight Industrial", "Soft Machine") makes the direction memorable and discussable.

@@ -220,7 +220,7 @@ User has feelings or vibes but no concrete design target -> Interactive conversa
    - fallback stack, including CJK-safe or multilingual fallback when relevant
    - why this typography direction fits the user's product background rather than only the reference image
 8. Synthesize findings into **3 distinct design concept directions**, each with:
-   - clear inheritance from the reference or product context
+   - clear inheritance from the reference or product context (references already imply palette + style — do **not** open a separate style menu by default)
    - a distinct typography direction, not just a color change
    - a motion personality **and one signature motion motif** (what makes this direction's movement memorable)
    - a density posture
@@ -234,7 +234,7 @@ User has feelings or vibes but no concrete design target -> Interactive conversa
    - explicit comparison between heading, body, label, and dense-data text where relevant
    - for Consumer app surfaces, show realistic app modules from [references/CONSUMER-APP-DESIGN.md](references/CONSUMER-APP-DESIGN.md): navigation, core screen, detail/create flow, non-happy state, and tap/sheet/tab motion
    - these are standalone pages for exploration and do NOT modify the user's project
-11. Let the user react, compare, and choose or mix elements
+11. Let the user react, compare, and choose or mix elements. **Only if they explicitly ask** to explore other styles (or other palettes), run an on-demand pass: 3 options on that layer, prefer locking the other layer, then re-bind — see [references/DESIGN-EXPLORATION.md](references/DESIGN-EXPLORATION.md)
 12. Once the user decides, apply **Capability 1** (Design System Extraction) to formalize the chosen direction into a complete design system including motion tokens
 13. Transition to **Capability 5** (Apply Design to Project) to integrate the confirmed design into the actual project. **On Apply**, load [references/MOTION-ENGINE-ROUTER.md](references/MOTION-ENGINE-ROUTER.md) for production motion code.
 
