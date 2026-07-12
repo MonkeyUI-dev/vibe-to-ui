@@ -191,7 +191,7 @@ User provides a complete UI reference (website URL, screenshot, or design mockup
 
 User has feelings or vibes but no concrete design target -> Interactive conversation to discover and define aesthetics that still match the intended page archetype, generating standalone concept previews for collaborative exploration.
 
-**Trigger**: User says things like "I want something that feels like...", "I have some inspiration images", "use https://… as inspiration", "I'm not sure what style I want", shares mood or landscape photos, shares a music recording or song that captures the feeling they want, or provides a concrete UI reference (URL or screenshot) together with product context and wants the agent to extend it into multiple visual directions.
+**Trigger**: User says things like "I want something that feels like...", "I have some inspiration images", "use https://… as inspiration", "I'm not sure what style I want", "explore other styles but keep these colors", shares mood or landscape photos, shares a music recording or song that captures the feeling they want, or provides a concrete UI reference (URL or screenshot) together with product context and wants the agent to extend it into multiple visual directions.
 
 **Workflow**:
 1. Ask the user about their project context:
