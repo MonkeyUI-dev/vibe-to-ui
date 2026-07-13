@@ -11,8 +11,6 @@ Do **not** commit multi‑MB originals. Prefer WebP (or SVG for the logo), long 
 |----------|------|
 | `brand-slogan.webp` | Brand slogan hero (“Design the dream you were told to put away.”) — used at the top of both READMEs |
 
-**Prefer replacing** `brand-slogan.webp` with your exact export if the committed file was regenerated in-environment. Keep the same filename.
-
 ## Still needed
 
 | # | Filename | Size / ratio | What to show | Notes |
