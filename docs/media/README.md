@@ -5,19 +5,26 @@ Then remove the matching `<!-- TODO(media): … -->` comments in `README.md` / `
 
 Do **not** commit multi‑MB originals. Prefer WebP (or SVG for the logo), long edge ≤ 1600px for stills.
 
-## Required for launch polish
+## Present
+
+| Filename | Role |
+|----------|------|
+| `brand-slogan.webp` | Brand slogan hero (“Design the dream you were told to put away.”) — used at the top of both READMEs |
+
+**Prefer replacing** `brand-slogan.webp` with your exact export if the committed file was regenerated in-environment. Keep the same filename.
+
+## Still needed
 
 | # | Filename | Size / ratio | What to show | Notes |
 |---|----------|--------------|--------------|-------|
-| 1 | `logo.svg` (or `logo.png`) | ~512×512, transparent | Product mark only | No tiny wordmark; readable at 64px |
-| 2 | `hero-banner.webp` | 1600×900 (16:9) | First-viewport story: brand + one line + full-bleed collage of previews | One composition, not a dashboard; avoid purple-AI / cream-serif clichés |
-| 3 | `agents-strip.webp` | ~1200×120 | Logos of compatible agents | Quiet background, even spacing |
-| 4 | `flow-diagram.webp` | ~1400×480 | Inspire → 3 directions → mood board → preview → apply | Horizontal, editorial, minimal chrome |
-| 5 | `example-concepts.webp` | 1600×900 | Concept A / B / C for **one** product | Same page type, distinct visual + motion personality |
-| 6 | `example-moodboard.webp` | ~1200×900 | Real generated mood-board HTML screenshot | Color + type + texture + one motion hint |
-| 7 | `example-before-after.webp` | 1600×800 | Left generic / right after direction | Same content skeleton; honest contrast |
-| 8 | `example-consumer-app.webp` | ~1200×800 | C-end app: nav + core + empty/error | Mobile-first frame |
-| 9 | `design-context-diagram.webp` | ~1200×700 | Profile → targets → merge handoff | Diagram, not a photo |
+| 1 | `logo.svg` (or `logo.png`) | ~512×512, transparent | Product mark only | Optional if slogan banner carries brand enough |
+| 2 | `agents-strip.webp` | ~1200×120 | Logos of compatible agents | Quiet background, even spacing |
+| 3 | `flow-diagram.webp` | ~1400×480 | Inspire → 3 directions → mood board → preview → apply | Horizontal, editorial, minimal chrome |
+| 4 | `example-concepts.webp` | 1600×900 | Concept A / B / C for **one** product | Same page type, distinct visual + motion personality |
+| 5 | `example-moodboard.webp` | ~1200×900 | Real generated mood-board HTML screenshot | Color + type + texture + one motion hint |
+| 6 | `example-before-after.webp` | 1600×800 | Left generic / right after direction | Same content skeleton; honest contrast |
+| 7 | `example-consumer-app.webp` | ~1200×800 | C-end app: nav + core + empty/error | Mobile-first frame |
+| 8 | `design-context-diagram.webp` | ~1200×700 | Profile → targets → merge handoff | Diagram, not a photo |
 
 ## Optional later
 
@@ -28,12 +35,8 @@ Do **not** commit multi‑MB originals. Prefer WebP (or SVG for the logo), long 
 
 ## Review checklist
 
-- [ ] Hero passes brand test: without nav, still obviously vibe-to-ui
+- [x] Brand slogan hero present (`brand-slogan.webp`)
 - [ ] Examples look like product UI, not abstract gradients
 - [ ] File sizes reasonable for GitHub (< ~500KB each where possible)
 - [ ] Alt text in README still accurate after swap
 - [ ] Chinese README uses the same filenames (no duplicate assets)
-
-## Status
-
-All files above are **missing until you add them**. Broken image icons in the README are expected until this checklist is complete.

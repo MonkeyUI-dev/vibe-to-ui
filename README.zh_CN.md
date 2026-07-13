@@ -2,19 +2,13 @@
 
 [English](README.md)
 
-<!-- TODO(media): logo — 与英文 README 共用 docs/media/logo.svg -->
 <p align="center">
-  <img src="docs/media/logo.svg" alt="vibe-to-ui" width="96" />
+  <img src="docs/media/brand-slogan.webp" alt="vibe-to-ui — Design the dream you were told to put away." width="100%" />
 </p>
 
 <p align="center">
   <strong>让设计听懂 vibe —— 给靠感觉写代码的开发者。</strong><br />
   一套 <a href="https://agentskills.io">Agent Skill</a>：把截图、链接、照片、音乐和直觉，变成真正能用的 UI 方向；只有你确认后，才会动你的项目。
-</p>
-
-<!-- TODO(media): hero-banner — 与英文共用 docs/media/hero-banner.webp -->
-<p align="center">
-  <img src="docs/media/hero-banner.webp" alt="vibe-to-ui — 先探索三个方向，再应用" width="100%" />
 </p>
 
 <p align="center">

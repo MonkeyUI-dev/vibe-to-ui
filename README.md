@@ -2,19 +2,13 @@
 
 [中文](README.zh_CN.md)
 
-<!-- TODO(media): logo — square mark, transparent PNG/SVG, ~512×512. Product mark only (no wordmark clutter). Path: docs/media/logo.svg -->
 <p align="center">
-  <img src="docs/media/logo.svg" alt="vibe-to-ui" width="96" />
+  <img src="docs/media/brand-slogan.webp" alt="vibe-to-ui — Design the dream you were told to put away." width="100%" />
 </p>
 
 <p align="center">
   <strong>Design that speaks vibe — for developers who ship by feel.</strong><br />
   An <a href="https://agentskills.io">Agent Skill</a> that turns screenshots, URLs, photos, music, and gut feelings into real UI direction — then applies it only when you say so.
-</p>
-
-<!-- TODO(media): hero-banner — 1600×900 (or 16:9). One composition: product name + one short line + a full-bleed collage of concept preview / mood board / UI frame. Not a dashboard. Warm/atmospheric, not purple-gradient AI default. Path: docs/media/hero-banner.webp -->
-<p align="center">
-  <img src="docs/media/hero-banner.webp" alt="vibe-to-ui — explore three directions, then apply" width="100%" />
 </p>
 
 <p align="center">
