@@ -15,7 +15,6 @@
   <a href="#安装">安装</a> ·
   <a href="#你能做什么">你能做什么</a> ·
   <a href="#使用节奏">使用节奏</a> ·
-  <a href="#示例">示例</a> ·
   <a href="#提示词">提示词</a> ·
   <a href="#常见问题">常见问题</a>
 </p>
@@ -41,11 +40,6 @@ npx skills add MonkeyUI-dev/vibe-to-ui#v0.4.0
 ```
 
 适用于 Claude Code、Cursor、Codex、Gemini CLI、Kimi Code 等支持 `npx` 的 Agent。
-
-<!-- TODO(media): agents-strip — 共用 docs/media/agents-strip.webp -->
-<p align="center">
-  <img src="docs/media/agents-strip.webp" alt="兼容主流编码 Agent" width="80%" />
-</p>
 
 <details>
 <summary>手动安装</summary>
@@ -95,37 +89,6 @@ git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-t
 3. **并排比较** —— 概念预览 + 情绪看板  
 4. **你说了才应用** —— 之前不改动生产代码  
 
-<!-- TODO(media): flow-diagram — 共用 docs/media/flow-diagram.webp -->
-<p align="center">
-  <img src="docs/media/flow-diagram.webp" alt="灵感 → 探索 → 选择 → 应用" width="100%" />
-</p>
-
----
-
-## 示例
-
-用 vibe-to-ui 做出的结果（素材就绪后替换占位）：
-
-<!-- TODO(media): example-concepts — 共用 docs/media/example-concepts.webp -->
-<p align="center">
-  <img src="docs/media/example-concepts.webp" alt="三个概念方向并排" width="100%" />
-</p>
-
-<!-- TODO(media): example-moodboard — 共用 docs/media/example-moodboard.webp -->
-<p align="center">
-  <img src="docs/media/example-moodboard.webp" alt="情绪看板示例" width="100%" />
-</p>
-
-<!-- TODO(media): example-before-after — 共用 docs/media/example-before-after.webp -->
-<p align="center">
-  <img src="docs/media/example-before-after.webp" alt="前后对比" width="100%" />
-</p>
-
-<!-- TODO(media): example-consumer-app — 共用 docs/media/example-consumer-app.webp -->
-<p align="center">
-  <img src="docs/media/example-consumer-app.webp" alt="C 端 App 预览" width="100%" />
-</p>
-
 ---
 
 ## 提示词
@@ -161,11 +124,6 @@ node bin/vibe-to-ui.js context --profile my-brand --target web
 
 根目录：`~/.vibe-to-ui`（固定路径，无环境变量覆盖）。媒介 Target 开放自定义（`web`、`linkedin`、`print-brochure`…），不是封闭枚举。
 
-<!-- TODO(media): design-context-diagram — 共用 docs/media/design-context-diagram.webp -->
-<p align="center">
-  <img src="docs/media/design-context-diagram.webp" alt="Design Context profile 与 targets" width="90%" />
-</p>
-
 详见：[DESIGN-CONTEXT.md](references/DESIGN-CONTEXT.md)
 
 ---
@@ -194,7 +152,7 @@ node bin/vibe-to-ui.js context --profile my-brand --target web
 
 ## 图片素材清单
 
-所有待补图说明见 [`docs/media/README.md`](docs/media/README.md)（尺寸、意图、文件名）。文件放进该目录后，删掉本 README 里对应的 `TODO(media)` 注释即可。中英文 README **共用同一套文件**。
+后续 README 配图（流程图、示例、Design Context 示意图等）见 [`docs/media/README.md`](docs/media/README.md)。目前 README 仅嵌入品牌 slogan 头图。
 
 ---
 

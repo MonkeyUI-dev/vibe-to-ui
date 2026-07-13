@@ -1,7 +1,7 @@
 # docs/media — README visual assets
 
 Drop finished files into this folder using the **exact filenames** below.
-Then remove the matching `<!-- TODO(media): … -->` comments in `README.md` / `README.zh_CN.md`.
+When an asset is ready, add it back to `README.md` / `README.zh_CN.md` (currently only `brand-slogan.webp` is embedded).
 
 Do **not** commit multi‑MB originals. Prefer WebP (or SVG for the logo), long edge ≤ 1600px for stills.
 

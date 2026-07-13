@@ -15,7 +15,6 @@
   <a href="#install">Install</a> ·
   <a href="#what-you-can-do">What you can do</a> ·
   <a href="#how-it-feels">How it feels</a> ·
-  <a href="#examples">Examples</a> ·
   <a href="#prompts">Prompts</a> ·
   <a href="#faq">FAQ</a>
 </p>
@@ -41,11 +40,6 @@ npx skills add MonkeyUI-dev/vibe-to-ui#v0.4.0
 ```
 
 Works with Claude Code, Cursor, Codex, Gemini CLI, Kimi Code, and any `npx`-capable agent.
-
-<!-- TODO(media): agents-strip — 1200×120 wide strip of partner/agent logos (Claude, Cursor, Codex, Gemini…) on a single quiet background. Path: docs/media/agents-strip.webp -->
-<p align="center">
-  <img src="docs/media/agents-strip.webp" alt="Works with major coding agents" width="80%" />
-</p>
 
 <details>
 <summary>Manual install</summary>
@@ -95,37 +89,6 @@ inspire → explore 3 directions → choose → preview → apply
 3. **Compare** concept previews + mood boards  
 4. **Apply** when you say so — your project stays untouched until then  
 
-<!-- TODO(media): flow-diagram — 1400×480. Horizontal 4–5 step flow with simple icons: Inspire → 3 Directions → Mood Board → Preview → Apply. One composition, light editorial, no card clutter. Path: docs/media/flow-diagram.webp -->
-<p align="center">
-  <img src="docs/media/flow-diagram.webp" alt="inspire → explore → choose → apply" width="100%" />
-</p>
-
----
-
-## Examples
-
-Created with vibe-to-ui (replace placeholders when assets are ready):
-
-<!-- TODO(media): example-concepts — 1600×900 collage or 3-up strip showing Concept A / B / C preview pages for one product. Same page archetype, clearly different visual/motion personalities. Path: docs/media/example-concepts.webp -->
-<p align="center">
-  <img src="docs/media/example-concepts.webp" alt="Three concept directions side by side" width="100%" />
-</p>
-
-<!-- TODO(media): example-moodboard — 1200×900 screenshot of a generated HTML mood board (color, type, texture, motion hint). Path: docs/media/example-moodboard.webp -->
-<p align="center">
-  <img src="docs/media/example-moodboard.webp" alt="Mood board example" width="100%" />
-</p>
-
-<!-- TODO(media): example-before-after — 1600×800 split: left “generic AI landing”, right “after vibe-to-ui direction”. Honest, same content structure. Path: docs/media/example-before-after.webp -->
-<p align="center">
-  <img src="docs/media/example-before-after.webp" alt="Before and after" width="100%" />
-</p>
-
-<!-- TODO(media): example-consumer-app — 1200×800 phone or multi-screen frame: nav + home + empty/error state for a C-end app direction. Path: docs/media/example-consumer-app.webp -->
-<p align="center">
-  <img src="docs/media/example-consumer-app.webp" alt="Consumer app UIUX preview" width="100%" />
-</p>
-
 ---
 
 ## Prompts
@@ -161,11 +124,6 @@ node bin/vibe-to-ui.js context --profile my-brand --target web
 
 Root: `~/.vibe-to-ui` (fixed; no env override). Medium targets are open-ended (`web`, `linkedin`, `print-brochure`, …) — not a fixed enum.
 
-<!-- TODO(media): design-context-diagram — 1200×700. Simple diagram: Profile (brand.md + tokens) → optional targets/*.md → merge handoff. Path: docs/media/design-context-diagram.webp -->
-<p align="center">
-  <img src="docs/media/design-context-diagram.webp" alt="Design Context profile and targets" width="90%" />
-</p>
-
 Details: [DESIGN-CONTEXT.md](references/DESIGN-CONTEXT.md)
 
 ---
@@ -194,7 +152,7 @@ Uses your agent’s **host image tool**. No API keys or MCP image providers are 
 
 ## Media checklist
 
-See [`docs/media/README.md`](docs/media/README.md) for every asset TODO (sizes, intent, filename). Drop files there and remove the matching `TODO(media)` comments in this README when ready.
+Future README visuals (flow diagram, examples, Design Context diagram, etc.) are tracked in [`docs/media/README.md`](docs/media/README.md). Only the brand slogan hero is embedded for now.
 
 ---
 
