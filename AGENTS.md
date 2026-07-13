@@ -86,6 +86,11 @@ The meaningful integrity checks for this repo are:
    `profile.md`, `brand.md`, `tokens.json`, and `decisions.md`.
    Do **not** ship bundled per-medium `targets/*.md` seeds (neither for
    example media like web/social-cover/hyperframes, nor for user-defined media).
+4. **User-uploaded README media** (`docs/media/`, especially `brand-slogan.webp`):
+   copy the user's export verbatim; **never** AI-regenerate from a description.
+   If the attachment is not on disk, ask the user to save it to
+   `docs/media/brand-slogan-source.png` (or re-attach) before committing.
+   WebP compression only — no crop, no aspect change (`scripts/compress-readme-media.py`).
 4. Design Context CLI smoke (optional but recommended when touching `bin/` / `lib/`):
 
 ```bash

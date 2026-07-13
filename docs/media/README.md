@@ -5,6 +5,22 @@ When an asset is ready, add it back to `README.md` / `README.zh_CN.md` (currentl
 
 Do **not** commit multi‑MB originals. Prefer WebP (or SVG for the logo), long edge ≤ 1600px for stills.
 
+## User-provided assets — never regenerate
+
+When the user uploads a finished brand asset (for example the slogan hero):
+
+- **Copy the upload verbatim** to `docs/media/` (keep the target filename, e.g. `brand-slogan.webp`).
+- **Do not** call image-generation tools to recreate, “fix”, or approximate it from a text description.
+- If the chat attachment is not on disk, **stop and ask the user** to save the export to `docs/media/brand-slogan-source.png` (or re-attach the file) — do not substitute an AI redraw.
+- WebP compression is allowed only with **no crop and no aspect-ratio change**. Downscale only when the long edge exceeds 1600px.
+- Preserve the **full composition** (footer bars, registration marks, typography, color grading).
+
+To replace `brand-slogan.webp` from a local export:
+
+```bash
+python3 scripts/compress-readme-media.py docs/media/brand-slogan-source.png docs/media/brand-slogan.webp
+```
+
 ## Present
 
 | Filename | Role |
