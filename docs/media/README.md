@@ -5,11 +5,18 @@ When an asset is ready, add it back to `README.md` / `README.zh_CN.md` (currentl
 
 Do **not** commit multi‑MB originals. Prefer WebP (or SVG for the logo), long edge ≤ 1600px for stills.
 
+**Brand slogan:** commit `brand-slogan.png` as the source export, then regenerate the README embed — do **not** redraw or upscale in place of the user file:
+
+```bash
+cwebp -q 92 -m 6 docs/media/brand-slogan.png -o docs/media/brand-slogan.webp
+```
+
 ## Present
 
 | Filename | Role |
 |----------|------|
-| `brand-slogan.webp` | Brand slogan hero (“Design the dream you were told to put away.”) — used at the top of both READMEs |
+| `brand-slogan.png` | Source export (1024×512) — replace this when updating the hero |
+| `brand-slogan.webp` | Compressed hero for README embed — regenerate from `.png` only |
 
 ## Still needed
 
