@@ -3,7 +3,7 @@
 [English](README.md)
 
 <p align="center">
-  <img src="docs/media/brand-slogan.webp" alt="vibe-to-ui — Design the dream you were told to put away." width="100%" />
+  <img src="docs/media/brand-slogan.png" alt="vibe-to-ui — Design the dream you were told to put away." width="100%" />
 </p>
 
 <p align="center">

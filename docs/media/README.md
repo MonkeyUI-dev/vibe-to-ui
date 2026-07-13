@@ -1,15 +1,17 @@
 # docs/media — README visual assets
 
 Drop finished files into this folder using the **exact filenames** below.
-When an asset is ready, add it back to `README.md` / `README.zh_CN.md` (currently only `brand-slogan.webp` is embedded).
+When an asset is ready, add it back to `README.md` / `README.zh_CN.md` (currently only `brand-slogan.png` is embedded).
 
-Do **not** commit multi‑MB originals. Prefer WebP (or SVG for the logo), long edge ≤ 1600px for stills.
+Do **not** commit multi‑MB originals. Prefer WebP (or SVG for the logo), long edge ≤ 1600px for stills — except the brand slogan hero, which stays as PNG.
+
+**Brand slogan:** replace `brand-slogan.png` directly — do **not** redraw or upscale in place of the user file.
 
 ## Present
 
 | Filename | Role |
 |----------|------|
-| `brand-slogan.webp` | Brand slogan hero (“Design the dream you were told to put away.”) — used at the top of both READMEs |
+| `brand-slogan.png` | Brand slogan hero (1024×512) — used at the top of both READMEs |
 
 ## Still needed
 
@@ -33,7 +35,7 @@ Do **not** commit multi‑MB originals. Prefer WebP (or SVG for the logo), long 
 
 ## Review checklist
 
-- [x] Brand slogan hero present (`brand-slogan.webp`)
+- [x] Brand slogan hero present (`brand-slogan.png`)
 - [ ] Examples look like product UI, not abstract gradients
 - [ ] File sizes reasonable for GitHub (< ~500KB each where possible)
 - [ ] Alt text in README still accurate after swap
