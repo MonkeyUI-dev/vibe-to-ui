@@ -1,6 +1,6 @@
 # E2E Example: Concept → Mood Board → Apply
 
-This walkthrough demonstrates Capability 6 with **P0 defaults**: illustrations only, local `public/design-assets/`, preview-then-final resolution, a host image generation tool (or equivalent MCP tool).
+This walkthrough demonstrates Capability 6 with **P0 defaults**: illustrations only, local `public/design-assets/`, preview-then-final resolution, and the **host image generation tool**.
 
 Product: **Tidepool** — collaborative scheduling for remote teams.  
 Concept: **Coastal Clarity** — warm, calm, trustworthy.
@@ -143,27 +143,6 @@ User: "Hero feels too saturated."
 2. Recompile prompt with suffix: "lower saturation, more muted sage and cream".
 3. Pass `hero-coastal-clarity-v1.webp` as style reference.
 4. Update HTML/component `src` after user confirms.
-
----
-
-## MCP alternative (teams)
-
-If `VIBE_IMAGE_PROVIDER=openai` and an MCP server exposes `generate_image`:
-
-```json
-{
-  "tool": "generate_image",
-  "arguments": {
-    "prompt": "<compiled prompt>",
-    "width": 1920,
-    "height": 1080,
-    "output_path": "public/design-assets/hero-coastal-clarity-v1.webp",
-    "reference_path": null
-  }
-}
-```
-
-Record `provider: openai` on the manifest asset row.
 
 ---
 

@@ -1,43 +1,32 @@
 # Design Context E2E walkthrough
 
-Minimal path: **source → local profile → on-demand target → merged handoff**.
+Minimal path: **CLI init → agent extraction → CLI target merge**.
 
-This is documentation for agents and humans. It does not run as a script. Paths use `~/.vibe-to-ui/` so skill reinstall never touches user data.
+Paths use `~/.vibe-to-ui/` so skill reinstall never touches user data.
 
 ## 0. Preconditions
 
 - vibe-to-ui skill is installed (e.g. `npx skills add ...`).
-- User can provide a **website URL** and/or a **screenshot**.
-- Agent has filesystem write access to the user home directory.
+- Node ≥18 available to run `bin/vibe-to-ui.js`.
+- User can provide a **website URL** and/or a **screenshot** for extraction (agent-led).
+- Process can write the Design Context root (user home permissions).
 
-## 1. Create a profile from a URL (or screenshot)
+## 1. Initialize a profile (CLI)
 
-User:
+User / agent:
 
-```text
-vibe-to-ui context --profile vibe-to-ui --from-url https://vibe-to-ui.example
+```bash
+node path/to/vibe-to-ui/bin/vibe-to-ui.js context --profile vibe-to-ui --init
+# or: npx vibe-to-ui context --profile vibe-to-ui --init
 ```
 
-or:
+CLI:
 
-```text
-Extract design context from this screenshot into profile "vibe-to-ui"
-```
+1. Creates `~/.vibe-to-ui/profiles/vibe-to-ui/` with `assets/` and `sources/` (no `targets/` yet).
+2. Copies **shared** seed templates only (`profile.md`, `brand.md`, `tokens.json`, `decisions.md`) if missing — never overwrites existing shared files.
+3. Prints the profile path.
 
-Agent:
-
-1. Create `~/.vibe-to-ui/profiles/vibe-to-ui/` with `assets/` and `sources/` (no `targets/` yet).
-2. Copy **shared** seed templates only (`profile.md`, `brand.md`, `tokens.json`, `decisions.md`) from the skill's `assets/design-context/` — do not copy `targets/` at init.
-3. For a URL: follow [INSPIRATION-SOURCES.md](../../references/INSPIRATION-SOURCES.md) — browse/fetch, read frontend cues, selective captures, optional motion observation. Record under `sources/`. For a screenshot-only request, analyze the image directly (URL not required).
-4. Reuse Design System Extraction + optional Aesthetic Analysis to fill:
-   - `profile.md`
-   - `brand.md`
-   - `tokens.json`
-   - `decisions.md` (append initial extraction)
-5. Copy durable visuals (logo, key stills / selective captures) into `assets/` when available.
-6. Tell the user the profile path and that targets are not generated yet.
-
-Expected tree:
+Expected tree after init:
 
 ```text
 ~/.vibe-to-ui/profiles/vibe-to-ui/
@@ -47,59 +36,77 @@ Expected tree:
 ├── decisions.md
 ├── assets/
 └── sources/
-    └── 2026-07-10-homepage.md
 ```
 
-## 2. Request web target context
+## 2. Fill brand master (agent)
 
 User:
 
 ```text
-vibe-to-ui context --profile vibe-to-ui --target web
+Extract design context from https://vibe-to-ui.example into profile "vibe-to-ui"
 ```
+
+or a screenshot / other inspiration source.
 
 Agent:
 
-1. Load `brand.md`, `tokens.json`, `decisions.md`.
-2. See that `targets/web.md` is missing → create `targets/` and generate `web.md` from the brand master using the web target guide in `DESIGN-CONTEXT.md` (no bundled target seed in the skill package).
-3. Append a decision: "Target web created".
-4. Update `profile.md` frontmatter → `targets_available: [web]`, bump `updated_at`.
-5. Emit **merged context**: metadata + brand + tokens + decisions + `targets/web.md` (+ asset pointers) for the web/UI agent.
+1. Confirm the profile exists (run `--init` if needed).
+2. For a URL: follow [INSPIRATION-SOURCES.md](../../references/INSPIRATION-SOURCES.md). For a screenshot-only request, analyze the image directly.
+3. Fill `profile.md`, `brand.md`, `tokens.json`; append to `decisions.md` and `sources/`.
+4. Copy durable visuals into `assets/` when available.
+5. Tell the user the profile path and that targets are not generated yet.
 
-## 3. Request the same target again (reuse)
+## 3. Request a medium target (CLI)
 
-User:
+User / agent:
 
-```text
-vibe-to-ui context --profile vibe-to-ui --target web
+```bash
+node path/to/vibe-to-ui/bin/vibe-to-ui.js context --profile vibe-to-ui --target web
 ```
 
-Agent:
+CLI:
 
-1. Find existing `targets/web.md`.
-2. Reuse it; only update if brand master or user feedback changed.
-3. Emit the same merged package without a full regenerate.
+1. Ensures profile exists (errors if missing).
+2. Creates `targets/web.md` stub if missing; otherwise reuses.
+3. Updates `profile.md` `targets_available` and appends a decision note.
+4. Prints **merged context** on stdout (profile + brand + tokens + decisions + target + asset pointers).
 
-## 4. Add another medium
+Agent then fills stub target content from the brand master using guides in `DESIGN-CONTEXT.md` when the stub is still empty.
 
-User:
+## 4. Request the same target again (reuse)
 
-```text
-vibe-to-ui context --profile vibe-to-ui --target social-cover
+```bash
+node path/to/vibe-to-ui/bin/vibe-to-ui.js context --profile vibe-to-ui --target web
 ```
 
-Agent creates `targets/social-cover.md` on demand (does not regenerate `web.md` unless brand master changed). Later, `--target hyperframes` follows the same pattern.
+CLI reuses `targets/web.md` and prints the same merge shape without regenerating the stub.
 
-## 5. Consume in a project
+## 5. Add another medium (example or user-defined)
+
+```bash
+node path/to/vibe-to-ui/bin/vibe-to-ui.js context --profile vibe-to-ui --target social-cover
+node path/to/vibe-to-ui/bin/vibe-to-ui.js context --profile vibe-to-ui --target linkedin
+node path/to/vibe-to-ui/bin/vibe-to-ui.js context --profile vibe-to-ui --target print-brochure
+```
+
+Named example guides apply when the id matches (`web` / `social-cover` / `hyperframes`); otherwise use the generic custom-medium guide. No built-in GitHub/LinkedIn packs.
+
+## 6. List profiles
+
+```bash
+node path/to/vibe-to-ui/bin/vibe-to-ui.js context --list
+```
+
+## 7. Consume in a project
 
 When building UI in a repo:
 
-1. Read `~/.vibe-to-ui/profiles/vibe-to-ui/` (brand + tokens + `targets/web.md`).
+1. Run `--target` (or read `~/.vibe-to-ui/profiles/vibe-to-ui/` directly).
 2. Read project `DESIGN.md` if present for product/page-local context.
 3. Optionally note `design_context_profile: vibe-to-ui` in `DESIGN.md` Iteration Context.
 4. Apply or generate UI using shared tokens; do not invent a parallel palette.
 
-## 6. Skill update safety check
+## 8. Skill update safety check
 
 After `npx skills add ...` or git pull of the skill:
 
@@ -108,9 +115,10 @@ After `npx skills add ...` or git pull of the skill:
 
 ## Failure cases
 
-| Situation | Agent response |
-|-----------|----------------|
-| Profile missing | Offer `--init` / `--from-url` / `--from-image` |
-| URL unreachable | Follow inspiration fallback: try HTML/CSS fetch, then offer cropped screenshots or partial continuation — user chooses; write partial profile with confidence notes |
-| Unknown target | Accept only `web`, `social-cover`, `hyperframes` |
-| Empty brand master | Refuse to invent a full system; extract from source first |
+| Situation | Response |
+|-----------|----------|
+| Profile missing on `--target` | CLI errors; suggest `--init` |
+| Root not writable | CLI errors with an explicit grant-write message for `~/.vibe-to-ui`; never fall back to `/tmp` |
+| URL unreachable during agent extraction | Follow inspiration fallback; offer cropped screenshots or partial continuation — user chooses |
+| Invalid target id | CLI normalizes to kebab-case; rejects empty / non-slug |
+| Empty brand master | CLI still creates target stub + merge; agent should extract before treating rules as final |

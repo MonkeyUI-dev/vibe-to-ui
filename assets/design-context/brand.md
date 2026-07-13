@@ -1,7 +1,7 @@
 # Brand: [Display Name]
 
 > Cross-medium brand master for Design Context profile `[profile]`.
-> Shared by all targets (`web`, `social-cover`, `hyperframes`). Medium-specific rules live under `targets/`.
+> Shared by all targets (any medium under `targets/`). Medium-specific rules live in those files; `web` / `social-cover` / `hyperframes` are common examples, not the only allowed media.
 
 ## Essence
 

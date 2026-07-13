@@ -1,0 +1,25 @@
+{
+  "name": "vibe-to-ui",
+  "version": "0.4.0",
+  "description": "Local Design Context CLI for vibe-to-ui — profile init, list, and medium target merge",
+  "bin": {
+    "vibe-to-ui": "./bin/vibe-to-ui.js"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "assets/design-context/",
+    "SKILL.md",
+    "references/",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MonkeyUI-dev/vibe-to-ui.git"
+  }
+}

@@ -4,7 +4,7 @@
 
 This guide defines **Capability 6: Visual Asset Generation** for vibe-to-ui. It turns confirmed design direction, product context, and aesthetic DNA into **raster illustrations** (hero, feature, empty state, OG image) that stay visually consistent across a concept — then deploys them into the user's project during Apply.
 
-Integration is **host-agent + MCP/tool based**. This skill repository does not store API keys or call image APIs directly. The agent compiles prompts from StyleContext, invokes the host's image generation tool (for example a built-in host tool or a custom MCP server), and records outputs in an **Asset Manifest**.
+Integration is **host-agent tool based**. This skill repository does not store API keys, call image APIs, or configure MCP image providers. The agent compiles prompts from StyleContext, invokes the **host's built-in image generation tool**, and records outputs in an **Asset Manifest**.
 
 ---
 
@@ -18,7 +18,7 @@ Use these defaults unless the user explicitly expands scope:
 | Storage | Local project `public/design-assets/` (or framework equivalent) |
 | Resolution | Preview during exploration; full resolution on Apply |
 | UI icons (24×24 nav/button) | Locked icon library + custom SVG per [ICON-USAGE.md](ICON-USAGE.md) |
-| Provider | Host image tool / single configured API via env vars |
+| Provider | Host image tool only |
 
 **Explore first, apply later** still applies: generated files for mood boards and concept previews live next to standalone HTML artifacts until the user confirms and asks to apply.
 
@@ -355,37 +355,13 @@ AVOID: text, watermark, logo, faces, neon, emoji.
 
 ## Generation Adapter (host tools)
 
-The skill does not ship a runtime. The agent must use whatever the host provides.
+The skill does not ship a runtime or image API client. The agent must use the **host-provided image generation tool**.
 
 ### Host-provided image tools
 
 - Use the host image generation tool with the compiled prompt; save output to the path the tool returns or to the exploration artifact folder.
 - For iteration, pass the prior image path or reference image when the host tool supports it.
-
-### MCP / API (recommended for teams)
-
-Configure via environment variables (never commit secrets):
-
-| Variable | Purpose |
-|----------|---------|
-| `VIBE_IMAGE_PROVIDER` | `openai` \| `flux` \| `ideogram` \| `recraft` \| `host` |
-| `OPENAI_API_KEY` | GPT Image / DALL·E family |
-| `BFL_API_KEY` | Flux API |
-| `IDEOGRAM_API_KEY` | Ideogram |
-| `RECRAFT_API_KEY` | Recraft (brand color + illustration) |
-
-Expose MCP tools such as `generate_image(prompt, width, height, reference_path?)`.
-
-### Provider notes (2026)
-
-| Provider | Best for |
-|----------|----------|
-| Flux 1.1 Pro | Hero and editorial illustration, few words in scene |
-| GPT Image (OpenAI) | General illustration, strong instruction following |
-| Ideogram 3 | Scenes that need legible typographic *in the UI layer* (prefer HTML for real text) |
-| Recraft V3 | Brand-locked palettes from hex + illustration families |
-
-Default when unset: **host tool** (`VIBE_IMAGE_PROVIDER=host`).
+- Do **not** configure `VIBE_IMAGE_PROVIDER`, third-party image API keys, or MCP image servers for this skill — host tool only for this phase.
 
 ### Preview vs final
 
@@ -616,7 +592,7 @@ Do not Apply a visual asset until manifest validation passes or the user explici
 
 | Condition | Behavior |
 |-----------|----------|
-| No image tool / API key | CSS placeholders in mood board; continue tokens |
+| No host image tool | CSS placeholders in mood board; continue tokens |
 | Generation error | Retry once, then placeholder |
 | User rejects all images | Re-run exploration or adjust StyleContext |
 | Apply without manifest | Tokens only; skip asset copy |

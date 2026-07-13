@@ -32,13 +32,14 @@ Primary extraction sources (details also under `sources/`):
 
 ## Targets
 
-Medium adaptations under `targets/` (created on demand; not seeded by this skill):
+Medium adaptations under `targets/` (created on demand; not seeded by this skill).
+Any kebab-case medium id is valid — examples below are illustrative only:
 
 | Target | Status | Updated |
 |--------|--------|---------|
-| web | not created | — |
-| social-cover | not created | — |
-| hyperframes | not created | — |
+| <!-- e.g. web, social-cover, linkedin, print-brochure --> | not created | — |
+
+When a target is first requested, add a row here and set `targets_available` in the frontmatter.
 
 ## Notes
 

@@ -107,6 +107,29 @@ Based on collected signals, synthesize **3 distinct design concepts**. This is t
 3. Be visually distinguishable from the other concepts
 4. If a concrete UI reference was provided, remain recognizably descended from that reference's layout logic, hierarchy, and page archetype
 
+### Palette vs style (two layers — on demand)
+
+Internally, treat visual direction as two separable layers:
+
+| Layer | Covers | Examples |
+|-------|--------|----------|
+| **Palette** | Temperature, saturation, role proportions, contrast strategy, semantic color roles | Warm earth vs cool slate; muted neutrals + one accent |
+| **Style** | Material/light, geometry, typography attitude, density posture, motion personality, image language | Editorial / soft-product / industrial / glass-geometric |
+
+**Default: do not open a separate style menu.** When the user already shared references (URL, screenshot, photos, music), those materials already imply palette *and* style preference. Proceed with **3 whole concepts** that stay faithful to that implied taste. Vary them along product-fit dimensions (density, motion, typography attitude, material micro-shifts) — not by discarding the reference's style language unless asked.
+
+**Open an explicit style pass only when the user asks**, for example:
+
+- "explore other styles" / "try a different style" / "less SaaS" / "more editorial / brutal / soft"
+- "keep the colors, change the style"
+- strong anti-references that reject the current style family
+
+Then present **3 distinct style options** (Style X / Y / Z). Prefer keeping the current or reference-implied **palette** locked unless they also ask to change color. Bind, don't multiply: do not turn this into a 3×3 matrix of previews by default — show 3 style directions, then merge the chosen style with the locked palette into updated concepts/mood boards.
+
+**Open an explicit palette pass** the same way when they ask (e.g. "colors are wrong but style is right" / "warmer palette"). Offer **3 palette options** while holding style steady, unless they ask to vary both.
+
+Never proactively force "pick a style from these three" before the user has reacted to the default concepts.
+
 ### Phase 3a: Typography Exploration
 
 Before locking each concept, explicitly explore typography as its own design axis rather than treating it as a byproduct of the color palette.
@@ -205,8 +228,10 @@ Present the 3 concept previews and mood boards and let the user:
 
 - **Choose one** → Proceed to formalize it as a design system (Capability 1)
 - **Mix elements** → "I like the colors from Concept A but the typography from Concept B" → Create a merged concept and preview it
+- **Explore other styles** (explicit only) → Run the [style pass](#palette-vs-style-two-layers--on-demand): 3 style options, prefer locked palette → re-bind and re-preview
+- **Explore other palettes** (explicit only) → Run the palette pass: 3 palette options, prefer locked style → re-bind and re-preview
 - **Reject all** → Ask what's missing, gather more signals, generate new concepts
-- **Iterate on one** → "Concept B but warmer / darker / more playful" → Adjust and re-preview
+- **Iterate on one** → "Concept B but warmer / darker / more playful" → Adjust and re-preview (micro-tweak; not a full style menu unless they ask for one)
 
 ### Phase 6: Formalization
 
@@ -229,6 +254,8 @@ Once the user confirms the formalized design system and preview:
 - **No jargon**: Say "how round should corners be?" not "what border-radius token scale do you prefer?"
 - **Show, don't describe**: Always generate visible previews rather than just listing hex codes
 - **Visual output is mandatory by default**: If the workflow reaches concept synthesis, generate the mood boards and standalone concept preview pages in the same turn unless the user explicitly says they only want text analysis
+- **Respect implied taste**: References already encode palette + style — do not open a separate style or palette menu unless the user asks
+- **On-demand style / palette passes**: When they do ask, offer 3 options on that layer only; bind with the locked layer afterward
 - **Explore typography explicitly**: Every concept needs a real type direction with rationale, readability posture, and fallback strategy
 - **Embrace vagueness**: "Something that feels calm" is a valid starting point
 - **Anchor to the user's words**: If they say "cozy", use that word back — "Here's a cozy direction with warm earth tones and soft rounded shapes"
