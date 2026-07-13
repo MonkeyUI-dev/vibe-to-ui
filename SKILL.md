@@ -148,7 +148,7 @@ Do not ask the user to manage this bookkeeping. Mention it only when it affects 
 When the user wants reusable brand memory across projects or media, use **Capability 7** and [references/DESIGN-CONTEXT.md](references/DESIGN-CONTEXT.md).
 
 - A **profile** is a brand, product, or client (e.g. `vibe-to-ui`, `acme-brand`) — not an output platform.
-- Live data lives only under `~/.vibe-to-ui/profiles/<profile>/` (or `$VIBE_TO_UI_HOME`). Skill templates under `assets/design-context/` are seeds to copy, never the live store.
+- Live data lives only under `~/.vibe-to-ui/profiles/<profile>/`. Skill templates under `assets/design-context/` are seeds to copy, never the live store.
 - **Skill install, update, or reinstall must never overwrite, delete, or reset `~/.vibe-to-ui/`.**
 - Prefer the Node CLI (`bin/vibe-to-ui.js`) for `--list` / `--init` / `--target` lifecycle and merge assembly.
 - `targets/<medium>.md` files are created on first request for that medium (open-ended ids; `web` / `social-cover` / `hyperframes` are examples only), then reused and updated.
@@ -370,7 +370,7 @@ vibe-to-ui context --profile <profile> --target <medium>
 
 `<medium>` is any kebab-case medium id. Examples (not an allow-list): `web`, `social-cover`, `hyperframes`, `linkedin`, `print-brochure`.
 
-Run as `node <skill>/bin/vibe-to-ui.js ...` or `npx vibe-to-ui ...` when the package bin is available. Root defaults to `~/.vibe-to-ui` (override with `VIBE_TO_UI_HOME`). See [references/DESIGN-CONTEXT.md](references/DESIGN-CONTEXT.md).
+Run as `node <skill>/bin/vibe-to-ui.js ...` or `npx vibe-to-ui ...` when the package bin is available. Root is always `~/.vibe-to-ui` (no env override). See [references/DESIGN-CONTEXT.md](references/DESIGN-CONTEXT.md).
 
 **Workflow**:
 1. Resolve a kebab-case **profile** id (brand / product / client — not a medium). Prefer `vibe-to-ui context --profile <id> --init` to create the skeleton (shared seeds only; no `targets/` yet).
@@ -378,7 +378,7 @@ Run as `node <skill>/bin/vibe-to-ui.js ...` or `npx vibe-to-ui ...` when the pac
 3. On `--target <name>`: run the CLI so it creates or reuses `targets/<name>.md` and prints the merged handoff package. Fill stub target content from the brand master using the guides in [references/DESIGN-CONTEXT.md](references/DESIGN-CONTEXT.md). Do not reject user-defined media.
 4. When working inside a project, also read project `DESIGN.md` if present; optionally record `design_context_profile: <profile>` in Iteration Context. Do not replace `DESIGN.md` with the profile.
 
-**Non-negotiable**: User data under `~/.vibe-to-ui/` (or `VIBE_TO_UI_HOME`) is outside the skill lifecycle. Skill update or reinstall must never overwrite it. This MVP does not implement cloud sync, team collaboration, or vector search.
+**Non-negotiable**: User data under `~/.vibe-to-ui/` is outside the skill lifecycle. Skill update or reinstall must never overwrite it. This MVP does not implement cloud sync, team collaboration, or vector search.
 
 ## Combining capabilities
 

@@ -165,7 +165,7 @@ node bin/vibe-to-ui.js context --profile my-brand --init
 node bin/vibe-to-ui.js context --profile my-brand --target web
 ```
 
-根目录：`~/.vibe-to-ui`（可用 `VIBE_TO_UI_HOME` 覆盖）。媒介 Target 开放自定义（`web`、`linkedin`、`print-brochure`…），不是封闭枚举。
+根目录：`~/.vibe-to-ui`（固定路径，无环境变量覆盖）。媒介 Target 开放自定义（`web`、`linkedin`、`print-brochure`…），不是封闭枚举。
 
 <!-- TODO(media): design-context-diagram — 共用 docs/media/design-context-diagram.webp -->
 <p align="center">

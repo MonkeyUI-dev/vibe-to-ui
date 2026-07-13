@@ -2,7 +2,7 @@
 
 Minimal path: **CLI init → agent extraction → CLI target merge**.
 
-Paths use `~/.vibe-to-ui/` (or `$VIBE_TO_UI_HOME`) so skill reinstall never touches user data.
+Paths use `~/.vibe-to-ui/` so skill reinstall never touches user data.
 
 ## 0. Preconditions
 
@@ -118,7 +118,7 @@ After `npx skills add ...` or git pull of the skill:
 | Situation | Response |
 |-----------|----------|
 | Profile missing on `--target` | CLI errors; suggest `--init` |
-| Root not writable | CLI errors; fix permissions or set `VIBE_TO_UI_HOME` |
+| Root not writable | CLI errors with an explicit grant-write message for `~/.vibe-to-ui`; never fall back to `/tmp` |
 | URL unreachable during agent extraction | Follow inspiration fallback; offer cropped screenshots or partial continuation — user chooses |
 | Invalid target id | CLI normalizes to kebab-case; rejects empty / non-slug |
 | Empty brand master | CLI still creates target stub + merge; agent should extract before treating rules as final |

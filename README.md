@@ -165,7 +165,7 @@ node bin/vibe-to-ui.js context --profile my-brand --init
 node bin/vibe-to-ui.js context --profile my-brand --target web
 ```
 
-Root: `~/.vibe-to-ui` (override with `VIBE_TO_UI_HOME`). Medium targets are open-ended (`web`, `linkedin`, `print-brochure`, …) — not a fixed enum.
+Root: `~/.vibe-to-ui` (fixed; no env override). Medium targets are open-ended (`web`, `linkedin`, `print-brochure`, …) — not a fixed enum.
 
 <!-- TODO(media): design-context-diagram — 1200×700. Simple diagram: Profile (brand.md + tokens) → optional targets/*.md → merge handoff. Path: docs/media/design-context-diagram.webp -->
 <p align="center">

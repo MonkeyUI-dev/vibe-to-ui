@@ -13,10 +13,10 @@ intentionally a no-op.
 ### User Design Context vs skill package
 
 Live Design Context profiles belong under the **user home** path
-`~/.vibe-to-ui/profiles/<profile>/` (or `$VIBE_TO_UI_HOME`), not in this
+`~/.vibe-to-ui/profiles/<profile>/`, not in this
 repository. Templates under `assets/design-context/` are seeds only. Skill
 install, update, or reinstall must **never** overwrite, delete, or reset
-`~/.vibe-to-ui/`.
+`~/.vibe-to-ui/`. There is no env override for the root path.
 
 ### `SKILL.md` description (progressive disclosure — do not inflate)
 
@@ -89,14 +89,21 @@ The meaningful integrity checks for this repo are:
 4. Design Context CLI smoke (optional but recommended when touching `bin/` / `lib/`):
 
 ```bash
-export VIBE_TO_UI_HOME=/tmp/vibe-to-ui-smoke
-rm -rf "$VIBE_TO_UI_HOME"
+# Isolate ~/.vibe-to-ui for smoke only by setting HOME (not a product env var)
+export HOME=/tmp/vibe-to-ui-smoke-home
+rm -rf "$HOME"
+node bin/vibe-to-ui.js context --list   # read-only; empty OK, must not mkdir
 node bin/vibe-to-ui.js context --profile demo --init
 node bin/vibe-to-ui.js context --list
 node bin/vibe-to-ui.js context --profile demo --target print-brochure >/tmp/merge.md
-test -f "$VIBE_TO_UI_HOME/profiles/demo/brand.md"
-test -f "$VIBE_TO_UI_HOME/profiles/demo/targets/print-brochure.md"
-test ! -e "$VIBE_TO_UI_HOME/profiles/demo/targets/web.md"  # only requested targets
+# reuse must not append another decision entry
+before=$(grep -c 'Target print-brochure created' "$HOME/.vibe-to-ui/profiles/demo/decisions.md" || true)
+node bin/vibe-to-ui.js context --profile demo --target print-brochure >/dev/null
+after=$(grep -c 'Target print-brochure created' "$HOME/.vibe-to-ui/profiles/demo/decisions.md" || true)
+test "$before" = "$after"
+test -f "$HOME/.vibe-to-ui/profiles/demo/brand.md"
+test -f "$HOME/.vibe-to-ui/profiles/demo/targets/print-brochure.md"
+test ! -e "$HOME/.vibe-to-ui/profiles/demo/targets/web.md"  # only requested targets
 ```
 
 ### Consuming / demonstrating the skill

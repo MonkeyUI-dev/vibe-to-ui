@@ -71,16 +71,13 @@ This skill package ships a **Node.js zero-dependency CLI** (`bin/vibe-to-ui.js`,
 
 | Command | Behavior |
 |---------|----------|
-| `--list` | List profiles under the Design Context root |
+| `--list` | **Read-only** list of profiles under `~/.vibe-to-ui`. If the root does not exist, print an empty-state message — never create directories. |
 | `--profile <id> --init` | Create profile skeleton from `assets/design-context/` seeds; create `assets/` + `sources/`; **do not** create `targets/`; never overwrite existing shared files |
-| `--profile <id> --target <medium>` | Ensure `targets/<medium>.md` exists (create stub if missing, else reuse); append a decision note; print **merged context** on stdout |
+| `--profile <id> --target <medium>` | Ensure `targets/<medium>.md` exists (create stub if missing, else reuse); append a decision note **only on first create**; print **merged context** on stdout |
 
-Root resolution:
+Root is always `~/.vibe-to-ui` (`os.homedir()` + `.vibe-to-ui`). There is **no** `VIBE_TO_UI_HOME` override. Do not store profiles under `/tmp` or inside the project/skill directory.
 
-1. `VIBE_TO_UI_HOME` if set (absolute path after resolve)
-2. Else `~/.vibe-to-ui` (`os.homedir()`)
-
-The CLI checks that the root is writable (user-level home permissions — not elevated privileges). If the root cannot be written, it exits non-zero with a clear error.
+For `--init` / `--target`, the CLI checks that `~/.vibe-to-ui` is writable (user-level home permissions — not elevated privileges). Permission failures exit non-zero with an explicit grant-write message — never fall back to a temp directory.
 
 Run via:
 
@@ -96,7 +93,7 @@ npx vibe-to-ui context --list
 
 `--from-url` / `--from-image` are **not** implemented in the CLI yet. URL/image extraction remains an agent workflow that writes into an already-initialized profile.
 
-Agents should prefer the CLI for list / init / target lifecycle and merge assembly, then fill brand/target **content** using the skill guides.
+Agents should prefer the CLI for list / init / target lifecycle and merge assembly, then fill brand/target **content** using the skill guides. Agents must **not** invent an alternate storage root.
 
 ## Profile vs target
 
