@@ -36,7 +36,7 @@ You can ship systems. You can feel when something looks off. What's missing is a
 ## Install
 
 ```bash
-npx skills add MonkeyUI-dev/vibe-to-ui#v0.3.0
+npx skills add MonkeyUI-dev/vibe-to-ui#v0.4.0
 ```
 
 Works with Claude Code, Cursor, Codex, Gemini CLI, Kimi Code, and any `npx`-capable agent.

@@ -36,7 +36,7 @@
 ## 安装
 
 ```bash
-npx skills add MonkeyUI-dev/vibe-to-ui#v0.3.0
+npx skills add MonkeyUI-dev/vibe-to-ui#v0.4.0
 ```
 
 适用于 Claude Code、Cursor、Codex、Gemini CLI、Kimi Code 等支持 `npx` 的 Agent。
