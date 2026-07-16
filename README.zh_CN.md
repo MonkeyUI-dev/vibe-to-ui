@@ -120,9 +120,11 @@ git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-t
 node bin/vibe-to-ui.js context --list
 node bin/vibe-to-ui.js context --profile my-brand --init
 node bin/vibe-to-ui.js context --profile my-brand --target web
+node bin/vibe-to-ui.js context remote connect git@github.com:org/design-contexts.git
+node bin/vibe-to-ui.js context sync
 ```
 
-根目录：`~/.vibe-to-ui`（固定路径，无环境变量覆盖）。媒介 Target 开放自定义（`web`、`linkedin`、`print-brochure`…），不是封闭枚举。
+根目录：`~/.vibe-to-ui`（固定路径，无环境变量覆盖）。媒介 Target 开放自定义（`web`、`linkedin`、`print-brochure`…），不是封闭枚举。可选 Git remote sync 通过你的私有仓库跨设备/团队共享同一根目录。
 
 详见：[DESIGN-CONTEXT.md](references/DESIGN-CONTEXT.md)
 
