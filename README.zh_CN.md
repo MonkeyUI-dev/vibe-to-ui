@@ -73,6 +73,7 @@ git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-t
 | 真正写进项目 | 你确认后才 **Apply** Token（与素材） |
 | 配图也跟方向一致 | 用宿主图像工具生成 Hero / 功能图 / 空状态等 |
 | 跨媒介复用品牌 | 本地持久化 **Design Context**（`~/.vibe-to-ui`） |
+| 积累设计参考 | 全局 **Inspiration Library**（`inspirations/` + 标注预览） |
 
 更深层的方法论在 [`references/`](references/)，按需加载。
 
@@ -125,6 +126,25 @@ node bin/vibe-to-ui.js context --profile my-brand --target web
 根目录：`~/.vibe-to-ui`（固定路径，无环境变量覆盖）。媒介 Target 开放自定义（`web`、`linkedin`、`print-brochure`…），不是封闭枚举。
 
 详见：[DESIGN-CONTEXT.md](references/DESIGN-CONTEXT.md)
+
+---
+
+## Inspiration Library（全局审美资料库）
+
+把 URL 或截图收进跨项目资料库——与品牌 Profile 分离：
+
+```bash
+node bin/vibe-to-ui.js inspiration add https://example.com
+node bin/vibe-to-ui.js inspiration add --image ./shot.png
+node bin/vibe-to-ui.js inspiration list
+node bin/vibe-to-ui.js inspiration link <id> --profile my-brand
+node bin/vibe-to-ui.js inspiration apply <id> --project .          # 仅预览
+node bin/vibe-to-ui.js inspiration apply <id> --project . --confirm
+```
+
+案例在 `~/.vibe-to-ui/inspirations/`。URL 截屏由宿主 Agent 的 **Browser / Computer Use** 完成（CLI 不启动浏览器）。`link` 只写 `reference-only` 指针，不复制案例、不改写 tokens。写入项目前必须先预览 `DESIGN.md`。
+
+详见：[INSPIRATION-LIBRARY.md](references/INSPIRATION-LIBRARY.md)
 
 ---
 
