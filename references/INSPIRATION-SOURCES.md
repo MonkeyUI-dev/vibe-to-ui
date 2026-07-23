@@ -6,7 +6,7 @@ Inspiration can arrive as a website URL, a screenshot, a mood photo, music, a lo
 
 A **website URL** is one valid source among others. When the user *does* share a link, this playbook describes how to use it well: visit the page, read frontend cues, take selective captures if needed, and observe motion when tools allow. That avoids forcing the user to upload a multi‑MB full-page screenshot just because a live page was involved — but it does **not** mean the agent should steer every workflow toward URLs.
 
-This playbook is shared by Design System Extraction, Design Exploration, Spatial Vibe, Aesthetic Analysis, Motion System, Mood Board, and Design Context. Design Context’s `--from-url` is the same URL intake, persisted under `~/.vibe-to-ui/`.
+This playbook is shared by Design System Extraction, Design Exploration, Spatial Vibe, Aesthetic Analysis, Motion System, Mood Board, Design Context, and the Inspiration Library. Design Context’s `--from-url` is the same URL intake, persisted under a profile. Inspiration Library `add <url>` uses the same intake ideas but stores cases under `~/.vibe-to-ui/inspirations/` — see [INSPIRATION-LIBRARY.md](INSPIRATION-LIBRARY.md).
 
 ## Accepted source kinds (equal options)
 
@@ -97,6 +97,7 @@ Record Motion DNA signals for [MOTION-SYSTEM.md](MOTION-SYSTEM.md): roles, trigg
 | Motion System | Live observation when possible; else CSS/JS + static cues with confidence notes |
 | Mood Board | Embed selective captures or OG/hero assets; avoid dumping full-page screenshots |
 | Design Context | Same intake, then persist under profile `sources/` via `--from-url` |
+| Inspiration Library | Same intake ideas; persist under `~/.vibe-to-ui/inspirations/<id>/` via `inspiration add`. **Screenshots**: host Browser / Computer Use writes into `captures/` — the CLI does not drive a browser. Never copy the case into a profile |
 
 ## Anti-patterns
 
