@@ -24,12 +24,15 @@ This is the 90/10 MVP: reuse existing extraction capabilities (Design System Ext
 
 ```text
 ~/.vibe-to-ui/
+├── inspirations/              # Design Inspiration Library (global cases)
+│   └── <inspiration-id>/
 └── profiles/
     └── <profile>/
         ├── profile.md
         ├── brand.md
         ├── tokens.json
         ├── decisions.md
+        ├── inspiration-refs.json  # optional links to inspirations/ (no case copy)
         ├── assets/
         ├── sources/
         └── targets/          # created on demand, not at profile creation
@@ -40,14 +43,14 @@ This is the 90/10 MVP: reuse existing extraction capabilities (Design System Ext
             └── print-brochure.md      # user-defined example
 ```
 
-Target filenames are `targets/<target-id>.md`. The ids above are illustrations only — any valid medium id may appear.
+Target filenames are `targets/<target-id>.md`. The ids above are illustrations only — any valid medium id may appear. Inspiration cases are documented in [INSPIRATION-LIBRARY.md](INSPIRATION-LIBRARY.md) — they must **not** be stored inside a profile directory.
 
 ### Lifecycle separation (non-negotiable)
 
 | Location | Owns | Skill update / reinstall |
 |----------|------|--------------------------|
 | Skill package (`SKILL.md`, `references/`, `assets/` templates) | Instructions and empty templates | May change freely |
-| `~/.vibe-to-ui/` | User profiles, tokens, decisions, assets, sources, targets | **Must never be overwritten, deleted, or reset** by skill install, update, or remove |
+| `~/.vibe-to-ui/` | User profiles, inspiration library, tokens, decisions, assets, sources, targets | **Must never be overwritten, deleted, or reset** by skill install, update, or remove |
 
 - Never store live profile data inside the skill directory.
 - Never copy `~/.vibe-to-ui/` into the skill package.

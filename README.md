@@ -73,6 +73,7 @@ git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-t
 | Ship it into the repo | **Apply** tokens (and assets) only after you confirm |
 | Imagery that matches the direction | Generate hero / feature / empty-state visuals via your agent’s image tools |
 | Reuse brand across media | Persist a local **Design Context** profile (`~/.vibe-to-ui`) |
+| Collect design references | Global **Inspiration Library** (`inspirations/` + annotated preview) |
 
 Deep methodology lives in [`references/`](references/) — loaded on demand, not upfront.
 
@@ -125,6 +126,25 @@ node bin/vibe-to-ui.js context --profile my-brand --target web
 Root: `~/.vibe-to-ui` (fixed; no env override). Medium targets are open-ended (`web`, `linkedin`, `print-brochure`, …) — not a fixed enum.
 
 Details: [DESIGN-CONTEXT.md](references/DESIGN-CONTEXT.md)
+
+---
+
+## Inspiration Library (global aesthetic archive)
+
+Collect URLs or screenshots into a cross-project library — separate from brand profiles:
+
+```bash
+node bin/vibe-to-ui.js inspiration add https://example.com
+node bin/vibe-to-ui.js inspiration add --image ./shot.png
+node bin/vibe-to-ui.js inspiration list
+node bin/vibe-to-ui.js inspiration link <id> --profile my-brand
+node bin/vibe-to-ui.js inspiration apply <id> --project .          # preview
+node bin/vibe-to-ui.js inspiration apply <id> --project . --confirm
+```
+
+Cases live under `~/.vibe-to-ui/inspirations/`. URL screenshots are taken by your agent’s **Browser / Computer Use** tools (the CLI does not launch a browser). Linking a profile only stores a `reference-only` pointer — it does not copy the case or rewrite tokens. Applying to a project always shows a `DESIGN.md` preview first.
+
+Details: [INSPIRATION-LIBRARY.md](references/INSPIRATION-LIBRARY.md)
 
 ---
 
