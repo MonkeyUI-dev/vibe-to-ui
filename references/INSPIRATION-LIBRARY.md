@@ -196,3 +196,7 @@ Default status `reference-only` means agents may *consult* the case while workin
 [ ] design-seed.md is candidate-only until apply --confirm
 [ ] Skill install/update never touches ~/.vibe-to-ui/
 ```
+
+## Used by Page Direction
+
+Capability 9 ([PAGE-DIRECTION.md](PAGE-DIRECTION.md)) retrieves Inspiration cases via `page-direction search` / `inspiration list` when proposing 3 Page Directions. Cite transferable rules; never treat a case as brand canon or copy brand-specific chrome into the product.

@@ -26,6 +26,8 @@ This is the 90/10 MVP: reuse existing extraction capabilities (Design System Ext
 ~/.vibe-to-ui/
 ├── inspirations/              # Design Inspiration Library (global cases)
 │   └── <inspiration-id>/
+├── page-directions/           # Page Direction + Inspiration Memory (Cap 9)
+│   └── <project-slug>/
 └── profiles/
     └── <profile>/
         ├── profile.md
@@ -43,7 +45,7 @@ This is the 90/10 MVP: reuse existing extraction capabilities (Design System Ext
             └── print-brochure.md      # user-defined example
 ```
 
-Target filenames are `targets/<target-id>.md`. The ids above are illustrations only — any valid medium id may appear. Inspiration cases are documented in [INSPIRATION-LIBRARY.md](INSPIRATION-LIBRARY.md) — they must **not** be stored inside a profile directory.
+Target filenames are `targets/<target-id>.md`. The ids above are illustrations only — any valid medium id may appear. Inspiration cases are documented in [INSPIRATION-LIBRARY.md](INSPIRATION-LIBRARY.md) — they must **not** be stored inside a profile directory. Page Direction sessions are documented in [PAGE-DIRECTION.md](PAGE-DIRECTION.md).
 
 ### Lifecycle separation (non-negotiable)
 

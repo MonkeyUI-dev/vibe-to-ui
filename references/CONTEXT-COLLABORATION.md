@@ -126,6 +126,8 @@ vibe-to-ui should update DESIGN.md when it learns product or design context thro
 - Manifest validation fails or warns -> record status and issue summary
 - An asset placement decision is made -> record the slot, purpose, copy/CTA relationship, and responsive behavior
 - User confirms a direction and rationale -> append to Design Decisions Log
+- Page Direction candidates are proposed -> update Page Direction Candidates
+- User selects, mixes, or rejects Page Directions -> update Page Direction Candidates + Visual Direction + Decisions Log; also write `~/.vibe-to-ui/page-directions/<slug>/` (see [PAGE-DIRECTION.md](PAGE-DIRECTION.md))
 
 The update should be automatic and silent. Do not ask the user whether to update DESIGN.md; the value comes from context accumulating without friction.
 
@@ -155,6 +157,8 @@ Project `DESIGN.md` is **repo-scoped**. For brand / product / client memory that
 |---------|----------------|
 | Product definition, page type, project-local decisions | Project `DESIGN.md` |
 | Shared brand temperament, tokens, design memory, medium targets | `~/.vibe-to-ui/profiles/<profile>/` |
+| External design cases + aesthetic analysis | `~/.vibe-to-ui/inspirations/<id>/` |
+| Page Direction tournament history (choose/keep/reject) | `~/.vibe-to-ui/page-directions/<slug>/` (+ mirror in project `DESIGN.md`) |
 
 Collaboration rules:
 

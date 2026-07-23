@@ -74,6 +74,7 @@ git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-t
 | 配图也跟方向一致 | 用宿主图像工具生成 Hero / 功能图 / 空状态等 |
 | 跨媒介复用品牌 | 本地持久化 **Design Context**（`~/.vibe-to-ui`） |
 | 积累设计参考 | 全局 **Inspiration Library**（`inspirations/` + 标注预览） |
+| 页面「不丑但普通」 | **Page Direction**：先出 3 个方向，再进 Motion Engine |
 
 更深层的方法论在 [`references/`](references/)，按需加载。
 
@@ -145,6 +146,22 @@ node bin/vibe-to-ui.js inspiration apply <id> --project . --confirm
 案例在 `~/.vibe-to-ui/inspirations/`。URL 截屏由宿主 Agent 的 **Browser / Computer Use** 完成（CLI 不启动浏览器）。`link` 只写 `reference-only` 指针，不复制案例、不改写 tokens。写入项目前必须先预览 `DESIGN.md`。
 
 详见：[INSPIRATION-LIBRARY.md](references/INSPIRATION-LIBRARY.md)
+
+---
+
+## Page Direction（先于 Motion Engine）
+
+**新页面**或「不丑但普通 / 缺主视觉与记忆点」时，先做 3 个方向对比，再锁 Spatial/Motion DNA、再进 Motion Engine：
+
+```bash
+node bin/vibe-to-ui.js page-direction init --slug my-landing
+node bin/vibe-to-ui.js page-direction search editorial hero
+node bin/vibe-to-ui.js page-direction record my-landing --choice B --reason "证明时刻更强"
+```
+
+记忆：`~/.vibe-to-ui/page-directions/<slug>/`，并同步到项目 `DESIGN.md`。
+
+详见：[PAGE-DIRECTION.md](references/PAGE-DIRECTION.md)
 
 ---
 
