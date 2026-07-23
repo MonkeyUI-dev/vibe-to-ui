@@ -15,8 +15,9 @@ intentionally a no-op.
 Live Design Context profiles belong under the **user home** path
 `~/.vibe-to-ui/profiles/<profile>/`, not in this
 repository. The Inspiration Library belongs under
-`~/.vibe-to-ui/inspirations/<id>/` (also user home — not the skill package).
-Templates under `assets/design-context/` are seeds only. Skill
+`~/.vibe-to-ui/inspirations/<id>/`. Page Direction memory belongs under
+`~/.vibe-to-ui/page-directions/<slug>/` (also user home — not the skill package).
+Templates under `assets/design-context/` and `assets/page-direction/` are seeds only. Skill
 install, update, or reinstall must **never** overwrite, delete, or reset
 `~/.vibe-to-ui/`. There is no env override for the root path.
 
@@ -82,7 +83,8 @@ The meaningful integrity checks for this repo are:
 1. `SKILL.md` frontmatter: valid `name` + `description` per the section above
    and the [Agent Skills spec](https://agentskills.io/specification).
 2. Every internal Markdown link (e.g. `references/DESIGN-SYSTEM.md`,
-   `references/DESIGN-CONTEXT.md`, `references/INSPIRATION-LIBRARY.md`) resolves
+   `references/DESIGN-CONTEXT.md`, `references/INSPIRATION-LIBRARY.md`,
+   `references/PAGE-DIRECTION.md`) resolves
    to a real file. Broken cross-references are the most likely regression when
    editing content.
 3. Design Context seed files under `assets/design-context/` exist for
@@ -143,6 +145,24 @@ node bin/vibe-to-ui.js inspiration apply "$ID" --project /tmp/insp-project --con
 test -f /tmp/insp-project/DESIGN.md
 # raw inspiration must not live under the profile
 test ! -d "$HOME/.vibe-to-ui/profiles/demo/inspirations"
+```
+
+6. Page Direction CLI smoke (when touching `lib/page-direction.js` / Cap 9 docs):
+
+```bash
+export HOME=/tmp/vibe-to-ui-smoke-home
+# may reuse prior smoke HOME; ensure root exists or init fresh
+node bin/vibe-to-ui.js page-direction list
+node bin/vibe-to-ui.js page-direction init --slug demo-landing
+node bin/vibe-to-ui.js page-direction list | grep demo-landing
+node bin/vibe-to-ui.js page-direction search editorial >/tmp/pd-search.txt || true
+node bin/vibe-to-ui.js page-direction record demo-landing --choice B --reject A,C --reason "stronger proof" --inspirations example-com-2026-07-23
+grep -q 'choice `B`' "$HOME/.vibe-to-ui/page-directions/demo-landing/decisions.md"
+grep -q 'B' "$HOME/.vibe-to-ui/page-directions/demo-landing/memory.md"
+test -f "$HOME/.vibe-to-ui/page-directions/demo-landing/session.md"
+# seeds must exist in package
+test -f assets/page-direction/session.md
+test -f references/PAGE-DIRECTION.md
 ```
 
 ### Consuming / demonstrating the skill

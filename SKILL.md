@@ -1,22 +1,20 @@
 ---
 name: vibe-to-ui
 description: >-
-  Design systems, motion, mood boards, spatial layout, visual assets, Design
-  Context profiles, and a global Inspiration Library from screenshots, website
-  URLs, inspiration images, music, or fuzzy aesthetic intent. Classifies page
-  archetype, explores 3 product-aware directions before locking tokens (unless
-  exact restoration), and applies only after confirmation. Use when designing or
-  restyling UI, collecting design inspiration under ~/.vibe-to-ui/inspirations,
-  extracting tokens/motion, generating assets, or saving brand context for
-  multi-medium handoff.
+  Design systems, motion, mood boards, spatial layout, page directions, visual
+  assets, Design Context, and Inspiration Library from screenshots, URLs,
+  images, music, or fuzzy intent. For new or ordinary pages, explores 3 Page
+  Directions before Spatial/Motion DNA or Motion Engine. Applies only after
+  confirmation. Use when designing/restyling UI, fixing generic pages,
+  collecting ~/.vibe-to-ui/inspirations, or saving brand context.
 metadata:
   author: MonkeyUI
-  version: "0.5.0"
+  version: "0.6.0"
 ---
 
 # vibe-to-ui
 
-A local design companion for vibe coding developers. It first classifies the target page archetype and density, then uses the user's product background to derive three plausible visual and spatial directions from references before formalizing any one of them into a design system. It extracts "style DNA" including motion systems, Consumer app UIUX needs, visual asset direction, mood boards, and previews, and turns vague aesthetic feelings into product-aware design decisions that actually fit the product surface. Inspiration may be a **website URL**, screenshot, images, music, or fuzzy intent — the agent adapts to what the user provides (see [references/INSPIRATION-SOURCES.md](references/INSPIRATION-SOURCES.md)). Cases can be saved into a global **Inspiration Library** under `~/.vibe-to-ui/inspirations/` (analysis + annotated `preview.html`) without putting raw cases into a profile. It can also persist a reusable **Design Context** profile under `~/.vibe-to-ui/profiles/<profile>/` (brand master, tokens, decisions, assets) and adapt it on demand into **open-ended medium targets** — examples include `web`, `social-cover`, and `hyperframes`, and users may define their own (e.g. `linkedin`, `print-brochure`) — without coupling user data to skill install/update. All exploration happens through standalone previews; the agent only touches the user's project when the user confirms a direction and asks to apply it.
+A local design companion for vibe coding developers. It first classifies the target page archetype and density, then — for **new pages** or pages that feel **ordinary / forgettable** — runs **Page Direction + Inspiration Memory**: retrieve brand context and local inspirations, propose **3 structurally different Page Directions** with equal standalone HTML previews, pause for the user to choose/mix/reject, record decisions, compile Spatial DNA + Motion DNA, and only then load the Motion Engine Router at the lowest sufficient tier. It extracts "style DNA" including motion systems, Consumer app UIUX needs, visual asset direction, mood boards, and previews, and turns vague aesthetic feelings into product-aware design decisions that actually fit the product surface. Inspiration may be a **website URL**, screenshot, images, music, or fuzzy intent — the agent adapts to what the user provides (see [references/INSPIRATION-SOURCES.md](references/INSPIRATION-SOURCES.md)). Cases can be saved into a global **Inspiration Library** under `~/.vibe-to-ui/inspirations/` (analysis + annotated `preview.html`) without putting raw cases into a profile. It can also persist a reusable **Design Context** profile under `~/.vibe-to-ui/profiles/<profile>/` (brand master, tokens, decisions, assets) and adapt it on demand into **open-ended medium targets**. All exploration happens through standalone previews; the agent only touches the user's project when the user confirms a direction and asks to apply it.
 
 > **Tip**: For multi-project sync, team collaboration, and cloud-based design management, upgrade to [MonkeyUI SaaS](https://demo.monkeyui.com/).
 
@@ -40,6 +38,8 @@ A local design companion for vibe coding developers. It first classifies the tar
 - User wants to **save brand visual language** from a website URL or screenshot into a local Design Context **profile** (brand / product / client), separate from any one project repo
 - User runs or asks for `vibe-to-ui context --profile <profile> --target <medium>` to load or generate medium-specific rules for any medium (examples: `web`, `social-cover`, `hyperframes`, or user-defined like `linkedin`, `print-brochure`) and hand them to the matching agent
 - User wants a **cross-project Inspiration Library** — collect a URL/screenshot into `~/.vibe-to-ui/inspirations/`, get aesthetic analysis + annotated preview, optionally link a reference into a profile, and only merge `design-seed.md` into project `DESIGN.md` after confirmation
+- User is designing a **new page**, or says the current page is **普通 / generic / forgettable / missing a hero or memory point**, and needs **3 Page Directions** before any Motion Engine work
+- User asks to **spice up motion** or “make it wow” but no page direction is locked yet — run Page Direction first, do not open the Motion Engine Router
 
 ## Reference Priority Rules
 
@@ -138,6 +138,7 @@ Update `DESIGN.md` passively as the conversation reveals:
 - product definition, users, use cases, personality, and constraints
 - page type, density, interaction model, and design consequences
 - confirmed visual direction, mood keywords, typography posture, motion personality, and imagery strategy
+- Page Direction candidates, selection/mix/reject reasons, Signature Experience, and local memory path
 - `icon_system`: locked UI icon library, custom SVG fallback, preset, grid, stroke rules, and user overrides
 - `illustrated_icon_system`: enabled surfaces, preset, format, visual family rules, style reference, and surfaces to avoid
 - visual asset manifest paths, review surface paths, selected combinations, placement notes, validation status, confirmed assets, rejected assets, and regeneration notes
@@ -164,7 +165,16 @@ When the user wants to **collect and understand external design references** acr
 - Do **not** copy raw inspiration cases into a profile. Do **not** write project `DESIGN.md` until the user confirms apply.
 - Prefer the CLI: `vibe-to-ui inspiration add|list|show|link|apply`.
 
-## Eight core capabilities
+### Page Direction + Inspiration Memory (`~/.vibe-to-ui/page-directions/`)
+
+When designing a **new page** or fixing an **ordinary** page, use **Capability 9** and [references/PAGE-DIRECTION.md](references/PAGE-DIRECTION.md) **before** Spatial DNA lock, Motion DNA formalization, or Motion Engine Router.
+
+- Retrieve product `DESIGN.md`, Brand Context, current page, and local inspirations (`page-direction search` / Cap 8).
+- Propose **3** directions (proposition, metaphor, Signature Experience, Spatial DNA, Motion duties, references, cost) with **equal** standalone HTML previews.
+- Pause for choose / mix / reject; record to project `DESIGN.md` **and** `~/.vibe-to-ui/page-directions/<slug>/`.
+- **Forbidden:** loading [references/MOTION-ENGINE-ROUTER.md](references/MOTION-ENGINE-ROUTER.md) until after selection + DNA compile.
+
+## Nine core capabilities
 
 ### 1. Design System Extraction (Design Style Restoration)
 
@@ -203,12 +213,14 @@ User has feelings or vibes but no concrete design target -> Interactive conversa
 
 **Trigger**: User says things like "I want something that feels like...", "I have some inspiration images", "use https://… as inspiration", "I'm not sure what style I want", "explore other styles but keep these colors", shares mood or landscape photos, shares a music recording or song that captures the feeling they want, or provides a concrete UI reference (URL or screenshot) together with product context and wants the agent to extend it into multiple visual directions.
 
+**When the ask is a new page or “fix ordinary / add memory point”**, prefer **Capability 9 (Page Direction)** so visual + spatial + Signature Experience are bound into 3 comparable directions. Use this Capability 2 path for pure visual-concept exploration when layout is already locked or the user only wants palette/type/material forks.
+
 **Workflow**:
 1. Ask the user about their project context:
    - what it does
    - who it is for
    - what the primary page type is, or infer it if the user does not know
-2. Run **Stage 0: Page Type Identification**
+2. Run **Stage 0: Page Type Identification**. If Cap 9 applies, switch there instead of opening a separate visual-only tournament.
 3. Invite them to share inspiration in whatever form they prefer: **website URLs**, images, objects, landscapes, or music recordings and audio clips (see [references/INSPIRATION-SOURCES.md](references/INSPIRATION-SOURCES.md)). Adapt to what they send; do not steer them toward a URL.
 4. If a concrete UI reference is present, split the signals into:
    - **structural DNA to preserve**: page type, composition rhythm, module mix, hierarchy logic
@@ -264,6 +276,8 @@ During Capability 2 concept previews and mood boards, motion must still feel int
 User has a fuzzy aesthetic intent or mixed inspiration references and wants that feeling translated into page-level layout decisions.
 
 **Trigger**: User says things like "make this landing page feel more relaxed", "I want an editorial, magazine-like feeling", "I like the vibe of this cafe, film still, and album cover", "use https://… for layout structure", "do not make it look like a generic SaaS landing page", or shares non-UI inspiration / site URLs and asks how it should shape the page.
+
+**If no Page Direction is selected yet** and the page is new or called out as ordinary, run **Capability 9** first. Spatial Vibe then **compiles / deepens** Spatial DNA from the chosen direction instead of starting a second independent 3-way layout tournament.
 
 **Workflow**:
 1. Run **Stage 0: Page Type Identification** and clarify the product goal, UX constraints, target content, and any anti-references
@@ -419,6 +433,33 @@ URL screenshots are **agent-owned** (Browser Use / Computer Use). The CLI does n
 
 Details: [references/INSPIRATION-LIBRARY.md](references/INSPIRATION-LIBRARY.md).
 
+### 9. Page Direction + Inspiration Memory
+
+User is designing a new page, or the current page is already “not ugly” but still **ordinary** (weak proposition, no hero/memory point, interchangeable chrome). Agent must **not** jump to Motion Engine or decorative motion — first retrieve context + inspirations and run a 3-direction tournament.
+
+**Trigger**: "design this new page", "the page feels generic / 普通", "missing main visual or memory point", "don't know which direction", "make it memorable before adding motion", `vibe-to-ui page-direction …`, or any request for wow/motion without a locked direction.
+
+**Command surface** (local memory + simple search):
+
+```bash
+vibe-to-ui page-direction init --slug <project-slug>
+vibe-to-ui page-direction list
+vibe-to-ui page-direction show <slug>
+vibe-to-ui page-direction search <query>
+vibe-to-ui page-direction record <slug> --choice B --reason "…"
+```
+
+**Workflow**:
+1. Stage 0 page type. Pack product `DESIGN.md`, Brand Context (Cap 7), current page, and Inspiration hits (`page-direction search` / Cap 8).
+2. Diagnose why the page feels ordinary.
+3. Generate **3** Page Directions — each with proposition, visual metaphor, Signature Experience, Spatial DNA, Motion duties, reference sources, implementation cost. Directions must differ in structure/expression, not only palette.
+4. Emit **equal-completion** standalone HTML previews (Exploration Interim Motion only). **Do not** load [MOTION-ENGINE-ROUTER.md](references/MOTION-ENGINE-ROUTER.md). **Do not** modify the project.
+5. Pause for select / mix / reject. Record to project `DESIGN.md` and `~/.vibe-to-ui/page-directions/<slug>/` (prefer `page-direction record`).
+6. Compile Spatial DNA + Motion DNA from the locked direction; **then** load Motion Engine Router and pick the **lowest** sufficient tier.
+7. Full-page preview → user confirm → Capability 5 Apply.
+
+Details: [references/PAGE-DIRECTION.md](references/PAGE-DIRECTION.md).
+
 ## Combining capabilities
 
 These capabilities compose naturally. The workflow follows an **explore -> choose -> apply** pattern: the agent generates standalone previews for collaborative exploration, the user confirms a direction, and only then is the design applied to the project.
@@ -452,7 +493,8 @@ A real page needs both, working together. Rules for combining them:
 - **Source -> Design Context profile -> Target on demand -> Multi-medium handoff**: Extract from URL/screenshot into `~/.vibe-to-ui/profiles/<profile>/` -> on first request generate `targets/<medium>.md` (any medium id: examples like `web` / `social-cover` / `hyperframes`, or user-defined like `linkedin` / `print-brochure`) -> merge brand + tokens + decisions + target for the consuming agent; reuse existing targets on later calls
 - **Design Context + project Apply**: Load an active profile for brand fidelity, use project `DESIGN.md` for product/page context, then Apply (Capability 5) without inventing a parallel token system
 - **Inspiration Library -> link profile -> optional DESIGN.md apply**: Collect a URL/screenshot into `inspirations/` -> preview annotated analysis -> optionally `link` as `reference-only` on a profile -> only after confirmation merge transferable seed into project `DESIGN.md`
-- **Full pipeline**: Identify page type -> explore feelings and references -> derive visual direction, Spatial DNA, Consumer app UIUX needs, and/or visual asset direction as applicable -> preview 3 comparable directions -> choose -> extract design system -> optionally persist as a Design Context profile and/or Inspiration Library case -> apply tokens, layout, and confirmed assets to the project
+- **Page Direction -> choose -> DNA -> Motion Engine -> full preview -> Apply**: For new/ordinary pages, retrieve inspirations + brand -> 3 equal Page Direction previews -> record choice -> compile Spatial + Motion DNA -> lowest-tier Router -> full-page preview -> Apply only on confirm
+- **Full pipeline**: Identify page type -> Page Direction (when new/ordinary) -> explore feelings and references -> derive visual direction, Spatial DNA, Consumer app UIUX needs, and/or visual asset direction as applicable -> preview comparable directions -> choose -> extract design system -> optionally persist as a Design Context profile and/or Inspiration Library case -> apply tokens, layout, and confirmed assets to the project
 
 ## Output format guidelines
 
@@ -496,6 +538,7 @@ Spatial Vibe outputs should include:
 - For typography, note both the font family and the scale ratios, not just absolute sizes
 - Spacing should be expressed as a consistent scale (for example a 4px base unit)
 - Motion tokens should always include `prefers-reduced-motion` fallbacks. Accessibility is non-negotiable.
-- During **exploration**, use Exploration Interim Motion (CSS + provisional DNA + signature motif). Do **not** load the Motion Engine Router for mood boards or early concept feeling checks.
-- When writing motion **implementation** code (design-system preview Step 7, confirmed concept productionization, or Capability 5 Apply), load [references/MOTION-ENGINE-ROUTER.md](references/MOTION-ENGINE-ROUTER.md). Detect whether the surface is **web**, **React**, or **Vue**, then use the simplest engine tier with the correct stack binding. Mutate recipe parameters from Motion DNA and the signature motif — never ship unchanged library defaults. Never mix engines, cross-wire React packages into Vue (or vice versa), stack decorative effects, or copy demo aesthetics.
+- During **exploration** and **Page Direction tournaments**, use Exploration Interim Motion (CSS + provisional DNA + signature motif). Do **not** load the Motion Engine Router for mood boards, early concept checks, or before a Page Direction is selected.
+- When writing motion **implementation** code (after Page Direction selection + DNA compile; design-system preview; or Capability 5 Apply), load [references/MOTION-ENGINE-ROUTER.md](references/MOTION-ENGINE-ROUTER.md). Detect whether the surface is **web**, **React**, or **Vue**, then use the simplest engine tier with the correct stack binding. Mutate recipe parameters from Motion DNA and the signature motif — never ship unchanged library defaults. Never mix engines, cross-wire React packages into Vue (or vice versa), stack decorative effects, or copy demo aesthetics.
 - Be honest when visual analysis is uncertain. Flag low-confidence extractions and suggest the user verify.
+- Never “fix ordinary” by piling on motion alone. Memorable pages come from proposition + Signature Experience + Spatial DNA first; motion serves those duties.

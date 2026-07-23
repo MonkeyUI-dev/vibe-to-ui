@@ -74,6 +74,7 @@ git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-t
 | Imagery that matches the direction | Generate hero / feature / empty-state visuals via your agent’s image tools |
 | Reuse brand across media | Persist a local **Design Context** profile (`~/.vibe-to-ui`) |
 | Collect design references | Global **Inspiration Library** (`inspirations/` + annotated preview) |
+| Fix “ordinary but not ugly” pages | **Page Direction**: 3 directions before Motion Engine |
 
 Deep methodology lives in [`references/`](references/) — loaded on demand, not upfront.
 
@@ -145,6 +146,22 @@ node bin/vibe-to-ui.js inspiration apply <id> --project . --confirm
 Cases live under `~/.vibe-to-ui/inspirations/`. URL screenshots are taken by your agent’s **Browser / Computer Use** tools (the CLI does not launch a browser). Linking a profile only stores a `reference-only` pointer — it does not copy the case or rewrite tokens. Applying to a project always shows a `DESIGN.md` preview first.
 
 Details: [INSPIRATION-LIBRARY.md](references/INSPIRATION-LIBRARY.md)
+
+---
+
+## Page Direction (before Motion Engine)
+
+For **new** pages or pages that feel generic / forgettable, vibe-to-ui runs a 3-direction tournament **before** Spatial/Motion DNA lock or Motion Engine:
+
+```bash
+node bin/vibe-to-ui.js page-direction init --slug my-landing
+node bin/vibe-to-ui.js page-direction search editorial hero
+node bin/vibe-to-ui.js page-direction record my-landing --choice B --reason "stronger proof moment"
+```
+
+Memory: `~/.vibe-to-ui/page-directions/<slug>/`. Decisions are also mirrored into project `DESIGN.md`.
+
+Details: [PAGE-DIRECTION.md](references/PAGE-DIRECTION.md)
 
 ---
 

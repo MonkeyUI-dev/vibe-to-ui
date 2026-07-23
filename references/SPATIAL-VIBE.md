@@ -11,6 +11,7 @@ Use this guide when the user says things like:
 - "I like the vibe of this cafe, this film still, and this album cover."
 - "Do not make it look like a generic SaaS landing page."
 
+**If no Page Direction is selected** and the surface is new or called out as ordinary, run [PAGE-DIRECTION.md](PAGE-DIRECTION.md) first. Use this Spatial Vibe guide to compile or deepen Spatial DNA from the chosen direction — avoid a second independent 3-way layout tournament that multiplies options.
 Inspiration can come from anywhere: **website URLs**, apps, photography, landscapes, architecture, interiors, magazines, posters, packaging, fashion, album covers, film stills, illustrations, music, or video. Adapt to the sources the user provides; when they share a live-site URL, follow [INSPIRATION-SOURCES.md](INSPIRATION-SOURCES.md). Non-UI references should be translated into transferable design signals, not copied literally.
 
 Example:

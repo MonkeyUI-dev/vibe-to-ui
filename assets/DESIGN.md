@@ -106,11 +106,28 @@ Accumulated understanding of users — from research, conversations, usage patte
 
 ---
 
+## Page Direction Candidates
+
+<!-- Cap 9: three structurally different directions before Motion Engine. Status: candidate | selected | rejected | mixed-into -->
+
+| ID | Name | Proposition (one line) | Signature Experience | Cost | Status | Why kept / rejected |
+|----|------|------------------------|----------------------|------|--------|---------------------|
+| A | <!-- --> | <!-- --> | <!-- --> | S/M/L | candidate | <!-- --> |
+| B | <!-- --> | <!-- --> | <!-- --> | S/M/L | candidate | <!-- --> |
+| C | <!-- --> | <!-- --> | <!-- --> | S/M/L | candidate | <!-- --> |
+
+- **Ordinary diagnosis**: <!-- why the page felt generic / forgettable -->
+- **Inspirations consulted**: <!-- inspiration ids under ~/.vibe-to-ui/inspirations/ -->
+- **Mix recipe** (if any): <!-- e.g. A spatial + B signature moment -->
+- **Local memory**: <!-- ~/.vibe-to-ui/page-directions/<slug>/ -->
+
+---
+
 ## Visual Direction
 
-<!-- Populated by vibe-to-ui during design exploration, mood boards, or design system extraction. -->
+<!-- Populated after a Page Direction is selected (or via exploration / extraction). -->
 
-- **Concept ID**: <!-- stable id for the active visual direction -->
+- **Concept ID**: <!-- stable id for the active visual direction / Page Direction -->
 - **Style seed**: <!-- shared seed / reference chain -->
 - **Mood keywords**: <!-- calm, precise, playful, premium, etc. -->
 - **Color temperature**: <!-- warm / cool / neutral -->
@@ -118,6 +135,11 @@ Accumulated understanding of users — from research, conversations, usage patte
 - **Typography posture**: <!-- editorial / operational / playful / premium / neutral -->
 - **Motion personality**: <!-- still / subtle / polished / energetic / cinematic -->
 - **Imagery strategy**: <!-- photography / soft illustration / 3D object / abstract texture / restrained empty state -->
+- **Page proposition**: <!-- from selected Page Direction -->
+- **Visual metaphor**: <!-- from selected Page Direction -->
+- **Signature Experience**: <!-- memorable moment to preserve through Apply -->
+- **Rejected directions**: <!-- ids + short reasons -->
+- **Inspiration citations**: <!-- transferable rules used; brand-specific excluded -->
 
 ---
 
@@ -202,6 +224,8 @@ Cross-references to design artifacts produced during project iterations. Keeps t
 - **Current Design System**: <!-- path to design-system.md if extracted -->
 - **Active Mood Board**: <!-- path or description -->
 - **Layout Blueprint**: <!-- path or description -->
+- **Page Direction Memory**: <!-- ~/.vibe-to-ui/page-directions/<slug>/ -->
+- **Page Direction Previews**: <!-- paths to A/B/C standalone HTML -->
 - **Asset Manifest**: <!-- path to design-assets.manifest.json if generated -->
 - **Design Context Profile**: <!-- e.g. vibe-to-ui — maps to ~/.vibe-to-ui/profiles/<profile>/ -->
 - **Last Updated**: <!-- YYYY-MM-DD -->

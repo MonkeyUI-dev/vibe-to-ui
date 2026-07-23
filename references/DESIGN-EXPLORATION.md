@@ -7,6 +7,7 @@ This guide covers the interactive process of helping users discover and define t
 - users who only have vague aesthetic feelings
 - users who already have a concrete reference image, but need the agent to extend it into **3 context-appropriate visual directions** instead of copying it literally
 
+**New or ordinary pages:** If the user is designing a new primary page, or says the current page feels generic / forgettable / lacking a hero or memory point, prefer [PAGE-DIRECTION.md](PAGE-DIRECTION.md) (Capability 9). That workflow binds visual + spatial + Signature Experience into one comparable tournament and **forbids** Motion Engine until after selection. Use this Design Exploration guide when layout is already locked or the user only wants visual attitude forks.
 ## Conversation Flow
 
 ### Phase 1: Context Gathering

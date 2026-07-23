@@ -1,6 +1,6 @@
 # Motion Engine Router
 
-Progressive-load reference. **Do not read this file during vibe exploration, mood boards, or token extraction.** For exploration HTML motion, use **Exploration Interim Motion** in [SKILL.md](../SKILL.md) (CSS + provisional DNA + signature motif). Load this file only when the agent is about to **implement production-grade motion in code** (design-system preview, productionized concept, or project Apply) and has already produced Motion DNA + signature motif from [MOTION-SYSTEM.md](MOTION-SYSTEM.md).
+Progressive-load reference. **Do not read this file during vibe exploration, Page Direction tournaments, mood boards, or token extraction.** For exploration / Page Direction HTML motion, use **Exploration Interim Motion** in [SKILL.md](../SKILL.md) (CSS + provisional DNA + signature motif). If the page is **new or ordinary** and no Page Direction is selected, follow [PAGE-DIRECTION.md](PAGE-DIRECTION.md) first — do not open this router to “add life” to a generic layout. Load this file only when the agent is about to **implement production-grade motion in code** (after Page Direction selection + DNA compile; design-system preview; productionized concept; or project Apply) and has already produced Motion DNA + signature motif from [MOTION-SYSTEM.md](MOTION-SYSTEM.md).
 
 ## Purpose
 

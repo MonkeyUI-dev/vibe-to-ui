@@ -199,9 +199,11 @@ Generate motion tokens as part of the design system output using the motion sect
 
 ## Motion Engine Router (progressive load)
 
-**During exploration and token extraction**, stop at provisional/confirmed Motion DNA + motion tokens + signature motif. Do **not** load the full engine/package matrix yet. For exploration HTML, follow **Exploration Interim Motion** in [SKILL.md](../SKILL.md) (CSS-only, one signature motif).
+**During exploration, Page Direction tournaments, and token extraction**, stop at provisional/confirmed Motion DNA + motion tokens + signature motif. Do **not** load the full engine/package matrix yet. For exploration / Page Direction HTML, follow **Exploration Interim Motion** in [SKILL.md](../SKILL.md) (CSS-only, one signature motif).
 
-**When implementing motion in code** (design-system preview, productionized concept, or Apply to project), progressively load [MOTION-ENGINE-ROUTER.md](MOTION-ENGINE-ROUTER.md) and run:
+**Hard gate:** If the task is a **new page** or fixing an **ordinary** page and no Page Direction has been selected yet, follow [PAGE-DIRECTION.md](PAGE-DIRECTION.md) first. Do **not** open this Router (or pile on motion) to compensate for a generic layout.
+
+**When implementing motion in code** (after Page Direction selection + DNA compile; design-system preview; productionized concept; or Apply to project), progressively load [MOTION-ENGINE-ROUTER.md](MOTION-ENGINE-ROUTER.md) and run:
 
 1. **Compile Motion DNA** — finalize the eight dimensions plus narrative (`personality`, `page_metaphor`, `primary_intent`) and the **signature motion motif** from vibe, reference, music, and page type.
 2. **Capability check** — list only the expressiveness that is **required** (feedback, scroll narrative, shader atmosphere, true 3D, etc.).
