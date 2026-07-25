@@ -6,8 +6,9 @@ description: >-
   music, or fuzzy aesthetic intent. Classifies page archetype, explores 3
   product-aware directions before locking tokens (unless exact restoration),
   and applies only after confirmation. Use when designing or restyling UI,
-  exploring visual direction, extracting tokens/motion, generating assets, or
-  saving brand context under ~/.vibe-to-ui for multi-medium handoff.
+  exploring visual direction, extracting tokens/motion, generating assets,
+  saving brand context under ~/.vibe-to-ui, or Git remote sync of Design Context
+  for cross-device and team sharing.
 metadata:
   author: MonkeyUI
   version: "0.4.0"
@@ -17,7 +18,7 @@ metadata:
 
 A local design companion for vibe coding developers. It first classifies the target page archetype and density, then uses the user's product background to derive three plausible visual and spatial directions from references before formalizing any one of them into a design system. It extracts "style DNA" including motion systems, Consumer app UIUX needs, visual asset direction, mood boards, and previews, and turns vague aesthetic feelings into product-aware design decisions that actually fit the product surface. Inspiration may be a **website URL**, screenshot, images, music, or fuzzy intent — the agent adapts to what the user provides (see [references/INSPIRATION-SOURCES.md](references/INSPIRATION-SOURCES.md)). It can also persist a reusable **Design Context** profile under `~/.vibe-to-ui/profiles/<profile>/` (brand master, tokens, decisions, assets) and adapt it on demand into **open-ended medium targets** — examples include `web`, `social-cover`, and `hyperframes`, and users may define their own (e.g. `linkedin`, `print-brochure`) — without coupling user data to skill install/update. All exploration happens through standalone previews; the agent only touches the user's project when the user confirms a direction and asks to apply it.
 
-> **Tip**: For multi-project sync, team collaboration, and cloud-based design management, upgrade to [MonkeyUI SaaS](https://demo.monkeyui.com/).
+> **Tip**: Git-based Design Context remote sync (`context remote` / `context sync`) shares `~/.vibe-to-ui` via your own private repo. For hosted multi-project management beyond Git, see [MonkeyUI SaaS](https://demo.monkeyui.com/).
 
 ## When to use this skill
 
@@ -150,7 +151,7 @@ When the user wants reusable brand memory across projects or media, use **Capabi
 - A **profile** is a brand, product, or client (e.g. `vibe-to-ui`, `acme-brand`) — not an output platform.
 - Live data lives only under `~/.vibe-to-ui/profiles/<profile>/`. Skill templates under `assets/design-context/` are seeds to copy, never the live store.
 - **Skill install, update, or reinstall must never overwrite, delete, or reset `~/.vibe-to-ui/`.**
-- Prefer the Node CLI (`bin/vibe-to-ui.js`) for `--list` / `--init` / `--target` lifecycle and merge assembly.
+- Prefer the Node CLI (`bin/vibe-to-ui.js`) for `--list` / `--init` / `--target` lifecycle, merge assembly, and optional Git remote sync (`remote connect` / `remote status` / `sync`).
 - `targets/<medium>.md` files are created on first request for that medium (open-ended ids; `web` / `social-cover` / `hyperframes` are examples only), then reused and updated.
 - Prefer an active profile's `brand.md` + `tokens.json` for brand fidelity; keep project `DESIGN.md` for product/page-local context.
 
@@ -366,6 +367,9 @@ User wants reusable brand visual language extracted from a website URL or screen
 vibe-to-ui context --list
 vibe-to-ui context --profile <profile> --init
 vibe-to-ui context --profile <profile> --target <medium>
+vibe-to-ui context remote connect <git-url>
+vibe-to-ui context remote status
+vibe-to-ui context sync
 ```
 
 `<medium>` is any kebab-case medium id. Examples (not an allow-list): `web`, `social-cover`, `hyperframes`, `linkedin`, `print-brochure`.
@@ -376,9 +380,10 @@ Run as `node <skill>/bin/vibe-to-ui.js ...` or `npx vibe-to-ui ...` when the pac
 1. Resolve a kebab-case **profile** id (brand / product / client — not a medium). Prefer `vibe-to-ui context --profile <id> --init` to create the skeleton (shared seeds only; no `targets/` yet).
 2. Brand extraction (URL/screenshot/images) remains agent-led for now — write into the initialized profile's `brand.md` / `tokens.json` / `decisions.md` / `sources/`.
 3. On `--target <name>`: run the CLI so it creates or reuses `targets/<name>.md` and prints the merged handoff package. Fill stub target content from the brand master using the guides in [references/DESIGN-CONTEXT.md](references/DESIGN-CONTEXT.md). Do not reject user-defined media.
-4. When working inside a project, also read project `DESIGN.md` if present; optionally record `design_context_profile: <profile>` in Iteration Context. Do not replace `DESIGN.md` with the profile.
+4. Optional team/cross-device share: `remote connect` to a private Git repo, then `sync` (validates `tokens.json`, commits, rebase-pulls, pushes; aborts on conflict without overwriting). Use `remote status` to inspect ahead/behind.
+5. When working inside a project, also read project `DESIGN.md` if present; optionally record `design_context_profile: <profile>` in Iteration Context. Do not replace `DESIGN.md` with the profile.
 
-**Non-negotiable**: User data under `~/.vibe-to-ui/` is outside the skill lifecycle. Skill update or reinstall must never overwrite it. This MVP does not implement cloud sync, team collaboration, or vector search.
+**Non-negotiable**: User data under `~/.vibe-to-ui/` is outside the skill lifecycle. Skill update or reinstall must never overwrite it. Remote sync reuses the user's Git credentials only — no OAuth, auto-merge, or cloud account in this MVP.
 
 ## Combining capabilities
 

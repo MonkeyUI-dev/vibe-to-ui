@@ -8,7 +8,7 @@ It turns a website URL or screenshot into a reusable brand visual language, pers
 
 This is the 90/10 MVP: reuse existing extraction capabilities (Design System Extraction, Aesthetic Analysis, Motion System), write plain files, and keep user data separate from skill install/update. When the user provides a URL, intake follows [INSPIRATION-SOURCES.md](INSPIRATION-SOURCES.md) (browse → frontend cues → selective capture → optional motion); screenshots and other sources remain equally valid.
 
-**Out of scope for this MVP:** cloud sync, team collaboration, vector databases, and complex UI.
+Optional **Git remote sync** binds `~/.vibe-to-ui` to a private repository the user already controls (SSH/HTTPS credentials). **Out of scope:** OAuth/account systems, Web UI, cloud databases, S3, Git LFS, realtime collaboration, auto-merge, and vector search.
 
 ## Core vocabulary
 
@@ -61,6 +61,9 @@ Expand `~` to the current user's home directory. If `$HOME` / `~` is unavailable
 vibe-to-ui context --list
 vibe-to-ui context --profile <profile> --init
 vibe-to-ui context --profile <profile> --target <medium>
+vibe-to-ui context remote connect <git-url>
+vibe-to-ui context remote status
+vibe-to-ui context sync
 ```
 
 `<medium>` is a kebab-case medium id. Examples (not an exhaustive allow-list): `web`, `social-cover`, `hyperframes`, `linkedin`, `print-brochure`, `email-header`.
@@ -74,10 +77,13 @@ This skill package ships a **Node.js zero-dependency CLI** (`bin/vibe-to-ui.js`,
 | `--list` | **Read-only** list of profiles under `~/.vibe-to-ui`. If the root does not exist, print an empty-state message — never create directories. |
 | `--profile <id> --init` | Create profile skeleton from `assets/design-context/` seeds; create `assets/` + `sources/`; **do not** create `targets/`; never overwrite existing shared files |
 | `--profile <id> --target <medium>` | Ensure `targets/<medium>.md` exists (create stub if missing, else reuse); append a decision note **only on first create**; print **merged context** on stdout |
+| `remote connect <git-url>` | Init Git in `~/.vibe-to-ui` if needed, add `origin`, fetch. Restore remote profiles **only when local profiles are empty**. Never auto-upload or overwrite local profiles. |
+| `remote status` | Show remote URL, branch, local changes, ahead/behind, conflict/sync summary |
+| `sync` | Validate `tokens.json`, commit safe paths (`profiles/`, `.gitignore`), `pull --rebase`, push `main`. On conflict: abort rebase, print conflicted paths, overwrite nothing. |
 
 Root is always `~/.vibe-to-ui` (`os.homedir()` + `.vibe-to-ui`). There is **no** `VIBE_TO_UI_HOME` override. Do not store profiles under `/tmp` or inside the project/skill directory.
 
-For `--init` / `--target`, the CLI checks that `~/.vibe-to-ui` is writable (user-level home permissions — not elevated privileges). Permission failures exit non-zero with an explicit grant-write message — never fall back to a temp directory.
+For `--init` / `--target` / `remote connect`, the CLI checks that `~/.vibe-to-ui` is writable (user-level home permissions — not elevated privileges). Permission failures exit non-zero with an explicit grant-write message — never fall back to a temp directory.
 
 Run via:
 
@@ -86,6 +92,9 @@ Run via:
 node bin/vibe-to-ui.js context --list
 node bin/vibe-to-ui.js context --profile vibe-to-ui --init
 node bin/vibe-to-ui.js context --profile vibe-to-ui --target print-brochure
+node bin/vibe-to-ui.js context remote connect git@github.com:org/design-contexts.git
+node bin/vibe-to-ui.js context remote status
+node bin/vibe-to-ui.js context sync
 
 # when the package bin is on PATH (local npm link / npx)
 npx vibe-to-ui context --list
@@ -93,7 +102,29 @@ npx vibe-to-ui context --list
 
 `--from-url` / `--from-image` are **not** implemented in the CLI yet. URL/image extraction remains an agent workflow that writes into an already-initialized profile.
 
-Agents should prefer the CLI for list / init / target lifecycle and merge assembly, then fill brand/target **content** using the skill guides. Agents must **not** invent an alternate storage root.
+Agents should prefer the CLI for list / init / target / remote lifecycle and merge assembly, then fill brand/target **content** using the skill guides. Agents must **not** invent an alternate storage root.
+
+### Remote sync (Git)
+
+The Git repository root is `~/.vibe-to-ui` itself. Tracked layout:
+
+```text
+~/.vibe-to-ui/          # git root + origin
+├── .gitignore          # seeded once; excludes secrets
+└── profiles/
+    └── <profile>/
+        ├── profile.md
+        ├── brand.md
+        ├── tokens.json
+        └── …
+```
+
+Safety rules:
+
+1. **Conflict protection** — same file changed locally and remotely → sync stops; `git rebase --abort`; no overwrite.
+2. **JSON validation** — every `profiles/*/tokens.json` must parse before commit.
+3. **Secrets stay local** — `.env`, keys, and credentials patterns are gitignored; sync stages only `profiles/` and `.gitignore`.
+4. **Connect never pushes** and never overwrites existing local profile content.
 
 ## Profile vs target
 
@@ -298,8 +329,10 @@ Rules:
 - Regenerating an existing target from scratch when a light update would do
 - Treating media ids (`web`, `social-cover`, `hyperframes`, `linkedin`, …) as separate **profiles**
 - Rejecting a user-defined medium because it is not in the example list
-- Cloud sync, team sharing, or embedding pipelines in this MVP
+- Auto-merging or force-pushing on Design Context sync conflicts
+- Uploading `.env`, credentials, or private keys via sync
 - Overwriting `decisions.md` or deleting `sources/` history
+- Building OAuth, Web UI, or cloud DB sync into this CLI MVP
 
 ## Quick checklist
 
@@ -314,6 +347,7 @@ Rules:
 [ ] Custom media use the generic guide (examples are not an allow-list)
 [ ] Merged context emitted for the requesting medium agent
 [ ] ~/.vibe-to-ui/ left untouched by any skill install/update path
+[ ] If sharing across devices/team: remote connect + sync; conflicts abort safely
 ```
 
 ## Token format (DTCG + DESIGN.md)

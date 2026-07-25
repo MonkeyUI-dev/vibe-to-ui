@@ -106,6 +106,21 @@ test -f "$HOME/.vibe-to-ui/profiles/demo/targets/print-brochure.md"
 test ! -e "$HOME/.vibe-to-ui/profiles/demo/targets/web.md"  # only requested targets
 ```
 
+5. Remote sync smoke (local bare repo — no GitHub required), when touching `lib/git.js` / `lib/remote.js`:
+
+```bash
+export HOME=/tmp/vibe-to-ui-remote-smoke-a
+rm -rf "$HOME" /tmp/vibe-to-ui-remote.git /tmp/vibe-to-ui-remote-smoke-b
+git init --bare /tmp/vibe-to-ui-remote.git
+node bin/vibe-to-ui.js context --profile vibe-to-ui --init
+node bin/vibe-to-ui.js context remote connect /tmp/vibe-to-ui-remote.git
+node bin/vibe-to-ui.js context sync
+# Computer B restore
+export HOME=/tmp/vibe-to-ui-remote-smoke-b
+node bin/vibe-to-ui.js context remote connect /tmp/vibe-to-ui-remote.git
+test -f "$HOME/.vibe-to-ui/profiles/vibe-to-ui/brand.md"
+```
+
 ### Consuming / demonstrating the skill
 
 The official consumer tooling is the `skills` CLI (already runnable via `npx skills ...`).

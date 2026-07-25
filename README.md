@@ -120,9 +120,11 @@ Keep a brand profile on your machine — outside the skill — so reinstall neve
 node bin/vibe-to-ui.js context --list
 node bin/vibe-to-ui.js context --profile my-brand --init
 node bin/vibe-to-ui.js context --profile my-brand --target web
+node bin/vibe-to-ui.js context remote connect git@github.com:org/design-contexts.git
+node bin/vibe-to-ui.js context sync
 ```
 
-Root: `~/.vibe-to-ui` (fixed; no env override). Medium targets are open-ended (`web`, `linkedin`, `print-brochure`, …) — not a fixed enum.
+Root: `~/.vibe-to-ui` (fixed; no env override). Medium targets are open-ended (`web`, `linkedin`, `print-brochure`, …) — not a fixed enum. Optional Git remote sync shares the same root via your private repo.
 
 Details: [DESIGN-CONTEXT.md](references/DESIGN-CONTEXT.md)
 
