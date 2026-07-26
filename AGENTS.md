@@ -116,12 +116,16 @@ export HOME=/tmp/vibe-to-ui-remote-smoke-a
 rm -rf "$HOME" /tmp/vibe-to-ui-remote.git /tmp/vibe-to-ui-remote-smoke-b
 git init --bare /tmp/vibe-to-ui-remote.git
 node bin/vibe-to-ui.js context --profile vibe-to-ui --init
+printf 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==' | base64 -d > /tmp/insp-pixel.png
+node bin/vibe-to-ui.js inspiration add --image /tmp/insp-pixel.png --product smoke-remote --page shot
 node bin/vibe-to-ui.js context remote connect /tmp/vibe-to-ui-remote.git
 node bin/vibe-to-ui.js context sync
 # Computer B restore
 export HOME=/tmp/vibe-to-ui-remote-smoke-b
 node bin/vibe-to-ui.js context remote connect /tmp/vibe-to-ui-remote.git
 test -f "$HOME/.vibe-to-ui/profiles/vibe-to-ui/brand.md"
+test -f "$HOME/.vibe-to-ui/inspirations/smoke-remote/product.md"
+test -f "$HOME/.vibe-to-ui/inspirations/smoke-remote/pages/shot/analysis.md"
 ```
 
 6. Inspiration Library CLI smoke (when touching `lib/inspiration*` / docs):

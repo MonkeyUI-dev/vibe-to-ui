@@ -244,4 +244,5 @@ Default status `reference-only` means agents may *consult* the product while wor
 [ ] analysis distinguishes observed / inferred / transferable / brand-specific
 [ ] Default apply uses product design-seed.md; gated by --confirm
 [ ] Skill install/update never touches ~/.vibe-to-ui/
+[ ] Optional Git remote sync (`context sync`) includes inspirations/ alongside profiles/
 ```
