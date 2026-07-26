@@ -73,6 +73,7 @@ git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-t
 | Ship it into the repo | **Apply** tokens (and assets) only after you confirm |
 | Imagery that matches the direction | Generate hero / feature / empty-state visuals via your agent’s image tools |
 | Reuse brand across media | Persist a local **Design Context** profile (`~/.vibe-to-ui`) |
+| Collect design references | Global **Inspiration Library** (`inspirations/` + annotated preview) |
 
 Deep methodology lives in [`references/`](references/) — loaded on demand, not upfront.
 
@@ -127,6 +128,26 @@ node bin/vibe-to-ui.js context sync
 Root: `~/.vibe-to-ui` (fixed; no env override). Medium targets are open-ended (`web`, `linkedin`, `print-brochure`, …) — not a fixed enum. Optional Git remote sync shares the same root via your private repo.
 
 Details: [DESIGN-CONTEXT.md](references/DESIGN-CONTEXT.md)
+
+---
+
+## Inspiration Library (global aesthetic archive)
+
+Collect URLs or screenshots into a cross-project library — separate from brand profiles:
+
+```bash
+node bin/vibe-to-ui.js inspiration add https://example.com
+node bin/vibe-to-ui.js inspiration add https://example.com/docs --product example --page docs
+node bin/vibe-to-ui.js inspiration add --image ./shot.png --product mood --page shot
+node bin/vibe-to-ui.js inspiration list
+node bin/vibe-to-ui.js inspiration link example --profile my-brand
+node bin/vibe-to-ui.js inspiration apply example --project .          # product seed preview
+node bin/vibe-to-ui.js inspiration apply example --project . --confirm
+```
+
+Cases live under `~/.vibe-to-ui/inspirations/<product>/pages/<page>/`. URL screenshots are taken by your agent’s **Browser / Computer Use** tools with **full-scroll** coverage (the CLI does not launch a browser). Linking stores a `reference-only` **product** pointer. Applying defaults to the product `design-seed.md` and always shows a `DESIGN.md` preview first.
+
+Details: [INSPIRATION-LIBRARY.md](references/INSPIRATION-LIBRARY.md)
 
 ---
 

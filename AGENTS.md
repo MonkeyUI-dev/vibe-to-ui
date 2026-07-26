@@ -14,7 +14,9 @@ intentionally a no-op.
 
 Live Design Context profiles belong under the **user home** path
 `~/.vibe-to-ui/profiles/<profile>/`, not in this
-repository. Templates under `assets/design-context/` are seeds only. Skill
+repository. The Inspiration Library belongs under
+`~/.vibe-to-ui/inspirations/<product>/pages/<page>/` (also user home — not the skill package).
+Templates under `assets/design-context/` are seeds only. Skill
 install, update, or reinstall must **never** overwrite, delete, or reset
 `~/.vibe-to-ui/`. There is no env override for the root path.
 
@@ -80,8 +82,9 @@ The meaningful integrity checks for this repo are:
 1. `SKILL.md` frontmatter: valid `name` + `description` per the section above
    and the [Agent Skills spec](https://agentskills.io/specification).
 2. Every internal Markdown link (e.g. `references/DESIGN-SYSTEM.md`,
-   `references/DESIGN-CONTEXT.md`) resolves to a real file. Broken cross-references are
-   the most likely regression when editing content.
+   `references/DESIGN-CONTEXT.md`, `references/INSPIRATION-LIBRARY.md`) resolves
+   to a real file. Broken cross-references are the most likely regression when
+   editing content.
 3. Design Context seed files under `assets/design-context/` exist for
    `profile.md`, `brand.md`, `tokens.json`, and `decisions.md`.
    Do **not** ship bundled per-medium `targets/*.md` seeds (neither for
@@ -119,6 +122,51 @@ node bin/vibe-to-ui.js context sync
 export HOME=/tmp/vibe-to-ui-remote-smoke-b
 node bin/vibe-to-ui.js context remote connect /tmp/vibe-to-ui-remote.git
 test -f "$HOME/.vibe-to-ui/profiles/vibe-to-ui/brand.md"
+```
+
+6. Inspiration Library CLI smoke (when touching `lib/inspiration*` / docs):
+
+```bash
+export HOME=/tmp/vibe-to-ui-smoke-home
+rm -rf "$HOME"
+# list is read-only
+node bin/vibe-to-ui.js inspiration list
+# image add (no network / no browser required) → product/pages layout
+printf 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==' | base64 -d > /tmp/insp-pixel.png
+node bin/vibe-to-ui.js inspiration add --image /tmp/insp-pixel.png --product smoke-image --page shot
+node bin/vibe-to-ui.js inspiration list | grep smoke-image
+PRODUCT=smoke-image
+PAGE=shot
+test -f "$HOME/.vibe-to-ui/inspirations/$PRODUCT/preview.html"
+test -f "$HOME/.vibe-to-ui/inspirations/$PRODUCT/design-seed.md"
+test -f "$HOME/.vibe-to-ui/inspirations/$PRODUCT/product.md"
+test -f "$HOME/.vibe-to-ui/inspirations/$PRODUCT/pages/$PAGE/preview.html"
+test -f "$HOME/.vibe-to-ui/inspirations/$PRODUCT/pages/$PAGE/analysis.md"
+test -f "$HOME/.vibe-to-ui/inspirations/$PRODUCT/pages/$PAGE/motion.md"
+# URL add scaffolds; captures await agent (CLI must not require Chrome)
+node bin/vibe-to-ui.js inspiration add https://example.com --product example --page home
+grep -q awaiting-agent "$HOME/.vibe-to-ui/inspirations/example/pages/home/metadata.json"
+# simulate agent full-scroll drop (fullpage + ≥2 frames), then rebuild
+cp /tmp/insp-pixel.png "$HOME/.vibe-to-ui/inspirations/example/pages/home/captures/fullpage.png"
+cp /tmp/insp-pixel.png "$HOME/.vibe-to-ui/inspirations/example/pages/home/captures/frame-01.png"
+cp /tmp/insp-pixel.png "$HOME/.vibe-to-ui/inspirations/example/pages/home/captures/frame-02.png"
+node bin/vibe-to-ui.js inspiration rebuild-preview example/home
+grep -q full-scroll "$HOME/.vibe-to-ui/inspirations/example/pages/home/metadata.json"
+node bin/vibe-to-ui.js inspiration rebuild-product example
+# duplicate source must not silently overwrite
+node bin/vibe-to-ui.js inspiration add --image /tmp/insp-pixel.png --product smoke-image --page shot ; test $? -ne 0
+node bin/vibe-to-ui.js context --profile demo --init
+node bin/vibe-to-ui.js inspiration link "$PRODUCT" --profile demo
+test -f "$HOME/.vibe-to-ui/profiles/demo/inspiration-refs.json"
+grep -q smoke-image "$HOME/.vibe-to-ui/profiles/demo/inspiration-refs.json"
+# apply defaults to product seed; requires --confirm
+mkdir -p /tmp/insp-project
+node bin/vibe-to-ui.js inspiration apply "$PRODUCT" --project /tmp/insp-project
+test ! -f /tmp/insp-project/DESIGN.md
+node bin/vibe-to-ui.js inspiration apply "$PRODUCT" --project /tmp/insp-project --confirm
+test -f /tmp/insp-project/DESIGN.md
+# raw inspiration must not live under the profile
+test ! -d "$HOME/.vibe-to-ui/profiles/demo/inspirations"
 ```
 
 ### Consuming / demonstrating the skill

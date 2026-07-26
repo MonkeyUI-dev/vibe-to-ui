@@ -6,7 +6,7 @@ Inspiration can arrive as a website URL, a screenshot, a mood photo, music, a lo
 
 A **website URL** is one valid source among others. When the user *does* share a link, this playbook describes how to use it well: visit the page, read frontend cues, take selective captures if needed, and observe motion when tools allow. That avoids forcing the user to upload a multi‑MB full-page screenshot just because a live page was involved — but it does **not** mean the agent should steer every workflow toward URLs.
 
-This playbook is shared by Design System Extraction, Design Exploration, Spatial Vibe, Aesthetic Analysis, Motion System, Mood Board, and Design Context. Design Context’s `--from-url` is the same URL intake, persisted under `~/.vibe-to-ui/`.
+This playbook is shared by Design System Extraction, Design Exploration, Spatial Vibe, Aesthetic Analysis, Motion System, Mood Board, Design Context, and the Inspiration Library. Design Context’s `--from-url` is the same URL intake, persisted under a profile. Inspiration Library `add <url>` uses the same intake ideas but stores cases under `~/.vibe-to-ui/inspirations/` — see [INSPIRATION-LIBRARY.md](INSPIRATION-LIBRARY.md).
 
 ## Accepted source kinds (equal options)
 
@@ -56,9 +56,19 @@ Inspect what the tools allow, in this order of usefulness:
 
 Summarize findings in prose or a short structured note. Do **not** paste entire minified bundles into the conversation.
 
-### 3. Capture visuals selectively (only when needed)
+### 3. Capture visuals
 
-Take screenshots or crops **after** reading structure, and only for what analysis still needs:
+**Inspiration Library (Capability 8)** — **full-scroll coverage is required** for every URL page:
+
+| Capture | Requirement |
+|---------|-------------|
+| `fullpage` | Longest useful full-page / scroll mosaic |
+| `frame-01…N` | **Consecutive** viewports from top until page end |
+| Motion pass | Load / scroll / hover → page `motion.md` (when tools allow) |
+
+Do not stop at the hero. Mid/lower bands must not be marked `observed` without a covering frame. Store under `~/.vibe-to-ui/inspirations/<product>/pages/<page>/captures/`. Prefer WebP/JPEG at preview size (~960–1440px wide).
+
+**Other capabilities** (extraction, exploration, mood board, Design Context) may still capture **selectively** after reading structure:
 
 | Capture | When |
 |---------|------|
@@ -67,10 +77,10 @@ Take screenshots or crops **after** reading structure, and only for what analysi
 | One interactive control | Button/input surface language |
 | Mobile viewport (optional) | Responsive collapse, if tools allow resize |
 
-Rules:
+Rules for selective mode:
 
-- Prefer **cropped regions** over full-page mosaics
-- Prefer **WebP/JPEG at preview size** (~960px long edge) for analysis; avoid shipping multi‑MB PNGs into context
+- Prefer **cropped regions** over dumping every pixel into chat context
+- Prefer **WebP/JPEG at preview size** (~960px long edge); avoid multi‑MB PNGs
 - Store durable captures under a working path or, for Design Context, under `~/.vibe-to-ui/profiles/<profile>/sources/` / `assets/`
 - Cite which URL + viewport produced each capture
 
@@ -79,12 +89,12 @@ Rules:
 If the host can interact with the live page, spend a short observation pass:
 
 1. Load → note entrance / page-load motion
-2. Scroll through 1–2 screens → in-view reveals, parallax, sticky transforms, scroll-linked timing
+2. Scroll through screens covering the page (Inspiration Library: through page end; other capabilities: 1–2 screens minimum)
 3. Hover primary controls → micro-feedback
 4. Optional: open one modal/drawer or tab if obvious
 5. Check `prefers-reduced-motion` behavior when the tool can toggle it
 
-Record Motion DNA signals for [MOTION-SYSTEM.md](MOTION-SYSTEM.md): roles, triggers, tempo, easing character, density, signature motif. If the agent cannot interact, infer cautiously from CSS/JS motion hints and mark **low confidence** — do not invent cinematic motion the page does not show.
+Record Motion DNA signals for [MOTION-SYSTEM.md](MOTION-SYSTEM.md): roles, triggers, tempo, easing character, density, signature motif. For Inspiration Library pages, persist into `motion.md`. If the agent cannot interact, infer cautiously from CSS/JS motion hints and mark **low confidence** — do not invent cinematic motion the page does not show.
 
 ### 5. Hand off into the active capability
 
@@ -97,24 +107,27 @@ Record Motion DNA signals for [MOTION-SYSTEM.md](MOTION-SYSTEM.md): roles, trigg
 | Motion System | Live observation when possible; else CSS/JS + static cues with confidence notes |
 | Mood Board | Embed selective captures or OG/hero assets; avoid dumping full-page screenshots |
 | Design Context | Same intake, then persist under profile `sources/` via `--from-url` |
+| Inspiration Library | Persist under `~/.vibe-to-ui/inspirations/<product>/pages/<page>/` via `inspiration add`. **Full-scroll** captures + motion; product-level synthesis via `rebuild-product`. **Screenshots**: host Browser / Computer Use — CLI does not drive a browser. Never copy into a profile. Default `apply` / `link` use the **product** id |
 
 ## Anti-patterns
 
 - Treating URL as the default or “preferred” inspiration channel across capabilities
 - Asking for a URL when the user already gave a screenshot, music, or description
 - Asking for a full-page screenshot before trying a URL *the user already provided*
-- Dumping multi‑MB images into context when selective crops or CSS/DOM reads suffice
+- Dumping multi‑MB images into chat when preview-sized frames suffice (still capture full-scroll to disk for Inspiration Library)
+- Stopping Inspiration Library URL analysis at the hero while claiming full-page visual positioning
 - Pasting entire HTML/JS bundles instead of extracting tokens and structure
 - Claiming motion personality from a static crop without noting confidence
 - Cloning copyrighted brand assets into the user’s product without adaptation (inspiration ≠ pixel theft)
 - Treating every URL as a Design Context profile write — only persist when the user asks to save a profile
+- Creating one library root per URL when pages belong to the same product — group under `--product`
 
 ## When a provided URL cannot be fully used
 
 ```text
-URL browse OK → read CSS/DOM → selective captures → optional motion pass → analyze
-URL HTML only → tokens/structure from markup/CSS → ask for a cropped screenshot only if visuals stay ambiguous
-URL blocked → offer options: cropped screenshot, continue partial, or different source — user chooses
+URL browse OK → read CSS/DOM → captures (Library: full-scroll; else selective) → motion pass → analyze
+URL HTML only → tokens/structure from markup/CSS → ask for screenshots only if visuals stay ambiguous
+URL blocked → offer options: screenshot(s), continue partial, or different source — user chooses
 Screenshot / image provided → analyze it; URL optional, never required
 Description only → proceed with low confidence; invite any source kind the user prefers
 ```
@@ -125,8 +138,10 @@ Description only → proceed with low confidence; invite any source kind the use
 [ ] Intake matches what the user actually sent (URL, image, music, project, mix)
 [ ] URL workflow runs only when a link was provided — not as a global default
 [ ] Frontend tokens/structure skimmed without dumping full source
-[ ] Visuals are selective, cropped, and reasonably sized when captures are needed
+[ ] Inspiration Library pages: full-scroll frames on disk + motion.md when tools allow
+[ ] Other capabilities: selective, reasonably sized captures when needed
 [ ] Motion observed or explicitly marked low-confidence
+[ ] Library pages grouped under a product folder; apply/link default to product
 [ ] Intake results feed the active capability
 [ ] Design Context persistence only when requested (--from-url / save profile)
 ```
