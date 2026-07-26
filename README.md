@@ -137,14 +137,15 @@ Collect URLs or screenshots into a cross-project library — separate from brand
 
 ```bash
 node bin/vibe-to-ui.js inspiration add https://example.com
-node bin/vibe-to-ui.js inspiration add --image ./shot.png
+node bin/vibe-to-ui.js inspiration add https://example.com/docs --product example --page docs
+node bin/vibe-to-ui.js inspiration add --image ./shot.png --product mood --page shot
 node bin/vibe-to-ui.js inspiration list
-node bin/vibe-to-ui.js inspiration link <id> --profile my-brand
-node bin/vibe-to-ui.js inspiration apply <id> --project .          # preview
-node bin/vibe-to-ui.js inspiration apply <id> --project . --confirm
+node bin/vibe-to-ui.js inspiration link example --profile my-brand
+node bin/vibe-to-ui.js inspiration apply example --project .          # product seed preview
+node bin/vibe-to-ui.js inspiration apply example --project . --confirm
 ```
 
-Cases live under `~/.vibe-to-ui/inspirations/`. URL screenshots are taken by your agent’s **Browser / Computer Use** tools (the CLI does not launch a browser). Linking a profile only stores a `reference-only` pointer — it does not copy the case or rewrite tokens. Applying to a project always shows a `DESIGN.md` preview first.
+Cases live under `~/.vibe-to-ui/inspirations/<product>/pages/<page>/`. URL screenshots are taken by your agent’s **Browser / Computer Use** tools with **full-scroll** coverage (the CLI does not launch a browser). Linking stores a `reference-only` **product** pointer. Applying defaults to the product `design-seed.md` and always shows a `DESIGN.md` preview first.
 
 Details: [INSPIRATION-LIBRARY.md](references/INSPIRATION-LIBRARY.md)
 

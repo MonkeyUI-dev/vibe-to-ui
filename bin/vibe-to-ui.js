@@ -16,10 +16,10 @@ Examples:
   vibe-to-ui context --list
   vibe-to-ui context --profile demo --init
   vibe-to-ui inspiration add https://example.com
-  vibe-to-ui inspiration add --image ./shot.png
+  vibe-to-ui inspiration add --image ./shot.png --product mood --page shot
   vibe-to-ui inspiration list
-  vibe-to-ui inspiration link <id> --profile demo
-  vibe-to-ui inspiration apply <id> --project . 
+  vibe-to-ui inspiration link example --profile demo
+  vibe-to-ui inspiration apply example --project . 
 
 Root is always ~/.vibe-to-ui (no env override). Skill reinstall must never touch it.
 `);

@@ -16,7 +16,7 @@ metadata:
 
 # vibe-to-ui
 
-A local design companion for vibe coding developers. It first classifies the target page archetype and density, then uses the user's product background to derive three plausible visual and spatial directions from references before formalizing any one of them into a design system. It extracts "style DNA" including motion systems, Consumer app UIUX needs, visual asset direction, mood boards, and previews, and turns vague aesthetic feelings into product-aware design decisions that actually fit the product surface. Inspiration may be a **website URL**, screenshot, images, music, or fuzzy intent — the agent adapts to what the user provides (see [references/INSPIRATION-SOURCES.md](references/INSPIRATION-SOURCES.md)). Cases can be saved into a global **Inspiration Library** under `~/.vibe-to-ui/inspirations/` (analysis + annotated `preview.html`) without putting raw cases into a profile. It can also persist a reusable **Design Context** profile under `~/.vibe-to-ui/profiles/<profile>/` (brand master, tokens, decisions, assets) and adapt it on demand into **open-ended medium targets** — examples include `web`, `social-cover`, and `hyperframes`, and users may define their own (e.g. `linkedin`, `print-brochure`) — without coupling user data to skill install/update. All exploration happens through standalone previews; the agent only touches the user's project when the user confirms a direction and asks to apply it.
+A local design companion for vibe coding developers. It first classifies the target page archetype and density, then uses the user's product background to derive three plausible visual and spatial directions from references before formalizing any one of them into a design system. It extracts "style DNA" including motion systems, Consumer app UIUX needs, visual asset direction, mood boards, and previews, and turns vague aesthetic feelings into product-aware design decisions that actually fit the product surface. Inspiration may be a **website URL**, screenshot, images, music, or fuzzy intent — the agent adapts to what the user provides (see [references/INSPIRATION-SOURCES.md](references/INSPIRATION-SOURCES.md)). Cases can be saved into a global **Inspiration Library** under `~/.vibe-to-ui/inspirations/<product>/pages/<page>/` (full-scroll analysis + motion + annotated `preview.html`, with product-level synthesis) without putting raw cases into a profile. It can also persist a reusable **Design Context** profile under `~/.vibe-to-ui/profiles/<profile>/` (brand master, tokens, decisions, assets) and adapt it on demand into **open-ended medium targets** — examples include `web`, `social-cover`, and `hyperframes`, and users may define their own (e.g. `linkedin`, `print-brochure`) — without coupling user data to skill install/update. All exploration happens through standalone previews; the agent only touches the user's project when the user confirms a direction and asks to apply it.
 
 > **Tip**: Git-based Design Context remote sync (`context remote` / `context sync`) shares `~/.vibe-to-ui` via your own private repo. For hosted multi-project management beyond Git, see [MonkeyUI SaaS](https://demo.monkeyui.com/).
 
@@ -39,7 +39,7 @@ A local design companion for vibe coding developers. It first classifies the tar
 - User has **confirmed a design direction** (from concept previews, mood boards, or design system previews) and wants to **apply it to their project**
 - User wants to **save brand visual language** from a website URL or screenshot into a local Design Context **profile** (brand / product / client), separate from any one project repo
 - User runs or asks for `vibe-to-ui context --profile <profile> --target <medium>` to load or generate medium-specific rules for any medium (examples: `web`, `social-cover`, `hyperframes`, or user-defined like `linkedin`, `print-brochure`) and hand them to the matching agent
-- User wants a **cross-project Inspiration Library** — collect a URL/screenshot into `~/.vibe-to-ui/inspirations/`, get aesthetic analysis + annotated preview, optionally link a reference into a profile, and only merge `design-seed.md` into project `DESIGN.md` after confirmation
+- User wants a **cross-project Inspiration Library** — collect product pages (URLs/screenshots) under `~/.vibe-to-ui/inspirations/<product>/`, get full-scroll aesthetic + motion analysis, product-level visual positioning, optionally link the product into a profile, and only merge the product `design-seed.md` into project `DESIGN.md` after confirmation
 
 ## Reference Priority Rules
 
@@ -59,7 +59,7 @@ When both are present, always use this priority:
 
 Adapt to **whatever the user provides** — website URL, screenshot, mood images, music, local project, description, or a mix. None of these is the default preferred channel. Follow [references/INSPIRATION-SOURCES.md](references/INSPIRATION-SOURCES.md):
 
-- If they share a **URL** → visit / fetch, read frontend cues, selective captures, optional motion observation
+- If they share a **URL** → visit / fetch, read frontend cues, captures (Inspiration Library: **full-scroll**; other capabilities: selective), optional motion observation
 - If they share a **screenshot or image** → analyze it directly; do not ask for a URL first
 - If they share **music / atmosphere / description** → vibe path; do not insist on a live site
 - If sources mix → use each for its role and state how they were weighted
@@ -156,13 +156,15 @@ When the user wants reusable brand memory across projects or media, use **Capabi
 - `targets/<medium>.md` files are created on first request for that medium (open-ended ids; `web` / `social-cover` / `hyperframes` are examples only), then reused and updated.
 - Prefer an active profile's `brand.md` + `tokens.json` for brand fidelity; keep project `DESIGN.md` for product/page-local context.
 
-### Inspiration Library (`~/.vibe-to-ui/inspirations/`)
+### Inspiration Library (`~/.vibe-to-ui/inspirations/<product>/`)
 
 When the user wants to **collect and understand external design references** across projects, use **Capability 8** and [references/INSPIRATION-LIBRARY.md](references/INSPIRATION-LIBRARY.md).
 
-- Global library — not nested under a profile. Profiles may only store **references** via `inspiration-refs.json` (`reference-only` by default).
-- Do **not** copy raw inspiration cases into a profile. Do **not** write project `DESIGN.md` until the user confirms apply.
-- Prefer the CLI: `vibe-to-ui inspiration add|list|show|link|apply`.
+- Global library — not nested under a profile. Storage unit is a **product** with many **pages** (`pages/<slug>/`), not one folder per URL.
+- Every URL page requires **full-scroll** captures + motion notes; product.md synthesizes multi-page visual DNA.
+- Profiles may only store **product** references via `inspiration-refs.json` (`reference-only` by default).
+- Do **not** copy raw inspiration cases into a profile. Default `apply` uses the **product** seed; write project `DESIGN.md` only after confirmation.
+- Prefer the CLI: `vibe-to-ui inspiration add|list|show|link|apply|rebuild-product`.
 
 ## Eight core capabilities
 
@@ -396,30 +398,34 @@ Run as `node <skill>/bin/vibe-to-ui.js ...` or `npx vibe-to-ui ...` when the pac
 
 ### 8. Design Inspiration Library
 
-User wants to accumulate aesthetic cases, judgments, and transferable rules from URLs or screenshots into a **global library** that later agents can search and cite — without treating those cases as brand canon or auto-writing the project.
+User wants to accumulate aesthetic cases, judgments, and transferable rules from product sites (multiple pages) or screenshots into a **global library** that later agents can search and cite — without treating those cases as brand canon or auto-writing the project.
 
-**Trigger**: User says things like "save this as inspiration", "add to my inspiration library", "analyze this URL into inspirations", "vibe-to-ui inspiration add …", "link this inspiration to my profile", "apply this inspiration seed to DESIGN.md", or asks to keep a cross-project reference archive separate from brand profiles.
+**Trigger**: User says things like "save this as inspiration", "add to my inspiration library", "analyze this URL into inspirations", "collect this product's visual system", "vibe-to-ui inspiration add …", "link this inspiration to my profile", "apply this inspiration seed to DESIGN.md", or asks to keep a cross-project reference archive separate from brand profiles.
 
 **Command surface**:
 
 ```bash
-vibe-to-ui inspiration add <url>
-vibe-to-ui inspiration add --image <path>
-vibe-to-ui inspiration import-captures <id> --from-captures <dir>
-vibe-to-ui inspiration rebuild-preview <id>
+vibe-to-ui inspiration add <url> [--product <id>] [--page <slug>]
+vibe-to-ui inspiration add --image <path> [--product <id>] [--page <slug>]
+vibe-to-ui inspiration import-captures <product>/<page> --from-captures <dir>
+vibe-to-ui inspiration rebuild-preview <product>/<page>
+vibe-to-ui inspiration rebuild-product <product>
 vibe-to-ui inspiration list
-vibe-to-ui inspiration show <id>
-vibe-to-ui inspiration link <id> --profile <profile>
-vibe-to-ui inspiration apply <id> --project <path>          # preview diff
-vibe-to-ui inspiration apply <id> --project <path> --confirm
+vibe-to-ui inspiration show <product>[/<page>]
+vibe-to-ui inspiration link <product> --profile <profile>
+vibe-to-ui inspiration apply <product> --project <path>              # product seed (default)
+vibe-to-ui inspiration apply <product> --page <slug> --project <path>
+vibe-to-ui inspiration apply <product> --project <path> --confirm
 ```
 
 URL screenshots are **agent-owned** (Browser Use / Computer Use). The CLI does not launch a browser.
+
 **Workflow**:
-1. `add <url>` fetches metadata and scaffolds the case (`captureStatus: awaiting-agent`). **Do not** expect the CLI to screenshot — use the host **Browser Use / Computer Use** tools to write `fullpage.jpg` + `frame-01.jpg…` into `captures/`, then `rebuild-preview`. `add --image` copies the local file only.
-2. Classify page type; cover ≥4 of 6 aesthetic categories; tag claims as `observed` / `inferred` / `transferable` / `brand-specific`. Enrich CLI scaffolds from captures before treating as final.
-3. `link` only writes a profile `inspiration-refs.json` entry (`reference-only`) — never copies the case into the profile, never rewrites tokens.
-4. `apply` must show the proposed `DESIGN.md` merge first; write only after explicit confirmation.
+1. `add <url>` resolves **product** + **page**, fetches metadata, scaffolds `pages/<page>/` (`captureCoverage: awaiting-agent`), and refreshes product index artifacts. Group related URLs with the same `--product`.
+2. **Full-scroll capture (required for every URL page)**: Browser Use / Computer Use writes `fullpage.jpg` + consecutive `frame-01…N` through page end into that page’s `captures/`, plus a short motion pass into `motion.md`. Then `rebuild-preview <product>/<page>`. Do **not** treat hero-only captures as complete.
+3. Classify page type; fill the full-scroll visual positioning table; cover ≥4 of 6 aesthetic categories; tag `observed` / `inferred` / `transferable` / `brand-specific`. In `annotations.json`, give **every viewport frame** (`frame-01…N`) **1–3** notes (max 3; `fullpage` may omit anchors) and fill `synthesis`. **Write all enriched library text in the user's prompt language** (analysis, synthesis, frame notes, motion, seeds — not the source page locale by default). Collect 2–4 representative pages when the site has them, then `rebuild-product <product>` for cross-page DNA.
+4. `link <product>` writes a profile `inspiration-refs.json` entry (`reference-only`) — never copies cases into the profile, never rewrites tokens.
+5. `apply <product>` shows the **product** `design-seed.md` merge first (optional `--page` for a single page); write only after explicit `--confirm`.
 
 Details: [references/INSPIRATION-LIBRARY.md](references/INSPIRATION-LIBRARY.md).
 
@@ -455,7 +461,7 @@ A real page needs both, working together. Rules for combining them:
 - **Consumer App UIUX -> Preview -> Apply**: Classify the app platform and lifecycle stage -> explore 3 app experience directions -> preview navigation, core screen, flow, state matrix, and tactile motion -> formalize tokens -> apply to mobile-first project components
 - **Source -> Design Context profile -> Target on demand -> Multi-medium handoff**: Extract from URL/screenshot into `~/.vibe-to-ui/profiles/<profile>/` -> on first request generate `targets/<medium>.md` (any medium id: examples like `web` / `social-cover` / `hyperframes`, or user-defined like `linkedin` / `print-brochure`) -> merge brand + tokens + decisions + target for the consuming agent; reuse existing targets on later calls
 - **Design Context + project Apply**: Load an active profile for brand fidelity, use project `DESIGN.md` for product/page context, then Apply (Capability 5) without inventing a parallel token system
-- **Inspiration Library -> link profile -> optional DESIGN.md apply**: Collect a URL/screenshot into `inspirations/` -> preview annotated analysis -> optionally `link` as `reference-only` on a profile -> only after confirmation merge transferable seed into project `DESIGN.md`
+- **Inspiration Library -> link profile -> optional DESIGN.md apply**: Collect product pages (full-scroll) under `inspirations/<product>/` -> preview page + product synthesis -> optionally `link <product>` as `reference-only` -> only after confirmation merge **product** seed into project `DESIGN.md`
 - **Full pipeline**: Identify page type -> explore feelings and references -> derive visual direction, Spatial DNA, Consumer app UIUX needs, and/or visual asset direction as applicable -> preview 3 comparable directions -> choose -> extract design system -> optionally persist as a Design Context profile and/or Inspiration Library case -> apply tokens, layout, and confirmed assets to the project
 
 ## Output format guidelines

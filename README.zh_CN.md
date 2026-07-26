@@ -137,14 +137,15 @@ node bin/vibe-to-ui.js context sync
 
 ```bash
 node bin/vibe-to-ui.js inspiration add https://example.com
-node bin/vibe-to-ui.js inspiration add --image ./shot.png
+node bin/vibe-to-ui.js inspiration add https://example.com/docs --product example --page docs
+node bin/vibe-to-ui.js inspiration add --image ./shot.png --product mood --page shot
 node bin/vibe-to-ui.js inspiration list
-node bin/vibe-to-ui.js inspiration link <id> --profile my-brand
-node bin/vibe-to-ui.js inspiration apply <id> --project .          # 仅预览
-node bin/vibe-to-ui.js inspiration apply <id> --project . --confirm
+node bin/vibe-to-ui.js inspiration link example --profile my-brand
+node bin/vibe-to-ui.js inspiration apply example --project .          # 产品级 seed 预览
+node bin/vibe-to-ui.js inspiration apply example --project . --confirm
 ```
 
-案例在 `~/.vibe-to-ui/inspirations/`。URL 截屏由宿主 Agent 的 **Browser / Computer Use** 完成（CLI 不启动浏览器）。`link` 只写 `reference-only` 指针，不复制案例、不改写 tokens。写入项目前必须先预览 `DESIGN.md`。
+案例在 `~/.vibe-to-ui/inspirations/<product>/pages/<page>/`。URL 截屏由宿主 Agent 的 **Browser / Computer Use** 完成，且需 **整页滚动全覆盖**（CLI 不启动浏览器）。`link` / 默认 `apply` 针对 **产品** id；`link` 只写 `reference-only` 指针。写入项目前必须先预览 `DESIGN.md`。
 
 详见：[INSPIRATION-LIBRARY.md](references/INSPIRATION-LIBRARY.md)
 
