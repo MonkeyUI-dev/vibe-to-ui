@@ -125,7 +125,7 @@ node bin/vibe-to-ui.js context remote connect git@github.com:org/design-contexts
 node bin/vibe-to-ui.js context sync
 ```
 
-Root: `~/.vibe-to-ui` (fixed; no env override). Medium targets are open-ended (`web`, `linkedin`, `print-brochure`, …) — not a fixed enum. Optional Git remote sync shares the same root via your private repo.
+Root: `~/.vibe-to-ui` (fixed; no env override). Medium targets are open-ended (`web`, `linkedin`, `print-brochure`, …) — not a fixed enum. Optional Git remote sync shares `profiles/` and `inspirations/` via your private repo.
 
 Details: [DESIGN-CONTEXT.md](references/DESIGN-CONTEXT.md)
 

@@ -80,9 +80,9 @@ This skill package ships a **Node.js zero-dependency CLI** (`bin/vibe-to-ui.js`,
 | `--list` | **Read-only** list of profiles under `~/.vibe-to-ui`. If the root does not exist, print an empty-state message — never create directories. |
 | `--profile <id> --init` | Create profile skeleton from `assets/design-context/` seeds; create `assets/` + `sources/`; **do not** create `targets/`; never overwrite existing shared files |
 | `--profile <id> --target <medium>` | Ensure `targets/<medium>.md` exists (create stub if missing, else reuse); append a decision note **only on first create**; print **merged context** on stdout |
-| `remote connect <git-url>` | Init Git in `~/.vibe-to-ui` if needed, add `origin`, fetch. Restore remote profiles **only when local profiles are empty**. Never auto-upload or overwrite local profiles. |
+| `remote connect <git-url>` | Init Git in `~/.vibe-to-ui` if needed, add `origin`, fetch. Restore remote profiles **and inspirations** **only when local `profiles/` and `inspirations/` are both empty**. Never auto-upload or overwrite local content. |
 | `remote status` | Show remote URL, branch, local changes, ahead/behind, conflict/sync summary |
-| `sync` | Validate `tokens.json`, commit safe paths (`profiles/`, `.gitignore`), `pull --rebase`, push `main`. On conflict: abort rebase, print conflicted paths, overwrite nothing. |
+| `sync` | Validate `tokens.json`, commit safe paths (`profiles/`, `inspirations/`, `.gitignore`), `pull --rebase`, push `main`. On conflict: abort rebase, print conflicted paths, overwrite nothing. |
 
 Root is always `~/.vibe-to-ui` (`os.homedir()` + `.vibe-to-ui`). There is **no** `VIBE_TO_UI_HOME` override. Do not store profiles under `/tmp` or inside the project/skill directory.
 
@@ -114,20 +114,27 @@ The Git repository root is `~/.vibe-to-ui` itself. Tracked layout:
 ```text
 ~/.vibe-to-ui/          # git root + origin
 ├── .gitignore          # seeded once; excludes secrets
-└── profiles/
-    └── <profile>/
-        ├── profile.md
-        ├── brand.md
-        ├── tokens.json
-        └── …
+├── profiles/
+│   └── <profile>/
+│       ├── profile.md
+│       ├── brand.md
+│       ├── tokens.json
+│       └── …
+└── inspirations/
+    └── <product>/
+        ├── product.md
+        ├── design-seed.md
+        └── pages/
+            └── <page>/
+                └── …
 ```
 
 Safety rules:
 
 1. **Conflict protection** — same file changed locally and remotely → sync stops; `git rebase --abort`; no overwrite.
 2. **JSON validation** — every `profiles/*/tokens.json` must parse before commit.
-3. **Secrets stay local** — `.env`, keys, and credentials patterns are gitignored; sync stages only `profiles/` and `.gitignore`.
-4. **Connect never pushes** and never overwrites existing local profile content.
+3. **Secrets stay local** — `.env`, keys, and credentials patterns are gitignored; sync stages only `profiles/`, `inspirations/`, and `.gitignore`.
+4. **Connect never pushes** and never overwrites existing local profile or inspiration content.
 
 ## Profile vs target
 
