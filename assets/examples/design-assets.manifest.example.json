@@ -54,7 +54,16 @@
       "style_reference_id": null,
       "visual_family_preset": "3d-object-pop",
       "preview": false,
-      "provider": "host",
+      "generation": {
+        "provider": "host",
+        "selection": "default",
+        "model": "host-managed",
+        "seed": null,
+        "reference_mode": "none",
+        "output_format": "webp",
+        "alpha_verified": false,
+        "postprocessing": "none"
+      },
       "composition": "wide hero, subject right third, negative space left for headline",
       "placement": {
         "slot": "hero_visual",
@@ -85,7 +94,16 @@
       "style_reference_id": "hero-coastal-clarity-v1",
       "visual_family_preset": "3d-object-pop",
       "preview": false,
-      "provider": "host",
+      "generation": {
+        "provider": "host",
+        "selection": "default",
+        "model": "host-managed",
+        "seed": null,
+        "reference_mode": "style_reference_path",
+        "output_format": "webp",
+        "alpha_verified": false,
+        "postprocessing": "none"
+      },
       "placement": {
         "slot": "feature_card",
         "purpose": "explain_feature",
@@ -117,7 +135,16 @@
       "style_reference_id": "hero-coastal-clarity-v1",
       "visual_family_preset": "3d-object-pop",
       "preview": false,
-      "provider": "host",
+      "generation": {
+        "provider": "host",
+        "selection": "default",
+        "model": "host-managed",
+        "seed": null,
+        "reference_mode": "style_reference_path",
+        "output_format": "webp",
+        "alpha_verified": true,
+        "postprocessing": "none"
+      },
       "avoid_for": ["navigation", "form_controls", "table_actions", "toolbar_controls"],
       "placement": {
         "slot": "feature_icon",
@@ -148,7 +175,16 @@
       "style_reference_id": "hero-coastal-clarity-v1",
       "visual_family_preset": "3d-object-pop",
       "preview": false,
-      "provider": "host",
+      "generation": {
+        "provider": "host",
+        "selection": "default",
+        "model": "host-managed",
+        "seed": null,
+        "reference_mode": "style_reference_path",
+        "output_format": "webp",
+        "alpha_verified": false,
+        "postprocessing": "none"
+      },
       "placement": {
         "slot": "og_image",
         "purpose": "share_hook",

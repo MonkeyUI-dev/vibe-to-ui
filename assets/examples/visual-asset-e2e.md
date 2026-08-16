@@ -1,6 +1,6 @@
 # E2E Example: Concept → Mood Board → Apply
 
-This walkthrough demonstrates Capability 6 with **P0 defaults**: illustrations only, local `public/design-assets/`, preview-then-final resolution, and the **host image generation tool**.
+This walkthrough demonstrates Capability 6 with its default scope: illustrations only, local `public/design-assets/`, preview-then-final resolution, and the host image generation tool.
 
 Product: **Tidepool** — collaborative scheduling for remote teams.  
 Concept: **Coastal Clarity** — warm, calm, trustworthy.
@@ -66,11 +66,11 @@ Artifact folder (standalone, not in user project yet):
    - Feature: 3:2 media beside feature copy.
    - Illustrated icon: feature card only, not navigation.
 4. Compile hero prompt (see reference doc example).
-5. Call host image tool → save `design-assets/hero-coastal-clarity-v1.webp`.
+5. Call the host image tool → save `design-assets/hero-coastal-clarity-v1.webp`. MiniMax is used only when the user explicitly selects it; then run its capability preflight before generation.
 6. Set `style_reference_path` to hero; generate feature image.
 7. If expressive feature icons are needed, choose an icon preset such as `3d-object-pop`, generate a small contact sheet, and keep UI navigation icons on the locked library or custom SVG strategy.
-8. Write `design-assets.manifest.json` (see [design-assets.manifest.example.json](design-assets.manifest.example.json)).
-9. Run the manifest validator: file existence, dimensions/aspect ratio, file size, alt/decorative state, preview/final state, page/role fit, style lineage, and placement fields.
+8. Write `design-assets.manifest.json` (see [design-assets.manifest.example.json](design-assets.manifest.example.json)), including provider, selection, model, reference mode, output format, and alpha verification per asset.
+9. Run the manifest validator: file existence, dimensions/aspect ratio, file size, alt/decorative state, preview/final state, page/role fit, family-anchor lineage, generation provenance, and placement fields.
 10. Embed images in `mood-board-coastal-clarity.html`:
 
 ```html

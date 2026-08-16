@@ -252,6 +252,8 @@ If the confirmed direction includes an ASCII architecture sketch, visual thumbna
 - **Storage directory**: [for example `public/design-assets/`]
 - **Concept ID**: [stable id for this direction]
 - **Style seed**: [shared seed / reference chain id]
+- **Generation providers**: [host by default; MiniMax only when explicitly selected]
+- **Family anchor**: [approved anchor asset id and placement-preview result]
 - **Imagery strategy**: [photography vs soft illustration vs abstract texture; hero vs restrained B-end]
 - **Visual family preset**: [3d-object-pop / playful-sticker / warm-organic / custom]
 - **Visual family rules**: [line language, perspective, material, lighting, shadow, background mode/complexity, detail density]
@@ -332,8 +334,8 @@ If the confirmed direction includes an ASCII architecture sketch, visual thumbna
 Fill this section when implementing motion in preview or project code — not during exploration. See [../references/MOTION-ENGINE-ROUTER.md](../references/MOTION-ENGINE-ROUTER.md).
 
 - **Stack family**: [web / react / vue]
-- **Stack binding**: [e.g. css-tokens / motion / framer-motion / motion-v / @vueuse/motion / gsap / ogl / three / r3f / tresjs]
-- **Selected tier**: [L1 / L2 GSAP / L3 OGL / L4 Three.js family]
+- **Stack binding**: [e.g. css-tokens / motion / framer-motion / motion-v / @vueuse/motion / gsap / ogl / three / r3f / tresjs / mmx-cli + native video]
+- **Selected tier**: [L1 / L2 GSAP / L3 OGL / L4 Three.js family / L5 MiniMax Video]
 - **Primary recipe**: [recipe id from router, e.g. `in-view-stagger` / `sheet-rise` / `tab-indicator`]
 - **Secondary recipe**: [optional feedback+guidance pair only, or none]
 - **Recipe mutations**: [how DNA/signature motif changed defaults]
@@ -344,6 +346,18 @@ Fill this section when implementing motion in preview or project code — not du
 - **Mobile strategy**: [e.g. static poster, reduced distance, no scroll-scrub]
 - **Decorative budget**: [none / one atmosphere effect — name it]
 - **Mediocrity self-review**: [pass / fail — motif, lineage, mutation, budget, a11y]
+
+### Video Motion (L5 only)
+
+Fill this only when the Router selects L5. See [../references/VIDEO-MOTION.md](../references/VIDEO-MOTION.md).
+
+- **Provider status**: [MiniMax CLI + auth ready / not configured]
+- **Recipe**: [`continuous-scrub` / `state-transition` / `cinematic-journey`]
+- **Interaction input**: [scroll / pointer / drag / triggered playback]
+- **Keyframe lock**: [subject, logo, geometry, camera, approved first/last frame]
+- **MiniMax prompt**: [generation-ready prompt]
+- **Duration / aspect ratio**: [e.g. 6s / 16:9]
+- **Integration / fallback**: [native video progress map, poster, error state, mobile and reduced-motion static path]
 
 ## Preview Artifact
 

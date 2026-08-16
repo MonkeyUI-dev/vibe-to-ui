@@ -4,11 +4,11 @@
 
 This guide defines **Capability 6: Visual Asset Generation** for vibe-to-ui. It turns confirmed design direction, product context, and aesthetic DNA into **raster illustrations** (hero, feature, empty state, OG image) that stay visually consistent across a concept — then deploys them into the user's project during Apply.
 
-Integration is **host-agent tool based**. This skill repository does not store API keys, call image APIs, or configure MCP image providers. The agent compiles prompts from StyleContext, invokes the **host's built-in image generation tool**, and records outputs in an **Asset Manifest**.
+Integration is **agent-tool based**. The default path uses the host's built-in image generation tool. When the user explicitly selects MiniMax, the agent may use the official `mmx` CLI following [MINIMAX-IMAGE-GENERATION.md](MINIMAX-IMAGE-GENERATION.md). This skill repository never stores API keys or configures third-party image providers itself. The agent compiles prompts from StyleContext and records outputs in an **Asset Manifest**.
 
 ---
 
-## P0 Scope (locked defaults)
+## Default scope
 
 Use these defaults unless the user explicitly expands scope:
 
@@ -18,7 +18,7 @@ Use these defaults unless the user explicitly expands scope:
 | Storage | Local project `public/design-assets/` (or framework equivalent) |
 | Resolution | Preview during exploration; full resolution on Apply |
 | UI icons (24×24 nav/button) | Locked icon library + custom SVG per [ICON-USAGE.md](ICON-USAGE.md) |
-| Provider | Host image tool only |
+| Provider | Host image tool by default; MiniMax only when the user explicitly selects it |
 
 **Explore first, apply later** still applies: generated files for mood boards and concept previews live next to standalone HTML artifacts until the user confirms and asks to apply.
 
@@ -78,6 +78,24 @@ Background defaults:
 - **No baked white background** unless the white rectangle is the intentional visual container and matches the placement surface.
 - **Card background only when deliberate**: if the concept needs a card or tile, specify it as `background_mode: card` and ensure the card color, radius, border, and shadow match the design system.
 - **If the host tool cannot produce alpha**, generate on a flat high-contrast removable background, then remove/crop the background before Apply, or keep it only as a preview artifact.
+- **Green screen is never a final asset background**. Use `removable_flat` only as a temporary extraction matte when verified alpha is unavailable; remove it, inspect the edges, and export transparent PNG/WebP before Apply.
+
+---
+
+## Provider selection and capability preflight
+
+Provider choice must not change the visual bar or silently alter a confirmed family.
+
+| Provider | Selection rule | Use when | Do not use when |
+|----------|----------------|----------|-----------------|
+| `host` | Default | The host tool satisfies the asset specification | The host tool is unavailable or the user explicitly selects MiniMax |
+| `minimax` | **User must explicitly select it** | Scene, card, texture, social, or other opaque assets whose requirements pass preflight | A composited asset requires verified alpha or a generic style-reference workflow that MiniMax cannot satisfy |
+
+Before every generation, record the intended provider and verify: aspect ratio or dimensions, output format, reference mode, deterministic seed if requested, and alpha output when `background_mode: transparent`.
+
+- Do not auto-select MiniMax and do not silently fall back between providers.
+- If the selected provider cannot meet a hard requirement, explain the gap and let the user choose: a `scene`/token-aligned `card`, `removable_flat` plus background removal, or another available provider.
+- Load [MINIMAX-IMAGE-GENERATION.md](MINIMAX-IMAGE-GENERATION.md) only after the user selects MiniMax.
 
 ---
 
@@ -88,6 +106,10 @@ Assemble this structure before every generation batch. Copy into a short Markdow
 ```yaml
 concept_id: coastal-clarity          # stable across a direction
 style_seed: "coastal-clarity-v1"   # shared across assets in one concept
+
+generation:
+  provider: host                     # host | minimax; minimax requires explicit user selection
+  selection: default                 # default | user_explicit
 
 product:
   name: "[Product Name]"
@@ -189,6 +211,10 @@ Every generated asset in the same `concept_id` should inherit these fields unles
 | `subject_policy` | Makes allowed/forbidden objects explicit before prompting |
 | `placement_intent` | Connects generation to real UI slots instead of standalone art |
 
+### Family anchor gate
+
+Generate one anchor asset before generating siblings. Place it with representative copy and CTA, then verify its family fit, safe zone, crop, and hierarchy. If it fails, revise the Visual Family Spec or anchor first; do not compensate by generating a mixed-style sibling set. Provider changes are not a substitute for this review.
+
 ---
 
 ## Asset Spec (per image)
@@ -207,6 +233,8 @@ Before calling a generation tool, write an Asset Spec row:
 | `placement_slot` | `landing_hero` |
 | `copy_safe_zone` | `left_40_percent` |
 | `preview` | true during exploration |
+
+The final Asset Spec must also declare `generation.provider`, `generation.selection`, `generation.reference_mode`, and whether verified alpha is required. `generation.provider: minimax` requires `generation.selection: user_explicit`.
 
 ---
 
@@ -330,13 +358,13 @@ Append when `page.type` is Consumer app:
 
 ### Multi-asset consistency
 
-1. Generate **hero first** for a `concept_id`.
-2. Define the Visual Family Spec from the hero, design tokens, and chosen icon preset.
+1. Generate and place-test an **anchor** for a `concept_id` before generating siblings.
+2. Define or revise the Visual Family Spec from the approved anchor, design tokens, and chosen icon preset.
 3. Define an Asset Placement Spec for each generated role before applying it to a layout.
-4. Set `style_reference_path` to the hero or strongest family anchor for subsequent assets in the same concept.
-5. Pass the reference image to the host tool when supported (img2img / reference image parameter).
-6. Reuse the same `style_seed` in the manifest for all siblings.
-7. For illustrated icon sets, generate a contact sheet or review wall first when the host tool supports multi-image output.
+4. Set `style_reference_path` to the approved anchor for subsequent assets when the selected provider supports that reference mode.
+5. Reuse the same `style_seed` and provider provenance in the manifest for all siblings.
+6. For illustrated icon sets, generate a contact sheet or review wall first when the selected provider supports multi-image output.
+7. If the provider cannot use the required reference mode, keep the same family spec and require an explicit visual review before accepting the sibling.
 
 ### Example compiled prompt (hero)
 
@@ -353,15 +381,22 @@ AVOID: text, watermark, logo, faces, neon, emoji.
 
 ---
 
-## Generation Adapter (host tools)
+## Generation Adapter
 
-The skill does not ship a runtime or image API client. The agent must use the **host-provided image generation tool**.
+The skill does not ship a runtime or image API client. It directs the agent to use an available generation tool while preserving explicit provider selection and manifest provenance.
 
 ### Host-provided image tools
 
 - Use the host image generation tool with the compiled prompt; save output to the path the tool returns or to the exploration artifact folder.
 - For iteration, pass the prior image path or reference image when the host tool supports it.
-- Do **not** configure `VIBE_IMAGE_PROVIDER`, third-party image API keys, or MCP image servers for this skill — host tool only for this phase.
+- Record `generation.provider: host` and `generation.selection: default` in each generated asset's manifest entry.
+
+### MiniMax static images
+
+- Use MiniMax only after an explicit user request such as “use MiniMax for these assets”.
+- Follow [MINIMAX-IMAGE-GENERATION.md](MINIMAX-IMAGE-GENERATION.md) for authentication checks, supported request fields, output handling, and alpha constraints.
+- Record `generation.provider: minimax`, `generation.selection: user_explicit`, model, seed, reference mode, output format, and alpha verification in the manifest.
+- Never put MiniMax credentials in project files, prompts, manifests, or source control.
 
 ### Preview vs final
 
@@ -435,6 +470,8 @@ After each generation, run a lightweight check (agent self-review or VLM if avai
 7. **Display-size fit** — If the target display size is below 64px, was image generation avoided or explicitly approved?
 8. **Background fit** — For composited icons/objects, is the source transparent or intentionally card/scene-based? No accidental white canvas.
 9. **Consumer app fit** — For app surfaces, does the asset remain clear at mobile size, support the state or flow, and avoid competing with navigation, inputs, pricing, privacy, or primary actions?
+10. **Family anchor fit** — Does this asset visibly inherit the approved anchor's perspective, material, lighting, edge language, detail density, and composition rules?
+11. **Provider fit** — Does the selected provider satisfy the recorded hard requirements without an undeclared fallback?
 
 **Retry at most 2 times** per asset. If still failing, fall back to CSS placeholders per [MOOD-BOARD.md](MOOD-BOARD.md) and continue the design workflow.
 
@@ -456,6 +493,9 @@ Run a deterministic manifest validation pass before presenting a review surface 
 | Alt text | Informative assets have non-empty `alt`; decorative assets use `alt: ""` and `decorative: true` |
 | Path mode | Exploration paths are relative to artifact folders; applied public assets use public-safe paths |
 | Style lineage | Sibling assets have `style_reference_id` or share the same `visual_family_preset` |
+| Generation provenance | Every asset declares `generation.provider`, `generation.selection`, `generation.model` when known, `generation.reference_mode`, and `generation.output_format` |
+| Explicit MiniMax selection | `generation.provider: minimax` has `generation.selection: user_explicit` |
+| Alpha verification | `background_mode: transparent` assets have `alpha_verified: true`; `removable_flat` assets record their post-processing status |
 | Placement | Assets used in UI have a `placement` object with `slot`, `purpose`, `size_rule`, and `responsive_behavior` |
 | Icon role | Raster/illustrated icons are not assigned to `navigation`, `form_controls`, `table_actions`, or `toolbar_controls` unless override is recorded |
 | Accidental canvas | No unintended white/black/color rectangle is baked into an asset that should inherit the page surface |
@@ -510,6 +550,16 @@ Record every generated file. During exploration, write `design-assets.manifest.j
       "alt": "Calm coastal workspace metaphor for Tidepool scheduling",
       "decorative": false,
       "prompt_hash": "sha256:…",
+      "generation": {
+        "provider": "host",
+        "selection": "default",
+        "model": "host-managed",
+        "seed": null,
+        "reference_mode": "none",
+        "output_format": "webp",
+        "alpha_verified": false,
+        "postprocessing": "none"
+      },
       "parent_id": null,
       "style_reference_id": null,
       "visual_family_preset": "3d-object-pop",
@@ -611,6 +661,6 @@ See [assets/examples/visual-asset-e2e.md](../assets/examples/visual-asset-e2e.md
 
 - [MOOD-BOARD.md](MOOD-BOARD.md) — embedding generated imagery
 - [APPLY-DESIGN.md](APPLY-DESIGN.md) — deploying manifest + files
-- [ICON-USAGE.md](ICON-USAGE.md) — UI icons vs illustrated icons (P1)
+- [ICON-USAGE.md](ICON-USAGE.md) — UI icons vs illustrated icons
 - [AESTHETIC-ANALYSIS.md](AESTHETIC-ANALYSIS.md) — aesthetic source for prompts
 - [design-system-template.md](../assets/design-system-template.md) — Visual Assets section
