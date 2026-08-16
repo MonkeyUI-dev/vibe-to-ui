@@ -15,6 +15,8 @@
   <a href="#常见问题">常见问题</a>
 </p>
 
+[![skills.sh](https://skills.sh/b/MonkeyUI-dev/vibe-to-ui)](https://skills.sh/MonkeyUI-dev/vibe-to-ui)
+
 <!--
   效果证明素材审核通过后嵌入于此。制作要求及最终嵌入文案见
   docs/media/README.md；此备注不会在 GitHub README 中显示。

@@ -15,6 +15,8 @@
   <a href="#faq">FAQ</a>
 </p>
 
+[![skills.sh](https://skills.sh/b/MonkeyUI-dev/vibe-to-ui)](https://skills.sh/MonkeyUI-dev/vibe-to-ui)
+
 <!--
   Hero proof belongs here once approved. See docs/media/README.md for its required
   capture brief and final embed copy. This note is intentionally invisible on GitHub.
