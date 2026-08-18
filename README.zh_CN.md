@@ -15,7 +15,9 @@
   <a href="#常见问题">常见问题</a>
 </p>
 
-[![skills.sh](https://skills.sh/b/MonkeyUI-dev/vibe-to-ui)](https://skills.sh/MonkeyUI-dev/vibe-to-ui)
+<p align="center">
+  <a href="https://skills.sh/MonkeyUI-dev/vibe-to-ui"><img src="https://skills.sh/b/MonkeyUI-dev/vibe-to-ui" alt="skills.sh" /></a>
+</p>
 ---
 
 ## 看得见的变化，不只是更漂亮的提示词

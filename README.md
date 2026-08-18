@@ -15,7 +15,9 @@
   <a href="#faq">FAQ</a>
 </p>
 
-[![skills.sh](https://skills.sh/b/MonkeyUI-dev/vibe-to-ui)](https://skills.sh/MonkeyUI-dev/vibe-to-ui)
+<p align="center">
+  <a href="https://skills.sh/MonkeyUI-dev/vibe-to-ui"><img src="https://skills.sh/b/MonkeyUI-dev/vibe-to-ui" alt="skills.sh" /></a>
+</p>
 ---
 
 ## A visible difference, not a prettier prompt
