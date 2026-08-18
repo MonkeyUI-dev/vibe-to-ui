@@ -1,6 +1,6 @@
-# Video Motion (L5 MiniMax)
+# Video Motion (MiniMax + Native Video Delivery)
 
-Progressive-load reference. Read this only after [MOTION-ENGINE-ROUTER.md](MOTION-ENGINE-ROUTER.md) selects **L5 MiniMax Video**. It is an integration guide, not a general video-generation platform or editor.
+Progressive-load reference. Read this after [MOTION-ENGINE-ROUTER.md](MOTION-ENGINE-ROUTER.md) selects **L5 MiniMax Video** or any native-video delivery route. It is an integration guide, not a general video-generation platform or editor.
 
 ## The L5 decision
 
@@ -48,10 +48,36 @@ Do not ask the user to paste their key into project files or source control. If 
 
 Use a normal `<video>` with a `poster`, accessible controls where appropriate, and a static fallback. Do not create a complex L5 workflow for these patterns:
 
-- **Ambient loop:** muted, `playsinline`, pausable when it is decorative; stop or replace under reduced motion.
+- **Hero take:** a generated or supplied one-directional opening shot that plays once and holds an approved end frame. This is the default for a narrative hero clip; do not add `loop`.
+- **Ambient loop:** muted, `playsinline`, and pausable when decorative. Use it only after passing the loop certificate below; stop or replace under reduced motion.
 - **Hover / click / in-view playback:** tie `play()` / `pause()` to one meaningful event; never make hover the only way to access meaning.
 - **Video mask / reveal:** use a video as a clipped visual layer when it is a short, non-interactive visual asset.
 - **Poster / failure fallback:** show the chosen poster immediately; if metadata, decode, or playback fails, leave the final static content visible.
+
+## Video Intent Router
+
+Run this route whenever a native or generated video is proposed. It prevents a directional L5 clip from being treated as generic moving wallpaper.
+
+| Intent | Choose when | Delivery | Do not choose when |
+|---|---|---|---|
+| `hero-take` | The motion provides a short emotional opening and its final frame can remain as the hero | `page-load-once` → hold final frame; replay only by explicit user action | The final composition is unusable, or the user must control progress to understand the product |
+| `continuous-scrub` | The motion explains a reversible change and each scroll chapter has a visible causal state | Pinned stage; scroll/pointer/drag maps `0…1` to video time | Scroll would only decorate an unrelated camera move |
+| `state-transition` | A discrete action causes a meaningful State A → State B change | Click/tap/state trigger; State B is held | The story needs several chapters or continuous comparison |
+| `ambient-loop` | Motion is genuinely low-information atmosphere | Muted native loop with visible pause/stop and static fallback | The camera pushes, reveals, transforms, changes scene, or ends on a different composition |
+| `static` / `triggered-playback` | No intent above is justified | Poster or user-initiated playback | Never autoplay simply because a clip exists |
+
+**Default:** use `hero-take` for a generated directional opening; use `static` when video cannot carry a real job. `ambient-loop` is an explicit exception, not a fallback for a clip with an incompatible ending.
+
+### Loop certificate (required for `ambient-loop`)
+
+Before adding the `loop` attribute, record and pass all of the following:
+
+- The asset was authored/generated as a loop, with approved first and last compositions matching in subject pose, camera, lighting, background, and crop.
+- Review the rendered desktop and mobile crop across **three consecutive cycles**; no jump, brightness pulse, camera reset, or subject discontinuity is visible.
+- The loop is muted, off-screen media pauses, a visible pause/stop control exists, and reduced motion swaps to an approved static frame.
+- A crossfade cannot be used to hide an incompatible camera jump. If a real transition is required, use actual boundary frames and a `cinematic-journey` instead.
+
+Never reuse a portrait source as a full-bleed desktop landscape background without approving its actual crop. Plan separate desktop/mobile encodes or a static mobile alternative when the subject or safe space would be lost.
 
 ## Required planning record
 
@@ -59,12 +85,15 @@ Before generation, write a compact record. It makes retries and integration dete
 
 ```yaml
 video_motion_plan:
-  recipe: continuous-scrub # continuous-scrub | state-transition | cinematic-journey
+  recipe: continuous-scrub # hero-take | continuous-scrub | state-transition | cinematic-journey | ambient-loop
   intent: "Explain how the product separates into serviceable layers."
-  input: scroll            # scroll | pointer | drag | triggered-playback
+  input: scroll            # page-load-once | scroll | pointer | drag | triggered-playback
+  repeat_policy: user-controlled # once-hold | user-controlled | certified-loop
+  loop_certificate: not-applicable # required and approved for ambient-loop only
   subject_lock: "matte black speaker; centered logo; seven visible parts; no added controls"
   visual_lock: "front three-quarter camera, soft studio light, warm grey seamless background"
   display: "desktop 1440x900 stage; mobile static poster"
+  crop_review: "approved 16:9 desktop and 9:16 mobile compositions"
   duration: "6 s"
   aspect_ratio: "16:9"
   first_frame: "approved product-closed keyframe"
@@ -91,6 +120,26 @@ until [approved last-frame state]. [Camera path] at [speed]; [lighting/backgroun
 One unbroken shot, stable identity and proportions, preserve logo and all structural details.
 No cut, no camera reset, no new objects, no duplicated parts, no text changes.
 ```
+
+## Recipe 0 — Hero Take
+
+Use for a short generated opening that adds product character but does not need user-controlled progress. Its end frame is part of the composition, not a temporary video frame to throw away.
+
+```text
+approved opening keyframe
+        ↓
+one directional MiniMax hero clip
+        ↓
+approved held end keyframe
+        ↓
+play once on declared first entry; remain still
+```
+
+- Declare `input: page-load-once`, `repeat_policy: once-hold`, and `loop_certificate: not-applicable`.
+- Render `<video autoplay muted playsinline>` **without** `loop`; retain the final frame when it ends and do not replay it when the hero re-enters the viewport.
+- Keep a poster until a playable first frame is ready. Treat the final held frame as a second approved poster for failure, reduced-motion, and return-visit logic where appropriate.
+- If autoplay runs longer than five seconds, provide a visible pause/stop control; an explicit replay control is preferable to automatic re-entry playback.
+- On mobile and under `prefers-reduced-motion`, show the approved static composition by default unless a separately tested short playback is essential.
 
 ## Recipe 1 — Continuous Scrub
 
@@ -158,6 +207,7 @@ Generate the transition from those extracted frames, with a simple continuous ca
 - Trim dead air and rejected frames before delivery. Encode to the **actual rendered dimensions**, not source resolution; omit audio for this scope; include an appropriate poster and `preload="metadata"` by default.
 - Validate seeking with the chosen encode on the target browsers. Favor an encoding/keyframe cadence that supports the intended scrub responsiveness; inspect the final hosted asset rather than assuming local playback is representative.
 - Never show a black box: poster first, loading state second, static content on error. Do not block page copy or controls on a decorative clip.
+- For `hero-take`, keep the held final frame after completion; never manufacture a reset by setting `currentTime = 0` or adding `loop`. For every autoplay, make the pause/stop affordance discoverable when needed and do not replay on viewport re-entry.
 - Respect `prefers-reduced-motion: reduce`: show the approved static first/last state (or a clearly labelled static sequence), do not autoplay, do not pin a scrub-only story, and preserve the information in text or images.
 - Pause/stop off-screen ambient media; keep `playsinline`; avoid hover-only control; test touch, keyboard focus, data-saver/slow-network behavior, and a practical mobile fallback.
 
@@ -168,6 +218,9 @@ Before handoff, verify all of the following:
 - [ ] Subject identity, proportions, logo, and product structure stay continuous.
 - [ ] No unwanted morph, extra limb, duplicated component, text mutation, or camera reset appears.
 - [ ] First and last states match their approved keyframes exactly enough for the intended handoff.
+- [ ] Video Intent Router result is recorded; a generated directional shot is `hero-take` or user-controlled, never an unreviewed loop.
+- [ ] A loop, if present, has a completed loop certificate and passes three-cycle desktop/mobile crop review.
+- [ ] A `hero-take` holds a reviewed final frame, does not replay on re-entry, and exposes the required pause/stop or replay control.
 - [ ] Journey transitions use actual boundary frames and have no visible jump.
 - [ ] Forward and reverse scrub are natural; fast input does not flash stale frames.
 - [ ] The first render is never black; poster and static/error fallback work.
@@ -181,6 +234,7 @@ Use these three checks whenever validating the Router, before calling L5 product
 | Path | Router result | Required proof |
 |---|---|---|
 | Product breaks into physical layers as the user scrolls backward and forward | L5 `continuous-scrub` | Approved start/middle/end keyframes; native progress mapping; fast reverse-scrub recording; poster/static fallback |
+| A hero makes one natural product reveal and ends on a strong close-up | L5 `hero-take` | Approved opening/end frames; no `loop`; final-frame hold; session/re-entry and pause-control check; mobile static path |
 | A product changes from closed to open after a click | L5 `state-transition` | Approved State A/B; first-last-frame MiniMax plan; State A poster and held State B; reduced-motion A/B comparison |
 | User scrolls through three generated worlds | L5 `cinematic-journey` | Ordered scene/transition manifest; every transition uses extracted real boundary frames; seam test in both directions; nearby preload and mobile static path |
 

@@ -9,19 +9,13 @@
 
 <p align="center">
   <a href="#install-and-try-it">Install &amp; try it</a> ·
-  <a href="#use-cases">Use cases</a> ·
+  <a href="#examples">Examples</a> ·
   <a href="#how-it-works">How it works</a> ·
   <a href="#advanced-workflows">Advanced workflows</a> ·
   <a href="#faq">FAQ</a>
 </p>
 
 [![skills.sh](https://skills.sh/b/MonkeyUI-dev/vibe-to-ui)](https://skills.sh/MonkeyUI-dev/vibe-to-ui)
-
-<!--
-  Hero proof belongs here once approved. See docs/media/README.md for its required
-  capture brief and final embed copy. This note is intentionally invisible on GitHub.
--->
-
 ---
 
 ## A visible difference, not a prettier prompt
@@ -64,32 +58,39 @@ git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-t
 
 </details>
 
-<details>
-<summary><strong>Direct generated video motion</strong></summary>
+## Examples
 
-The Motion Router starts with CSS/Motion and escalates through GSAP, OGL, and Three.js only when each capability is necessary. It chooses MiniMax Video only for natural action, complex transformation, or a continuous cinematic journey that code cannot express convincingly.
+### Lumen Audio
 
-The first release is **MiniMax-only**. It plans and integrates three production paths: Continuous Scrub (scroll/pointer/drag → video progress), State Transition (approved first and last states), and Cinematic Journey (scene clips connected with real rendered boundary frames). Simple background videos stay simple native-video assets.
+<p align="center">
+  <img src="docs/media/demo-lumen-audio.gif" alt="A refined Lumen Audio landing-page direction generated from the same product brief." width="100%" />
+</p>
 
-[Read the Video Motion guide →](references/VIDEO-MOTION.md) · Inspiration credit: [oil-motion](https://github.com/oil-oil/oil-motion) and [kubeez-scroll-world-video](https://github.com/KubeezMedia/kubeez-scroll-world-video).
+**Used:** Design Exploration · Typography Exploration · Motion System
 
-</details>
+### Noctis Candles
 
----
+<p align="center">
+  <img src="docs/media/demo-noctis-candle.gif" alt="A product-aware e-commerce direction with a draggable candle preview." width="100%" />
+</p>
 
-## Use cases
+**Used:** Page Type Identification · Design Exploration · Motion System
 
-### 1. Make a generic AI landing page feel intentional
+### Aurora
 
-Keep the product and content you already have. Change the visual hierarchy, typography, layout rhythm, imagery, and motion so the result feels designed for *this* product — not assembled from a default SaaS template.
+<p align="center">
+  <img src="docs/media/demo-aurora-editorial.gif" alt="An editorial landing page whose night scene shifts with the cursor." width="100%" />
+</p>
 
-### 2. Turn references into directions that fit your product
+**Used:** Spatial Vibe · Typography Exploration · Motion System
 
-Start with a screenshot, live URL, photo, music, or a rough feeling. vibe-to-ui classifies the surface first, then explores three distinct, product-aware directions instead of blindly copying a style.
+### Aperture
 
-### 3. Reuse the design language after you find it
+<p align="center">
+  <img src="docs/media/demo-aperture-editorial.gif" alt="A long-form architecture essay with editorial typography and image-led pacing." width="100%" />
+</p>
 
-Save confirmed brand rules as a local Design Context. Use the same visual language across a web app, social cover, launch video, print piece, or any medium your agent needs next.
+**Used:** Page Type Identification · Spatial Vibe · Typography Exploration
 
 ---
 
@@ -183,12 +184,6 @@ No. Visual assets use your agent host’s image tool by default. You can explici
 <p align="center">
   <em>Design the dream you were told to put away.</em>
 </p>
-
-## Media production brief
-
-The next proof assets and their exact delivery requirements are in [docs/media/README.md](docs/media/README.md). They are intentionally kept out of the rendered README until real examples are ready.
-
----
 
 ## License
 

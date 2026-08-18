@@ -40,6 +40,8 @@ Motion DNA (8 dimensions + narrative from MOTION-SYSTEM.md)
         ↓
 Capability check (what must be expressed?)
         ↓
+Video intent route (only when native or generated video is proposed)
+        ↓
 Stack family detect (web | react | vue)
         ↓
 Dependency audit (project + device + a11y)
@@ -76,12 +78,26 @@ Use the eight dimensions in [MOTION-SYSTEM.md](MOTION-SYSTEM.md). When the user 
 | `easing` | calm / sharp / elastic | `calm` |
 | `distance` | small / medium / large | `small` |
 | `density` | minimal / moderate / rich | `minimal` |
-| `repeat` | once / every-trigger / loop | `every-trigger` |
+| `repeat` | once / once-hold / every-trigger / certified-loop | `every-trigger` |
 | `reduced_strategy` | fade / static / simplified / pausable | `fade` |
 | `personality` | narrative layer | `reliable & composed` |
 | `page_metaphor` | product manual / launch / dashboard / story / showcase | `dashboard` |
 | `primary_intent` | understanding / excitement | `understanding` |
 | `signature_motif` | One memorable motion idea from vibe/reference | `"soft paper settle: 12px rise, calm ease-out, 60ms stagger"` |
+
+### Video intent route (required when video is proposed)
+
+Do not let a generated clip become `autoplay muted loop` by default. First assign one delivery intent. This is a product decision before choosing a video runtime or writing markup.
+
+| If the video job is… | Choose | Required evidence | Reject when |
+|---|---|---|---|
+| A short emotional opening whose final image can calmly remain on screen | `hero-take` | A useful held final frame; no user-controlled progress is needed | The moving image is only generic wallpaper or the final frame cannot support the hero |
+| Explain a reversible product change or map visual states to scroll chapters | `continuous-scrub` | Approved start/middle/end keyframes; every chapter has a visible causal state; reverse seeking is natural | Scroll merely makes an unrelated camera move look busy |
+| Show a discrete before/after caused by an action | `state-transition` | Approved State A/B and a clear click, tap, or state trigger | The user needs continuous comparison or a multi-chapter story |
+| Create low-information atmosphere | `ambient-loop` | A loop certificate: matching endpoints, three-cycle seam review in the rendered crop, pause control, and static fallback | The clip has a camera push, reveal, transformation, or incompatible end frame |
+| None of the above | static poster or user-triggered playback | A useful static image and normal reading flow | Do not generate or autoplay a clip just to add motion |
+
+`hero-take` is the default for a generated, one-directional opening shot: play once at the declared entry point, hold the approved end frame, and do not replay merely because the element re-enters the viewport. `ambient-loop` is an exception, never the default. A portrait clip must not be blindly `object-fit: cover` into a desktop landscape stage; plan and inspect the actual desktop and mobile crops or deliver separate variants.
 
 ### Signature motif (required)
 
@@ -124,9 +140,9 @@ Ask: **What is the minimum expressiveness required?**
 | True 3D object, camera path, lighting on mesh, interactive orbit, spatial product hero | **L4 Three.js family** |
 | Natural action, complex physical/material transformation, or continuous generated cinematic camera path that code cannot express convincingly | **L5 MiniMax Video** |
 
-**Do not confuse video as an asset with L5.** A normal hero background video uses native `<video>` patterns; a video texture remains L4. Select L5 only when generated video is the dominant, interaction-controlled motion medium. When L5 wins, load [VIDEO-MOTION.md](VIDEO-MOTION.md) before generation or integration.
+**Do not confuse video as an asset with L5.** A normal hero background video uses native `<video>` patterns; a video texture remains L4. A generated natural hero take may use L5 generation but still integrates through native `<video>`; it must pass the Video Intent Route and use `hero-take`, not a generic loop. Select L5 only when generated video is the dominant narrative or explanatory medium. When L5 wins, load [VIDEO-MOTION.md](VIDEO-MOTION.md) before generation or integration.
 
-**Routing sanity examples:** button hover → L1; one section fading with view progress → L1 `native-scroll-link`; branded supplied vector state → L1 `vector-asset-handoff`; kinetic headline → L1 `kinetic-type`; pinned editorial DOM story or deterministic image sequence → L2; liquid image distortion → L3; interactive 3D product → L4; AI product transformation → L5 `state-transition`; scroll-controlled natural disassembly → L5 `continuous-scrub`; travel through generated worlds → L5 `cinematic-journey`.
+**Routing sanity examples:** button hover → L1; one section fading with view progress → L1 `native-scroll-link`; branded supplied vector state → L1 `vector-asset-handoff`; kinetic headline → L1 `kinetic-type`; pinned editorial DOM story or deterministic image sequence → L2; liquid image distortion → L3; interactive 3D product → L4; AI product opening shot with a holdable end frame → L5 `hero-take`; AI product transformation → L5 `state-transition`; scroll-controlled natural disassembly → L5 `continuous-scrub`; travel through generated worlds → L5 `cinematic-journey`.
 
 If multiple rows match, pick the **lowest** tier that covers all **functional** requirements. Atmosphere alone never justifies L4.
 
@@ -278,13 +294,13 @@ Escalation requires a **written reason** tied to Motion DNA, not "it would look 
 **Choose when**
 
 - The essential movement is natural action, complex product/material/shape transformation, or a generated continuous camera journey that L1–L4 cannot represent convincingly
-- The generated clip itself is the primary explanatory or narrative medium, with a named input (scroll, pointer, drag, or playback trigger)
+- The generated clip itself is the primary explanatory or narrative medium, with a named input (`page-load-once`, scroll, pointer, drag, or playback trigger)
 - A static poster/fallback and a mobile/reduced-motion alternative are part of the design
 
 **Reject when**
 
 - CSS/Motion, GSAP, OGL, or Three.js can express the required result at production quality
-- Video is merely a hero background, mask, decorative loop, or a texture inside a Three.js scene
+- Video is merely a hero background, mask, decorative loop, or a texture inside a Three.js scene. A one-directional hero take is allowed only when it has a narrative job and passes the Video Intent Route.
 - The page is a dense B-end, documentation, table, or repeated-task surface without a strong explanatory exception
 - The only justification is cinematic novelty
 
@@ -355,7 +371,9 @@ Run before locking an engine. If a check fails, **downgrade tier** or switch to 
 | Capability fit | Natural motion / transformation / cinematic continuity cannot be delivered well by L1–L4 | Downgrade to the lowest sufficient tier |
 | Keyframes | Subject, logo, geometry, camera, and start/end frames are approved | Create/approve keyframes before video generation |
 | Interaction | One input maps cleanly to playback or progress | Simplify to triggered playback or choose a code tier |
-| Delivery | Poster, error fallback, display-size encoding, and native-video seek test exist | Do not ship L5 |
+| Video intent | `hero-take`, `continuous-scrub`, `state-transition`, or certified `ambient-loop` is recorded | Use static poster or user-triggered playback |
+| Delivery | Poster, error fallback, display-size encoding, actual desktop/mobile crop review, and native-video seek test exist | Do not ship L5 |
+| Loop safety | `loop: false`, or an approved `ambient-loop` certificate exists | Remove `loop`; do not conceal an incompatible cut with a crossfade |
 
 ### Dependency check output (agent must emit)
 
@@ -379,7 +397,7 @@ motion_engine_decision:
   decorative_budget: none
   reduced_motion_strategy: fade
   mobile_strategy: transform-none; opacity-only under 768px for atmosphere
-  video_motion: null            # L5 only: provider_status, keyframe_status, input, poster, fallback
+  video_motion: null            # L5 only: intent, provider_status, keyframe_status, input, loop_certificate, poster, fallback
 ```
 
 ## Step 7 — Recipes (minimal high-frequency)
@@ -610,6 +628,15 @@ Recipes are **capability patterns**. Implement them with the stack binding from 
 
 These are primary recipes only. Load [VIDEO-MOTION.md](VIDEO-MOTION.md) for MiniMax availability, keyframe, prompt, optimization, integration, fallback, and QA requirements.
 
+#### R0 — Hero take (`hero-take`)
+
+- **Role**: emphasis or narrative opening
+- **Trigger**: `page-load-once` or an explicit replay action
+- **Pattern**: one continuous generated opening shot plays once, then holds its approved final frame. It must not replay on viewport re-entry and must not use `loop`.
+- **Page types**: product launch, brand showcase, a low-density hero where the final frame remains a strong static composition
+- **Reduced / mobile**: approved static end frame or a separately reviewed mobile poster; provide a visible pause/stop control when autoplay lasts more than five seconds
+- **Implementation constraint**: treat the poster and final frame as designed states; pause when off-screen before completion, retain session state, and handle playback failure without blocking copy
+
 #### R1 — Continuous scrub (`continuous-scrub`)
 
 - **Role**: explanation or guidance
@@ -685,6 +712,7 @@ Engine-specific:
 | `Float` + `Stars` + bloom defaults (drei/cientos) | Demo cosplay | DNA-driven single effect |
 | Elastic easing on tables/forms | Breaks scanability | calm + fast, small distance |
 | Infinite hero loops | Accessibility + distraction | once or pausable |
+| Generated reveal emitted with `<video loop>` | A directional shot jumps from its ending back to an incompatible beginning | `hero-take`, `continuous-scrub`, or static poster after the Video Intent Route |
 | 3D on B-end dashboard | Page type violation | L1 feedback only |
 | Choosing generated video because it is "cool" | Violates simplest-sufficient routing | Keep the lowest code tier that expresses the intent |
 | Switching to another generator when MiniMax is unavailable | Breaks the MiniMax-only first release | Give setup instructions and a Video Motion Plan only |
@@ -707,7 +735,7 @@ After implementing, answer **yes** to all before considering motion done:
 4. **Recipe mutated** — Did duration, distance, or stagger differ from the recipe's printed defaults for a DNA reason?
 5. **Budget held** — Still one engine, ≤1 secondary (feedback+guidance only), ≤1 atmosphere effect? If L5, is it the one dominant medium?
 6. **A11y held** — Reduced-motion and mobile fallbacks still match the motif's *meaning* (state visible), not only "turn off"?
-7. **L5 integrity (when selected)** — Is MiniMax configured, are keyframes/boundaries approved, and do forward/reverse/fast-input QA pass?
+7. **L5 integrity (when selected)** — Is MiniMax configured, is the video intent recorded, are keyframes/boundaries approved, and do the matching `hero-take` or forward/reverse/fast-input QA checks pass?
 
 If any answer is no, revise before showing the user.
 

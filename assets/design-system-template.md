@@ -347,17 +347,19 @@ Fill this section when implementing motion in preview or project code — not du
 - **Decorative budget**: [none / one atmosphere effect — name it]
 - **Mediocrity self-review**: [pass / fail — motif, lineage, mutation, budget, a11y]
 
-### Video Motion (L5 only)
+### Video Motion (when video is proposed)
 
-Fill this only when the Router selects L5. See [../references/VIDEO-MOTION.md](../references/VIDEO-MOTION.md).
+Fill this when the Router selects L5 or a native-video delivery route. See [../references/VIDEO-MOTION.md](../references/VIDEO-MOTION.md).
 
 - **Provider status**: [MiniMax CLI + auth ready / not configured]
-- **Recipe**: [`continuous-scrub` / `state-transition` / `cinematic-journey`]
-- **Interaction input**: [scroll / pointer / drag / triggered playback]
+- **Video intent / recipe**: [`hero-take` / `continuous-scrub` / `state-transition` / `cinematic-journey` / `ambient-loop`]
+- **Interaction input**: [page-load-once / scroll / pointer / drag / triggered playback]
+- **Repeat policy**: [once-hold / user-controlled / certified-loop]
+- **Loop certificate**: [not-applicable / approved: endpoint match + three-cycle desktop/mobile review + pause control]
 - **Keyframe lock**: [subject, logo, geometry, camera, approved first/last frame]
 - **MiniMax prompt**: [generation-ready prompt]
-- **Duration / aspect ratio**: [e.g. 6s / 16:9]
-- **Integration / fallback**: [native video progress map, poster, error state, mobile and reduced-motion static path]
+- **Duration / display variants**: [e.g. 6s / desktop 16:9 + mobile 9:16 poster]
+- **Integration / fallback**: [one-shot end-frame hold or native-video progress map, poster, error state, mobile and reduced-motion static path]
 
 ## Preview Artifact
 

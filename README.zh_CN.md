@@ -9,19 +9,13 @@
 
 <p align="center">
   <a href="#安装并立即尝试">安装并立即尝试</a> ·
-  <a href="#使用场景">使用场景</a> ·
+  <a href="#效果示例">效果示例</a> ·
   <a href="#它如何工作">它如何工作</a> ·
   <a href="#进阶工作流">进阶工作流</a> ·
   <a href="#常见问题">常见问题</a>
 </p>
 
 [![skills.sh](https://skills.sh/b/MonkeyUI-dev/vibe-to-ui)](https://skills.sh/MonkeyUI-dev/vibe-to-ui)
-
-<!--
-  效果证明素材审核通过后嵌入于此。制作要求及最终嵌入文案见
-  docs/media/README.md；此备注不会在 GitHub README 中显示。
--->
-
 ---
 
 ## 看得见的变化，不只是更漂亮的提示词
@@ -64,32 +58,39 @@ git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-t
 
 </details>
 
-<details>
-<summary><strong>正确导演生成式 Video Motion</strong></summary>
+## 效果示例
 
-Motion Router 会先判断 CSS/Motion 是否足够，再按需要升级到 GSAP、OGL 或 Three.js。只有自然动作、复杂形变，或代码无法高质量表达的连续电影式镜头，才会选择 MiniMax Video。
+### Lumen Audio
 
-首期仅支持 **MiniMax**。它会规划并接入三条生产链路：Continuous Scrub（滚动 / 指针 / 拖动 → 视频进度）、State Transition（已确认首尾状态）和 Cinematic Journey（用真实渲染边界帧连接场景）。普通背景视频仍然只是简单的原生视频素材。
+<p align="center">
+  <img src="docs/media/demo-lumen-audio.gif" alt="基于同一产品简报生成的 Lumen Audio 精致落地页方向。" width="100%" />
+</p>
 
-[阅读 Video Motion 指南 →](references/VIDEO-MOTION.md) · 灵感致谢：[oil-motion](https://github.com/oil-oil/oil-motion) 与 [kubeez-scroll-world-video](https://github.com/KubeezMedia/kubeez-scroll-world-video)。
+**用到的能力：**设计探索 · 字体探索 · 动效系统
 
-</details>
+### Noctis Candles
 
----
+<p align="center">
+  <img src="docs/media/demo-noctis-candle.gif" alt="带有可拖动烛台预览的产品化电商方向。" width="100%" />
+</p>
 
-## 使用场景
+**用到的能力：**页面类型识别 · 设计探索 · 动效系统
 
-### 1. 让通用的 AI 落地页变得有设计感
+### Aurora
 
-保留已有的产品和内容，改变视觉层级、字体、布局节奏、配图与动效，让页面像是为**这个**产品设计的，而不是从默认 SaaS 模板拼出来的。
+<p align="center">
+  <img src="docs/media/demo-aurora-editorial.gif" alt="光标移动时夜景随之变化的编辑式落地页。" width="100%" />
+</p>
 
-### 2. 把参考变成适合你产品的方向
+**用到的能力：**空间氛围 · 字体探索 · 动效系统
 
-从截图、在线页面、照片、音乐，或一个模糊的感觉开始。vibe-to-ui 会先判断页面类型，再探索三个贴合产品的方向，而不是盲目复制一种风格。
+### Aperture
 
-### 3. 找到后，继续复用这套设计语言
+<p align="center">
+  <img src="docs/media/demo-aperture-editorial.gif" alt="以编辑排版与图像节奏呈现的建筑长文。" width="100%" />
+</p>
 
-把确认过的品牌规则存成一个本地 Design Context。之后无论是 Web、社交封面、发布视频、印刷物，还是下一个 Agent 需要的媒介，都可以沿用同一套视觉语言。
+**用到的能力：**页面类型识别 · 空间氛围 · 字体探索
 
 ---
 
@@ -183,12 +184,6 @@ node bin/vibe-to-ui.js inspiration apply example --project . --confirm
 <p align="center">
   <em>Design the dream you were told to put away.</em>
 </p>
-
-## README 素材制作说明
-
-下一批效果证明素材的精确交付要求见 [docs/media/README.md](docs/media/README.md)。在真实案例准备好之前，它们不会作为假效果图出现在 README 中。
-
----
 
 ## 许可证
 

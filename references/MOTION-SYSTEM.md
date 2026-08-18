@@ -89,8 +89,9 @@ How often each animation plays:
 | Policy | Behavior | Example |
 |--------|----------|---------|
 | **Once** | Plays on first trigger only | Section entrance on first scroll into view |
+| **Once, then hold** | Plays once and leaves its final visual state in place | Product hero take ending on a composed close-up |
 | **Every trigger** | Replays each time the trigger fires | Hover effects, click feedback |
-| **Loop** | Repeats continuously | Loading spinners, ambient background animations |
+| **Loop** | Repeats continuously; requires an intentional seam and user control for decorative media | Loading spinners, certified ambient background animation |
 | **First-session** | Only on first visit / first page load | Onboarding animations, welcome sequences |
 
 ### Dimension 8: Reduced-Motion Fallback
