@@ -1,42 +1,31 @@
-# docs/media — README visual assets
+# README media production brief
 
-Drop finished files into this folder using the **exact filenames** below.
-When an asset is ready, add it back to `README.md` / `README.zh_CN.md` (currently only `brand-slogan.png` is embedded).
+This folder contains optimized, finished visuals used by the public README. It is **not** a source-media archive: keep editable originals, screen recordings, project files, and exports outside the repository.
 
-Do **not** commit multi‑MB originals. Prefer WebP (or SVG for the logo), long edge ≤ 1600px for stills — except the brand slogan hero, which stays as PNG.
+## Delivery rules
 
-**Brand slogan:** replace `brand-slogan.png` directly — do **not** redraw or upscale in place of the user file.
+- Use the exact filenames below; English and Chinese READMEs share each asset.
+- Still images: WebP preferred, longest edge at most 1600 px, normally under 500 KB.
+- Motion proof: optimized GIF, 8–15 seconds, silent, normally 8–12 MB maximum. Keep the source recording outside Git.
+- Show real product UI, not abstract gradients or imagined dashboards.
+- Use a clear, readable frame in both GitHub light and dark themes. Do not bake tiny explanatory copy into visuals.
+- Pair every animated proof with a `.webp` poster using the same subject and a meaningful still frame.
 
-## Present
+## Current brand asset
 
-| Filename | Role |
-|----------|------|
-| `brand-slogan.png` | Brand slogan hero (1024×512) — used at the top of both READMEs |
+| Filename | Status | Role | Delivery note |
+|---|---|---|---|
+| `brand-slogan.png` | Present | Brand sign-off near the end of both READMEs | Keep the supplied 1024×512 file. Do not redraw or upscale it. |
 
-## Still needed
+## Current demo assets
 
-| # | Filename | Size / ratio | What to show | Notes |
-|---|----------|--------------|--------------|-------|
-| 1 | `logo.svg` (or `logo.png`) | ~512×512, transparent | Product mark only | Optional if slogan banner carries brand enough |
-| 2 | `agents-strip.webp` | ~1200×120 | Logos of compatible agents | Quiet background, even spacing |
-| 3 | `flow-diagram.webp` | ~1400×480 | Inspire → 3 directions → mood board → preview → apply | Horizontal, editorial, minimal chrome |
-| 4 | `example-concepts.webp` | 1600×900 | Concept A / B / C for **one** product | Same page type, distinct visual + motion personality |
-| 5 | `example-moodboard.webp` | ~1200×900 | Real generated mood-board HTML screenshot | Color + type + texture + one motion hint |
-| 6 | `example-before-after.webp` | 1600×800 | Left generic / right after direction | Same content skeleton; honest contrast |
-| 7 | `example-consumer-app.webp` | ~1200×800 | C-end app: nav + core + empty/error | Mobile-first frame |
-| 8 | `design-context-diagram.webp` | ~1200×700 | Profile → targets → merge handoff | Diagram, not a photo |
-
-## Optional later
-
-| Filename | Intent |
-|----------|--------|
-| `example-motion.gif` or `.mp4` | Short loop of entrance / scroll motion from a concept preview |
-| `og-card.webp` | 1200×630 social share card for the repo |
-
-## Review checklist
-
-- [x] Brand slogan hero present (`brand-slogan.png`)
-- [ ] Examples look like product UI, not abstract gradients
-- [ ] File sizes reasonable for GitHub (< ~500KB each where possible)
-- [ ] Alt text in README still accurate after swap
-- [ ] Chinese README uses the same filenames (no duplicate assets)
+| Filename | Status | Role | Delivery note |
+|---|---|---|---|
+| `demo-lumen-audio.gif` | Present | Examples: Lumen Audio | A 5-second real landing-page render, optimized for README playback. It demonstrates a finished visual direction, not the before/after workflow. |
+| `demo-lumen-audio-poster.webp` | Present | Static fallback / sharing still | Matching sharp frame from the same demo. |
+| `demo-noctis-candle.gif` | Present | Examples: Noctis Candles | A 12-second e-commerce render showing a product-specific visual language and draggable 3D product state. |
+| `demo-noctis-candle-poster.webp` | Present | Static fallback / sharing still | Matching sharp frame from the same demo. |
+| `demo-aurora-editorial.gif` | Present | Examples: Aurora | An editorial landing-page render whose cursor response changes the scene. |
+| `demo-aurora-editorial-poster.webp` | Present | Static fallback / sharing still | Matching sharp frame from the same demo. |
+| `demo-aperture-editorial.gif` | Present | Examples: Aperture | A 15-second long-form editorial render demonstrating reading rhythm, image treatment, and type hierarchy. |
+| `demo-aperture-editorial-poster.webp` | Present | Static fallback / sharing still | Matching sharp frame from the same demo. |

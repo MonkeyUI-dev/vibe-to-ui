@@ -11,7 +11,7 @@ description: >-
   ~/.vibe-to-ui, or Git remote sync of Design Context for cross-device sharing.
 metadata:
   author: MonkeyUI
-  version: "0.5.0"
+  version: "0.6.0"
 ---
 
 # vibe-to-ui
@@ -195,7 +195,7 @@ User provides a complete UI reference (website URL, screenshot, or design mockup
    - motion tokens + signature motion motif
    - consumer app system fields from [references/CONSUMER-APP-DESIGN.md](references/CONSUMER-APP-DESIGN.md) when applicable
 6. If the user wants a richer aesthetic guide (soul-level, not just tokens), also generate an Aesthetic Analysis document following [references/AESTHETIC-ANALYSIS.md](references/AESTHETIC-ANALYSIS.md), but keep it subordinate to the page type constraints
-7. **Generate a standalone preview page** as an HTML artifact showcasing the extracted design system applied to sample components. This is NOT applied to the project yet. **When writing the preview's motion code**, progressively load [references/MOTION-ENGINE-ROUTER.md](references/MOTION-ENGINE-ROUTER.md): compile Motion DNA → detect stack family (`web` / `react` / `vue`) → select one engine tier + stack binding → one primary recipe (mutate parameters from DNA/signature motif — do not ship recipe defaults unchanged) → dependency, mobile, and reduced-motion fallbacks.
+7. **Generate a standalone preview page** as an HTML artifact showcasing the extracted design system applied to sample components. This is NOT applied to the project yet. **When writing the preview's motion code**, progressively load [references/MOTION-ENGINE-ROUTER.md](references/MOTION-ENGINE-ROUTER.md): compile Motion DNA → detect stack family (`web` / `react` / `vue`) → select one engine tier + stack binding → one primary recipe (mutate parameters from DNA/signature motif — do not ship recipe defaults unchanged) → dependency, mobile, and reduced-motion fallbacks. Only if the Router selects L5 MiniMax Video, load [references/VIDEO-MOTION.md](references/VIDEO-MOTION.md).
 8. Ask the user to confirm or adjust both the **page type classification** and the extracted values
 9. Once the user confirms, transition to **Capability 5** (Apply Design to Project) to integrate the design system into the actual project
 
@@ -248,7 +248,7 @@ User has feelings or vibes but no concrete design target -> Interactive conversa
    - these are standalone pages for exploration and do NOT modify the user's project
 11. Let the user react, compare, and choose or mix elements. **Only if they explicitly ask** to explore other styles (or other palettes), run an on-demand pass: 3 options on that layer, prefer locking the other layer, then re-bind — see [references/DESIGN-EXPLORATION.md](references/DESIGN-EXPLORATION.md)
 12. Once the user decides, apply **Capability 1** (Design System Extraction) to formalize the chosen direction into a complete design system including motion tokens
-13. Transition to **Capability 5** (Apply Design to Project) to integrate the confirmed design into the actual project. **On Apply**, load [references/MOTION-ENGINE-ROUTER.md](references/MOTION-ENGINE-ROUTER.md) for production motion code.
+13. Transition to **Capability 5** (Apply Design to Project) to integrate the confirmed design into the actual project. **On Apply**, load [references/MOTION-ENGINE-ROUTER.md](references/MOTION-ENGINE-ROUTER.md) for production motion code; load [references/VIDEO-MOTION.md](references/VIDEO-MOTION.md) only when the Router selects L5 MiniMax Video.
 
 #### Exploration Interim Motion (before Router load)
 
@@ -355,14 +355,14 @@ User wants product-aligned illustrations (hero, feature, empty state, OG image) 
 6. Write an **Asset Placement Spec** per image so each asset has a real UI job: slot, purpose, size rule, copy/CTA relationship, safe zone, and responsive behavior
 7. Write an **Asset Spec** per image (role, aspect ratio, target display size, background mode, composition, preset, style reference)
 8. **Compile prompts** using the Prompt Compiler rules; generate hero or strongest family anchor first, then siblings with that anchor as style reference
-9. Invoke the host **image generation tool** (this skill does not call external image APIs or MCP image providers)
+9. Invoke the host **image generation tool** by default. Use MiniMax for static images only when the user explicitly selects it; then load [references/MINIMAX-IMAGE-GENERATION.md](references/MINIMAX-IMAGE-GENERATION.md) before generation.
 10. Run **Consistency QA** and placement fit checks (max 2 retries); on failure, fall back to CSS placeholders per [references/MOOD-BOARD.md](references/MOOD-BOARD.md)
 11. Write **`design-assets.manifest.json`** next to exploration HTML; embed `<img>` paths in mood boards, contact sheets, placement previews, and concept previews
 12. Run the **Manifest Validator**: file existence, dimensions/aspect ratio, target display size, background mode, file size, alt/decorative status, preview/final state, role/page fit, style lineage, placement fields, and icon-role constraints
 13. Generate a **review surface** before Apply: contact sheet for variants, mood board wall for cross-role combinations, and placement preview for copy/CTA/layout fit
 14. During exploration, use **preview resolution**; on Apply (Capability 5), regenerate or export **final resolution** and copy only confirmed/validated assets into `public/design-assets/` (or framework equivalent)
 15. Update the design system output and `DESIGN.md` with `icon_system`, `illustrated_icon_system`, visual family rules, review surface path, selected combination, placement notes, validation status, manifest paths, and regeneration notes
-16. **P0 scope**: illustrations, raster heroes, expressive illustrated icon families for marketing/social surfaces, and in-product consumer app assets (empty state, onboarding, badges) when page type is Consumer app
+16. **Default asset scope**: illustrations, raster heroes, expressive illustrated icon families for marketing/social surfaces, and in-product consumer app assets (empty state, onboarding, badges) when page type is Consumer app
 
 **Important**: Do not generate full-bleed hero imagery for dense B-end workbench surfaces unless the user explicitly overrides page-type defaults. UI navigation icons remain governed by [references/ICON-USAGE.md](references/ICON-USAGE.md) (library + custom SVG first).
 
@@ -507,5 +507,5 @@ Spatial Vibe outputs should include:
 - Spacing should be expressed as a consistent scale (for example a 4px base unit)
 - Motion tokens should always include `prefers-reduced-motion` fallbacks. Accessibility is non-negotiable.
 - During **exploration**, use Exploration Interim Motion (CSS + provisional DNA + signature motif). Do **not** load the Motion Engine Router for mood boards or early concept feeling checks.
-- When writing motion **implementation** code (design-system preview Step 7, confirmed concept productionization, or Capability 5 Apply), load [references/MOTION-ENGINE-ROUTER.md](references/MOTION-ENGINE-ROUTER.md). Detect whether the surface is **web**, **React**, or **Vue**, then use the simplest engine tier with the correct stack binding. Mutate recipe parameters from Motion DNA and the signature motif — never ship unchanged library defaults. Never mix engines, cross-wire React packages into Vue (or vice versa), stack decorative effects, or copy demo aesthetics.
+- When writing motion **implementation** code (design-system preview Step 7, confirmed concept productionization, or Capability 5 Apply), load [references/MOTION-ENGINE-ROUTER.md](references/MOTION-ENGINE-ROUTER.md). Detect whether the surface is **web**, **React**, or **Vue**, then use the simplest engine tier with the correct stack binding. When a native or generated video is proposed, run its Video Intent Route and load [references/VIDEO-MOTION.md](references/VIDEO-MOTION.md) before writing markup: a directional opening defaults to one-shot `hero-take` with a held end frame; `loop` is permitted only for a certified ambient seam. The Router may select L5 MiniMax Video only for natural motion, complex transformation, or continuous cinematic movement that code cannot express well; use MiniMax only, and never substitute another provider. Mutate recipe parameters from Motion DNA and the signature motif — never ship unchanged library defaults. Never mix engines, cross-wire React packages into Vue (or vice versa), stack decorative effects, or copy demo aesthetics.
 - Be honest when visual analysis is uncertain. Flag low-confidence extractions and suggest the user verify.

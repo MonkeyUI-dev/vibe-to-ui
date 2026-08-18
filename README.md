@@ -3,40 +3,38 @@
 [中文](README.zh_CN.md)
 
 <p align="center">
-  <img src="docs/media/brand-slogan.png" alt="vibe-to-ui — Design the dream you were told to put away." width="100%" />
+  <strong>Make AI-generated UI actually look designed.</strong><br />
+  Turn a generic AI-generated page into a direction with intention — layout, type, motion, imagery, and the rules that hold them together.
 </p>
 
 <p align="center">
-  <strong>Design that speaks vibe — for developers who ship by feel.</strong><br />
-  An <a href="https://agentskills.io">Agent Skill</a> that turns screenshots, URLs, photos, music, and gut feelings into real UI direction — then applies it only when you say so.
-</p>
-
-<p align="center">
-  <a href="#install">Install</a> ·
-  <a href="#what-you-can-do">What you can do</a> ·
-  <a href="#how-it-feels">How it feels</a> ·
-  <a href="#prompts">Prompts</a> ·
+  <a href="#install-and-try-it">Install &amp; try it</a> ·
+  <a href="#examples">Examples</a> ·
+  <a href="#how-it-works">How it works</a> ·
+  <a href="#advanced-workflows">Advanced workflows</a> ·
   <a href="#faq">FAQ</a>
 </p>
 
+[![skills.sh](https://skills.sh/b/MonkeyUI-dev/vibe-to-ui)](https://skills.sh/MonkeyUI-dev/vibe-to-ui)
 ---
 
-## Why vibe-to-ui
+## A visible difference, not a prettier prompt
 
-Good design shouldn't need a design degree.
+The same AI-generated landing page can feel generic or deliberate. vibe-to-ui helps your agent turn references and taste into a coherent UI direction before it touches production code.
 
-You can ship systems. You can feel when something looks off. What's missing is a translator — something that takes a cafe photo, a song snippet, or a site you like, and turns that *feeling* into layout, type, motion, and tokens your agent can actually use.
+Bring a screenshot, URL, image, music clip, or a sentence of intent. Get a design direction you can see, compare, and choose — then apply it when it is right.
 
-**Explore first. Apply when ready.** Previews and mood boards stay outside your repo until you confirm.
-
-> Not templated taste. More beauty — in more forms, from more people.
-
----
-
-## Install
+## Install and try it
 
 ```bash
-npx skills add MonkeyUI-dev/vibe-to-ui#v0.5.0
+npx skills add MonkeyUI-dev/vibe-to-ui#v0.6.0
+```
+
+Then give your agent one prompt:
+
+```text
+This landing page looks like generic AI UI. Give me 3 visual directions that feel designed,
+generate previews, and do not change my project until I choose one.
 ```
 
 Works with Claude Code, Cursor, Codex, Gemini CLI, Kimi Code, and any `npx`-capable agent.
@@ -60,124 +58,132 @@ git clone https://github.com/MonkeyUI-dev/vibe-to-ui.git ~/.agents/skills/vibe-t
 
 </details>
 
+## Examples
+
+### Lumen Audio
+
+<p align="center">
+  <img src="docs/media/demo-lumen-audio.gif" alt="A refined Lumen Audio landing-page direction generated from the same product brief." width="100%" />
+</p>
+
+**Used:** Design Exploration · Typography Exploration · Motion System
+
+### Noctis Candles
+
+<p align="center">
+  <img src="docs/media/demo-noctis-candle.gif" alt="A product-aware e-commerce direction with a draggable candle preview." width="100%" />
+</p>
+
+**Used:** Page Type Identification · Design Exploration · Motion System
+
+### Aurora
+
+<p align="center">
+  <img src="docs/media/demo-aurora-editorial.gif" alt="An editorial landing page whose night scene shifts with the cursor." width="100%" />
+</p>
+
+**Used:** Spatial Vibe · Typography Exploration · Motion System
+
+### Aperture
+
+<p align="center">
+  <img src="docs/media/demo-aperture-editorial.gif" alt="A long-form architecture essay with editorial typography and image-led pacing." width="100%" />
+</p>
+
+**Used:** Page Type Identification · Spatial Vibe · Typography Exploration
+
 ---
 
-## What you can do
-
-| You want… | vibe-to-ui helps you… |
-|-----------|------------------------|
-| Restore a look from a URL or screenshot | Extract a full design system + motion DNA, preview first |
-| Only have a feeling / references / music | Explore **3 product-aware directions** before locking tokens |
-| Fix “generic SaaS layout” energy | Translate vibe → **Spatial DNA** and layout previews |
-| See the direction before committing | Generate shareable **mood boards** |
-| Ship it into the repo | **Apply** tokens (and assets) only after you confirm |
-| Imagery that matches the direction | Generate hero / feature / empty-state visuals via your agent’s image tools |
-| Reuse brand across media | Persist a local **Design Context** profile (`~/.vibe-to-ui`) |
-| Collect design references | Global **Inspiration Library** (`inspirations/` + annotated preview) |
-
-Deep methodology lives in [`references/`](references/) — loaded on demand, not upfront.
-
----
-
-## How it feels
+## How it works
 
 ```text
-inspire → explore 3 directions → choose → preview → apply
+Reference or intent → 3 directions → previews → you choose → apply
 ```
 
-1. **Bring anything** — URL, screenshot, photo, music, or a sentence of intent  
-2. **Get three directions** grounded in your product (not three random themes)  
-3. **Compare** concept previews + mood boards  
-4. **Apply** when you say so — your project stays untouched until then  
+1. **Bring a signal** — a URL, screenshot, image, music clip, or a sentence.
+2. **See three directions** — each grounded in your product and page type, not random theme swaps.
+3. **Compare before committing** — standalone concept previews and mood boards make the choice concrete.
+4. **Apply only when ready** — exploration stays outside your project until you explicitly confirm a direction.
+
+Your agent should never need to guess whether “make it feel premium” means a new palette, a different layout, or a more restrained motion system. vibe-to-ui turns that judgment into a shared, reviewable direction.
 
 ---
 
-## Prompts
+## Advanced workflows
+
+<details>
+<summary><strong>Restore or analyze an existing UI</strong></summary>
+
+Use a URL or screenshot to extract a design system, motion DNA, and a reviewable preview before applying anything.
 
 ```text
-"Analyze https://example.com and give me the design tokens"
-
-"I want something calm and modern — give me 3 visual directions for my product"
-
-"I recorded a melody that captures the feeling — translate it into a design direction"
-
-"Make this landing page feel editorial, not like a generic SaaS template"
-
-"I like Concept B — apply this design to my project"
-
-"Generate hero and feature illustrations for Concept B"
-
-"vibe-to-ui context --profile my-brand --init"
-"vibe-to-ui context --profile my-brand --target print-brochure"
+Analyze https://example.com and give me the design tokens and motion system.
 ```
 
----
+For a full methodology, see [Design System](references/DESIGN-SYSTEM.md), [Motion System](references/MOTION-SYSTEM.md), and [Spatial Vibe](references/SPATIAL-VIBE.md).
 
-## Design Context (local brand memory)
+</details>
 
-Keep a brand profile on your machine — outside the skill — so reinstall never wipes it:
+<details>
+<summary><strong>Keep a local Design Context</strong></summary>
+
+Persist a brand profile outside the skill package, so reinstalling the skill never resets your visual language.
 
 ```bash
-node bin/vibe-to-ui.js context --list
 node bin/vibe-to-ui.js context --profile my-brand --init
 node bin/vibe-to-ui.js context --profile my-brand --target web
-node bin/vibe-to-ui.js context remote connect git@github.com:org/design-contexts.git
-node bin/vibe-to-ui.js context sync
+node bin/vibe-to-ui.js context --profile my-brand --target print-brochure
 ```
 
-Root: `~/.vibe-to-ui` (fixed; no env override). Medium targets are open-ended (`web`, `linkedin`, `print-brochure`, …) — not a fixed enum. Optional Git remote sync shares `profiles/` and `inspirations/` via your private repo.
+Profiles live under `~/.vibe-to-ui`; medium targets are open-ended. Optional Git sync can share profiles and inspiration across devices through your private repository.
 
-Details: [DESIGN-CONTEXT.md](references/DESIGN-CONTEXT.md)
+[Read the Design Context guide →](references/DESIGN-CONTEXT.md)
 
----
+</details>
 
-## Inspiration Library (global aesthetic archive)
+<details>
+<summary><strong>Build an Inspiration Library</strong></summary>
 
-Collect URLs or screenshots into a cross-project library — separate from brand profiles:
+Collect real product pages and screenshots in a global archive, keep their full-scroll visual analysis separate from brand rules, then link or apply a product-level design seed only when you decide to.
 
 ```bash
-node bin/vibe-to-ui.js inspiration add https://example.com
-node bin/vibe-to-ui.js inspiration add https://example.com/docs --product example --page docs
-node bin/vibe-to-ui.js inspiration add --image ./shot.png --product mood --page shot
-node bin/vibe-to-ui.js inspiration list
+node bin/vibe-to-ui.js inspiration add https://example.com --product example --page home
 node bin/vibe-to-ui.js inspiration link example --profile my-brand
-node bin/vibe-to-ui.js inspiration apply example --project .          # product seed preview
 node bin/vibe-to-ui.js inspiration apply example --project . --confirm
 ```
 
-Cases live under `~/.vibe-to-ui/inspirations/<product>/pages/<page>/`. URL screenshots are taken by your agent’s **Browser / Computer Use** tools with **full-scroll** coverage (the CLI does not launch a browser). Linking stores a `reference-only` **product** pointer. Applying defaults to the product `design-seed.md` and always shows a `DESIGN.md` preview first.
+[Read the Inspiration Library guide →](references/INSPIRATION-LIBRARY.md)
 
-Details: [INSPIRATION-LIBRARY.md](references/INSPIRATION-LIBRARY.md)
+</details>
 
 ---
 
 ## FAQ
 
-**Do I need to be a designer?**  
-No. Bring product context and taste signals — vibe-to-ui structures the rest.
+**Do I need to be a designer?**<br />
+No. Bring product context and taste signals; vibe-to-ui structures the visual decisions with you.
 
-**Will it rewrite my repo immediately?**  
-No. Exploration stays in standalone previews until you explicitly ask to apply.
+**Will it rewrite my project immediately?**<br />
+No. Exploration produces standalone previews. Your project changes only after you explicitly ask to apply a confirmed direction.
 
-**URL or screenshot?**  
-Either. The agent adapts to what you provide.
+**Can I use a screenshot instead of a URL?**<br />
+Yes. A screenshot, URL, photo, music clip, or written intent can all be useful starting points.
 
-**React / Vue / plain CSS?**  
-Yes. Tokens and direction are framework-agnostic; apply respects your project conventions.
+**Does it work with React, Vue, or plain CSS?**<br />
+Yes. The direction and tokens are framework-agnostic; application follows your project conventions.
 
-**Where do the deep guides live?**  
-In [`references/`](references/) — progressive disclosure keeps startup context lean.
-
-**Image generation?**  
-Uses your agent’s **host image tool**. No API keys or MCP image providers are bundled or required. See [VISUAL-ASSET-GENERATION.md](references/VISUAL-ASSET-GENERATION.md).
+**Does it include an image-generation API or require API keys?**<br />
+No. Visual assets use your agent host’s image tool by default. You can explicitly choose MiniMax when it is available and appropriate for the asset; its credentials remain outside the project. See [Visual Asset Generation](references/VISUAL-ASSET-GENERATION.md).
 
 ---
 
-## Media checklist
+<p align="center">
+  <img src="docs/media/brand-slogan.png" alt="vibe-to-ui — Design the dream you were told to put away." width="100%" />
+</p>
 
-Future README visuals (flow diagram, examples, Design Context diagram, etc.) are tracked in [`docs/media/README.md`](docs/media/README.md). Only the brand slogan hero is embedded for now.
-
----
+<p align="center">
+  <em>Design the dream you were told to put away.</em>
+</p>
 
 ## License
 

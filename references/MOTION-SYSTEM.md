@@ -89,8 +89,9 @@ How often each animation plays:
 | Policy | Behavior | Example |
 |--------|----------|---------|
 | **Once** | Plays on first trigger only | Section entrance on first scroll into view |
+| **Once, then hold** | Plays once and leaves its final visual state in place | Product hero take ending on a composed close-up |
 | **Every trigger** | Replays each time the trigger fires | Hover effects, click feedback |
-| **Loop** | Repeats continuously | Loading spinners, ambient background animations |
+| **Loop** | Repeats continuously; requires an intentional seam and user control for decorative media | Loading spinners, certified ambient background animation |
 | **First-session** | Only on first visit / first page load | Onboarding animations, welcome sequences |
 
 ### Dimension 8: Reduced-Motion Fallback
@@ -206,7 +207,7 @@ Generate motion tokens as part of the design system output using the motion sect
 1. **Compile Motion DNA** — finalize the eight dimensions plus narrative (`personality`, `page_metaphor`, `primary_intent`) and the **signature motion motif** from vibe, reference, music, and page type.
 2. **Capability check** — list only the expressiveness that is **required** (feedback, scroll narrative, shader atmosphere, true 3D, etc.).
 3. **Detect stack family** — `web` | `react` | `vue` (web-first scope; not RN/Flutter). Bind packages to that family (e.g. L1 → CSS/`motion` | `motion`/`framer-motion` | `motion-v`/`@vueuse/motion`; L4 → `three` | R3F | TresJS).
-4. **Select one engine tier** — L1 → L2 GSAP → L3 OGL → L4 Three.js family; pick the **lowest** tier that satisfies all functional requirements.
+4. **Select one engine tier** — L1 → L2 GSAP → L3 OGL → L4 Three.js family → L5 MiniMax Video; pick the **lowest** tier that satisfies all functional requirements. L5 is only for natural action, complex transformation, or cinematic continuity that code cannot express well; when selected, load [VIDEO-MOTION.md](VIDEO-MOTION.md).
 5. **Pick one primary recipe** — from the router's minimal high-frequency set; add **at most one** secondary recipe only when roles span **feedback + guidance** and both stay token-light (never atmosphere as secondary).
 6. **Mutate the recipe from DNA** — override default distances, easing, stagger, and timing with Motion DNA + signature motif values. Shipping unchanged recipe defaults is a failure.
 7. **Emit `motion_engine_decision`** — document stack family, stack binding, selected tier, signature motif, rejected tiers, dependency check, reduced-motion strategy, and mobile strategy before writing animation code.
