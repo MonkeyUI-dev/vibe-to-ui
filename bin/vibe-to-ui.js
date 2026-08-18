@@ -3,6 +3,7 @@
 
 const argv = process.argv;
 const cmd = argv[2];
+const safeCmd = cmd ? String(cmd).replace(/[^\w./-]/g, '').slice(0, 80) : '';
 
 function printRootHelp() {
   console.log(`vibe-to-ui — local Design Context + Inspiration Library CLI
@@ -35,6 +36,6 @@ if (cmd === 'context') {
 } else if (cmd === 'inspiration') {
   require('../lib/inspiration').main(argv);
 } else {
-  console.error(`error: Unknown command "${cmd}". Use "context" or "inspiration".`);
+  console.error(`error: Unknown command "${safeCmd}". Use "context" or "inspiration".`);
   process.exitCode = 1;
 }
