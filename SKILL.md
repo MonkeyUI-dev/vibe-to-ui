@@ -343,6 +343,10 @@ User wants product-aligned illustrations (hero, feature, empty state, OG image) 
 
 **Trigger**: User says things like "generate hero / illustrations for this concept", "replace mood board placeholders with real images", "create empty state illustrations", "apply with assets", or asks for visuals that match the current design exploration or design system.
 
+#### Bundled visual-reference starter set
+
+For an immediate image-led trial, this skill includes three visual-reference examples in [`assets/examples/visual-reference-directions/`](assets/examples/visual-reference-directions/). When the user asks to use the bundled starter set, inspect the images and use each only as high-level input for its matching direction: editorial architecture (`editorial-cobalt-glass.png`), tactile material (`tactile-amber-membrane.png`), or quiet natural material (`material-paper-glass.png`). They are starting points, not brand canon: derive fresh, product-appropriate assets and never clone them or add any asset to the user's project before confirmation.
+
 **Workflow**:
 1. Run **Stage 0: Page Type Identification** if not already done — page type selects the asset pack (see [references/VISUAL-ASSET-GENERATION.md](references/VISUAL-ASSET-GENERATION.md))
 2. Assemble **StyleContext** from product context, `DESIGN.md`, tokens, and aesthetic guide (from exploration or [references/AESTHETIC-ANALYSIS.md](references/AESTHETIC-ANALYSIS.md))

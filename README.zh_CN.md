@@ -15,7 +15,9 @@
   <a href="#常见问题">常见问题</a>
 </p>
 
-[![skills.sh](https://skills.sh/b/MonkeyUI-dev/vibe-to-ui)](https://skills.sh/MonkeyUI-dev/vibe-to-ui)
+<p align="center">
+  <a href="https://skills.sh/MonkeyUI-dev/vibe-to-ui"><img src="https://skills.sh/b/MonkeyUI-dev/vibe-to-ui" alt="skills.sh" /></a>
+</p>
 ---
 
 ## 看得见的变化，不只是更漂亮的提示词
@@ -33,8 +35,9 @@ npx skills add MonkeyUI-dev/vibe-to-ui#v0.6.0
 然后把这句话交给你的 Agent：
 
 ```text
-这个落地页看起来像通用的 AI UI。请给我 3 个真正有设计感的视觉方向，
-生成预览；在我选择之前，不要修改项目。
+这个落地页看起来像通用的 AI UI。请使用 vibe-to-ui 内置的视觉参考启动素材，先识别它的页面类型，
+再给我 3 个真正有设计感的视觉方向。为每个方向生成预览，并使用可用的图像生成工具创作一组与其
+设计系统一致的原创视觉参考素材（按需要提供 Hero 图、插画或纹理）。在我选择之前，不要修改项目。
 ```
 
 适用于 Claude Code、Cursor、Codex、Gemini CLI、Kimi Code，以及所有支持 `npx` 的 Agent。

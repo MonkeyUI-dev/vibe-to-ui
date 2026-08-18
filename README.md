@@ -15,7 +15,9 @@
   <a href="#faq">FAQ</a>
 </p>
 
-[![skills.sh](https://skills.sh/b/MonkeyUI-dev/vibe-to-ui)](https://skills.sh/MonkeyUI-dev/vibe-to-ui)
+<p align="center">
+  <a href="https://skills.sh/MonkeyUI-dev/vibe-to-ui"><img src="https://skills.sh/b/MonkeyUI-dev/vibe-to-ui" alt="skills.sh" /></a>
+</p>
 ---
 
 ## A visible difference, not a prettier prompt
@@ -33,8 +35,11 @@ npx skills add MonkeyUI-dev/vibe-to-ui#v0.6.0
 Then give your agent one prompt:
 
 ```text
-This landing page looks like generic AI UI. Give me 3 visual directions that feel designed,
-generate previews, and do not change my project until I choose one.
+This landing page looks like generic AI UI. Use vibe-to-ui's bundled visual-reference starter set,
+first identify its page type, then give me 3 visual directions that feel designed. For each
+direction, generate a preview and use the available image-generation tool to create a small set of
+original visual reference assets (hero, illustration, or texture as appropriate) that fit its
+design system. Do not change my project until I choose one.
 ```
 
 Works with Claude Code, Cursor, Codex, Gemini CLI, Kimi Code, and any `npx`-capable agent.
