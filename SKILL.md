@@ -1,14 +1,16 @@
 ---
 name: vibe-to-ui
 description: >-
-  Design systems, motion, mood boards, spatial layout, visual assets, Design
-  Context profiles, and a global Inspiration Library from screenshots, website
-  URLs, inspiration images, music, or fuzzy aesthetic intent. Classifies page
-  archetype, explores 3 product-aware directions before locking tokens (unless
-  exact restoration), and applies only after confirmation. Use when designing or
-  restyling UI, collecting design inspiration under ~/.vibe-to-ui/inspirations,
-  extracting tokens/motion, generating assets, saving brand context under
-  ~/.vibe-to-ui, or Git remote sync of Design Context for cross-device sharing.
+  Design systems, motion, mood boards, spatial layout, visual assets, micro-interactions
+  and gestures (web + mobile), Design Context profiles, mobile-safe-area
+  viewport and Consumer app recipes, and an Inspiration Library from
+  screenshots, URLs, images, music, or fuzzy aesthetic intent. Classifies
+  page archetype, explores 3 product-aware directions before locking tokens
+  (unless exact restoration), and applies only after confirmation. Use when
+  designing or restyling UI, collecting design inspiration under
+  ~/.vibe-to-ui/inspirations, extracting tokens/motion, generating assets,
+  saving brand context under ~/.vibe-to-ui, or Git remote sync of Design
+  Context for cross-device sharing.
 metadata:
   author: MonkeyUI
   version: "0.6.0"
