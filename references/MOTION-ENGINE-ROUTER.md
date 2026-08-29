@@ -402,6 +402,8 @@ motion_engine_decision:
 
 ## Step 7 — Recipes (minimal high-frequency)
 
+> **See also**: For per-pattern per-platform recipes (web / mobile-web / mobile-native-aspirational pointer mechanics), see [MICRO-INTERACTIONS.md](MICRO-INTERACTIONS.md). The router owns engine-tier selection and stack binding; the pattern library owns the recipe bodies. Reduced-motion and mobile branches always travel together — read both before shipping a pattern.
+
 Pick **one primary recipe**. Add **at most one** secondary recipe **only** when both of these are true:
 
 1. Roles span **feedback + guidance** (e.g. tap-feedback + in-view-stagger, or tap-feedback + tab-indicator)

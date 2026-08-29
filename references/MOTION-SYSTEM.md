@@ -37,6 +37,12 @@ What causes the motion to start:
 | **state-change** | Data or app state updates | Loading → loaded, error shake, notification slide-in |
 | **auto-play** | Runs on a timer, no user action needed | Carousel rotation, ambient background animation |
 
+#### Micro-interaction trigger matrix
+
+Triggers are short, finite, and bound to user action or state change. When a recipe picks one of these triggers, consult [MICRO-INTERACTIONS.md](MICRO-INTERACTIONS.md) for the per-platform pattern binding before selecting an engine tier or recipe (R1–R8). This doc owns the **what to do**; the router owns the **how to ship**. Patterns cover tap, hover, focus, state-change, drag, pull, sheet open, modal open, tab switch, page transition, and skeleton → content.
+
+Reduced-motion and mobile branches always live in the same pattern entry — never split them across docs.
+
 ### Dimension 3: Tempo
 
 The overall speed character of the motion system:
